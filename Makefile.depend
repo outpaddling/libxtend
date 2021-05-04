@@ -1,0 +1,3 @@
+check-extension.o: check-extension.c
+	${CC} -c ${CFLAGS} check-extension.c
+

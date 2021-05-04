@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+: ${LOCALBASE:=../local}
+
+rm -f protos.h
+touch protos.h
+for file in *.c; do
+    cproto -I${LOCALBASE}/include $file >> protos.h
+done

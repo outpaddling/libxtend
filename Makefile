@@ -44,12 +44,12 @@
 # Installed targets
 
 LIB     = libxtendc.a
-HEADERS = file.h
+HEADERS = xtendc.h
 
 ############################################################################
 # List object files that comprise BIN.
 
-OBJS    = check-extension.o
+OBJS    = check-extension.o xcfile.o strisnum.o strptrcmp.o
 
 ############################################################################
 # Compile, link, and install options
@@ -156,11 +156,11 @@ realclean: clean
 
 install: all
 	${MKDIR} -p ${DESTDIR}${PREFIX}/lib \
-	    ${DESTDIR}${PREFIX}/include/xtendc \
+	    ${DESTDIR}${PREFIX}/include \
 	    ${DESTDIR}${PREFIX}/man/man3
 	${INSTALL} -m 0444 ${LIB} ${DESTDIR}${PREFIX}/lib
 	for file in ${HEADERS}; do \
-	    ${INSTALL} -m 0444 $${file} ${DESTDIR}${PREFIX}/include/xtendc; \
+	    ${INSTALL} -m 0444 $${file} ${DESTDIR}${PREFIX}/include; \
 	done
 	#${INSTALL} -m 0444 ${MAN} ${MANPREFIX}/man/man3
 

@@ -1,3 +1,13 @@
 check-extension.o: check-extension.c
 	${CC} -c ${CFLAGS} check-extension.c
 
+strisnum.o: strisnum.c
+	${CC} -c ${CFLAGS} strisnum.c
+
+strptrcmp.o: strptrcmp.c ../local/include/biostring.h \
+  ../local/include/biolibc.h
+	${CC} -c ${CFLAGS} strptrcmp.c
+
+xcfile.o: xcfile.c
+	${CC} -c ${CFLAGS} xcfile.c
+

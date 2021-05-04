@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sysexits.h>
+#include "xtendc.h"
 
 /***************************************************************************
  *  Description:

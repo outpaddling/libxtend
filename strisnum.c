@@ -2,7 +2,10 @@
 
 /***************************************************************************
  *  Description:
- *      Determine whether a string is a valid number
+ *      Determine whether a string is a valid number.
+ *
+ *  To-do:
+ *      Support other bases and floating point.
  *
  *  History: 
  *  Date        Name        Modification

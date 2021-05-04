@@ -5,7 +5,7 @@
 
 /***************************************************************************
  *  Description:
- *      Open a raw data file using foipen() or a gzipped, bzipped, or
+ *      Open a raw data file using fopen() or a gzipped, bzipped, or
  *      xzipped file using popen().  Must be used in conjunction with
  *      xc_fclose() to ensure that fclose() or pclose() is called where
  *      appropriate.

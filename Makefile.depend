@@ -1,4 +1,4 @@
-check-extension.o: check-extension.c
+check-extension.o: check-extension.c xtendc.h xtendc-protos.h
 	${CC} -c ${CFLAGS} check-extension.c
 
 strisnum.o: strisnum.c
@@ -8,6 +8,6 @@ strptrcmp.o: strptrcmp.c ../local/include/biostring.h \
   ../local/include/biolibc.h
 	${CC} -c ${CFLAGS} strptrcmp.c
 
-xcfile.o: xcfile.c
+xcfile.o: xcfile.c xtendc.h xtendc-protos.h
 	${CC} -c ${CFLAGS} xcfile.c
 

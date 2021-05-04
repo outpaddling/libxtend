@@ -2,8 +2,9 @@
 
 : ${LOCALBASE:=../local}
 
-rm -f protos.h
-touch protos.h
+protos=xtendc-protos.h
+rm -f $protos
+touch $protos
 for file in *.c; do
-    cproto -I${LOCALBASE}/include $file >> protos.h
+    cproto -I${LOCALBASE}/include $file >> $protos
 done

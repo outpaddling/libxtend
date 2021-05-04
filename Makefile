@@ -44,7 +44,7 @@
 # Installed targets
 
 LIB     = libxtendc.a
-HEADERS = xtendc.h
+HEADERS = xtendc.h xtendc-protos.h
 
 ############################################################################
 # List object files that comprise BIN.

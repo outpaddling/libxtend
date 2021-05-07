@@ -4,11 +4,25 @@
 #include "xtendc.h"
 
 /***************************************************************************
+ *  Library:
+ *      #include <xtendc.h>
+ *      -lxtendc
+ *
  *  Description:
  *      Open a raw data file using fopen() or a gzipped, bzipped, or
  *      xzipped file using popen().  Must be used in conjunction with
  *      xc_fclose() to ensure that fclose() or pclose() is called where
  *      appropriate.
+ *
+ *  Arguments:
+ *      filename:   Name of the file to be opened
+ *      mode:       "r" or "w", passed to fopen() or popen()
+ *
+ *  Returns:
+ *      A pointer to the FILE structure or NULL if open failed
+ *
+ *  See also:
+ *      fopen(3), popen(3), gzip(1), bzip2(1), xz(1)
  *
  *  History: 
  *  Date        Name        Modification
@@ -77,8 +91,23 @@ FILE    *xc_fopen(const char *filename, const char *mode)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <xtendc.h>
+ *      -lxtendc
+ *
  *  Description:
- *      Close a FILE stream with fclose() or pclose() as appropriate
+ *      Close a FILE stream with fclose() or pclose() as appropriate.
+ *      Automatically determines the proper close function to call using
+ *      S_ISFIFO on the stream stat structure.
+ *
+ *  Arguments:
+ *      stream: The FILE structure to be closed
+ *
+ *  Returns:
+ *      The value returned by fclose() or pclose()
+ *
+ *  See also:
+ *      fopen(3), popen(3), gzip(1), bzip2(1), xz(1)
  *
  *  History: 
  *  Date        Name        Modification

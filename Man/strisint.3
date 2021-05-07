@@ -1,0 +1,42 @@
+.TH strisint 3
+
+.SH LIBRARY
+\" Indicate #includes, library name, -L and -l flags
+.nf
+.na
+#include <xtendc.h>
+-lxtendc
+.ad
+.fi
+
+\" Convention:
+\" Underline anything that is typed verbatim - commands, etc.
+.SH SYNOPSIS
+.PP
+.nf 
+.na
+int     strisint(const char *string, int base)
+.ad
+.fi
+
+.SH ARGUMENTS
+.nf
+.na
+string: The string to be tested
+base:   The expected base of the integer (usually 8, 10, or 16)
+.ad
+.fi
+
+.SH RETURN VALUES
+
+Non-zero value if the string represents an integer, zero otherwise
+
+.SH DESCRIPTION
+
+Determine whether a string is a valid integer by attempting to
+convert it using strtoll().
+
+.SH SEE ALSO
+
+strtoll(3)
+

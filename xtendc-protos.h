@@ -1,7 +1,8 @@
 /* check-extension.c */
-void check_extension(const char *filename, const char *valid_ext);
+_Bool valid_extension(const char *filename, const char *valid_ext);
 /* strisnum.c */
-int strisnum(const char *string);
+int strisint(const char *string, int base);
+int strisreal(const char *string);
 /* strptrcmp.c */
 int strptrcmp(const char **p1, const char **p2);
 /* xcfile.c */

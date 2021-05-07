@@ -5,4 +5,8 @@
 #define strlcat(dest,src,len)   strcat(dest,src)
 #endif
 
+#ifndef __bool_true_false_are_defined
+#include <stdbool.h>
+#endif
+
 #include "xtendc-protos.h"

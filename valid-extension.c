@@ -5,17 +5,32 @@
 #include "xtendc.h"
 
 /***************************************************************************
+ *  Library:
+ *      #include <xtendc.h>
+ *      -lxtendc
+ *
  *  Description:
  *      Verify that the filename extension on filename is either the
  *      valid extension provided or that extension followed by a
  *      compression extension, e.g. .gz, .bz2, .xz.
+ *
+ *  Arguments:
+ *      filename:   Name of the file to be checked
+ *      valid_ext:  Valid extension, not include .gz, .bz2, or .xz
+ *
+ *  Returns:
+ *      true (defined in stdbool.h) if filename has a valid extension
+ *      false if not
+ *
+ *  See also:
+ *      gzip(1), bzip2(1), xz(1)
  *
  *  History: 
  *  Date        Name        Modification
  *  2021-05-04  Jason Bacon Begin
  ***************************************************************************/
 
-void    check_extension(const char *filename, const char *valid_ext)
+bool    valid_extension(const char *filename, const char *valid_ext)
 
 {
     char    *zip_exts[] = { ".gz", ".bz2", ".xz" },
@@ -26,7 +41,7 @@ void    check_extension(const char *filename, const char *valid_ext)
     if ( (ext = strrchr(filename, '.')) != NULL )
     {
 	if ( strcmp(ext, valid_ext) == 0 )
-	    return;
+	    return true;
 	for (c = 0; c < sizeof(zip_exts) / sizeof(*zip_exts); ++c)
 	{
 	    if ( strcmp(ext, zip_exts[c]) == 0 )
@@ -38,7 +53,7 @@ void    check_extension(const char *filename, const char *valid_ext)
 		     (strcmp(ext, valid_ext) == 0) )
 		{
 		    free(compressed);
-		    return;
+		    return true;
 		}
 		free(compressed);
 		break;
@@ -47,5 +62,5 @@ void    check_extension(const char *filename, const char *valid_ext)
     }
     fprintf(stderr, "Error: %s should have a %s[.%s] extension\n",
 	    filename, valid_ext, "gz|bz2|xz");
-    exit(EX_USAGE);
+    return false;
 }

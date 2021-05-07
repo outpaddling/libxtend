@@ -1,0 +1,44 @@
+.TH valid_extension 3
+
+.SH LIBRARY
+\" Indicate #includes, library name, -L and -l flags
+.nf
+.na
+#include <xtendc.h>
+-lxtendc
+.ad
+.fi
+
+\" Convention:
+\" Underline anything that is typed verbatim - commands, etc.
+.SH SYNOPSIS
+.PP
+.nf 
+.na
+bool    valid_extension(const char *filename, const char *valid_ext)
+.ad
+.fi
+
+.SH ARGUMENTS
+.nf
+.na
+filename:   Name of the file to be checked
+valid_ext:  Valid extension, not include .gz, .bz2, or .xz
+.ad
+.fi
+
+.SH RETURN VALUES
+
+true (defined in stdbool.h) if filename has a valid extension
+false if not
+
+.SH DESCRIPTION
+
+Verify that the filename extension on filename is either the
+valid extension provided or that extension followed by a
+compression extension, e.g. .gz, .bz2, .xz.
+
+.SH SEE ALSO
+
+gzip(1), bzip2(1), xz(1)
+

@@ -49,7 +49,7 @@ HEADERS = xtendc.h xtendc-protos.h
 ############################################################################
 # List object files that comprise BIN.
 
-OBJS    = check-extension.o xcfile.o strisnum.o strptrcmp.o
+OBJS    = valid-extension.o xcfile.o strisnum.o strptrcmp.o
 
 ############################################################################
 # Compile, link, and install options
@@ -162,7 +162,7 @@ install: all
 	for file in ${HEADERS}; do \
 	    ${INSTALL} -m 0444 $${file} ${DESTDIR}${PREFIX}/include; \
 	done
-	#${INSTALL} -m 0444 ${MAN} ${MANPREFIX}/man/man3
+	${INSTALL} -m 0444 Man/*.3 ${MANPREFIX}/man/man3
 
 help:
 	@printf "Usage: make [VARIABLE=value ...] all\n\n"

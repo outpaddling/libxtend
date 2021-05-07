@@ -162,7 +162,7 @@ install: all
 	for file in ${HEADERS}; do \
 	    ${INSTALL} -m 0444 $${file} ${DESTDIR}${PREFIX}/include; \
 	done
-	${INSTALL} -m 0444 Man/*.3 ${MANPREFIX}/man/man3
+	${INSTALL} -m 0444 Man/*.3 ${DESTDIR}${MANPREFIX}/man/man3
 
 help:
 	@printf "Usage: make [VARIABLE=value ...] all\n\n"

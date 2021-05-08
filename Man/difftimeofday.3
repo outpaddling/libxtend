@@ -1,0 +1,44 @@
+.TH difftimeofday 3
+
+.SH LIBRARY
+\" Indicate #includes, library name, -L and -l flags
+.nf
+.na
+#include <xtendc.h>
+-lextendc
+.ad
+.fi
+
+\" Convention:
+\" Underline anything that is typed verbatim - commands, etc.
+.SH SYNOPSIS
+.PP
+.nf 
+.na
+time_t  difftimeofday(struct timeval *later, struct timeval *earlier)
+.ad
+.fi
+
+.SH ARGUMENTS
+.nf
+.na
+later, earlier: timeval structures populated by gettimeofday(3)
+.ad
+.fi
+
+.SH RETURN VALUES
+
+The difference between the two times in microseconds
+
+.SH DESCRIPTION
+
+difftimeofday() returns the difference, in microseconds, between two
+time values returned by gettimeofday(3).  This function can be used
+to get a good estimate of the real time elapsed in a process between
+any two points (where calls to gettimeofday(3) are strategically
+placed.)
+
+.SH SEE ALSO
+
+gettimeofday(3)
+

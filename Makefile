@@ -49,7 +49,7 @@ HEADERS = xtendc.h xtendc-protos.h
 ############################################################################
 # List object files that comprise BIN.
 
-OBJS    = valid-extension.o xcfile.o strisnum.o strptrcmp.o
+OBJS    = valid-extension.o xcfile.o strisnum.o strptrcmp.o difftimeofday.o
 
 ############################################################################
 # Compile, link, and install options

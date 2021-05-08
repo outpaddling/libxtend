@@ -10,44 +10,8 @@ fd-purge.o: fd-purge.c
 fgetline.o: fgetline.c
 	${CC} -c ${CFLAGS} fgetline.c
 
-file_mod_cmp.o: file_mod_cmp.c ../local/include/bacon.h
-	${CC} -c ${CFLAGS} file_mod_cmp.c
-
 gcd.o: gcd.c
 	${CC} -c ${CFLAGS} gcd.c
-
-get_home_dir.o: get_home_dir.c ../local/include/bacon.h
-	${CC} -c ${CFLAGS} get_home_dir.c
-
-ltostrn.o: ltostrn.c
-	${CC} -c ${CFLAGS} ltostrn.c
-
-memicmp.o: memicmp.c ../local/include/bacon.h
-	${CC} -c ${CFLAGS} memicmp.c
-
-meta_chars.o: meta_chars.c ../local/include/bacon.h
-	${CC} -c ${CFLAGS} meta_chars.c
-
-num_size.o: num_size.c
-	${CC} -c ${CFLAGS} num_size.c
-
-parse_cmd.o: parse_cmd.c ../local/include/bacon.h
-	${CC} -c ${CFLAGS} parse_cmd.c
-
-rmkdir.o: rmkdir.c ../local/include/bacon.h
-	${CC} -c ${CFLAGS} rmkdir.c
-
-spawnlp.o: spawnlp.c ../local/include/bacon.h
-	${CC} -c ${CFLAGS} spawnlp.c
-
-spawnvp.o: spawnvp.c ../local/include/bacon.h
-	${CC} -c ${CFLAGS} spawnvp.c
-
-strbasecpy.o: strbasecpy.c ../local/include/bacon.h
-	${CC} -c ${CFLAGS} strbasecpy.c
-
-strblank.o: strblank.c
-	${CC} -c ${CFLAGS} strblank.c
 
 strisnum.o: strisnum.c
 	${CC} -c ${CFLAGS} strisnum.c
@@ -55,14 +19,8 @@ strisnum.o: strisnum.c
 strptrcmp.o: strptrcmp.c
 	${CC} -c ${CFLAGS} strptrcmp.c
 
-va-usage.o: va-usage.c ../local/include/bacon.h
-	${CC} -c ${CFLAGS} va-usage.c
-
 valid-extension.o: valid-extension.c xtend.h xtend-protos.h
 	${CC} -c ${CFLAGS} valid-extension.c
-
-viscpy.o: viscpy.c ../local/include/bacon.h
-	${CC} -c ${CFLAGS} viscpy.c
 
 xcfile.o: xcfile.c xtend.h xtend-protos.h
 	${CC} -c ${CFLAGS} xcfile.c

@@ -1,0 +1,49 @@
+.TH fgetline 3
+
+.SH LIBRARY
+\" Indicate #includes, library name, -L and -l flags
+.nf
+.na
+#include <xtend.h>
+-lxtend
+.ad
+.fi
+
+\" Convention:
+\" Underline anything that is typed verbatim - commands, etc.
+.SH SYNOPSIS
+.PP
+.nf 
+.na
+size_t  fgetline(FILE *fp, char *buff, size_t maxlen)
+.ad
+.fi
+
+.SH ARGUMENTS
+.nf
+.na
+fp:     Input stream from which to read
+buff:   Character array into which line is read
+maxlen: Size of array buff, not counting null byte
+.ad
+.fi
+
+.SH RETURN VALUES
+
+The number of bytes read, or EOF if EOF is encountered before a newline
+
+.SH DESCRIPTION
+
+fgetline() reads a line of text from a FILE stream.  Input is
+terminated when a newline ('
+') or end of file is encountered,
+or when maxlen characters have been read.  Note that up to maxlen
+characters may be stored, NOT INCLUDING THE NULL TERMINATOR BYTE,
+hence the buffer should be at least maxlen+1 bytes long. Unlike
+fgets(3), fgetline() does not store the trailing newline character
+in the string.
+
+.SH SEE ALSO
+
+fgets(3)
+

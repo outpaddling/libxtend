@@ -4,6 +4,8 @@ time_t difftimeofday(struct timeval *later, struct timeval *earlier);
 int fast_cp(const char *source, const char *dest);
 /* fd-purge.c */
 void fd_purge(int fd);
+/* fgetline.c */
+size_t fgetline(FILE *fp, char *buff, size_t maxlen);
 /* gcd.c */
 unsigned long gcd(unsigned long a, unsigned long b);
 unsigned long lcm(unsigned long a, unsigned long b);

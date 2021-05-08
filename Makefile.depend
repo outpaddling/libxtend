@@ -4,8 +4,8 @@ difftimeofday.o: difftimeofday.c
 fast-cp.o: fast-cp.c xtend.h xtend-protos.h
 	${CC} -c ${CFLAGS} fast-cp.c
 
-fd_purge.o: fd_purge.c
-	${CC} -c ${CFLAGS} fd_purge.c
+fd-purge.o: fd-purge.c
+	${CC} -c ${CFLAGS} fd-purge.c
 
 fgetline.o: fgetline.c
 	${CC} -c ${CFLAGS} fgetline.c
@@ -55,8 +55,8 @@ strisnum.o: strisnum.c
 strptrcmp.o: strptrcmp.c
 	${CC} -c ${CFLAGS} strptrcmp.c
 
-usage.o: usage.c ../local/include/bacon.h
-	${CC} -c ${CFLAGS} usage.c
+va-usage.o: va-usage.c ../local/include/bacon.h
+	${CC} -c ${CFLAGS} va-usage.c
 
 valid-extension.o: valid-extension.c xtend.h xtend-protos.h
 	${CC} -c ${CFLAGS} valid-extension.c

@@ -39,8 +39,8 @@ int strisint(const char *string, int base);
 int strisreal(const char *string);
 /* strptrcmp.c */
 int strptrcmp(const char **p1, const char **p2);
-/* usage.c */
-void usage(char *format_string, ...);
+/* va-usage.c */
+void va_usage(char *format_string, ...);
 /* valid-extension.c */
 _Bool valid_extension(const char *filename, const char *valid_ext);
 /* viscpy.c */

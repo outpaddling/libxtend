@@ -1,3 +1,6 @@
+#ifndef __xtend_h__
+#define __xtend_h__
+
 #define XC_CMD_MAX      4096
 
 #ifdef __linux__
@@ -10,3 +13,5 @@
 #endif
 
 #include "xtend-protos.h"
+
+#endif  // __xtend_h__

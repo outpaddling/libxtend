@@ -1,6 +1,10 @@
 #ifndef __xtend_h__
 #define __xtend_h__
 
+#ifndef _SYS_TIME_H_
+#include <sys/time.h>
+#endif
+
 #define XC_CMD_MAX      4096
 
 #ifdef __linux__
@@ -11,6 +15,8 @@
 #ifndef __bool_true_false_are_defined
 #include <stdbool.h>
 #endif
+
+#define LCM(a,b)    ((a)*(b)/gcd(a,b))
 
 #include "xtend-protos.h"
 

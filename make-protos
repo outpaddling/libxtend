@@ -2,7 +2,7 @@
 
 : ${LOCALBASE:=../local}
 
-protos=xtendc-protos.h
+protos=xtend-protos.h
 rm -f $protos
 touch $protos
 for file in *.c; do

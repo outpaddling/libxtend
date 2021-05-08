@@ -1,8 +1,8 @@
 difftimeofday.o: difftimeofday.c
 	${CC} -c ${CFLAGS} difftimeofday.c
 
-fast_cp.o: fast_cp.c ../local/include/bacon.h
-	${CC} -c ${CFLAGS} fast_cp.c
+fast-cp.o: fast-cp.c xtend.h xtend-protos.h
+	${CC} -c ${CFLAGS} fast-cp.c
 
 fd_purge.o: fd_purge.c
 	${CC} -c ${CFLAGS} fd_purge.c
@@ -12,6 +12,9 @@ fgetline.o: fgetline.c
 
 file_mod_cmp.o: file_mod_cmp.c ../local/include/bacon.h
 	${CC} -c ${CFLAGS} file_mod_cmp.c
+
+gcd.o: gcd.c
+	${CC} -c ${CFLAGS} gcd.c
 
 get_home_dir.o: get_home_dir.c ../local/include/bacon.h
 	${CC} -c ${CFLAGS} get_home_dir.c

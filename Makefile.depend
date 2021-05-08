@@ -55,12 +55,12 @@ strptrcmp.o: strptrcmp.c
 usage.o: usage.c ../local/include/bacon.h
 	${CC} -c ${CFLAGS} usage.c
 
-valid-extension.o: valid-extension.c xtendc.h xtendc-protos.h
+valid-extension.o: valid-extension.c xtend.h xtend-protos.h
 	${CC} -c ${CFLAGS} valid-extension.c
 
 viscpy.o: viscpy.c ../local/include/bacon.h
 	${CC} -c ${CFLAGS} viscpy.c
 
-xcfile.o: xcfile.c xtendc.h xtendc-protos.h
+xcfile.o: xcfile.c xtend.h xtend-protos.h
 	${CC} -c ${CFLAGS} xcfile.c
 

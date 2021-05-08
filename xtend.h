@@ -9,4 +9,4 @@
 #include <stdbool.h>
 #endif
 
-#include "xtendc-protos.h"
+#include "xtend-protos.h"

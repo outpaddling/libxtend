@@ -2,8 +2,8 @@
 
 /***************************************************************************
  *  Library:
- *      #include <xtendc.h>
- *      -lextendc
+ *      #include <xtend.h>
+ *      -lextend
  *
  *  Description:
  *      difftimeofday() returns the difference, in microseconds, between two 

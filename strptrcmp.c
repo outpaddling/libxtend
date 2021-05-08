@@ -2,8 +2,8 @@
 
 /***************************************************************************
  *  Library:
- *      #include <xtendc.h>
- *      -lxtendc
+ *      #include <xtend.h>
+ *      -lxtend
  *
  *  Description:
  *      Compare two strings via indirect pointers.  This can be used by

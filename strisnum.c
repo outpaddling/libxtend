@@ -2,8 +2,8 @@
 
 /***************************************************************************
  *  Library:
- *      #include <xtendc.h>
- *      -lxtendc
+ *      #include <xtend.h>
+ *      -lxtend
  *
  *  Description:
  *      Determine whether a string is a valid integer by attempting to
@@ -36,8 +36,8 @@ int     strisint(const char *string, int base)
 
 /***************************************************************************
  *  Library:
- *      #include <xtendc.h>
- *      -lxtendc
+ *      #include <xtend.h>
+ *      -lxtend
  *
  *  Description:
  *      Determine whether a string is a valid real number by attempting to

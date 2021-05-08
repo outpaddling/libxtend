@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
-#include "xtendc.h"
+#include "xtend.h"
 
 /***************************************************************************
  *  Library:
- *      #include <xtendc.h>
- *      -lxtendc
+ *      #include <xtend.h>
+ *      -lxtend
  *
  *  Description:
  *      Open a raw data file using fopen() or a gzipped, bzipped, or
@@ -92,8 +92,8 @@ FILE    *xc_fopen(const char *filename, const char *mode)
 
 /***************************************************************************
  *  Library:
- *      #include <xtendc.h>
- *      -lxtendc
+ *      #include <xtend.h>
+ *      -lxtend
  *
  *  Description:
  *      Close a FILE stream with fclose() or pclose() as appropriate.

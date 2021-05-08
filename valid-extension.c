@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sysexits.h>
-#include "xtendc.h"
+#include "xtend.h"
 
 /***************************************************************************
  *  Library:
- *      #include <xtendc.h>
- *      -lxtendc
+ *      #include <xtend.h>
+ *      -lxtend
  *
  *  Description:
  *      Verify that the filename extension on filename is either the

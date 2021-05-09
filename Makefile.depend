@@ -19,6 +19,9 @@ gcd.o: gcd.c
 get-home-dir.o: get-home-dir.c xtend.h xtend-protos.h
 	${CC} -c ${CFLAGS} get-home-dir.c
 
+ltostrn.o: ltostrn.c
+	${CC} -c ${CFLAGS} ltostrn.c
+
 strisnum.o: strisnum.c
 	${CC} -c ${CFLAGS} strisnum.c
 

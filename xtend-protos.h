@@ -13,6 +13,7 @@ unsigned long gcd(unsigned long a, unsigned long b);
 unsigned long lcm(unsigned long a, unsigned long b);
 /* get-home-dir.c */
 char *get_home_dir(char *dir, size_t maxlen);
+/* ltostrn.c */
 /* strisnum.c */
 int strisint(const char *string, int base);
 int strisreal(const char *string);

@@ -1,6 +1,10 @@
 #ifndef __xtend_h__
 #define __xtend_h__
 
+#ifndef _STDIO_H_
+#include <stdio.h>
+#endif
+
 #ifndef _SYS_TIME_H_
 #include <sys/time.h>
 #endif

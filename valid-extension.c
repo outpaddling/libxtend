@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sysexits.h>
-#include "xtend.h"
+#include <stdbool.h>
 
 /***************************************************************************
  *  Library:

@@ -10,8 +10,14 @@ fd-purge.o: fd-purge.c
 fgetline.o: fgetline.c
 	${CC} -c ${CFLAGS} fgetline.c
 
+file-mod-cmp.o: file-mod-cmp.c
+	${CC} -c ${CFLAGS} file-mod-cmp.c
+
 gcd.o: gcd.c
 	${CC} -c ${CFLAGS} gcd.c
+
+get-home-dir.o: get-home-dir.c xtend.h xtend-protos.h
+	${CC} -c ${CFLAGS} get-home-dir.c
 
 strisnum.o: strisnum.c
 	${CC} -c ${CFLAGS} strisnum.c
@@ -19,7 +25,7 @@ strisnum.o: strisnum.c
 strptrcmp.o: strptrcmp.c
 	${CC} -c ${CFLAGS} strptrcmp.c
 
-valid-extension.o: valid-extension.c xtend.h xtend-protos.h
+valid-extension.o: valid-extension.c
 	${CC} -c ${CFLAGS} valid-extension.c
 
 xcfile.o: xcfile.c xtend.h xtend-protos.h

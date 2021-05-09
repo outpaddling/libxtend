@@ -50,7 +50,7 @@ HEADERS = xtend.h xtend-protos.h
 # List object files that comprise BIN.
 
 OBJS    = valid-extension.o xcfile.o strisnum.o strptrcmp.o difftimeofday.o \
-	  fast-cp.o gcd.o fd-purge.o fgetline.o
+	  fast-cp.o gcd.o fd-purge.o fgetline.o file-mod-cmp.o get-home-dir.o
 
 ############################################################################
 # Compile, link, and install options

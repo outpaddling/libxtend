@@ -6,9 +6,13 @@ int fast_cp(const char *source, const char *dest);
 void fd_purge(int fd);
 /* fgetline.c */
 size_t fgetline(FILE *fp, char *buff, size_t maxlen);
+/* file-mod-cmp.c */
+int file_mod_cmp(const char *file1, const char *file2);
 /* gcd.c */
 unsigned long gcd(unsigned long a, unsigned long b);
 unsigned long lcm(unsigned long a, unsigned long b);
+/* get-home-dir.c */
+char *get_home_dir(char *dir, size_t maxlen);
 /* strisnum.c */
 int strisint(const char *string, int base);
 int strisreal(const char *string);

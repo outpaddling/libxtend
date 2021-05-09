@@ -14,11 +14,14 @@ unsigned long lcm(unsigned long a, unsigned long b);
 /* get-home-dir.c */
 char *get_home_dir(char *dir, size_t maxlen);
 /* ltostrn.c */
+char *ltostrn(char string[], long val, unsigned base, size_t maxlen);
 /* strisnum.c */
 int strisint(const char *string, int base);
 int strisreal(const char *string);
 /* strptrcmp.c */
 int strptrcmp(const char **p1, const char **p2);
+/* strshellcpy.c */
+int strshellcpy(char *dest, const char *src, size_t dest_len);
 /* valid-extension.c */
 _Bool valid_extension(const char *filename, const char *valid_ext);
 /* xcfile.c */

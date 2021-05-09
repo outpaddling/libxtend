@@ -28,6 +28,9 @@ strisnum.o: strisnum.c
 strptrcmp.o: strptrcmp.c
 	${CC} -c ${CFLAGS} strptrcmp.c
 
+strshellcpy.o: strshellcpy.c xtend.h xtend-protos.h
+	${CC} -c ${CFLAGS} strshellcpy.c
+
 valid-extension.o: valid-extension.c
 	${CC} -c ${CFLAGS} valid-extension.c
 

@@ -22,6 +22,18 @@
 
 #define LCM(a,b)    ((a)*(b)/gcd(a,b))
 
+#ifndef ISIDENT
+#define ISIDENT(c)  ( isalnum(c) | ((c)=='_') )
+#endif
+
+#ifndef MALLOC
+#define MALLOC(nelem,type)   ((type *)malloc((nelem)*sizeof(type)))
+#endif
+
+#ifndef REALLOC
+#define REALLOC(ptr,nelem,type) ((type *)realloc((ptr),(nelem)*sizeof(type)))
+#endif
+
 #include "xtend-protos.h"
 
 #endif  // __xtend_h__

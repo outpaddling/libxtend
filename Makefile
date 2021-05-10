@@ -183,19 +183,21 @@ realclean: clean
 ############################################################################
 # Install all target files (binaries, libraries, docs, etc.)
 
-install: all
+common-install:
 	${MKDIR} -p ${DESTDIR}${PREFIX}/lib \
 	    ${DESTDIR}${PREFIX}/include \
 	    ${DESTDIR}${PREFIX}/man/man3
-	${INSTALL} -m 0444 ${SLIB} ${DLIB} ${DESTDIR}${PREFIX}/lib
-	${INSTALL} -ls ${DLIB} ${DESTDIR}${PREFIX}/lib/${SONAME}
-	${INSTALL} -ls ${DLIB} ${DESTDIR}${PREFIX}/lib/lib${LIB}.so
 	for file in ${HEADERS}; do \
 	    ${INSTALL} -m 0444 $${file} ${DESTDIR}${PREFIX}/include; \
 	done
 	${INSTALL} -m 0444 Man/*.3 ${DESTDIR}${MANPREFIX}/man/man3
 
-apple-install: apple
+install: all common-install
+	${INSTALL} -m 0444 ${SLIB} ${DLIB} ${DESTDIR}${PREFIX}/lib
+	${INSTALL} -ls ${DLIB} ${DESTDIR}${PREFIX}/lib/${SONAME}
+	${INSTALL} -ls ${DLIB} ${DESTDIR}${PREFIX}/lib/lib${LIB}.so
+
+apple-install: apple common-install
 	${INSTALL} -m 0444 ${SLIB} ${DYLIB} ${DESTDIR}${PREFIX}/lib
 	ln -sf ${DYLIB} ${DESTDIR}${PREFIX}/lib/${INSTALL_NAME}
 	ln -sf ${DYLIB} ${DESTDIR}${PREFIX}/lib/lib${LIB}.dylib

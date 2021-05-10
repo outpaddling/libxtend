@@ -15,6 +15,8 @@ unsigned long lcm(unsigned long a, unsigned long b);
 char *get_home_dir(char *dir, size_t maxlen);
 /* ltostrn.c */
 char *ltostrn(char string[], long val, unsigned base, size_t maxlen);
+/* num_size.c */
+int num_size(long val, unsigned base);
 /* strisnum.c */
 int strisint(const char *string, int base);
 int strisreal(const char *string);

@@ -22,6 +22,9 @@ get-home-dir.o: get-home-dir.c xtend.h xtend-protos.h
 ltostrn.o: ltostrn.c
 	${CC} -c ${CFLAGS} ltostrn.c
 
+num_size.o: num_size.c
+	${CC} -c ${CFLAGS} num_size.c
+
 strisnum.o: strisnum.c
 	${CC} -c ${CFLAGS} strisnum.c
 

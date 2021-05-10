@@ -25,6 +25,9 @@ ltostrn.o: ltostrn.c
 num_size.o: num_size.c
 	${CC} -c ${CFLAGS} num_size.c
 
+parse-cmd.o: parse-cmd.c xtend.h xtend-protos.h
+	${CC} -c ${CFLAGS} parse-cmd.c
+
 strisnum.o: strisnum.c
 	${CC} -c ${CFLAGS} strisnum.c
 

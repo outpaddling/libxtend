@@ -1,0 +1,39 @@
+.TH parse_cmd 3
+
+.SH LIBRARY
+\" Indicate #includes, library name, -L and -l flags
+.nf
+.na
+#include <xtend.h
+-lxtend
+.ad
+.fi
+
+\" Convention:
+\" Underline anything that is typed verbatim - commands, etc.
+.SH SYNOPSIS
+.PP
+.nf 
+.na
+void    parse_cmd(char *argv[], char *cmd)
+.ad
+.fi
+
+.SH ARGUMENTS
+.nf
+.na
+argv:   Pointer array to be filled with command tokens
+cmd:    Raw command string with limited meta-character support
+from strshellcpy(3)
+.ad
+.fi
+
+.SH DESCRIPTION
+
+Breaks a shell command into an argv[] style array suitable
+for spawnvp() or execv*()
+
+.SH SEE ALSO
+
+spawnvp(3), spawnlp(3), exec(3)
+

@@ -9,7 +9,7 @@
 #include <sys/time.h>
 #endif
 
-#define XC_CMD_MAX      4096
+#define XT_CMD_MAX      4096
 
 #ifdef __linux__
 #define strlcpy(dest,src,len)   strcpy(dest,src)

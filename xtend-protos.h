@@ -17,6 +17,8 @@ char *get_home_dir(char *dir, size_t maxlen);
 char *ltostrn(char string[], long val, unsigned base, size_t maxlen);
 /* num_size.c */
 int num_size(long val, unsigned base);
+/* parse-cmd.c */
+void parse_cmd(char *argv[], char *cmd);
 /* strisnum.c */
 int strisint(const char *string, int base);
 int strisreal(const char *string);

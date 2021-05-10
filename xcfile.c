@@ -32,7 +32,7 @@ FILE    *xc_fopen(const char *filename, const char *mode)
 
 {
     char    *ext = strrchr(filename, '.'),
-	    cmd[XC_CMD_MAX + 1];
+	    cmd[XT_CMD_MAX + 1];
     
     if ( (strcmp(mode, "r") != 0 ) && (strcmp(mode, "w") != 0) )
     {
@@ -50,17 +50,17 @@ FILE    *xc_fopen(const char *filename, const char *mode)
     {
 	if ( strcmp(ext, ".gz") == 0 )
 	{
-	    snprintf(cmd, XC_CMD_MAX, "zcat %s", filename);
+	    snprintf(cmd, XT_CMD_MAX, "zcat %s", filename);
 	    return popen(cmd, mode);
 	}
 	else if ( strcmp(ext, ".bz2") == 0 )
 	{
-	    snprintf(cmd, XC_CMD_MAX, "bzcat %s", filename);
+	    snprintf(cmd, XT_CMD_MAX, "bzcat %s", filename);
 	    return popen(cmd, mode);
 	}
 	else if ( strcmp(ext, ".xz") == 0 )
 	{
-	    snprintf(cmd, XC_CMD_MAX, "xzcat %s", filename);
+	    snprintf(cmd, XT_CMD_MAX, "xzcat %s", filename);
 	    return popen(cmd, mode);
 	}
 	else
@@ -70,17 +70,17 @@ FILE    *xc_fopen(const char *filename, const char *mode)
     {
 	if ( strcmp(ext, ".gz") == 0 )
 	{
-	    snprintf(cmd, XC_CMD_MAX, "gzip -c > %s", filename);
+	    snprintf(cmd, XT_CMD_MAX, "gzip -c > %s", filename);
 	    return popen(cmd, mode);
 	}
 	else if ( strcmp(ext, ".bz2") == 0 )
 	{
-	    snprintf(cmd, XC_CMD_MAX, "bzip2 -c > %s", filename);
+	    snprintf(cmd, XT_CMD_MAX, "bzip2 -c > %s", filename);
 	    return popen(cmd, mode);
 	}
 	else if ( strcmp(ext, ".xz") == 0 )
 	{
-	    snprintf(cmd, XC_CMD_MAX, "xz -c > %s", filename);
+	    snprintf(cmd, XT_CMD_MAX, "xz -c > %s", filename);
 	    return popen(cmd, mode);
 	}
 	else

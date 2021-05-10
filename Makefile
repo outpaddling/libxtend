@@ -201,6 +201,9 @@ apple-install: apple common-install
 	${INSTALL} -m 0444 ${SLIB} ${DYLIB} ${DESTDIR}${PREFIX}/lib
 	ln -sf ${DYLIB} ${DESTDIR}${PREFIX}/lib/${INSTALL_NAME}
 	ln -sf ${DYLIB} ${DESTDIR}${PREFIX}/lib/lib${LIB}.dylib
+	install_name_tool -change ${INSTALL_NAME} \
+	    ${PREFIX}/lib/${INSTALL_NAME} \
+	    ${DESTDIR}${PREFIX}/lib/${DYLIB}
 
 help:
 	@printf "Usage: make [VARIABLE=value ...] all\n\n"

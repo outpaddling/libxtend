@@ -69,7 +69,7 @@ HEADERS = xtend.h xtend-protos.h
 OBJS    = valid-extension.o xcfile.o strisnum.o strptrcmp.o difftimeofday.o \
 	  fast-cp.o gcd.o fd-purge.o fgetline.o file-mod-cmp.o get-home-dir.o \
 	  ltostrn.o strshellcpy.o num_size.o parse-cmd.o rmkdir.o \
-	  spawnlp.o spawnvp.o
+	  spawnlp.o spawnvp.o strlbasecpy.o
 
 ############################################################################
 # Compile, link, and install options

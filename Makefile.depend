@@ -40,6 +40,9 @@ spawnvp.o: spawnvp.c xtend.h xtend-protos.h
 strisnum.o: strisnum.c
 	${CC} -c ${CFLAGS} strisnum.c
 
+strlbasecpy.o: strlbasecpy.c xtend.h xtend-protos.h
+	${CC} -c ${CFLAGS} strlbasecpy.c
+
 strptrcmp.o: strptrcmp.c
 	${CC} -c ${CFLAGS} strptrcmp.c
 

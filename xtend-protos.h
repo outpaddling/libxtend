@@ -29,6 +29,8 @@ void redirect(char *infile, char *outfile, char *errfile);
 /* strisnum.c */
 int strisint(const char *string, int base);
 int strisreal(const char *string);
+/* strlbasecpy.c */
+char *strlbasecpy(char *dest, const char *dest_base, const char *src, size_t len);
 /* strptrcmp.c */
 int strptrcmp(const char **p1, const char **p2);
 /* strshellcpy.c */

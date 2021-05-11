@@ -21,6 +21,11 @@ int num_size(long val, unsigned base);
 void parse_cmd(char *argv[], char *cmd);
 /* rmkdir.c */
 int rmkdir(const char *path, mode_t mode);
+/* spawnlp.c */
+int spawnlp(int parent_action, int echo, char *infile, char *outfile, char *errfile, char *arg0, ...);
+/* spawnvp.c */
+int spawnvp(int parent_action, int echo, char *argv[], char *infile, char *outfile, char *errfile);
+void redirect(char *infile, char *outfile, char *errfile);
 /* strisnum.c */
 int strisint(const char *string, int base);
 int strisreal(const char *string);

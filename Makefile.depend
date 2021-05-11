@@ -31,6 +31,12 @@ parse-cmd.o: parse-cmd.c xtend.h xtend-protos.h
 rmkdir.o: rmkdir.c xtend.h xtend-protos.h
 	${CC} -c ${CFLAGS} rmkdir.c
 
+spawnlp.o: spawnlp.c xtend.h xtend-protos.h
+	${CC} -c ${CFLAGS} spawnlp.c
+
+spawnvp.o: spawnvp.c xtend.h xtend-protos.h
+	${CC} -c ${CFLAGS} spawnvp.c
+
 strisnum.o: strisnum.c
 	${CC} -c ${CFLAGS} strisnum.c
 

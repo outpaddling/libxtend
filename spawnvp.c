@@ -9,34 +9,52 @@
 #include <sys/wait.h>
 #include "xtend.h"
 
-
-/****************************************************************************
- * Name:
- *  Fork and exec a new process.
+/***************************************************************************
+ *  Library:
+ *      #include <xtend.h>
+ *      -lxtend
  *
- * Description: 
- *  This function creates a new process using fork(3) and execvp(3),
- *  optionally echoing the command to execvp(), and optionally waiting
- *  for the child process to complete.
- * 
- * Author: 
- *  Jason W. Bacon
+ *  Description:
+ *      spawnvp() and spawnlp() are wrappers around fork(2) and exec(3)
+ *      which make it easy to run a child process without an intermediate
+ *      shell process as is used by system(3).  The spawnlp() function
+ *      spawns a child process using a variable argument list.  The 6th
+ *      argument is passed to argv[0] of the child, the 7th to argv[1], etc.
  *
- * Returns: 
- *  The return status of the child process if the parent waits
- *  for it to complete, otherwise the PID of the child process.
- ****************************************************************************/
+ *      The spawnvp() function spawns a process using the command contained
+ *      in an argv[] array constructed by the caller.  spawnlp() automatically
+ *      constructs such an argv[] array and calls spawnvp().
+ *
+ *      The calling process waits for the child to complete if P_WAIT is
+ *      passed to parent_action, or continues immediately if P_NOWAIT
+ *      is passed.  If P_ECHO is passed as the echo argument, the command
+ *      is echoed, the command is echoed to the parent's stdout.
+ *
+ *      If infile, outfile, or errfile are not NULL, then the corresponding
+ *      file streams stdin, stdout, or stderr are redirected to the filename
+ *      provided.
+ *  
+ *  Arguments:
+ *      parent_action:  P_WAIT or P_NOWAIT
+ *      echo:           P_ECHO or P_NOECHO
+ *      infile:         File to which stdin of child is redirected or NULL
+ *      outfile:        File to which stdout of child is redirected or NULL
+ *      errfile:        File to which stderr of child is redirected or NULL
+ *
+ *  Returns:
+ *      The exit status of the child process if P_WAIT is passed
+ *      The PID of the child process if P_NOWAIT is passed
+ *
+ *  See also:
+ *      spawnlp(3), fork(2), exec(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  Circa 1990  Jason Bacon Begin
+ ***************************************************************************/
 
-int     spawnvp(
-    int     parent_action,  /* P_WAIT or P_NOWAIT */
-    int     echo,           /* P_ECHO or P_NOECHO */
-    char    *argv[],        /* Arguments to be passed to execvp() */
-    char    *infile,        /* If not NULL, the child process's
-				stdin is redirected from this file */
-    char    *outfile,       /* If not NULL, the child process's
-				stdout is redirected to this file */
-    char    *errfile)       /* If not NULL, the child process's 
-				stderr is redirected to this file */
+int     spawnvp(int parent_action, int echo, char *argv[],
+		char *infile, char *outfile, char *errfile)
 
 {
     int     stat = 0;
@@ -50,14 +68,6 @@ int     spawnvp(
 	case    P_ECHO:     /* Echo command */
 	    for (p = argv; *p != NULL; ++p)
 		printf("%s ",*p);
-	    /*
-	    if ( infile != NULL )
-		printf("\n[stdin = %s]",infile);
-	    if ( outfile != NULL )
-		printf("\n[stdout = %s]",outfile);
-	    if ( errfile != NULL )
-		printf("\n[stderr = %s]",errfile);
-	    */
 	    putchar('\n');
 	    fflush(stdout);
 	case    P_NOECHO:

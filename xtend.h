@@ -9,6 +9,10 @@
 #include <sys/time.h>
 #endif
 
+#ifndef _SYS_STAT_H
+#include <sys/stat.h>   // mode_t on Darwin
+#endif
+
 #ifdef __linux__
 #define strlcpy(dest,src,len)   strcpy(dest,src)
 #define strlcat(dest,src,len)   strcat(dest,src)

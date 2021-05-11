@@ -37,6 +37,9 @@ spawnlp.o: spawnlp.c xtend.h xtend-protos.h
 spawnvp.o: spawnvp.c xtend.h xtend-protos.h
 	${CC} -c ${CFLAGS} spawnvp.c
 
+strblank.o: strblank.c
+	${CC} -c ${CFLAGS} strblank.c
+
 strisnum.o: strisnum.c
 	${CC} -c ${CFLAGS} strisnum.c
 
@@ -49,8 +52,14 @@ strptrcmp.o: strptrcmp.c
 strshellcpy.o: strshellcpy.c xtend.h xtend-protos.h
 	${CC} -c ${CFLAGS} strshellcpy.c
 
+va-usage.o: va-usage.c xtend.h xtend-protos.h
+	${CC} -c ${CFLAGS} va-usage.c
+
 valid-extension.o: valid-extension.c
 	${CC} -c ${CFLAGS} valid-extension.c
+
+viscpy.o: viscpy.c xtend.h xtend-protos.h
+	${CC} -c ${CFLAGS} viscpy.c
 
 xcfile.o: xcfile.c xtend.h xtend-protos.h
 	${CC} -c ${CFLAGS} xcfile.c

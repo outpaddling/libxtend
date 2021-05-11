@@ -26,6 +26,8 @@ int spawnlp(int parent_action, int echo, char *infile, char *outfile, char *errf
 /* spawnvp.c */
 int spawnvp(int parent_action, int echo, char *argv[], char *infile, char *outfile, char *errfile);
 void redirect(char *infile, char *outfile, char *errfile);
+/* strblank.c */
+int strblank(const char *string);
 /* strisnum.c */
 int strisint(const char *string, int base);
 int strisreal(const char *string);
@@ -35,8 +37,12 @@ char *strlbasecpy(char *dest, const char *dest_base, const char *src, size_t len
 int strptrcmp(const char **p1, const char **p2);
 /* strshellcpy.c */
 int strshellcpy(char *dest, const char *src, size_t dest_len);
+/* va-usage.c */
+void va_usage(const char *format_string, ...);
 /* valid-extension.c */
 _Bool valid_extension(const char *filename, const char *valid_ext);
+/* viscpy.c */
+char *viscpy(unsigned char *dest, const unsigned char *src, size_t maxlen);
 /* xcfile.c */
 FILE *xc_fopen(const char *filename, const char *mode);
 int xc_fclose(FILE *stream);

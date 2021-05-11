@@ -28,11 +28,11 @@
 void    parse_cmd(char *argv[], char *cmd)
 
 {
-    static char cmd2[XT_CMD_MAX + 1];
+    static char cmd2[XT_CMD_MAX_CHARS + 1];
     int     c;
 
     /* Expand shell meta-characters */
-    strshellcpy(cmd2, cmd, XT_CMD_MAX);
+    strshellcpy(cmd2, cmd, XT_CMD_MAX_CHARS);
     
     /* Break command into tokens for argv[] */
     argv[0] = strtok(cmd2, " \t");

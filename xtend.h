@@ -20,7 +20,8 @@
 
 #define LCM(a,b)    ((a)*(b)/gcd(a,b))
 
-#define XT_CMD_MAX      4096
+#define XT_CMD_MAX_CHARS    4096
+#define XT_FORMAT_MAX_CHARS 4096
 
 #ifndef ISIDENT
 #define ISIDENT(c)  ( isalnum(c) | ((c)=='_') )

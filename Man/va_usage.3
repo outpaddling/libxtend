@@ -1,0 +1,41 @@
+.TH va_usage 3
+
+.SH LIBRARY
+\" Indicate #includes, library name, -L and -l flags
+.nf
+.na
+#include <xtend.h>
+-lxtend
+.ad
+.fi
+
+\" Convention:
+\" Underline anything that is typed verbatim - commands, etc.
+.SH SYNOPSIS
+.PP
+.nf 
+.na
+void    va_usage(const char *format_string, ...)
+.ad
+.fi
+
+.SH ARGUMENTS
+.nf
+.na
+format_string:  printf-style format string
+Additional arguments to match placeholders in format_string
+.ad
+.fi
+
+.SH DESCRIPTION
+
+va_usage() is a simple convenience function that takes a
+printf-style variable argument list, prints a message to stderr,
+and terminates the proces with an exit status of EX_USAGE.
+The message should indicate correct command-line usage of the
+calling program as conventional for Unix commands.
+
+.SH SEE ALSO
+
+printf(3), vfprintf(3), exit(3), sysexits(3)
+

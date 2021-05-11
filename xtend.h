@@ -18,6 +18,10 @@
 #include <stdbool.h>
 #endif
 
+#if !defined(_STDARG_H_) && !defined(__STDARG_H__)
+#include <stdarg.h>
+#endif
+
 #define LCM(a,b)    ((a)*(b)/gcd(a,b))
 
 #define XT_CMD_MAX_CHARS    4096
@@ -46,6 +50,10 @@
 /* spawn*() echo */
 #define P_NOECHO  0
 #define P_ECHO    1
+
+#define P_TERM_STATUS(s)    ((s) & 0xff)
+#define P_EXIT_CODE(s)      (((s) & 0x0000ff00) >> 8)
+#define P_EXEC_FAILED(s)    ( (s) & 0x8000 )
 
 #include "xtend-protos.h"
 

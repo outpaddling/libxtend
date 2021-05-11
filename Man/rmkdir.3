@@ -1,0 +1,42 @@
+.TH rmkdir 3
+
+.SH LIBRARY
+\" Indicate #includes, library name, -L and -l flags
+.nf
+.na
+#include <xtend.h>
+-lxtend
+.ad
+.fi
+
+\" Convention:
+\" Underline anything that is typed verbatim - commands, etc.
+.SH SYNOPSIS
+.PP
+.nf 
+.na
+int     rmkdir(const char *path, mode_t mode)
+.ad
+.fi
+
+.SH ARGUMENTS
+.nf
+.na
+path:   Absolute or relative pathname of the directory to create
+mode:   Permissions and other bits passed to mkdir(2)
+.ad
+.fi
+
+.SH RETURN VALUES
+
+0 on success, -1 on failure
+
+.SH DESCRIPTION
+
+rmkdir() recursively creates a directory from within a compiled
+program in the same way as "mkdir -r" from shell.
+
+.SH SEE ALSO
+
+mkdir(1), mkdir(2)
+

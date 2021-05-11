@@ -28,6 +28,9 @@ num_size.o: num_size.c
 parse-cmd.o: parse-cmd.c xtend.h xtend-protos.h
 	${CC} -c ${CFLAGS} parse-cmd.c
 
+rmkdir.o: rmkdir.c xtend.h xtend-protos.h
+	${CC} -c ${CFLAGS} rmkdir.c
+
 strisnum.o: strisnum.c
 	${CC} -c ${CFLAGS} strisnum.c
 

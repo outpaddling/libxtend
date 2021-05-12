@@ -46,3 +46,5 @@ char *viscpy(unsigned char *dest, const unsigned char *src, size_t maxlen);
 /* xcfile.c */
 FILE *xc_fopen(const char *filename, const char *mode);
 int xc_fclose(FILE *stream);
+/* xt-malloc.c */
+void *xt_malloc(size_t nelem, size_t size);

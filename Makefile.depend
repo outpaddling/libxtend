@@ -64,3 +64,6 @@ viscpy.o: viscpy.c xtend.h xtend-protos.h
 xcfile.o: xcfile.c xtend.h xtend-protos.h
 	${CC} -c ${CFLAGS} xcfile.c
 
+xt-malloc.o: xt-malloc.c
+	${CC} -c ${CFLAGS} xt-malloc.c
+

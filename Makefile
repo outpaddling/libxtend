@@ -60,6 +60,13 @@ DLIB    = ${SONAME}.${LIB_VER}
 INSTALL_NAME    = lib${LIB}.${API_VER}.dylib
 DYLIB           = lib${LIB}.${API_VER}.${LIB_VER}.dylib
 CURRENT_VERSION = ${API_VER}.${LIB_VER}
+# Need absolute pathname embedded in Apple dylib, or it will only be found
+# if the relative path to it is the same as from the build directory.
+# Big Sur lacks a realpath command but it can be installed via pkgsrc-wip.
+# GNU make 3.81 on Big Sur doesn't support !=, so we must use the gmake
+# shell extension and this will fail if not using gmake.
+# Fortunately most platforms don't need this.
+DYLIB_PATH := $(shell realpath ${PREFIX}/lib)
 
 HEADERS = xtend.h xtend-protos.h
 
@@ -83,10 +90,6 @@ LOCALBASE   ?= ../local
 # environment, or a command line option such as PREFIX=/opt/local.
 PREFIX      ?= ${LOCALBASE}
 MANPREFIX   ?= ${PREFIX}
-
-# Need absolute pathname embedded in Apple dylib
-# realpath command can be installed on MacOS via pkgsrc-wip
-DYLIB_PATH := $(shell realpath ${PREFIX}/lib)
 
 ############################################################################
 # Build flags

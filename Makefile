@@ -66,7 +66,7 @@ CURRENT_VERSION = ${API_VER}.${LIB_VER}
 # GNU make 3.81 on Big Sur doesn't support !=, so we must use the gmake
 # shell extension and this will fail if not using gmake.
 # Fortunately most platforms don't need this.
-DYLIB_PATH := $(shell realpath ${PREFIX}/lib)
+DYLIB_PATH ?= $(shell realpath ${PREFIX}/lib)
 
 HEADERS = xtend.h xtend-protos.h
 

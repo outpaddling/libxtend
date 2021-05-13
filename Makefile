@@ -84,6 +84,10 @@ LOCALBASE   ?= ../local
 PREFIX      ?= ${LOCALBASE}
 MANPREFIX   ?= ${PREFIX}
 
+# Need absolute pathname embedded in Apple dylib
+# realpath command can be installed on MacOS via pkgsrc-wip
+DYLIB_PATH := $(shell realpath ${PREFIX}/lib)
+
 ############################################################################
 # Build flags
 # Override with "make CC=gcc", "make CC=icc", etc.
@@ -144,12 +148,9 @@ ${SLIB}: ${OBJS}
 ${DLIB}: ${OBJS}
 	${CC} -shared ${CFLAGS} -Wl,-soname=${SONAME} -o ${DLIB} ${OBJS}
 
-# Need absolute pathname embedded in Apple dylib
-LIB_PATH := $(shell pwd)/${PREFIX}/lib
-
 ${DYLIB}: ${OBJS}
 	$(CC) $(CFLAGS) -dynamiclib \
-	    -install_name ${LIB_PATH}/${INSTALL_NAME} \
+	    -install_name ${DYLIB_PATH}/${INSTALL_NAME} \
 	    -current_version ${CURRENT_VERSION} \
 	    -compatibility_version ${API_VER} \
 	    -o ${DYLIB} ${OBJS}

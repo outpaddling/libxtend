@@ -129,7 +129,7 @@ RM      ?= rm
 # in case a locally installed version is preferred.
 PRINTF  ?= printf
 INSTALL ?= install
-	
+
 ############################################################################
 # Standard targets required by package managers
 
@@ -144,9 +144,12 @@ ${SLIB}: ${OBJS}
 ${DLIB}: ${OBJS}
 	${CC} -shared ${CFLAGS} -Wl,-soname=${SONAME} -o ${DLIB} ${OBJS}
 
+# Need absolute pathname embedded in Apple dylib
+LIB_PATH := $(shell pwd)/${PREFIX}/lib
+
 ${DYLIB}: ${OBJS}
 	$(CC) $(CFLAGS) -dynamiclib \
-	    -install_name ${PREFIX}/lib/${INSTALL_NAME} \
+	    -install_name ${LIB_PATH}/${INSTALL_NAME} \
 	    -current_version ${CURRENT_VERSION} \
 	    -compatibility_version ${API_VER} \
 	    -o ${DYLIB} ${OBJS}

@@ -136,6 +136,8 @@ RM      ?= rm
 # in case a locally installed version is preferred.
 PRINTF  ?= printf
 INSTALL ?= install
+STRIP   ?= strip
+CHMOD   ?= chmod
 
 ############################################################################
 # Standard targets required by package managers
@@ -207,6 +209,11 @@ install: all common-install
 	${INSTALL} -m 0444 ${SLIB} ${DLIB} ${DESTDIR}${PREFIX}/lib
 	${INSTALL} -ls ${DLIB} ${DESTDIR}${PREFIX}/lib/${SONAME}
 	${INSTALL} -ls ${DLIB} ${DESTDIR}${PREFIX}/lib/lib${LIB}.so
+
+install-strip: install
+	${CHMOD} 0644 ${DESTDIR}${PREFIX}/lib/${DLIB}
+	${STRIP} ${DESTDIR}${PREFIX}/lib/${DLIB}
+	${CHMOD} 0444 ${DESTDIR}${PREFIX}/lib/${DLIB}
 
 apple-install: apple common-install
 	${INSTALL} -m 0444 ${SLIB} ${DYLIB} ${DESTDIR}${PREFIX}/lib

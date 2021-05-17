@@ -206,17 +206,19 @@ common-install:
 	${INSTALL} -m 0444 Man/*.3 ${DESTDIR}${MANPREFIX}/man/man3
 
 install: all common-install
-	${INSTALL} -m 0444 ${SLIB} ${DLIB} ${DESTDIR}${PREFIX}/lib
+	${INSTALL} -m 0444 ${SLIB} ${DESTDIR}${PREFIX}/lib
+	${INSTALL} -m 0555 ${DLIB} ${DESTDIR}${PREFIX}/lib
 	${INSTALL} -ls ${DLIB} ${DESTDIR}${PREFIX}/lib/${SONAME}
 	${INSTALL} -ls ${DLIB} ${DESTDIR}${PREFIX}/lib/lib${LIB}.so
 
 install-strip: install
-	${CHMOD} 0644 ${DESTDIR}${PREFIX}/lib/${DLIB}
+	${CHMOD} 0655 ${DESTDIR}${PREFIX}/lib/${DLIB}
 	${STRIP} ${DESTDIR}${PREFIX}/lib/${DLIB}
-	${CHMOD} 0444 ${DESTDIR}${PREFIX}/lib/${DLIB}
+	${CHMOD} 0555 ${DESTDIR}${PREFIX}/lib/${DLIB}
 
 apple-install: apple common-install
-	${INSTALL} -m 0444 ${SLIB} ${DYLIB} ${DESTDIR}${PREFIX}/lib
+	${INSTALL} -m 0444 ${SLIB} ${DESTDIR}${PREFIX}/lib
+	${INSTALL} -m 0555 ${DYLIB} ${DESTDIR}${PREFIX}/lib
 	ln -sf ${DYLIB} ${DESTDIR}${PREFIX}/lib/${INSTALL_NAME}
 	ln -sf ${DYLIB} ${DESTDIR}${PREFIX}/lib/lib${LIB}.dylib
 

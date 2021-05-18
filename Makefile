@@ -202,10 +202,11 @@ common-install:
 	${INSTALL} -m 0444 Man/*.3 ${DESTDIR}${MANPREFIX}/man/man3
 	${INSTALL} -m 0444 ${SLIB} ${DESTDIR}${PREFIX}/lib
 
+# CentOS 7 install does not support -l, use ln directly
 install: all common-install
 	${INSTALL} -m 0555 ${DLIB} ${DESTDIR}${PREFIX}/lib
-	${INSTALL} -ls ${DLIB} ${DESTDIR}${PREFIX}/lib/${SONAME}
-	${INSTALL} -ls ${DLIB} ${DESTDIR}${PREFIX}/lib/lib${LIB}.so
+	ln -sf ${DLIB} ${DESTDIR}${PREFIX}/lib/${SONAME}
+	ln -sf ${DLIB} ${DESTDIR}${PREFIX}/lib/lib${LIB}.so
 
 install-strip: install
 	${CHMOD} 0655 ${DESTDIR}${PREFIX}/lib/${DLIB}

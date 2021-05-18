@@ -116,9 +116,6 @@ RANLIB      ?= ranlib
 
 INCLUDES    += -I${LOCALBASE}/include
 CFLAGS      += -fPIC ${INCLUDES}
-CXXFLAGS    += -fPIC ${INCLUDES}
-FFLAGS      += -fPIC ${INCLUDES}
-LDFLAGS     += -L${LOCALBASE}/lib
 
 ############################################################################
 # Assume first command in PATH.  Override with full pathnames if necessary.
@@ -197,16 +194,15 @@ realclean: clean
 # Install all target files (binaries, libraries, docs, etc.)
 
 common-install:
-	${MKDIR} -p ${DESTDIR}${PREFIX}/lib \
-	    ${DESTDIR}${PREFIX}/include \
-	    ${DESTDIR}${PREFIX}/man/man3
+	${MKDIR} -p ${DESTDIR}${PREFIX}/lib ${DESTDIR}${PREFIX}/include \
+		    ${DESTDIR}${PREFIX}/man/man3
 	for file in ${HEADERS}; do \
 	    ${INSTALL} -m 0444 $${file} ${DESTDIR}${PREFIX}/include; \
 	done
 	${INSTALL} -m 0444 Man/*.3 ${DESTDIR}${MANPREFIX}/man/man3
+	${INSTALL} -m 0444 ${SLIB} ${DESTDIR}${PREFIX}/lib
 
 install: all common-install
-	${INSTALL} -m 0444 ${SLIB} ${DESTDIR}${PREFIX}/lib
 	${INSTALL} -m 0555 ${DLIB} ${DESTDIR}${PREFIX}/lib
 	${INSTALL} -ls ${DLIB} ${DESTDIR}${PREFIX}/lib/${SONAME}
 	${INSTALL} -ls ${DLIB} ${DESTDIR}${PREFIX}/lib/lib${LIB}.so
@@ -217,7 +213,6 @@ install-strip: install
 	${CHMOD} 0555 ${DESTDIR}${PREFIX}/lib/${DLIB}
 
 apple-install: apple common-install
-	${INSTALL} -m 0444 ${SLIB} ${DESTDIR}${PREFIX}/lib
 	${INSTALL} -m 0555 ${DYLIB} ${DESTDIR}${PREFIX}/lib
 	ln -sf ${DYLIB} ${DESTDIR}${PREFIX}/lib/${INSTALL_NAME}
 	ln -sf ${DYLIB} ${DESTDIR}${PREFIX}/lib/lib${LIB}.dylib
@@ -227,10 +222,4 @@ help:
 	@printf "Some common tunable variables:\n\n"
 	@printf "\tCC        [currently ${CC}]\n"
 	@printf "\tCFLAGS    [currently ${CFLAGS}]\n"
-	@printf "\tCXX       [currently ${CXX}]\n"
-	@printf "\tCXXFLAGS  [currently ${CXXFLAGS}]\n"
-	@printf "\tF77       [currently ${F77}]\n"
-	@printf "\tFC        [currently ${FC}]\n"
-	@printf "\tFFLAGS    [currently ${FFLAGS}]\n\n"
 	@printf "View Makefile for more tunable variables.\n\n"
-

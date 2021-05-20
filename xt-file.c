@@ -10,7 +10,7 @@
  *  Description:
  *      Open a raw data file using fopen() or a gzipped, bzipped, or
  *      xzipped file using popen().  Must be used in conjunction with
- *      xc_fclose() to ensure that fclose() or pclose() is called where
+ *      xt_fclose() to ensure that fclose() or pclose() is called where
  *      appropriate.
  *
  *  Arguments:
@@ -28,7 +28,7 @@
  *  2021-04-09  Jason Bacon Begin
  ***************************************************************************/
 
-FILE    *xc_fopen(const char *filename, const char *mode)
+FILE    *xt_fopen(const char *filename, const char *mode)
 
 {
     char    *ext = strrchr(filename, '.'),
@@ -36,13 +36,13 @@ FILE    *xc_fopen(const char *filename, const char *mode)
     
     if ( (strcmp(mode, "r") != 0 ) && (strcmp(mode, "w") != 0) )
     {
-	fprintf(stderr, "xc_open(): Only \"r\" and \"w\" modes supported.\n");
+	fprintf(stderr, "xt_open(): Only \"r\" and \"w\" modes supported.\n");
 	return NULL;
     }
     
     if ( ext == NULL )
     {
-	fprintf(stderr, "xc_open(): No filename extension on %s.\n", filename);
+	fprintf(stderr, "xt_open(): No filename extension on %s.\n", filename);
 	return NULL;
     }
 
@@ -113,7 +113,7 @@ FILE    *xc_fopen(const char *filename, const char *mode)
  *  2021-04-10  Jason Bacon Begin
  ***************************************************************************/
 
-int     xc_fclose(FILE *stream)
+int     xt_fclose(FILE *stream)
 
 {
     struct stat stat;

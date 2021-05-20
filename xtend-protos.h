@@ -43,8 +43,9 @@ void va_usage(const char *format_string, ...);
 _Bool valid_extension(const char *filename, const char *valid_ext);
 /* viscpy.c */
 char *viscpy(unsigned char *dest, const unsigned char *src, size_t maxlen);
-/* xcfile.c */
-FILE *xc_fopen(const char *filename, const char *mode);
-int xc_fclose(FILE *stream);
+/* xt-file.c */
+FILE *xt_fopen(const char *filename, const char *mode);
+int xt_fclose(FILE *stream);
 /* xt-malloc.c */
 void *xt_malloc(size_t nelem, size_t size);
+void *xt_realloc(void *array, size_t nelem, size_t size);

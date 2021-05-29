@@ -32,11 +32,13 @@ int strblank(const char *string);
 int strisint(const char *string, int base);
 int strisreal(const char *string);
 /* strlbasecpy.c */
-char *strlbasecpy(char *dest, const char *dest_base, const char *src, size_t len);
+char *strlbasecpy(char *dest, const char *dest_base, const char *src, size_t dstsize);
 /* strptrcmp.c */
 int strptrcmp(const char **p1, const char **p2);
 /* strshellcpy.c */
 int strshellcpy(char *dest, const char *src, size_t dest_len);
+/* strsqueeze.c */
+size_t strsqueeze(char *dest, const char *src, size_t dstsize);
 /* va-usage.c */
 void va_usage(const char *format_string, ...);
 /* valid-extension.c */

@@ -18,6 +18,7 @@
  *      dest:       Address to which src is copied
  *      dest_base:  Base address of the array containing dest address
  *      src:        Address of null-terminated string to be copied
+ *      dstsize:    Size of the dest array
  *
  *  Returns:
  *      The original value of dest
@@ -31,16 +32,16 @@
  ***************************************************************************/
 
 char   *strlbasecpy(char *dest, const char *dest_base, const char *src,
-		    size_t len)
+		    size_t dstsize)
 
 {
     char        *save_dest;
     const char  *end;
 
     save_dest = dest;
-    len -= dest-dest_base;
-    end = src + len;
-    while ((*src != '\0') && (src < end))
+    dstsize -= dest-dest_base;
+    end = src + dstsize;
+    while ((*src != '\0') && (src < end - 1))
 	*dest++ = *src++;
     *dest = '\0';
     return (save_dest);

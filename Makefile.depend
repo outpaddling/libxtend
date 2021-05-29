@@ -52,6 +52,9 @@ strptrcmp.o: strptrcmp.c
 strshellcpy.o: strshellcpy.c xtend.h xtend-protos.h
 	${CC} -c ${CFLAGS} strshellcpy.c
 
+strsqueeze.o: strsqueeze.c
+	${CC} -c ${CFLAGS} strsqueeze.c
+
 va-usage.o: va-usage.c xtend.h xtend-protos.h
 	${CC} -c ${CFLAGS} va-usage.c
 
@@ -61,8 +64,8 @@ valid-extension.o: valid-extension.c
 viscpy.o: viscpy.c xtend.h xtend-protos.h
 	${CC} -c ${CFLAGS} viscpy.c
 
-xcfile.o: xcfile.c xtend.h xtend-protos.h
-	${CC} -c ${CFLAGS} xcfile.c
+xt-file.o: xt-file.c xtend.h xtend-protos.h
+	${CC} -c ${CFLAGS} xt-file.c
 
 xt-malloc.o: xt-malloc.c
 	${CC} -c ${CFLAGS} xt-malloc.c

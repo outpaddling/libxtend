@@ -32,6 +32,7 @@
  ***************************************************************************/
 
 #include <string.h>
+#include "xtend.h"
 
 size_t  strsqueeze(char *dest, const char *src, size_t dstsize)
 

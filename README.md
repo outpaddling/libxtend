@@ -30,8 +30,7 @@ The Makefile is designed to be friendly to package managers, such as
 [MacPorts](https://www.macports.org/), [pkgsrc](https://pkgsrc.org/), etc.
 End users should install via one of these if at all possible.
 
-I maintain a FreeBSD port and a pkgsrc package. pkgsrc is a cross-platform
-package manager that works on any Unix-like platform.
+I maintain a FreeBSD port and a pkgsrc package.
 
 FreeBSD is a highly underrated platform for scientific computing, with over
 1,800 scientific libraries and applications in the FreeBSD ports collection,
@@ -42,10 +41,27 @@ However, if you are a little bit Unix-savvy, you can very quickly set up a
 workstation, laptop, or VM using
 [desktop-installer](http://www.acadix.biz/desktop-installer.php).
 
-pkgsrc is native to
-NetBSD and well-supported on Illumos, Linux, and MacOS.  Using pkgsrc does not
-require admin privileges.  The [auto-pkgsrc-setup](http://netbsd.org/~bacon/)
+To install libxtend on FreeBSD:
+
+```
+pkg install libxtend
+```
+
+pkgsrc is a cross-platform package manager that works on any Unix-like
+platform. It is native to NetBSD and well-supported on Illumos, Linux, and
+MacOS.  Using pkgsrc does not require admin privileges.  The
+[auto-pkgsrc-setup](http://netbsd.org/~bacon/)
 can assist you with basic setup.
+
+To install via pkgsrc, first bootstrap pkgsrc using auto-pkgsrc-setup or any
+other means.  Then run the following commands:
+
+```
+cd pkgsrc-dir/sysutils/auto-admin
+bmake install clean
+cd pkgsrc-dir/wip/libxtend
+bmake install clean
+```
 
 To build libxtend locally (for development purposes, not recommended for
 regular use):

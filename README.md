@@ -50,8 +50,8 @@ pkg install libxtend
 pkgsrc is a cross-platform package manager that works on any Unix-like
 platform. It is native to NetBSD and well-supported on Illumos, Linux, and
 MacOS.  Using pkgsrc does not require admin privileges.  The
-[auto-pkgsrc-setup](http://netbsd.org/~bacon/)
-can assist you with basic setup.
+[auto-pkgsrc-setup](http://netbsd.org/~bacon/) script can assist you with
+basic setup.
 
 To install via pkgsrc, first bootstrap pkgsrc using auto-pkgsrc-setup or any
 other means.  Then run the following commands:

@@ -22,4 +22,18 @@ into sibling directories so that ../local represents a common path to all of
 them.
 
 To facilitate easy packaging, the Makefile respects standard make/environment
-variables such as CC, CFLAGS, PREFIX, etc.  View the Makefile for full details.
+variables such as CC, CFLAGS, PREFIX, etc.
+
+The default install prefix is ../local.  Clone libxtend and dependent apps
+into sibling directories so that ../local represents a common path to all of
+them.
+
+To facilitate easy packaging, the Makefile respects standard make/environment
+variables such as CC, CFLAGS, PREFIX, etc.  For example, to install to
+/myprefix:
+
+```
+make PREFIX=/myprefix install
+```
+
+View the Makefile for full details.

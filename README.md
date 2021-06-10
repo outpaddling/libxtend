@@ -7,7 +7,8 @@ They provide some convenient functionality lacking in standard library
 functions as well some more esoteric features.
 
 The Makefile is designed to be friendly to package managers, such as
-Debian packages, [FreeBSD ports](https://www.freebsd.org/ports/),
+[Debian packages](https://www.debian.org/distrib/packages),
+[FreeBSD ports](https://www.freebsd.org/ports/),
 [MacPorts](https://www.macports.org/), [pkgsrc](https://pkgsrc.org/), etc.
 End users should install via one of these if at all possible.
 

@@ -54,8 +54,9 @@ pkg install libxtend
 
 pkgsrc is a cross-platform package manager that works on any Unix-like
 platform. It is native to [NetBSD](https://www.netbsd.org/) and well-supported
-on [Illumos](https://illumos.org/), [CentOS](https://illumos.org/) and
-many other Linux distributions, and [MacOS](https://www.apple.com/macos/).
+on [Illumos](https://illumos.org/), [MacOS](https://www.apple.com/macos/),
+[RHEL](https://www.redhat.com)/[CentOS](https://www.centos.org/), and
+many other Linux distributions.
 Using pkgsrc does not require admin privileges.  You can install a pkgsrc
 tree in any directory to which you have write access and easily install any
 of the nearly 20,000 packages in the collection.  The

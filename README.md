@@ -33,8 +33,17 @@ End users should install via one of these if at all possible.
 I maintain a FreeBSD port and a pkgsrc package. pkgsrc is a cross-platform
 package manager that works on any Unix-like platform.  It is native to NetBSD
 and well-supported on Illumos, Linux, and MacOS.  Using pkgsrc does not
-require admin priveleges.  The [auto-pkgsrc-setup](http://netbsd.org/~bacon/)
+require admin privileges.  The [auto-pkgsrc-setup](http://netbsd.org/~bacon/)
 can assist you with basic setup.
+
+FreeBSD is a highly underrated platform for scientific computing, with over
+1,800 scientific libraries and applications in the FreeBSD ports collection,
+fully-integrated ZFS, and renowned performance and reliability.
+FreeBSD has a somewhat well-earned reputation for being difficult to set up
+and manage compared to user-friendly systems like Ubuntu.
+However, if you are a little bit Unix-savvy, you can very quickly set up a
+workstation, laptop, or VM using
+[desktop-installer](http://www.acadix.biz/desktop-installer.php).
 
 To build locally (for development purposes, not recommended for regular use):
 

@@ -43,7 +43,8 @@ workstation, laptop, or VM using
 [desktop-installer](http://www.acadix.biz/desktop-installer.php).  If
 you're new to Unix, you can also reap the benefits of FreeBSD by running
 [GhostBSD](https://ghostbsd.org/), a FreeBSD distribution augmented with a
-graphical installer and management tools.
+graphical installer and management tools.  GhostBSD does not offer as many
+options as desktop-installer, but it may be more comfortable for Unix novices.
 
 To install libxtend on FreeBSD:
 

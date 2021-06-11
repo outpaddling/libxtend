@@ -32,6 +32,8 @@ End users should install via one of these if at all possible.
 
 I maintain a FreeBSD port and a pkgsrc package.
 
+## Installing libxtend on FreeBSD:
+
 FreeBSD is a highly underrated platform for scientific computing, with over
 1,800 scientific libraries and applications in the FreeBSD ports collection
 (of more than 30,000 total), fully-integrated ZFS filesystem, and renowned
@@ -46,11 +48,11 @@ you're new to Unix, you can also reap the benefits of FreeBSD by running
 graphical installer and management tools.  GhostBSD does not offer as many
 options as desktop-installer, but it may be more comfortable for Unix novices.
 
-## To install libxtend on FreeBSD:
-
 ```
 pkg install libxtend
 ```
+
+## Installing via pkgsrc
 
 pkgsrc is a cross-platform package manager that works on any Unix-like
 platform. It is native to [NetBSD](https://www.netbsd.org/) and well-supported
@@ -62,8 +64,6 @@ tree in any directory to which you have write access and easily install any
 of the nearly 20,000 packages in the collection.  The
 [auto-pkgsrc-setup](http://netbsd.org/~bacon/) script can assist you with
 basic setup.
-
-## To install via pkgsrc
 
 First bootstrap pkgsrc using auto-pkgsrc-setup or any
 other method.  Then run the following commands:

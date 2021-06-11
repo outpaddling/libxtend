@@ -46,7 +46,7 @@ you're new to Unix, you can also reap the benefits of FreeBSD by running
 graphical installer and management tools.  GhostBSD does not offer as many
 options as desktop-installer, but it may be more comfortable for Unix novices.
 
-To install libxtend on FreeBSD:
+## To install libxtend on FreeBSD:
 
 ```
 pkg install libxtend
@@ -63,17 +63,25 @@ of the nearly 20,000 packages in the collection.  The
 [auto-pkgsrc-setup](http://netbsd.org/~bacon/) script can assist you with
 basic setup.
 
-To install via pkgsrc, first bootstrap pkgsrc using auto-pkgsrc-setup or any
+## To install via pkgsrc, first bootstrap pkgsrc using auto-pkgsrc-setup or any
 other method.  Then run the following commands:
 
 ```
-cd pkgsrc-dir/sysutils/auto-admin
-bmake install clean
-cd pkgsrc-dir/wip/libxtend
+cd pkgsrc-dir/devel/libxtend
 bmake install clean
 ```
 
-To build libxtend locally (for development purposes, not recommended for
+There may also be binary packages available for your platform.  If this is
+the case, you can install by running:
+
+```
+pkgin install libxtend
+```
+
+See the [Joyent Cloud Services Site](https://pkgsrc.joyent.com/) for
+available package sets.
+
+## To build libxtend locally (for development purposes, not recommended for
 regular use):
 
 1. Clone the repository

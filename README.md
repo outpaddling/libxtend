@@ -1,7 +1,6 @@
 # libxtend
 
-Purpose
-=======
+## Purpose
 
 libxtend is a library of miscellaneous generic C functions, the likes of
 which you might find in libc or libm.
@@ -9,8 +8,7 @@ which you might find in libc or libm.
 They provide some convenient functionality lacking in standard library
 functions as well some more esoteric features.
 
-Design and Implementation
-=========================
+## Design and Implementation
 
 The code is organized following basic object-oriented design principals, but
 implemented in C to minimize overhead and keep the source code accessible to
@@ -21,8 +19,15 @@ Structures are treated as classes, with accessor and mutator functions
 structure members directly.  Since the C language cannot enforce this, it's
 up to application programmers to exercise self-discipline.
 
-Building and installing
-=======================
+## Building and installing
+
+ad2vcf is intended to build cleanly in any POSIX environment.  Please
+don't hesitate to open an issue if you encounter problems on any
+Unix-like system.
+
+Primary development is done on FreeBSD with clang, but the code is frequently
+tested on CentOS, MacOS, and NetBSD as well.  MS Windows is not supported,
+unless using a POSIX environment such as Cygwin or Windows Subsystem for Linux.
 
 The Makefile is designed to be friendly to package managers, such as
 [Debian packages](https://www.debian.org/distrib/packages),
@@ -32,7 +37,7 @@ End users should install via one of these if at all possible.
 
 I maintain a FreeBSD port and a pkgsrc package.
 
-## Installing libxtend on FreeBSD:
+### Installing libxtend on FreeBSD:
 
 FreeBSD is a highly underrated platform for scientific computing, with over
 1,800 scientific libraries and applications in the FreeBSD ports collection
@@ -52,7 +57,7 @@ options as desktop-installer, but it may be more comfortable for Unix novices.
 pkg install libxtend
 ```
 
-## Installing via pkgsrc
+### Installing via pkgsrc
 
 pkgsrc is a cross-platform package manager that works on any Unix-like
 platform. It is native to [NetBSD](https://www.netbsd.org/) and well-supported
@@ -83,7 +88,7 @@ pkgin install libxtend
 See the [Joyent Cloud Services Site](https://pkgsrc.joyent.com/) for
 available package sets.
 
-## To build libxtend locally
+### Building libxtend locally
 
 Below are cave-man install instructions for development purposes, not
 recommended for regular use.

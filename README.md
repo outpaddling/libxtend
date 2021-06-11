@@ -63,7 +63,9 @@ of the nearly 20,000 packages in the collection.  The
 [auto-pkgsrc-setup](http://netbsd.org/~bacon/) script can assist you with
 basic setup.
 
-## To install via pkgsrc, first bootstrap pkgsrc using auto-pkgsrc-setup or any
+## To install via pkgsrc
+
+First bootstrap pkgsrc using auto-pkgsrc-setup or any
 other method.  Then run the following commands:
 
 ```
@@ -81,8 +83,10 @@ pkgin install libxtend
 See the [Joyent Cloud Services Site](https://pkgsrc.joyent.com/) for
 available package sets.
 
-## To build libxtend locally (for development purposes, not recommended for
-regular use):
+## To build libxtend locally
+
+Below are cave-man install instructions for development purposes, not
+recommended for regular use.
 
 1. Clone the repository
 2. Run "make depend" to update Makefile.depend

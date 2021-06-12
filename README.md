@@ -12,10 +12,10 @@ functions as well some more esoteric features.
 
 The code is organized following basic object-oriented design principals, but
 implemented in C to minimize overhead and keep the source code accessible to
-scientists who don't have time to master the complexities of C++.
+those who don't have time to master the complexities of C++.
 
 Structures are treated as classes, with accessor and mutator functions
-(or macros) provided, so dependent applications and libraries need not access
+(or macros) provided, so dependent applications and libraries should not access
 structure members directly.  Since the C language cannot enforce this, it's
 up to application programmers to exercise self-discipline.
 
@@ -39,9 +39,9 @@ I maintain a FreeBSD port and a pkgsrc package.
 
 ### Installing libxtend on FreeBSD:
 
-FreeBSD is a highly underrated platform for scientific computing, with over
-1,800 scientific libraries and applications in the FreeBSD ports collection
-(of more than 30,000 total), modern clang compiler, fully-integrated ZFS
+FreeBSD is a highly underrated platform for many types of computing, with over
+30,000 libraries and applications in the FreeBSD ports collection,
+modern clang compiler, fully-integrated ZFS
 filesystem, and renowned security, performance, and reliability.
 FreeBSD has a somewhat well-earned reputation for being difficult to set up
 and manage compared to user-friendly systems like [Ubuntu](https://ubuntu.com/).

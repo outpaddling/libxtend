@@ -50,7 +50,12 @@ FILE    *xt_fopen(const char *filename, const char *mode)
     {
 	if ( strcmp(ext, ".gz") == 0 )
 	{
+// Big Sur zcat requires a .Z extension and CentOS 7 lacks gzcat
+#ifdef __APPLE__
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "gzcat %s", filename);
+#else
 	    snprintf(cmd, XT_CMD_MAX_CHARS, "zcat %s", filename);
+#endif
 	    return popen(cmd, mode);
 	}
 	else if ( strcmp(ext, ".bz2") == 0 )

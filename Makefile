@@ -90,6 +90,7 @@ LOCALBASE   ?= ../local
 # environment, or a command line option such as PREFIX=/opt/local.
 PREFIX      ?= ${LOCALBASE}
 MANPREFIX   ?= ${PREFIX}
+MANDIR      ?= ${MANPREFIX}/man
 
 ############################################################################
 # Build flags
@@ -195,11 +196,11 @@ realclean: clean
 
 common-install:
 	${MKDIR} -p ${DESTDIR}${PREFIX}/lib ${DESTDIR}${PREFIX}/include \
-		    ${DESTDIR}${PREFIX}/man/man3
+		    ${DESTDIR}${MANDIR}/man3
 	for file in ${HEADERS}; do \
 	    ${INSTALL} -m 0444 $${file} ${DESTDIR}${PREFIX}/include; \
 	done
-	${INSTALL} -m 0444 Man/*.3 ${DESTDIR}${MANPREFIX}/man/man3
+	${INSTALL} -m 0444 Man/*.3 ${DESTDIR}${MANDIR}/man3
 	${INSTALL} -m 0444 ${SLIB} ${DESTDIR}${PREFIX}/lib
 
 # CentOS 7 install does not support -l, use ln directly

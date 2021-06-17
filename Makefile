@@ -89,6 +89,8 @@ LOCALBASE   ?= ../local
 # Install in ../local, unless defined by the parent Makefile, the
 # environment, or a command line option such as PREFIX=/opt/local.
 PREFIX      ?= ${LOCALBASE}
+
+# Allow caller to override either MANPREFIX or MANDIR
 MANPREFIX   ?= ${PREFIX}
 MANDIR      ?= ${MANPREFIX}/man
 

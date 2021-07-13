@@ -142,6 +142,9 @@ CHMOD   ?= chmod
 ############################################################################
 # Standard targets required by package managers
 
+.PHONY: all apple depend clean realclean
+.PHONY: common-install install install-strip apple-install test help
+
 all:    ${SLIB} ${DLIB}
 
 apple:  ${SLIB} ${DYLIB}

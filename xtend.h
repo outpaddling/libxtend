@@ -51,6 +51,23 @@
 #define P_EXIT_CODE(s)      (((s) & 0x0000ff00) >> 8)
 #define P_EXEC_FAILED(s)    ( (s) & 0x8000 )
 
+/*
+ *  Delimiter-separated data
+ */
+
+#define DSV_INIT                { 0, 0, NULL, NULL }
+#define DSV_FIELD_MAX_CHARS     32767
+
+#define DSV_FIELD(line,col)     ((line)->fields[col-1]) // 1-based column
+
+typedef struct
+{
+    size_t      array_size,
+		num_fields;
+    char        **fields,
+		*delims;
+}   dsv_line_t;
+
 #include "xtend-protos.h"
 
 #endif  // __xtend_h__

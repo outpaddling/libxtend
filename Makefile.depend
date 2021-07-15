@@ -1,6 +1,9 @@
 difftimeofday.o: difftimeofday.c
 	${CC} -c ${CFLAGS} difftimeofday.c
 
+dsv.o: dsv.c xtend.h xtend-protos.h
+	${CC} -c ${CFLAGS} dsv.c
+
 fast-cp.o: fast-cp.c xtend.h xtend-protos.h
 	${CC} -c ${CFLAGS} fast-cp.c
 
@@ -52,7 +55,7 @@ strptrcmp.o: strptrcmp.c
 strshellcpy.o: strshellcpy.c xtend.h xtend-protos.h
 	${CC} -c ${CFLAGS} strshellcpy.c
 
-strsqueeze.o: strsqueeze.c
+strsqueeze.o: strsqueeze.c xtend.h xtend-protos.h
 	${CC} -c ${CFLAGS} strsqueeze.c
 
 va-usage.o: va-usage.c xtend.h xtend-protos.h

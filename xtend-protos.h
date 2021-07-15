@@ -1,5 +1,15 @@
 /* difftimeofday.c */
 time_t difftimeofday(struct timeval *later, struct timeval *earlier);
+/* dsv.c */
+int dsv_read_field(FILE *stream, char buff[], size_t buff_size, const char *delims, size_t *len);
+int dsv_skip_field(FILE *stream, const char *delims);
+int dsv_skip_rest_of_line(FILE *stream);
+int tsv_read_field(FILE *stream, char buff[], size_t buff_size, size_t *len);
+int tsv_skip_field(FILE *stream);
+int tsv_skip_rest_of_line(FILE *stream);
+int csv_read_field(FILE *stream, char buff[], size_t buff_size, size_t *len);
+int csv_skip_field(FILE *stream);
+int csv_skip_rest_of_line(FILE *stream);
 /* fast-cp.c */
 int fast_cp(const char *source, const char *dest);
 /* fd-purge.c */

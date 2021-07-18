@@ -48,7 +48,7 @@ SLIB    = lib${LIB}.a
 
 # Dynamic/shared library
 # Increment when the API changes
-API_VER = 1
+API_VER = 2
 # Increment for changes that don't affect the API
 LIB_VER = 0
 

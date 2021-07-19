@@ -1,5 +1,5 @@
-#ifndef __xtend_h__
-#define __xtend_h__
+#ifndef _xtend_h_
+#define _xtend_h_
 
 #ifndef _STDIO_H_
 #include <stdio.h>
@@ -9,7 +9,7 @@
 #include <sys/time.h>
 #endif
 
-#ifndef _SYS_STAT_H
+#ifndef _SYS_STAT_H_
 #include <sys/stat.h>   // mode_t on Darwin
 #endif
 
@@ -49,7 +49,7 @@
 
 #define P_TERM_STATUS(s)    ((s) & 0xff)
 #define P_EXIT_CODE(s)      (((s) & 0x0000ff00) >> 8)
-#define P_EXEC_FAILED(s)    ( (s) & 0x8000 )
+#define P_EXEC_FAILED(s)    ((s) & 0x8000)
 
 /*
  *  Delimiter-separated data
@@ -70,4 +70,4 @@ typedef struct
 
 #include "xtend-protos.h"
 
-#endif  // __xtend_h__
+#endif  // _xtend_h_

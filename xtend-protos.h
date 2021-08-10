@@ -2,6 +2,7 @@
 time_t difftimeofday(struct timeval *later, struct timeval *earlier);
 /* dsv.c */
 int dsv_read_field(FILE *stream, char buff[], size_t buff_size, const char *delims, size_t *len);
+int     dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size, const char *delims, size_t *len);
 int dsv_skip_field(FILE *stream, const char *delims);
 int dsv_skip_rest_of_line(FILE *stream);
 int dsv_read_line(FILE *stream, dsv_line_t *dsv_line, const char *delims);

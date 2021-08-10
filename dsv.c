@@ -24,7 +24,8 @@
  *      Delimiter ending the field (either a member of delim or newline)
  *
  *  See also:
- *      dsv_skip_field(3), dsv_skip_rest_of_line(3), dsv_read_line(3)
+ *      dsv_read_field_malloc(3), dsv_skip_field(3),
+ *      dsv_skip_rest_of_line(3), dsv_read_line(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -66,6 +67,74 @@ int     dsv_read_field(FILE *stream, char buff[], size_t buff_size,
  *      -lbiolibc
  *
  *  Description:
+ *      Read next delimiter-separated field from stream, allocating a
+ *      buffer to fit in the fashion of strdup(3). The fields may be
+ *      ended by any character in the string delims or by a newline ('\n').
+ *
+ *  Arguments:
+ *      stream:     FILE stream from which field is read
+ *      buff:       Character buffer into which field is copied
+ *      buff_size:  Size of the array passed to buff
+ *      delims:     Array of characters that may serve as delimiters
+ *      len:        Pointer to a variable which will receive the field length
+ *
+ *  Returns:
+ *      Delimiter ending the field (either a member of delim or newline)
+ *
+ *  See also:
+ *      dsv_read_field(3), dsv_skip_field(3), dsv_skip_rest_of_line(3),
+ *      dsv_read_line(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-02-24  Jason Bacon Begin
+ ***************************************************************************/
+
+int     dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
+		       const char *delims, size_t *len)
+
+{
+    size_t  c;
+    int     ch;
+    
+    if ( *buff_size == 0 )
+    {
+	*buff_size = 1024;
+	*buff = xt_malloc(*buff_size, sizeof(**buff));
+	if ( *buff == NULL )
+	    return XT_READ_MALLOC_FAILED;
+    }
+    
+    for (c = 0; (c < *buff_size) && 
+			  ( strchr(delims, ch = getc(stream)) == NULL) &&
+			  (ch != '\n') && (ch != EOF); ++c )
+    {
+	if ( c == *buff_size )
+	{
+	    *buff_size *= 2;
+	    *buff = xt_realloc(*buff, *buff_size, sizeof(**buff));
+	    if ( *buff == NULL )
+		return XT_READ_MALLOC_FAILED;
+	}
+	(*buff)[c] = ch;
+    }
+    (*buff)[c] = '\0';
+    *len = c;
+
+    /* Trim array */
+    *buff_size = c + 1;
+    *buff = xt_realloc(*buff, *buff_size, sizeof(**buff));
+    
+    return ch;
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <xtend.h>
+ *      -lbiolibc
+ *
+ *  Description:
  *      Read and discard next delimiter-separated field from stream. The
  *      fields may be ended by any character in the string delims or by a
  *      newline ('\n').
@@ -78,7 +147,8 @@ int     dsv_read_field(FILE *stream, char buff[], size_t buff_size,
  *      Delimiter ending the field (either a member of delim or newline)
  *
  *  See also:
- *      dsv_read_field(3), dsv_skip_rest_of_line(3), dsv_read_line(3)
+ *      dsv_read_field(3), dsv_read_field_malloc(3),
+ *      dsv_skip_rest_of_line(3), dsv_read_line(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -114,7 +184,8 @@ int     dsv_skip_field(FILE *stream, const char *delims)
  *      Delimiter ending the field (should always be newline ('\n'))
  *
  *  See also:
- *      dsv_read_field(3), dsv_skip_field(3), dsv_read_line(3)
+ *      dsv_read_field(3), dsv_read_field_malloc(3),
+ *      dsv_skip_field(3), dsv_read_line(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -159,7 +230,8 @@ int     dsv_skip_rest_of_line(FILE *stream)
  *      Actual delimiter of last field (should be newline)
  *
  *  See also:
- *      dsv_read_field(3), dsv_skip_field(3), dsv_skip_rest_of_line(3)
+ *      dsv_read_field(3), dsv_read_field_malloc(3),
+ *      dsv_skip_field(3), dsv_skip_rest_of_line(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -362,6 +434,32 @@ int     tsv_read_field(FILE *stream, char buff[], size_t buff_size,
  *      -lbiolibc
  *
  *  Description:
+ *      Equivalent to dsv_read_field_malloc(stream, *buff, *buff_size, '\\\\\t', len)
+ *
+ *  Arguments:
+ *      stream:     FILE stream from which field is read
+ *      buff:       Character buff into which field is copied
+ *      buff_size:  Size of the array passed to buff
+ *      len:        Pointer to a variable which will receive the field length
+ *
+ *  See also:
+ *      dsv_read_field_malloc(3)
+ ***************************************************************************/
+
+int     tsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
+		       size_t *len)
+
+{
+    return dsv_read_field_malloc(stream, buff, buff_size, "\t", len);
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <xtend.h>
+ *      -lbiolibc
+ *
+ *  Description:
  *      Equivalent to dsv_skip_field(stream, '\\\\\t')
  *
  *  Arguments:
@@ -423,6 +521,32 @@ int     csv_read_field(FILE *stream, char buff[], size_t buff_size,
 
 {
     return dsv_read_field(stream, buff, buff_size, ",", len);
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <xtend.h>
+ *      -lbiolibc
+ *
+ *  Description:
+ *      Equivalent to dsv_read_field_malloc(stream, *buff, *buff_size, ',', len)
+ *
+ *  Arguments:
+ *      stream:     FILE stream from which field is read
+ *      buff:       Character buff into which field is copied
+ *      buff_size:  Size of the array passed to buff
+ *      len:        Pointer to a variable which will receive the field length
+ *
+ *  See also:
+ *      dsv_read_field_malloc(3)
+ ***************************************************************************/
+
+int     csv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
+		       size_t *len)
+
+{
+    return dsv_read_field_malloc(stream, buff, buff_size, ",", len);
 }
 
 

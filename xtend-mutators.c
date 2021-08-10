@@ -8,7 +8,6 @@
 
 #include <string.h>
 #include <ctype.h>
-#include <xtend.h>  // strlcpy() on Linux
 #include "xtend.h"
 
 

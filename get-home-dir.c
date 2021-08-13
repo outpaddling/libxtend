@@ -3,6 +3,7 @@
 #include <sys/types.h>
 #include <pwd.h>
 #include "file.h"
+#include "string.h"
 
 /***************************************************************************
  *  Library:

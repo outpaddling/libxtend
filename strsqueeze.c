@@ -1,3 +1,6 @@
+#include <string.h>
+#include "string.h"
+
 /***************************************************************************
  *  Library:
  *      #include <xtend/string.h>
@@ -30,9 +33,6 @@
  *  Date        Name        Modification
  *  2021-05-29  Jason Bacon Begin
  ***************************************************************************/
-
-#include <string.h>
-#include "string.h"
 
 size_t  strsqueeze(char *dest, const char *src, size_t dstsize)
 

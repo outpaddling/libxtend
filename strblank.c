@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <ctype.h>
+#include "string.h"
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/string.h>
  *      -lxtend
  *
  *  Description:

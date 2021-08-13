@@ -1,10 +1,10 @@
 #include <string.h>
 #include <sys/stat.h>
-#include "xtend.h"
+#include "file.h"
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/file.h>
  *      -lxtend
  *
  *  Description:
@@ -96,7 +96,7 @@ FILE    *xt_fopen(const char *filename, const char *mode)
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/file.h>
  *      -lxtend
  *
  *  Description:

@@ -2,11 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sysexits.h>
-#include "xtend.h"
+#include "dsv.h"
+#include "mem.h"
+#include "file.h"
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lbiolibc
  *
  *  Description:
@@ -63,7 +65,7 @@ int     dsv_read_field(FILE *stream, char buff[], size_t buff_size,
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lbiolibc
  *
  *  Description:
@@ -131,7 +133,7 @@ int     dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lbiolibc
  *
  *  Description:
@@ -170,7 +172,7 @@ int     dsv_skip_field(FILE *stream, const char *delims)
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lbiolibc
  *
  *  Description:
@@ -205,7 +207,7 @@ int     dsv_skip_rest_of_line(FILE *stream)
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lbiolibc
  *
  *  Description:
@@ -299,7 +301,7 @@ int     dsv_read_line(FILE *stream, dsv_line_t *dsv_line, const char *delims)
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lbiolibc
  *
  *  Description:
@@ -329,7 +331,7 @@ void    dsv_write_line(FILE *stream, dsv_line_t *dsv_line)
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lbiolibc
  *
  *  Description:
@@ -370,7 +372,7 @@ void    dsv_copy_line(dsv_line_t *dest, dsv_line_t *src)
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lbiolibc
  *
  *  Description:
@@ -404,7 +406,7 @@ void    dsv_free_line(dsv_line_t *dsv_line)
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lbiolibc
  *
  *  Description:
@@ -430,7 +432,7 @@ int     tsv_read_field(FILE *stream, char buff[], size_t buff_size,
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lbiolibc
  *
  *  Description:
@@ -456,7 +458,7 @@ int     tsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lbiolibc
  *
  *  Description:
@@ -478,7 +480,7 @@ int     tsv_skip_field(FILE *stream)
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lbiolibc
  *
  *  Description:
@@ -500,7 +502,7 @@ int     tsv_skip_rest_of_line(FILE *stream)
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lbiolibc
  *
  *  Description:
@@ -526,7 +528,7 @@ int     csv_read_field(FILE *stream, char buff[], size_t buff_size,
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lbiolibc
  *
  *  Description:
@@ -552,7 +554,7 @@ int     csv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lbiolibc
  *
  *  Description:
@@ -574,7 +576,7 @@ int     csv_skip_field(FILE *stream)
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lbiolibc
  *
  *  Description:

@@ -4,11 +4,12 @@
 #include <sys/stat.h>
 #include <sysexits.h>
 #include <sys/param.h>  // MIN()
-#include "xtend.h"
+#include "file.h"
+#include "math.h"       // lcm()
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/file.h>
  *      -lxtend
  *
  *  Description:
@@ -51,7 +52,7 @@ int     fast_cp(const char *source, const char *dest)
        st_blksize */
     fstat(infile,&infile_stats);
     fstat(outfile,&outfile_stats);
-    x = LCM(infile_stats.st_blksize,outfile_stats.st_blksize);
+    x = lcm(infile_stats.st_blksize,outfile_stats.st_blksize);
     buff_size = MIN(x,64*1024);
 
     if ( (buff = (char *)malloc(buff_size)) == NULL )

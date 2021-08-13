@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <ctype.h>
-#include "xtend.h"
+#include "string.h"
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/string.h>
  *      -lxtend
  *
  *  Description:
- *      viscpy() copies a string from src to dest, converting invisible
+ *      strviscpy() copies a string from src to dest, converting invisible
  *      characters to a visible format much like the vis command or cat -v.
  *  
  *  Arguments:
@@ -27,7 +27,7 @@
  *  Circa 1990  Jason Bacon Begin
  ***************************************************************************/
 
-char    *viscpy(unsigned char *dest, const unsigned char *src,
+char    *strviscpy(unsigned char *dest, const unsigned char *src,
 		size_t maxlen)
 
 {

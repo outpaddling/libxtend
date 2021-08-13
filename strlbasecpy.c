@@ -1,8 +1,8 @@
-#include "xtend.h"
+#include "string.h"
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/string.h>
  *      -lxtend
  *
  *  Description:

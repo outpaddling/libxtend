@@ -68,16 +68,14 @@ CURRENT_VERSION = ${API_VER}.${LIB_VER}
 # Fortunately most platforms don't need this.
 DYLIB_PATH ?= $(shell realpath ${PREFIX}/lib)
 
-HEADERS = xtend.h xtend-protos.h
-
 ############################################################################
 # List object files that comprise BIN.
 
 OBJS    = valid-extension.o xt-file.o strisnum.o strptrcmp.o difftimeofday.o \
 	  fast-cp.o gcd.o fd-purge.o fgetline.o file-mod-cmp.o get-home-dir.o \
-	  ltostrn.o strshellcpy.o num_size.o parse-cmd.o rmkdir.o \
-	  spawnlp.o spawnvp.o strlbasecpy.o strblank.o va-usage.o viscpy.o \
-	  xt-malloc.o strsqueeze.o dsv.o xtend-mutators.o
+	  ltostrn.o strshellcpy.o digits.o parse-cmd.o rmkdir.o \
+	  spawnlp.o spawnvp.o strlbasecpy.o strblank.o va-usage.o strviscpy.o \
+	  xt-malloc.o strsqueeze.o dsv.o dsv-mutators.o
 
 ############################################################################
 # Compile, link, and install options
@@ -200,11 +198,9 @@ realclean: clean
 # Install all target files (binaries, libraries, docs, etc.)
 
 common-install:
-	${MKDIR} -p ${DESTDIR}${PREFIX}/lib ${DESTDIR}${PREFIX}/include \
+	${MKDIR} -p ${DESTDIR}${PREFIX}/lib ${DESTDIR}${PREFIX}/include/xtend \
 		    ${DESTDIR}${MANDIR}/man3
-	for file in ${HEADERS}; do \
-	    ${INSTALL} -m 0444 $${file} ${DESTDIR}${PREFIX}/include; \
-	done
+	${INSTALL} -m 0444 *.h ${DESTDIR}${PREFIX}/include/xtend; \
 	${INSTALL} -m 0444 Man/*.3 ${DESTDIR}${MANDIR}/man3
 	${INSTALL} -m 0444 ${SLIB} ${DESTDIR}${PREFIX}/lib
 

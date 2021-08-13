@@ -1,6 +1,6 @@
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/string.h>
  *      -lxtend
  *
  *  Description:
@@ -32,7 +32,7 @@
  ***************************************************************************/
 
 #include <string.h>
-#include "xtend.h"
+#include "string.h"
 
 size_t  strsqueeze(char *dest, const char *src, size_t dstsize)
 

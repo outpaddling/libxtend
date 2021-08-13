@@ -1,11 +1,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
-#include "xtend.h"
+#include "proc.h"
+#include "string.h" // strshellcpy()
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h
+ *      #include <xtend/proc.h>
  *      -lxtend
  *
  *  Description:
@@ -25,14 +26,14 @@
  *  Circa 1990  Jason Bacon Begin
  ***************************************************************************/
 
-void    parse_cmd(char *argv[], char *cmd)
+void    parse_cmd(char *argv[], char *cmd, size_t cmd_max_chars)
 
 {
-    static char cmd2[XT_CMD_MAX_CHARS + 1];
+    char    cmd2[cmd_max_chars + 1];
     int     c;
 
     /* Expand shell meta-characters */
-    strshellcpy(cmd2, cmd, XT_CMD_MAX_CHARS);
+    strshellcpy(cmd2, cmd, cmd_max_chars);
     
     /* Break command into tokens for argv[] */
     argv[0] = strtok(cmd2, " \t");

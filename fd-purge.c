@@ -1,9 +1,10 @@
 #include <unistd.h>
 #include <fcntl.h>
+#include "file.h"
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/file.h>
  *      -lxtend
  *
  *  Description:

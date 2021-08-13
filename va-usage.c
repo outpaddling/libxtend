@@ -2,11 +2,12 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <sysexits.h>
-#include "xtend.h"
+#include "proc.h"
+#include "limits.h"
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/proc.h>
  *      -lxtend
  *
  *  Description:

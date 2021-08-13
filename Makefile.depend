@@ -1,75 +1,78 @@
-difftimeofday.o: difftimeofday.c
+difftimeofday.o: difftimeofday.c time.h
 	${CC} -c ${CFLAGS} difftimeofday.c
 
-dsv.o: dsv.c xtend.h xtend-protos.h
+digits.o: digits.c math.h
+	${CC} -c ${CFLAGS} digits.c
+
+dsv-mutators.o: dsv-mutators.c string.h dsv.h
+	${CC} -c ${CFLAGS} dsv-mutators.c
+
+dsv.o: dsv.c dsv.h mem.h file.h
 	${CC} -c ${CFLAGS} dsv.c
 
-fast-cp.o: fast-cp.c xtend.h xtend-protos.h
+fast-cp.o: fast-cp.c file.h math.h
 	${CC} -c ${CFLAGS} fast-cp.c
 
-fd-purge.o: fd-purge.c
+fd-purge.o: fd-purge.c file.h
 	${CC} -c ${CFLAGS} fd-purge.c
 
-fgetline.o: fgetline.c
+fgetline.o: fgetline.c file.h
 	${CC} -c ${CFLAGS} fgetline.c
 
-file-mod-cmp.o: file-mod-cmp.c
+file-mod-cmp.o: file-mod-cmp.c file.h
 	${CC} -c ${CFLAGS} file-mod-cmp.c
 
-gcd.o: gcd.c
+gcd.o: gcd.c math.h
 	${CC} -c ${CFLAGS} gcd.c
 
-get-home-dir.o: get-home-dir.c xtend.h xtend-protos.h
+get-home-dir.o: get-home-dir.c file.h
 	${CC} -c ${CFLAGS} get-home-dir.c
 
-ltostrn.o: ltostrn.c
+ltostrn.o: ltostrn.c string.h
 	${CC} -c ${CFLAGS} ltostrn.c
 
-num_size.o: num_size.c
-	${CC} -c ${CFLAGS} num_size.c
-
-parse-cmd.o: parse-cmd.c xtend.h xtend-protos.h
+parse-cmd.o: parse-cmd.c proc.h string.h
 	${CC} -c ${CFLAGS} parse-cmd.c
 
-rmkdir.o: rmkdir.c xtend.h xtend-protos.h
+rmkdir.o: rmkdir.c file.h
 	${CC} -c ${CFLAGS} rmkdir.c
 
-spawnlp.o: spawnlp.c xtend.h xtend-protos.h
+spawnlp.o: spawnlp.c proc.h
 	${CC} -c ${CFLAGS} spawnlp.c
 
-spawnvp.o: spawnvp.c xtend.h xtend-protos.h
+spawnvp.o: spawnvp.c proc.h
 	${CC} -c ${CFLAGS} spawnvp.c
 
-strblank.o: strblank.c
+strblank.o: strblank.c string.h
 	${CC} -c ${CFLAGS} strblank.c
 
-strisnum.o: strisnum.c
+strisnum.o: strisnum.c string.h
 	${CC} -c ${CFLAGS} strisnum.c
 
-strlbasecpy.o: strlbasecpy.c xtend.h xtend-protos.h
+strlbasecpy.o: strlbasecpy.c string.h
 	${CC} -c ${CFLAGS} strlbasecpy.c
 
-strptrcmp.o: strptrcmp.c
+strptrcmp.o: strptrcmp.c string.h
 	${CC} -c ${CFLAGS} strptrcmp.c
 
-strshellcpy.o: strshellcpy.c xtend.h xtend-protos.h
+strshellcpy.o: strshellcpy.c string.h file.h ctype.h
 	${CC} -c ${CFLAGS} strshellcpy.c
 
-strsqueeze.o: strsqueeze.c xtend.h xtend-protos.h
+strsqueeze.o: strsqueeze.c string.h
 	${CC} -c ${CFLAGS} strsqueeze.c
 
-va-usage.o: va-usage.c xtend.h xtend-protos.h
+strviscpy.o: strviscpy.c string.h
+	${CC} -c ${CFLAGS} strviscpy.c
+
+va-usage.o: va-usage.c proc.h limits.h
 	${CC} -c ${CFLAGS} va-usage.c
 
-valid-extension.o: valid-extension.c
+valid-extension.o: valid-extension.c file.h
 	${CC} -c ${CFLAGS} valid-extension.c
 
-viscpy.o: viscpy.c xtend.h xtend-protos.h
-	${CC} -c ${CFLAGS} viscpy.c
-
-xt-file.o: xt-file.c xtend.h xtend-protos.h
+xt-file.o: xt-file.c file.h
 	${CC} -c ${CFLAGS} xt-file.c
 
-xt-malloc.o: xt-malloc.c
+xt-malloc.o: xt-malloc.c mem.h
 	${CC} -c ${CFLAGS} xt-malloc.c
 

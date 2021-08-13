@@ -1,11 +1,13 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <ctype.h>
-#include "xtend.h"
+#include "string.h"
+#include "file.h"
+#include "ctype.h"
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/string.h>
  *      -lxtend
  *
  *  Description:

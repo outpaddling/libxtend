@@ -2,11 +2,11 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
-#include "xtend.h"
+#include "file.h"
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/file.h>
  *      -lxtend
  *
  *  Description:

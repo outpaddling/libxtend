@@ -1,8 +1,9 @@
 #include <stdlib.h>
+#include "mem.h"
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/mem.h>
  *      -lxtend
  *
  *  Description:
@@ -44,7 +45,7 @@ void    *xt_malloc(size_t nelem, size_t size)
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/mem.h>
  *      -lxtend
  *
  *  Description:

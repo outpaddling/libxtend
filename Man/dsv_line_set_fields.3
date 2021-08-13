@@ -5,7 +5,7 @@
 \" Indicate #includes, library name, -L and -l flags
 .nf
 .na
-#include <XT_xtend.h>
+#include <xtend/dsv.h>
 -lxtend
 .ad
 .fi
@@ -50,7 +50,7 @@ of new_fields is guaranteed by other means.
 dsv_line_t      dsv_line;
 char **         new_fields;
 
-if ( dsv_line_set_fields(&dsv_line, new_fields) == XT_DATA_OK )
+if ( dsv_line_set_fields(&dsv_line, new_fields) == DSV_DATA_OK )
 {
 }
 .ad

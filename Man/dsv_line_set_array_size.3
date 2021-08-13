@@ -5,7 +5,7 @@
 \" Indicate #includes, library name, -L and -l flags
 .nf
 .na
-#include <XT_xtend.h>
+#include <xtend/dsv.h>
 -lxtend
 .ad
 .fi
@@ -50,7 +50,7 @@ of new_array_size is guaranteed by other means.
 dsv_line_t      dsv_line;
 size_t          new_array_size;
 
-if ( dsv_line_set_array_size(&dsv_line, new_array_size) == XT_DATA_OK )
+if ( dsv_line_set_array_size(&dsv_line, new_array_size) == DSV_DATA_OK )
 {
 }
 .ad

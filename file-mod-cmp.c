@@ -1,9 +1,10 @@
 #include <errno.h>
 #include <sys/stat.h>
+#include "file.h"
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/file.h>
  *      -lxtend
  *
  *  Description:

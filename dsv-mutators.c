@@ -8,12 +8,13 @@
 
 #include <string.h>
 #include <ctype.h>
-#include "xtend.h"
+#include "string.h" // strlcpy() on Linux
+#include "dsv.h"
 
 
 /***************************************************************************
  *  Library:
- *      #include <XT_xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lxtend
  *
  *  Description:
@@ -36,14 +37,14 @@
  *      new_array_size  The new value for array_size
  *
  *  Returns:
- *      XT_DATA_OK if the new value is acceptable and assigned
- *      XT_DATA_OUT_OF_RANGE otherwise
+ *      DSV_DATA_OK if the new value is acceptable and assigned
+ *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      dsv_line_t      dsv_line;
  *      size_t          new_array_size;
  *
- *      if ( dsv_line_set_array_size(&dsv_line, new_array_size) == XT_DATA_OK )
+ *      if ( dsv_line_set_array_size(&dsv_line, new_array_size) == DSV_DATA_OK )
  *      {
  *      }
  *
@@ -52,7 +53,7 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-08-10  gen-get-set Auto-generated from xtend.h
+ *  2021-08-13  gen-get-set Auto-generated from dsv.h
  ***************************************************************************/
 
 int     dsv_line_set_array_size(dsv_line_t *dsv_line_ptr, size_t new_array_size)
@@ -60,18 +61,18 @@ int     dsv_line_set_array_size(dsv_line_t *dsv_line_ptr, size_t new_array_size)
 {
     /* FIXME: Replace this with a proper sanity check */
     if ( 0 )
-	return XT_DATA_OUT_OF_RANGE;
+	return DSV_DATA_OUT_OF_RANGE;
     else
     {
 	dsv_line_ptr->array_size = new_array_size;
-	return XT_DATA_OK;
+	return DSV_DATA_OK;
     }
 }
 
 
 /***************************************************************************
  *  Library:
- *      #include <XT_xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lxtend
  *
  *  Description:
@@ -94,14 +95,14 @@ int     dsv_line_set_array_size(dsv_line_t *dsv_line_ptr, size_t new_array_size)
  *      new_num_fields  The new value for num_fields
  *
  *  Returns:
- *      XT_DATA_OK if the new value is acceptable and assigned
- *      XT_DATA_OUT_OF_RANGE otherwise
+ *      DSV_DATA_OK if the new value is acceptable and assigned
+ *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      dsv_line_t      dsv_line;
  *      size_t          new_num_fields;
  *
- *      if ( dsv_line_set_num_fields(&dsv_line, new_num_fields) == XT_DATA_OK )
+ *      if ( dsv_line_set_num_fields(&dsv_line, new_num_fields) == DSV_DATA_OK )
  *      {
  *      }
  *
@@ -110,7 +111,7 @@ int     dsv_line_set_array_size(dsv_line_t *dsv_line_ptr, size_t new_array_size)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-08-10  gen-get-set Auto-generated from xtend.h
+ *  2021-08-13  gen-get-set Auto-generated from dsv.h
  ***************************************************************************/
 
 int     dsv_line_set_num_fields(dsv_line_t *dsv_line_ptr, size_t new_num_fields)
@@ -118,18 +119,18 @@ int     dsv_line_set_num_fields(dsv_line_t *dsv_line_ptr, size_t new_num_fields)
 {
     /* FIXME: Replace this with a proper sanity check */
     if ( 0 )
-	return XT_DATA_OUT_OF_RANGE;
+	return DSV_DATA_OUT_OF_RANGE;
     else
     {
 	dsv_line_ptr->num_fields = new_num_fields;
-	return XT_DATA_OK;
+	return DSV_DATA_OK;
     }
 }
 
 
 /***************************************************************************
  *  Library:
- *      #include <XT_xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lxtend
  *
  *  Description:
@@ -152,14 +153,14 @@ int     dsv_line_set_num_fields(dsv_line_t *dsv_line_ptr, size_t new_num_fields)
  *      new_fields      The new value for fields
  *
  *  Returns:
- *      XT_DATA_OK if the new value is acceptable and assigned
- *      XT_DATA_OUT_OF_RANGE otherwise
+ *      DSV_DATA_OK if the new value is acceptable and assigned
+ *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      dsv_line_t      dsv_line;
  *      char **         new_fields;
  *
- *      if ( dsv_line_set_fields(&dsv_line, new_fields) == XT_DATA_OK )
+ *      if ( dsv_line_set_fields(&dsv_line, new_fields) == DSV_DATA_OK )
  *      {
  *      }
  *
@@ -168,7 +169,7 @@ int     dsv_line_set_num_fields(dsv_line_t *dsv_line_ptr, size_t new_num_fields)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-08-10  gen-get-set Auto-generated from xtend.h
+ *  2021-08-13  gen-get-set Auto-generated from dsv.h
  ***************************************************************************/
 
 int     dsv_line_set_fields(dsv_line_t *dsv_line_ptr, char ** new_fields)
@@ -176,18 +177,18 @@ int     dsv_line_set_fields(dsv_line_t *dsv_line_ptr, char ** new_fields)
 {
     /* FIXME: Replace this with a proper sanity check */
     if ( new_fields == NULL )
-	return XT_DATA_OUT_OF_RANGE;
+	return DSV_DATA_OUT_OF_RANGE;
     else
     {
 	dsv_line_ptr->fields = new_fields;
-	return XT_DATA_OK;
+	return DSV_DATA_OK;
     }
 }
 
 
 /***************************************************************************
  *  Library:
- *      #include <XT_xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lxtend
  *
  *  Description:
@@ -206,15 +207,15 @@ int     dsv_line_set_fields(dsv_line_t *dsv_line_ptr, char ** new_fields)
  *      new_fields_element The new value for fields[c]
  *
  *  Returns:
- *      XT_DATA_OK if the new value is acceptable and assigned
- *      XT_DATA_OUT_OF_RANGE otherwise
+ *      DSV_DATA_OK if the new value is acceptable and assigned
+ *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      dsv_line_t      dsv_line;
  *      size_t          c;
  *      char **         new_fields_element;
  *
- *      if ( dsv_line_set_fields(&dsv_line, c, new_fields_element) == XT_DATA_OK )
+ *      if ( dsv_line_set_fields(&dsv_line, c, new_fields_element) == DSV_DATA_OK )
  *      {
  *      }
  *
@@ -223,7 +224,7 @@ int     dsv_line_set_fields(dsv_line_t *dsv_line_ptr, char ** new_fields)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-08-10  gen-get-set Auto-generated from xtend.h
+ *  2021-08-13  gen-get-set Auto-generated from dsv.h
  ***************************************************************************/
 
 int     dsv_line_set_fields_ae(dsv_line_t *dsv_line_ptr, size_t c, char * new_fields_element)
@@ -231,18 +232,18 @@ int     dsv_line_set_fields_ae(dsv_line_t *dsv_line_ptr, size_t c, char * new_fi
 {
     /* FIXME: Replace this with a proper sanity check */
     if ( new_fields_element == NULL )
-	return XT_DATA_OUT_OF_RANGE;
+	return DSV_DATA_OUT_OF_RANGE;
     else
     {
 	dsv_line_ptr->fields[c] = new_fields_element;
-	return XT_DATA_OK;
+	return DSV_DATA_OK;
     }
 }
 
 
 /***************************************************************************
  *  Library:
- *      #include <XT_xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lxtend
  *
  *  Description:
@@ -262,15 +263,15 @@ int     dsv_line_set_fields_ae(dsv_line_t *dsv_line_ptr, size_t c, char * new_fi
  *      array_size      Size of the fields array.
  *
  *  Returns:
- *      XT_DATA_OK if the new value is acceptable and assigned
- *      XT_DATA_OUT_OF_RANGE otherwise
+ *      DSV_DATA_OK if the new value is acceptable and assigned
+ *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      dsv_line_t      dsv_line;
  *      char **         new_fields;
  *      size_t          array_size;
  *
- *      if ( dsv_line_set_fields(&dsv_line, new_fields, array_size) == XT_DATA_OK )
+ *      if ( dsv_line_set_fields(&dsv_line, new_fields, array_size) == DSV_DATA_OK )
  *      {
  *      }
  *
@@ -279,7 +280,7 @@ int     dsv_line_set_fields_ae(dsv_line_t *dsv_line_ptr, size_t c, char * new_fi
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-08-10  gen-get-set Auto-generated from xtend.h
+ *  2021-08-13  gen-get-set Auto-generated from dsv.h
  ***************************************************************************/
 
 int     dsv_line_set_fields_cpy(dsv_line_t *dsv_line_ptr, char ** new_fields, size_t array_size)
@@ -287,7 +288,7 @@ int     dsv_line_set_fields_cpy(dsv_line_t *dsv_line_ptr, char ** new_fields, si
 {
     /* FIXME: Replace this with a proper sanity check */
     if ( new_fields == NULL )
-	return XT_DATA_OUT_OF_RANGE;
+	return DSV_DATA_OUT_OF_RANGE;
     else
     {
 	{
@@ -297,14 +298,14 @@ int     dsv_line_set_fields_cpy(dsv_line_t *dsv_line_ptr, char ** new_fields, si
 	    for (c = 0; c < array_size; ++c)
 		dsv_line_ptr->fields[c] = new_fields[c];
 	}
-	return XT_DATA_OK;
+	return DSV_DATA_OK;
     }
 }
 
 
 /***************************************************************************
  *  Library:
- *      #include <XT_xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lxtend
  *
  *  Description:
@@ -327,14 +328,14 @@ int     dsv_line_set_fields_cpy(dsv_line_t *dsv_line_ptr, char ** new_fields, si
  *      new_delims      The new value for delims
  *
  *  Returns:
- *      XT_DATA_OK if the new value is acceptable and assigned
- *      XT_DATA_OUT_OF_RANGE otherwise
+ *      DSV_DATA_OK if the new value is acceptable and assigned
+ *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      dsv_line_t      dsv_line;
  *      char *          new_delims;
  *
- *      if ( dsv_line_set_delims(&dsv_line, new_delims) == XT_DATA_OK )
+ *      if ( dsv_line_set_delims(&dsv_line, new_delims) == DSV_DATA_OK )
  *      {
  *      }
  *
@@ -343,7 +344,7 @@ int     dsv_line_set_fields_cpy(dsv_line_t *dsv_line_ptr, char ** new_fields, si
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-08-10  gen-get-set Auto-generated from xtend.h
+ *  2021-08-13  gen-get-set Auto-generated from dsv.h
  ***************************************************************************/
 
 int     dsv_line_set_delims(dsv_line_t *dsv_line_ptr, char * new_delims)
@@ -351,18 +352,18 @@ int     dsv_line_set_delims(dsv_line_t *dsv_line_ptr, char * new_delims)
 {
     /* FIXME: Replace this with a proper sanity check */
     if ( new_delims == NULL )
-	return XT_DATA_OUT_OF_RANGE;
+	return DSV_DATA_OUT_OF_RANGE;
     else
     {
 	dsv_line_ptr->delims = new_delims;
-	return XT_DATA_OK;
+	return DSV_DATA_OK;
     }
 }
 
 
 /***************************************************************************
  *  Library:
- *      #include <XT_xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lxtend
  *
  *  Description:
@@ -381,15 +382,15 @@ int     dsv_line_set_delims(dsv_line_t *dsv_line_ptr, char * new_delims)
  *      new_delims_element The new value for delims[c]
  *
  *  Returns:
- *      XT_DATA_OK if the new value is acceptable and assigned
- *      XT_DATA_OUT_OF_RANGE otherwise
+ *      DSV_DATA_OK if the new value is acceptable and assigned
+ *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      dsv_line_t      dsv_line;
  *      size_t          c;
  *      char *          new_delims_element;
  *
- *      if ( dsv_line_set_delims(&dsv_line, c, new_delims_element) == XT_DATA_OK )
+ *      if ( dsv_line_set_delims(&dsv_line, c, new_delims_element) == DSV_DATA_OK )
  *      {
  *      }
  *
@@ -398,7 +399,7 @@ int     dsv_line_set_delims(dsv_line_t *dsv_line_ptr, char * new_delims)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-08-10  gen-get-set Auto-generated from xtend.h
+ *  2021-08-13  gen-get-set Auto-generated from dsv.h
  ***************************************************************************/
 
 int     dsv_line_set_delims_ae(dsv_line_t *dsv_line_ptr, size_t c, char  new_delims_element)
@@ -406,18 +407,18 @@ int     dsv_line_set_delims_ae(dsv_line_t *dsv_line_ptr, size_t c, char  new_del
 {
     /* FIXME: Replace this with a proper sanity check */
     if ( 0 )
-	return XT_DATA_OUT_OF_RANGE;
+	return DSV_DATA_OUT_OF_RANGE;
     else
     {
 	dsv_line_ptr->delims[c] = new_delims_element;
-	return XT_DATA_OK;
+	return DSV_DATA_OK;
     }
 }
 
 
 /***************************************************************************
  *  Library:
- *      #include <XT_xtend.h>
+ *      #include <xtend/dsv.h>
  *      -lxtend
  *
  *  Description:
@@ -437,15 +438,15 @@ int     dsv_line_set_delims_ae(dsv_line_t *dsv_line_ptr, size_t c, char  new_del
  *      array_size      Size of the delims array.
  *
  *  Returns:
- *      XT_DATA_OK if the new value is acceptable and assigned
- *      XT_DATA_OUT_OF_RANGE otherwise
+ *      DSV_DATA_OK if the new value is acceptable and assigned
+ *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      dsv_line_t      dsv_line;
  *      char *          new_delims;
  *      size_t          array_size;
  *
- *      if ( dsv_line_set_delims(&dsv_line, new_delims, array_size) == XT_DATA_OK )
+ *      if ( dsv_line_set_delims(&dsv_line, new_delims, array_size) == DSV_DATA_OK )
  *      {
  *      }
  *
@@ -454,7 +455,7 @@ int     dsv_line_set_delims_ae(dsv_line_t *dsv_line_ptr, size_t c, char  new_del
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-08-10  gen-get-set Auto-generated from xtend.h
+ *  2021-08-13  gen-get-set Auto-generated from dsv.h
  ***************************************************************************/
 
 int     dsv_line_set_delims_cpy(dsv_line_t *dsv_line_ptr, char * new_delims, size_t array_size)
@@ -462,11 +463,11 @@ int     dsv_line_set_delims_cpy(dsv_line_t *dsv_line_ptr, char * new_delims, siz
 {
     /* FIXME: Replace this with a proper sanity check */
     if ( new_delims == NULL )
-	return XT_DATA_OUT_OF_RANGE;
+	return DSV_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(dsv_line_ptr->delims, new_delims, array_size);
-	return XT_DATA_OK;
+	return DSV_DATA_OK;
     }
 }

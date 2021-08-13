@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdarg.h>
-#include "xtend.h"
+#include "proc.h"
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/proc.h>
  *      -lxtend
  *
  *  Description:

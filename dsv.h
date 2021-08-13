@@ -1,69 +1,10 @@
-#ifndef _xtend_h_
-#define _xtend_h_
 
-#ifndef _STDIO_H_
-#include <stdio.h>
-#endif
+#ifndef _XTEND_DSV_H_
+#define _XTEND_DSV_H_
 
-#ifndef _SYS_TIME_H_
-#include <sys/time.h>
-#endif
-
-#ifndef _SYS_STAT_H_
-#include <sys/stat.h>   // mode_t on Darwin
-#endif
-
-#ifdef __linux__
-#define strlcpy(dest,src,len)   strcpy(dest,src)
-#define strlcat(dest,src,len)   strcat(dest,src)
-#endif
-
-#ifndef __bool_true_false_are_defined
-#include <stdbool.h>
-#endif
-
-#if !defined(_STDARG_H_) && !defined(__STDARG_H__)
-#include <stdarg.h>
-#endif
-
-#define LCM(a,b)    ((a)*(b)/gcd(a,b))
-
-#define XT_CMD_MAX_CHARS    4096
-#define XT_FORMAT_MAX_CHARS 4096
-
-// FIXME: Return this instead of EOF in dsv_read*()
-// Don't trust that EOF is -1 on all platforms
-#define XT_READ_EOF             -1
-#define XT_READ_MALLOC_FAILED   -2
-#define XT_READ_BUFF_OVERFLOW   -3
-
-#define XT_DATA_OK              0
-#define XT_DATA_INVALID         -1      // Catch-all for non-specific error
-#define XT_DATA_OUT_OF_RANGE    -2
-
-#ifndef ISIDENT
-#define ISIDENT(c)  ( isalnum(c) | ((c)=='_') )
-#endif
-
-/*
- *  Process control
- */
-
-/* spawn*() parent_action */
-#define P_NOWAIT  0
-#define P_WAIT    1
-
-/* spawn*() echo */
-#define P_NOECHO  0
-#define P_ECHO    1
-
-#define P_TERM_STATUS(s)    ((s) & 0xff)
-#define P_EXIT_CODE(s)      (((s) & 0x0000ff00) >> 8)
-#define P_EXEC_FAILED(s)    ((s) & 0x8000)
-
-/*
- *  Delimiter-separated data
- */
+#define DSV_DATA_OK             0
+#define DSV_DATA_INVALID        -1      // Catch-all for non-specific error
+#define DSV_DATA_OUT_OF_RANGE   -2
 
 #define DSV_INIT                { 0, 0, NULL, NULL }
 #define DSV_FIELD_MAX_CHARS     32767
@@ -119,6 +60,21 @@ typedef struct
 #define DSV_LINE_SET_DELIMS_CPY(ptr,val,array_size) strlcpy((ptr)->delims,val,array_size)
 #define DSV_LINE_SET_DELIMS_AE(ptr,c,val)       ((ptr)->delims[c] = (val))
 
-#include "xtend-protos.h"
-
-#endif  // _xtend_h_
+/* dsv.c */                                                                     
+int dsv_read_field(FILE *stream, char buff[], size_t buff_size, const char *delims, size_t *len);                                                               
+int dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size, const char *delims, size_t *len);                                                       
+int dsv_skip_field(FILE *stream, const char *delims);                           
+int dsv_skip_rest_of_line(FILE *stream);                                        
+int dsv_read_line(FILE *stream, dsv_line_t *dsv_line, const char *delims);      
+void dsv_write_line(FILE *stream, dsv_line_t *dsv_line);                        
+void dsv_copy_line(dsv_line_t *dest, dsv_line_t *src);                          
+void dsv_free_line(dsv_line_t *dsv_line);                                       
+int tsv_read_field(FILE *stream, char buff[], size_t buff_size, size_t *len);   
+int tsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size, size_t *len);                                                                           
+int tsv_skip_field(FILE *stream);                                               
+int tsv_skip_rest_of_line(FILE *stream);                                        
+int csv_read_field(FILE *stream, char buff[], size_t buff_size, size_t *len);   
+int csv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size, size_t *len);                                                                           
+int csv_skip_field(FILE *stream);                                               
+int csv_skip_rest_of_line(FILE *stream);                                        
+#endif  // _XTEND_DSV_H_/*

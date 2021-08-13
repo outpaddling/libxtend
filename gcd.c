@@ -1,6 +1,8 @@
+#include "math.h"
+
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/math.h>
  *      -lxtend
  *
  *  Description:
@@ -35,7 +37,7 @@ unsigned long   gcd(unsigned long a, unsigned long b)
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/math.h>
  *      -lxtend
  *
  *  Description:

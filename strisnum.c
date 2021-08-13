@@ -1,8 +1,9 @@
 #include <stdlib.h>
+#include "string.h"
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/string.h>
  *      -lxtend
  *
  *  Description:
@@ -36,7 +37,7 @@ int     strisint(const char *string, int base)
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/string.h>
  *      -lxtend
  *
  *  Description:

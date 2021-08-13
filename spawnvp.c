@@ -7,11 +7,11 @@
 #include <signal.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include "xtend.h"
+#include "proc.h"
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/proc.h>
  *      -lxtend
  *
  *  Description:

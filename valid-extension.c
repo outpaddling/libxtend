@@ -2,10 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include "file.h"
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/file.h>
  *      -lxtend
  *
  *  Description:

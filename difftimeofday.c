@@ -1,8 +1,9 @@
 #include <sys/time.h>
+#include "time.h"
 
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/time.h>
  *      -lextend
  *
  *  Description:

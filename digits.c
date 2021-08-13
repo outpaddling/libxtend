@@ -1,10 +1,12 @@
+#include "math.h"
+
 /***************************************************************************
  *  Library:
- *      #include <xtend.h>
+ *      #include <xtend/math.h>
  *      -lxtend
  *
  *  Description:
- *      num_size() computes the number of digits in val, assuming the
+ *      num_digits() computes the number of digits in val, assuming the
  *      given base.
  *  
  *  Arguments:
@@ -19,15 +21,15 @@
  *  Circa 1990  Jason Bacon Begin
  ***************************************************************************/
 
-int     num_size(long val, unsigned base)
+int     digits(long val, unsigned base)
 
 {
-    int     digits;
+    int     d;
     
     if ( (base < 2) || (base > 36) )
 	return -1;
     
-    for (digits=1; val != 0; ++digits)
+    for (d=1; val != 0; ++d)
 	val /= base;
-    return digits;
+    return d;
 }

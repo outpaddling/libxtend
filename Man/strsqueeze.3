@@ -5,7 +5,7 @@
 \" Indicate #includes, library name, -L and -l flags
 .nf
 .na
-#include <xtend.h>
+#include <xtend/string.h>
 -lxtend
 .ad
 .fi
@@ -41,7 +41,7 @@ necessary by replacing the center portion of the string with "...".
 
 #define MAXLEN  127
 char    limited_str[MAXLEN + 1],
-original_str[SOME_OTHER_LEN + 1];
+        original_str[SOME_OTHER_LEN + 1];
 
 strsqueeze(limited_str, original_str, MAXLEN + 1);
 .ad

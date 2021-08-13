@@ -25,7 +25,7 @@ file-mod-cmp.o: file-mod-cmp.c file.h
 gcd.o: gcd.c math.h
 	${CC} -c ${CFLAGS} gcd.c
 
-get-home-dir.o: get-home-dir.c file.h
+get-home-dir.o: get-home-dir.c file.h string.h
 	${CC} -c ${CFLAGS} get-home-dir.c
 
 ltostrn.o: ltostrn.c string.h
@@ -60,6 +60,9 @@ strshellcpy.o: strshellcpy.c string.h file.h ctype.h
 
 strsqueeze.o: strsqueeze.c string.h
 	${CC} -c ${CFLAGS} strsqueeze.c
+
+strtr.o: strtr.c string.h
+	${CC} -c ${CFLAGS} strtr.c
 
 strviscpy.o: strviscpy.c string.h
 	${CC} -c ${CFLAGS} strviscpy.c

@@ -6,6 +6,8 @@
  *  Process control
  */
 
+#define XT_CMD_MAX      4096
+
 /* spawn*() parent_action */
 #define P_NOWAIT  0
 #define P_WAIT    1
@@ -19,7 +21,7 @@
 #define P_EXEC_FAILED(s)    ((s) & 0x8000)
 
 /* parse-cmd.c */
-void parse_cmd(char *argv[], char *cmd, size_t cmd_max_chars);
+char *parse_cmd(char *argv[], const char *cmd);
 
 /* spawnlp.c */
 int spawnlp(int parent_action, int echo, char *infile, char *outfile, char *errfile, char *arg0, ...);

@@ -36,4 +36,7 @@ size_t strsqueeze(char *dest, const char *src, size_t dstsize);
 /* strviscpy.c */
 char *strviscpy(unsigned char *dest, const unsigned char *src, size_t maxlen);
 
+/* strtr.c */
+void strtr(char *string, const char *from, const char *to, int flags);
+
 #endif  // _XTEND_STRING_H_

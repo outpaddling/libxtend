@@ -16,7 +16,7 @@
 .PP
 .nf 
 .na
-void    parse_cmd(char *argv[], char *cmd, size_t cmd_max_chars)
+char    *parse_cmd(char *argv[], const char *cmd)
 .ad
 .fi
 
@@ -32,7 +32,23 @@ from strshellcpy(3)
 .SH DESCRIPTION
 
 Breaks a shell command into an argv[] style array suitable
-for spawnvp() or execv*()
+for spawnvp() or execv*().  A copy of cmd is created using
+strshellcpy(), which expands certain shell features such as
+variables and paths starting with '~'.  The copy is then
+modified by replacing separators with '0' and the argv[] array
+is populated with pointers to each token in the copy.
+
+.SH EXAMPLES
+.nf
+.na
+
+char *cmd, *argv[], *expanded_cmd;
+
+expanded_cmd = parse_cmd(argv, cmd);
+spawnvp(P_WAIT, P_NOECHO, argv, NULL, NULL, NULL);
+free(expanded_cmd);
+.ad
+.fi
 
 .SH SEE ALSO
 

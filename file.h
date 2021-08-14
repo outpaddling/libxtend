@@ -22,7 +22,7 @@
 #define XT_CMD_MAX_CHARS    4096
 
 /* valid-extension.c */
-_Bool valid_extension(const char *filename, const char *valid_ext);
+bool valid_extension(const char *filename, const char *valid_ext);
 
 /* fast-cp.c */
 int fast_cp(const char *source, const char *dest);

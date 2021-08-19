@@ -107,11 +107,10 @@ int     dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
 	    return XT_READ_MALLOC_FAILED;
     }
     
-    for (c = 0; (c < *buff_size) && 
-			  ( strchr(delims, ch = getc(stream)) == NULL) &&
-			  (ch != '\n') && (ch != EOF); ++c )
+    for (c = 0; ( ((ch = getc(stream)) != '\n') && (ch != EOF) &&
+		  strchr(delims, ch) == NULL); ++c )
     {
-	if ( c == *buff_size )
+	if ( c == *buff_size - 1 )
 	{
 	    *buff_size *= 2;
 	    *buff = xt_realloc(*buff, *buff_size, sizeof(**buff));
@@ -124,9 +123,12 @@ int     dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
     *len = c;
 
     /* Trim array */
-    *buff_size = c + 1;
-    *buff = xt_realloc(*buff, *buff_size, sizeof(**buff));
-    
+    if ( *buff_size != c + 1 )
+    {
+	*buff_size = c + 1;
+	*buff = xt_realloc(*buff, *buff_size, sizeof(**buff));
+    }
+    //fprintf(stderr, "Returning %d\n", ch);
     return ch;
 }
 

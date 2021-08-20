@@ -35,7 +35,11 @@ to get a good estimate of the real time elapsed in a process between
 any two points (where calls to gettimeofday(3) are strategically
 placed.)
 
+Use of these functions should have minimal impact on run time,
+unless called many times to measure time of a function with a very
+short run time.
+
 .SH SEE ALSO
 
-gettimeofday(3)
+gettimeofday(2), xt_tic(3), xt_toc(3)
 

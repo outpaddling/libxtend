@@ -16,7 +16,7 @@
 .PP
 .nf 
 .na
-int     xt_tic(struct timeval *start_time)
+int     xt_tic(struct timeval *start_time, struct rusage *start_usage)
 .ad
 .fi
 
@@ -43,14 +43,15 @@ before the code and xt_toc() immediately after.
 .na
 
 struct timeval  start_time;
+struct rusage   start_usage;
 
-xt_tic(&start_time);
+xt_tic(&start_time, &start_usage);
 // Code for which elapsed time is to be measured
 for (c = 0; c < bignum; ++c)
 {
     ...
 }
-xt_toc(stderr, "Elapsed time for loop: ", &start_time);
+xt_toc(stderr, "Elapsed time for loop:n", &start_time, &start_usage);
 .ad
 .fi
 

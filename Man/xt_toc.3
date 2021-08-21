@@ -16,7 +16,8 @@
 .PP
 .nf 
 .na
-unsigned long xt_toc(FILE *stream, const char *message, struct timeval *start_time)
+unsigned long xt_toc(FILE *stream, const char *message,
+struct timeval *start_time, struct rusage *start_usage)
 .ad
 .fi
 
@@ -24,17 +25,18 @@ unsigned long xt_toc(FILE *stream, const char *message, struct timeval *start_ti
 .nf
 .na
 stream      FILE stream to which output is sent
-message     A message to precede the reported time
+message     Optional message to print before time stats, or NULL
 start_time  A struct timeval structure populated by xt_tic()
 .ad
 .fi
 
 .SH DESCRIPTION
 
-xt_toc() reports the elapsed time since start_time, which should
-have been populated with xt_tic(3) or directly using
-gettimeofday(2).  Time is reported in microseconds, and if greater
-than one second, days, hours, and seconds.
+xt_toc() reports the elapsed time, user time, and system time
+since start_time and start_usage, which should have been populated
+by xt_tic(3) at the beginning of the interval being measured.
+Time is reported in microseconds, and if elapsed time is greater
+than one second, days, hours, and seconds are also reported.
 
 The xt_tic() and xt_toc() functions are used to accurately determine
 the elapsed time of a segment of code, such as a loop that is
@@ -46,14 +48,15 @@ before the code and xt_toc() immediately after.
 .na
 
 struct timeval  start_time;
+struct rusage   start_usage;
 
-xt_tic(&start_time);
+xt_tic(&start_time, &start_usage);
 // Code for which elapsed time is to be measured
 for (c = 0; c < bignum; ++c)
 {
     ...
 }
-xt_toc(stderr, "Elapsed time for loop: ", &start_time);
+xt_toc(stderr, "Elapsed time for loop:n", &start_time, &start_usage);
 .ad
 .fi
 

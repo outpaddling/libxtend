@@ -10,7 +10,7 @@
  *      Translate characters in a string similar to tr(1), where each
  *      occurrence of from[i] is replaced with to[i] in string.
  *
- *      Currently only reaplcement is supported and flags is ignored.
+ *      Currently only replacement is supported and flags is ignored.
  *      In the future, additional features such as deletion and
  *      compaction may be supported.
  *  

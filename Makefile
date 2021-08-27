@@ -201,7 +201,7 @@ common-install:
 	${MKDIR} -p ${DESTDIR}${PREFIX}/lib ${DESTDIR}${PREFIX}/include/xtend \
 		    ${DESTDIR}${MANDIR}/man3
 	${INSTALL} -m 0444 *.h ${DESTDIR}${PREFIX}/include/xtend; \
-	${INSTALL} -m 0444 Man/*.3 ${DESTDIR}${MANDIR}/man3
+	${INSTALL} -m 0444 Man/*.3 Man/Macros/*.3 ${DESTDIR}${MANDIR}/man3
 	${INSTALL} -m 0444 ${SLIB} ${DESTDIR}${PREFIX}/lib
 
 # CentOS 7 install does not support -l, use ln directly

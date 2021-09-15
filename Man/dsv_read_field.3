@@ -3,23 +3,15 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <xtend/dsv.h>
 -lbiolibc
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     dsv_read_field(FILE *stream, char buff[], size_t buff_size,
 const char *delims, size_t *len)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -37,8 +29,11 @@ len:        Pointer to a variable which will receive the field length
 Read next delimiter-separated field from stream. The fields may be
 ended by any character in the string delims or by a newline ('n').
 
+.SH RETURN VALUES
+
+Delimiter ending the field (either a member of delim or newline)
+
 .SH SEE ALSO
 
 dsv_read_field_malloc(3), dsv_skip_field(3),
 dsv_skip_rest_of_line(3), dsv_read_line(3)
-

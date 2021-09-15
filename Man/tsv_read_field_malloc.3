@@ -3,23 +3,15 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <xtend/dsv.h>
 -lbiolibc
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     tsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
 size_t *len)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -38,4 +30,3 @@ Equivalent to dsv_read_field_malloc(stream, *buff, *buff_size, '\\t', len)
 .SH SEE ALSO
 
 dsv_read_field_malloc(3)
-

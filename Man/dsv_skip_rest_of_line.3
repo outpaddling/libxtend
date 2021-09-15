@@ -3,22 +3,14 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <xtend/dsv.h>
 -lbiolibc
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     dsv_skip_rest_of_line(FILE *stream)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -32,8 +24,11 @@ stream:     FILE stream from which field is read
 Read and discard all remaining fields in a line from stream.
 I.e., discard everything up to and including the next newline ('n').
 
+.SH RETURN VALUES
+
+Delimiter ending the field (should always be newline ('n'))
+
 .SH SEE ALSO
 
 dsv_read_field(3), dsv_read_field_malloc(3),
 dsv_skip_field(3), dsv_read_line(3)
-

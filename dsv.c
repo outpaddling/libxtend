@@ -15,6 +15,10 @@
  *      Read next delimiter-separated field from stream. The fields may be
  *      ended by any character in the string delims or by a newline ('\n').
  *
+ *      If the delimiter ending a field is a space, then subsequence spaces
+ *      are discarded, so that multiple space characters serve as a single
+ *      delimiter.
+ *
  *  Arguments:
  *      stream:     FILE stream from which field is read
  *      buff:       Character buff into which field is copied
@@ -40,7 +44,7 @@ int     dsv_read_field(FILE *stream, char buff[], size_t buff_size,
 {
     size_t  c;
     char    *p;
-    int     ch;
+    int     ch, ch2;
     
     for (c = 0, p = buff; (c < buff_size) && 
 			  ( strchr(delims, ch = getc(stream)) == NULL) &&
@@ -55,10 +59,21 @@ int     dsv_read_field(FILE *stream, char buff[], size_t buff_size,
 	fputs(buff, stderr);
 	// FIXME: Replace this with another sentinal value?
 	// Would require all callers to handle both EOF and overflow
-	return EOF;
+	exit(EX_SOFTWARE);
     }
     
     *len = c;
+    
+    /*
+     *  Treat space specially in that multiple spaces are considered a single
+     *  separator
+     */
+    if ( ch == ' ' )
+    {
+	while ( (ch2 = getc(stream)) == ch )
+	    ;
+	ungetc(ch2, stream);
+    }
     return ch;
 }
 
@@ -72,6 +87,10 @@ int     dsv_read_field(FILE *stream, char buff[], size_t buff_size,
  *      Read next delimiter-separated field from stream, allocating a
  *      buffer to fit in the fashion of strdup(3). The fields may be
  *      ended by any character in the string delims or by a newline ('\n').
+ *
+ *      If the delimiter ending a field is a space, then subsequence spaces
+ *      are discarded, so that multiple space characters serve as a single
+ *      delimiter.
  *
  *  Arguments:
  *      stream:     FILE stream from which field is read
@@ -97,7 +116,7 @@ int     dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
 
 {
     size_t  c;
-    int     ch;
+    int     ch, ch2;
     
     if ( *buff_size == 0 )
     {
@@ -128,7 +147,17 @@ int     dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
 	*buff_size = c + 1;
 	*buff = xt_realloc(*buff, *buff_size, sizeof(**buff));
     }
-    //fprintf(stderr, "Returning %d\n", ch);
+
+    /*
+     *  Treat space specially in that multiple spaces are considered a single
+     *  separator
+     */
+    if ( ch == ' ' )
+    {
+	while ( (ch2 = getc(stream)) == ch )
+	    ;
+	ungetc(ch2, stream);
+    }
     return ch;
 }
 

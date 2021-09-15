@@ -30,6 +30,10 @@ Read next delimiter-separated field from stream, allocating a
 buffer to fit in the fashion of strdup(3). The fields may be
 ended by any character in the string delims or by a newline ('n').
 
+If the delimiter ending a field is a space, then subsequence spaces
+are discarded, so that multiple space characters serve as a single
+delimiter.
+
 .SH RETURN VALUES
 
 Delimiter ending the field (either a member of delim or newline)

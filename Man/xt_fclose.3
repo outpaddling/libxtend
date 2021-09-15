@@ -3,22 +3,14 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <xtend/file.h>
 -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     xt_fclose(FILE *stream)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -33,7 +25,10 @@ Close a FILE stream with fclose() or pclose() as appropriate.
 Automatically determines the proper close function to call using
 S_ISFIFO on the stream stat structure.
 
+.SH RETURN VALUES
+
+The value returned by fclose() or pclose()
+
 .SH SEE ALSO
 
 fopen(3), popen(3), gzip(1), bzip2(1), xz(1)
-

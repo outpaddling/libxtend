@@ -3,22 +3,14 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <xtend/string.h>
 -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     strblank(const char *string)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -33,7 +25,11 @@ strblank() returns true if the null-terminated string contains only
 whitespace or nothing at all.  It is the null-terminated string
 equivalent of isblank(3), which tests a single character.
 
+.SH RETURN VALUES
+
+true is string contains only whitespace, or nothing
+false if any non-whitespace characters are present
+
 .SH SEE ALSO
 
 isblank(3)
-

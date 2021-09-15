@@ -3,22 +3,14 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <xtend/file.h>
 -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     file_mod_cmp(const char *file1, const char *file2)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -36,7 +28,12 @@ as "make", and returns an strcmp(3) compatible status value indicating
 which is older.  A file that doesn't exist is considered
 older than the big bang.
 
+.SH RETURN VALUES
+
+A value < 0 if file1 is older or does not exist.
+A value > 0 if file2 is older or does not exist.
+0 if the files have identical modification times, or neither exists.
+
 .SH SEE ALSO
 
 make(1)
-

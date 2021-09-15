@@ -3,22 +3,14 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <xtend/string.h>
 -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 char    *ltostrn(char string[], long val, unsigned base, size_t maxlen)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -37,7 +29,11 @@ convert using any base from 2 to 36.  It is the converse of strtol(3).
 The size of the char buffer passed should be 1 more than maxlen to
 allow for a null byte.
 
+.SH RETURN VALUES
+
+A pointer to the converted string, or NULL if the string buffer was
+not big enough for all the digits
+
 .SH SEE ALSO
 
 strtol(3)
-

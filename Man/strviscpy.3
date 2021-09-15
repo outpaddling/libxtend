@@ -3,23 +3,15 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <xtend/string.h>
 -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 char    *strviscpy(unsigned char *dest, const unsigned char *src,
 size_t maxlen)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -35,7 +27,10 @@ maxlen: Maximum number of characters in dest, not including null byte
 strviscpy() copies a string from src to dest, converting invisible
 characters to a visible format much like the vis command or cat -v.
 
+.SH RETURN VALUES
+
+A pointer to dest
+
 .SH SEE ALSO
 
 vis(1), cat(1), strlcpy(3)
-

@@ -3,22 +3,14 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <xtend/file.h>
 -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     fast_cp(const char *source, const char *dest)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -32,7 +24,10 @@ source, dest: File names of source and destination
 fast_cp() copies a file using optimal buffering for both source and
 destination filesystems.
 
+.SH RETURN VALUES
+
+The return value of the last read(3) call.
+
 .SH SEE ALSO
 
 cp(1), read(3), write(3), fstat(3)
-

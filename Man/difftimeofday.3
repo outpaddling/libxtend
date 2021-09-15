@@ -3,22 +3,14 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <xtend/time.h>
 -lextend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 time_t  difftimeofday(struct timeval *later, struct timeval *earlier)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -39,7 +31,10 @@ Use of these functions should have minimal impact on run time,
 unless called many times to measure time of a function with a very
 short run time.
 
+.SH RETURN VALUES
+
+The difference between the two times in microseconds
+
 .SH SEE ALSO
 
 gettimeofday(2), xt_tic(3), xt_toc(3)
-

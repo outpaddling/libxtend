@@ -3,22 +3,14 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <xtend/string.h>
 -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     strisreal(const char *string)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -32,7 +24,10 @@ string: The string to be tested
 Determine whether a string is a valid real number by attempting to
 convert it using strtod().
 
+.SH RETURN VALUES
+
+Non-zero value if the string represents a real number, zero otherwise
+
 .SH SEE ALSO
 
 strtod(3)
-

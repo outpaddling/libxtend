@@ -3,22 +3,14 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <xtend/file.h>
 -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 size_t  fgetline(FILE *fp, char *buff, size_t maxlen)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -39,7 +31,10 @@ hence the buffer should be at least maxlen+1 bytes long. Unlike
 fgets(3), fgetline() does not store the trailing newline character
 in the string.
 
+.SH RETURN VALUES
+
+The number of bytes read, or EOF if EOF is encountered before a newline
+
 .SH SEE ALSO
 
 fgets(3)
-

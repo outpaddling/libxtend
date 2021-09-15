@@ -3,23 +3,15 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <xtend/time.h>
 -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 unsigned long xt_toc(FILE *stream, const char *message,
 struct timeval *start_time, struct rusage *start_usage)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -43,6 +35,10 @@ the elapsed time of a segment of code, such as a loop that is
 suspected to be costly.  xt_tic() is inserted into the program just
 before the code and xt_toc() immediately after.
 
+.SH RETURN VALUES
+
+The time difference in microseconds
+
 .SH EXAMPLES
 .nf
 .na
@@ -63,4 +59,3 @@ xt_toc(stderr, "Elapsed time for loop:n", &start_time, &start_usage);
 .SH SEE ALSO
 
 xt_tic(3), difftimeofday(3), gettimeofday(2)
-

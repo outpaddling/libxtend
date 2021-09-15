@@ -3,22 +3,14 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <xtend/string.h>
 -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     strisint(const char *string, int base)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -33,7 +25,10 @@ base:   The expected base of the integer (usually 8, 10, or 16)
 Determine whether a string is a valid integer by attempting to
 convert it using strtoll().
 
+.SH RETURN VALUES
+
+Non-zero value if the string represents an integer, zero otherwise
+
 .SH SEE ALSO
 
 strtoll(3)
-

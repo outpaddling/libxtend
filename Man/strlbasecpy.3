@@ -3,23 +3,15 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <xtend/string.h>
 -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 char   *strlbasecpy(char *dest, const char *dest_base, const char *src,
 size_t dstsize)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -41,7 +33,10 @@ destination array.  strlbasecpy() then computes the distance from
 the destination address to the end of the array and like strlcpy(),
 prevents overrun from occurring.
 
+.SH RETURN VALUES
+
+The original value of dest
+
 .SH SEE ALSO
 
 strlcpy(3)
-

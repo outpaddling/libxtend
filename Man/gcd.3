@@ -3,22 +3,14 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <xtend/math.h>
 -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 unsigned long   gcd(unsigned long a, unsigned long b)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -32,7 +24,10 @@ a, b: Numbers for which to find GCD
 Computes the greatest common divisor of two natural
 numbers a and b.
 
+.SH RETURN VALUES
+
+The greatest common divisor of a and b.
+
 .SH SEE ALSO
 
 lcm(3)
-

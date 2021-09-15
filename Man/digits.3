@@ -3,22 +3,14 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <xtend/math.h>
 -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     digits(long val, unsigned base)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -32,3 +24,7 @@ base:   The number base, between 2 and 36
 
 num_digits() computes the number of digits in val, assuming the
 given base.
+
+.SH RETURN VALUES
+
+The number of base "base" digits in val, or -1 if base is invalid

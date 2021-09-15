@@ -3,22 +3,14 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <xtend/proc.h>
 -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 char    *parse_cmd(char *argv[], const char *cmd)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -38,6 +30,11 @@ variables and paths starting with '~'.  The copy is then
 modified by replacing separators with '0' and the argv[] array
 is populated with pointers to each token in the copy.
 
+.SH RETURN VALUES
+
+Pointer to strdup() copy of cmd, which should be freed as soon
+as possible when argv[] is no longer needed.
+
 .SH EXAMPLES
 .nf
 .na
@@ -53,4 +50,3 @@ free(expanded_cmd);
 .SH SEE ALSO
 
 spawnvp(3), spawnlp(3), exec(3)
-

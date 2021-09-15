@@ -3,22 +3,14 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <xtend/string.h>
 -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 size_t  strsqueeze(char *dest, const char *src, size_t dstsize)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -35,6 +27,10 @@ dstsize: Length of the dest array
 Copy string src to dest, reducing to a maximum length of dstsize if
 necessary by replacing the center portion of the string with "...".
 
+.SH RETURN VALUES
+
+The length of the original string (like strlcpy(3))
+
 .SH EXAMPLES
 .nf
 .na
@@ -50,4 +46,3 @@ strsqueeze(limited_str, original_str, MAXLEN + 1);
 .SH SEE ALSO
 
 strlcpy(3), strlcat(3)
-

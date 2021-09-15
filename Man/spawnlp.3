@@ -3,24 +3,16 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <xtend/proc.h>
 -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     spawnlp(int parent_action, int echo,
 char *infile, char *outfile, char *errfile,
 char *arg0, ...)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -54,7 +46,11 @@ If infile, outfile, or errfile are not NULL, then the corresponding
 file streams stdin, stdout, or stderr are redirected to the filename
 provided.
 
+.SH RETURN VALUES
+
+The exit status of the child process if P_WAIT is passed
+The PID of the child process if P_NOWAIT is passed
+
 .SH SEE ALSO
 
 spawnvp(3), fork(2), exec(3)
-

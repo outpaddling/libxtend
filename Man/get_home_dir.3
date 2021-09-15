@@ -3,22 +3,14 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <xtend/file.h>
 -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 char   *get_home_dir(char *dir, size_t maxlen)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -39,7 +31,10 @@ Note that up to maxlen characters are stored, not including the
 null terminator, hence the buffer should be at least maxlen+1
 bytes long.
 
+.SH RETURN VALUES
+
+A pointer to dir, or NULL upon failure.
+
 .SH SEE ALSO
 
 getuid(3), getpwuid(3)
-

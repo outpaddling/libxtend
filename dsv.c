@@ -13,7 +13,7 @@
  *
  *  Description:
  *      Read next delimiter-separated field from stream. The fields may be
- *      ended by any character in the string delims or by a newline ('\n').
+ *      ended by any character in the string delims or by a newline ('\\\\n').
  *
  *      If the delimiter ending a field is a space, then subsequence spaces
  *      are discarded, so that multiple space characters serve as a single
@@ -86,7 +86,7 @@ int     dsv_read_field(FILE *stream, char buff[], size_t buff_size,
  *  Description:
  *      Read next delimiter-separated field from stream, allocating a
  *      buffer to fit in the fashion of strdup(3). The fields may be
- *      ended by any character in the string delims or by a newline ('\n').
+ *      ended by any character in the string delims or by a newline ('\\\\n').
  *
  *      If the delimiter ending a field is a space, then subsequence spaces
  *      are discarded, so that multiple space characters serve as a single
@@ -170,7 +170,7 @@ int     dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
  *  Description:
  *      Read and discard next delimiter-separated field from stream. The
  *      fields may be ended by any character in the string delims or by a
- *      newline ('\n').
+ *      newline ('\\\\n').
  *
  *  Arguments:
  *      stream:     FILE stream from which field is read
@@ -208,13 +208,13 @@ int     dsv_skip_field(FILE *stream, const char *delims)
  *
  *  Description:
  *      Read and discard all remaining fields in a line from stream.
- *      I.e., discard everything up to and including the next newline ('\n').
+ *      I.e., discard everything up to and including the next newline ('\\\\n').
  *
  *  Arguments:
  *      stream:     FILE stream from which field is read
  *
  *  Returns:
- *      Delimiter ending the field (should always be newline ('\n'))
+ *      Delimiter ending the field (should always be newline ('\\\\n'))
  *
  *  See also:
  *      dsv_read_field(3), dsv_read_field_malloc(3),

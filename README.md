@@ -41,8 +41,8 @@ End users should install via one of these if at all possible.
 
 I maintain a FreeBSD port and a pkgsrc package, which is sufficient to install
 cleanly on virtually any POSIX platform.  If you would like to see a
-package in another package manager, please consider creating
-it yourself.  This will be one of the easiest packages in the collection and
+package in another package manager, please consider creating a package
+yourself.  This will be one of the easiest packages in the collection and
 hence a good vehicle to learn how to create packages.
 
 ### Installing libxtend on FreeBSD:

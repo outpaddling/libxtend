@@ -8,6 +8,35 @@ which you might find in libc or libm.
 They provide some convenient functionality lacking in standard library
 functions as well some more esoteric features.
 
+## C programming at a higher level
+
+C was designed to be a minimal language.  Dennis Ritchie and friends
+deliberately left out any feature that could be implemented reasonably well
+by a library function.  For example, unlike earlier languages such as
+Fortran and PL/I, C has no built-in input/output statements and no
+syntactic support for character strings beyond string constants.  To
+compare strings, we use a library function, which is written in C:
+```
+if ( strcmp(string1, string2) == 0 )
+```
+Languages with string support would look something like this:
+```
+if ( string1 == string2 )
+```
+The latter was regarded as a minor convenience, not worthy of the
+additional complexity required to support it in the C compiler.
+
+The idea was that the C community should develop a limitless set of library
+functions such as strcmp() to make C programming as easy as programming in
+more complex languages, albeit not quite as pretty.
+Many excellent libraries exist for specific
+purposes such as generating hash values, mathematics computations, etc. 
+Unfortunately and inexplicably, until libxtend, no one has set out to
+extend the limited offerings of the general libraries libc and libm.
+
+Libxtend aims to do just that, providing many of the functions people have
+often wished were part of the standard libraries.
+
 ## Design and Implementation
 
 The code is organized following basic object-oriented design principals, but

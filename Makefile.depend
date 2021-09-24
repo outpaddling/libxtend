@@ -61,6 +61,9 @@ strsqueeze.o: strsqueeze.c string.h
 strtr.o: strtr.c string.h
 	${CC} -c ${CFLAGS} strtr.c
 
+strtrim.o: strtrim.c string.h
+	${CC} -c ${CFLAGS} strtrim.c
+
 strviscpy.o: strviscpy.c string.h
 	${CC} -c ${CFLAGS} strviscpy.c
 

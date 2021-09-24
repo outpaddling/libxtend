@@ -39,4 +39,7 @@ char *strviscpy(unsigned char *dest, const unsigned char *src, size_t maxlen);
 /* strtr.c */
 void strtr(char *string, const char *from, const char *to, int flags);
 
+/* strtrim.c */
+void strtrim(char *string, const char *fat);
+
 #endif  // _XTEND_STRING_H_

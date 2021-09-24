@@ -1,3 +1,6 @@
+#ifndef _STDIO_H_
+#include <stdio.h>
+#endif
 
 #ifndef _XTEND_DSV_H_
 #define _XTEND_DSV_H_

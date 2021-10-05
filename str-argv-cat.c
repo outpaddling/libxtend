@@ -22,10 +22,13 @@
  *      string_buff_size, then the string has been truncated.
  *
  *  Examples:
- *      char    string[CMD_MAX + 1] = "";
+ *      char    cmd[CMD_MAX + 1] = "ls",
+ *              *argv[] = { "-l", NULL };
  *
- *      if ( str_argv_cat(string, argv, 0, CMD_MAX + 1) > CMD_MAX + 1 )
+ *      if ( str_argv_cat(cmd, argv, 0, CMD_MAX + 1) > CMD_MAX + 1 )
  *          fputs("string is truncated.\n", stderr);
+ *      else
+ *          system(cmd);
  *
  *  See also:
  *      strlcpy(3), strlcat(3), snprintf(3)

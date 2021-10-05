@@ -1,6 +1,5 @@
 #include <string.h>
-#include <xtend/string.h>   // strlcat() on Linux
-#include "string.h"
+#include "string.h"     // strlcat() on Linux
 
 /***************************************************************************
  *  Library:

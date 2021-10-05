@@ -42,4 +42,7 @@ void strtr(char *string, const char *from, const char *to, int flags);
 /* strtrim.c */
 void strtrim(char *string, const char *fat);
 
+/* str-argv-cat.c */
+size_t str_argv_cat(char *string, char *argv[], size_t first_arg, size_t string_buff_size);
+
 #endif  // _XTEND_STRING_H_

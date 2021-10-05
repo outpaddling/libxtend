@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <sysexits.h>
 #include "proc.h"
-#include "limits.h"
 
 /***************************************************************************
  *  Library:

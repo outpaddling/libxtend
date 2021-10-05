@@ -75,7 +75,8 @@ OBJS    = valid-extension.o xt-file.o strisnum.o strptrcmp.o time.o \
 	  fast-cp.o gcd.o fd-purge.o fgetline.o file-mod-cmp.o get-home-dir.o \
 	  ltostrn.o strshellcpy.o digits.o parse-cmd.o rmkdir.o \
 	  spawnlp.o spawnvp.o strlbasecpy.o strblank.o va-usage.o strviscpy.o \
-	  xt-malloc.o strsqueeze.o dsv.o dsv-mutators.o strtr.o strtrim.o
+	  xt-malloc.o strsqueeze.o dsv.o dsv-mutators.o strtr.o strtrim.o \
+	  str-argv-cat.o resolve-hostname.o
 
 ############################################################################
 # Compile, link, and install options

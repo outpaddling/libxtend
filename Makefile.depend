@@ -28,6 +28,66 @@ get-home-dir.o: get-home-dir.c file.h string.h
 ltostrn.o: ltostrn.c string.h
 	${CC} -c ${CFLAGS} ltostrn.c
 
-parse-cmd.o: parse-cmd.c proc.h string.h
+numeric_cmp.o: numeric_cmp.c math.h
+	${CC} -c ${CFLAGS} numeric_cmp.c
+
+parse-cmd.o: parse-cmd.c proc.h common.h string.h
 	${CC} -c ${CFLAGS} parse-cmd.c
+
+resolve-hostname.o: resolve-hostname.c string.h net.h common.h
+	${CC} -c ${CFLAGS} resolve-hostname.c
+
+rmkdir.o: rmkdir.c file.h
+	${CC} -c ${CFLAGS} rmkdir.c
+
+spawnlp.o: spawnlp.c proc.h common.h
+	${CC} -c ${CFLAGS} spawnlp.c
+
+spawnvp.o: spawnvp.c proc.h common.h
+	${CC} -c ${CFLAGS} spawnvp.c
+
+str-argv-cat.o: str-argv-cat.c string.h
+	${CC} -c ${CFLAGS} str-argv-cat.c
+
+strblank.o: strblank.c string.h
+	${CC} -c ${CFLAGS} strblank.c
+
+strisnum.o: strisnum.c string.h
+	${CC} -c ${CFLAGS} strisnum.c
+
+strlbasecpy.o: strlbasecpy.c string.h
+	${CC} -c ${CFLAGS} strlbasecpy.c
+
+strptrcmp.o: strptrcmp.c string.h
+	${CC} -c ${CFLAGS} strptrcmp.c
+
+strshellcpy.o: strshellcpy.c string.h file.h ctype.h
+	${CC} -c ${CFLAGS} strshellcpy.c
+
+strsqueeze.o: strsqueeze.c string.h
+	${CC} -c ${CFLAGS} strsqueeze.c
+
+strtr.o: strtr.c string.h
+	${CC} -c ${CFLAGS} strtr.c
+
+strtrim.o: strtrim.c string.h
+	${CC} -c ${CFLAGS} strtrim.c
+
+strviscpy.o: strviscpy.c string.h
+	${CC} -c ${CFLAGS} strviscpy.c
+
+time.o: time.c time.h
+	${CC} -c ${CFLAGS} time.c
+
+va-usage.o: va-usage.c proc.h common.h
+	${CC} -c ${CFLAGS} va-usage.c
+
+valid-extension.o: valid-extension.c file.h
+	${CC} -c ${CFLAGS} valid-extension.c
+
+xt-file.o: xt-file.c file.h
+	${CC} -c ${CFLAGS} xt-file.c
+
+xt-malloc.o: xt-malloc.c mem.h
+	${CC} -c ${CFLAGS} xt-malloc.c
 

@@ -2,6 +2,9 @@
 #ifndef _XTEND_MATH_H_
 #define _XTEND_MATH_H_
 
+#define XT_MIN(a,b) ((a) < (b) ? (a) : (b))
+#define XT_MAX(a,b) ((a) > (b) ? (a) : (b))
+
 /* gcd.c */
 unsigned long gcd(unsigned long a, unsigned long b);
 unsigned long lcm(unsigned long a, unsigned long b);

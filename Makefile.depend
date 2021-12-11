@@ -1,5 +1,5 @@
-binomial.o: binomial.c
-	${CC} -c ${CFLAGS} binomial.c
+combinatorics.o: combinatorics.c math.h
+	${CC} -c ${CFLAGS} combinatorics.c
 
 digits.o: digits.c math.h
 	${CC} -c ${CFLAGS} digits.c

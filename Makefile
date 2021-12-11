@@ -211,7 +211,6 @@ install: all common-install
 	${INSTALL} -m 0555 ${DLIB} ${DESTDIR}${PREFIX}/lib
 	ln -sf ${DLIB} ${DESTDIR}${PREFIX}/lib/${SONAME}
 	ln -sf ${DLIB} ${DESTDIR}${PREFIX}/lib/lib${LIB}.so
-	${INSTALL} -m 0444 Man/Macros/*.3 ${DESTDIR}${MANDIR}/man3
 
 install-strip: install
 	${CHMOD} 0655 ${DESTDIR}${PREFIX}/lib/${DLIB}

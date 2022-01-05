@@ -1,4 +1,3 @@
-
 #ifndef _XTEND_CTYPE_H_
 #define _XTEND_CTYPE_H_
 

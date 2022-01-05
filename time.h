@@ -1,4 +1,3 @@
-
 #ifndef _XTEND_TIME_H_
 #define _XTEND_TIME_H_
 

@@ -1,4 +1,3 @@
-
 #ifndef _XTEND_STRING_H_
 #define _XTEND_STRING_H_
 

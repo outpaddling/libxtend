@@ -1,4 +1,3 @@
-
 #ifndef _XTEND_MATH_H_
 #define _XTEND_MATH_H_
 

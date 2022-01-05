@@ -1,5 +1,5 @@
-#ifndef _XT_COMMON_H_
-#define _XT_COMMON_H_
+#ifndef _XTEND_COMMON_H_
+#define _XTEND_COMMON_H_
 
 #define XT_FORMAT_MAX_CHARS 4096
 

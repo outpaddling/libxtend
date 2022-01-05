@@ -1,9 +1,9 @@
+#ifndef _XTEND_DSV_H_
+#define _XTEND_DSV_H_
+
 #ifndef _STDIO_H_
 #include <stdio.h>
 #endif
-
-#ifndef _XTEND_DSV_H_
-#define _XTEND_DSV_H_
 
 #define DSV_DATA_OK             0
 #define DSV_DATA_INVALID        -1      // Catch-all for non-specific error

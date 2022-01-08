@@ -3,8 +3,12 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
+.nf
+.na
 #include <xtend/dsv.h>
 -lbiolibc
+.ad
+.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
@@ -27,7 +31,7 @@ len:        Pointer to a variable which will receive the field length
 .SH DESCRIPTION
 
 Read next delimiter-separated field from stream. The fields may be
-ended by any character in the string delims or by a newline ('n').
+ended by any character in the string delims or by a newline ('\\n').
 
 If the delimiter ending a field is a space, then subsequence spaces
 are discarded, so that multiple space characters serve as a single
@@ -41,3 +45,4 @@ Delimiter ending the field (either a member of delim or newline)
 
 dsv_read_field_malloc(3), dsv_skip_field(3),
 dsv_skip_rest_of_line(3), dsv_read_line(3)
+

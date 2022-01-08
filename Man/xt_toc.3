@@ -3,8 +3,12 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
+.nf
+.na
 #include <xtend/time.h>
 -lxtend
+.ad
+.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
@@ -59,3 +63,4 @@ xt_toc(stderr, "Elapsed time for loop:n", &start_time, &start_usage);
 .SH SEE ALSO
 
 xt_tic(3), difftimeofday(3), gettimeofday(2)
+

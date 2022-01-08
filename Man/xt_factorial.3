@@ -5,6 +5,7 @@
 \" Indicate #includes, library name, -L and -l flags
 .nf
 .na
+#include <inttypes.h>
 #include <xtend/math.h>
 -lxtend
 .ad
@@ -42,8 +43,9 @@ n! if n is an element of [0,20], 0 otherwise
 .na
 
 #include <inttypes.h>
+#include <xtend/math.h>
 
-printf("%" PRIu64, factorial(20));
+printf("20! = %" PRIu64 "n", factorial(20));
 .ad
 .fi
 

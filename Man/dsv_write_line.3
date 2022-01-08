@@ -3,14 +3,18 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
+.nf
+.na
 #include <xtend/dsv.h>
 -lbiolibc
+.ad
+.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-void    dsv_write_line(FILE *stream, dsv_line_t *dsv_line)
+int     dsv_write_line(FILE *stream, dsv_line_t *dsv_line)
 
 .SH ARGUMENTS
 .nf
@@ -24,6 +28,11 @@ dsv_line:   Pointer to dsv_line_t structure holding the fields
 
 Print an arbitrary DSV line for debugging.
 
+.SH RETURN VALUES
+
+The number of fields successfully written
+
 .SH SEE ALSO
 
 dsv_read_line(3)
+

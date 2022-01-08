@@ -3,14 +3,18 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
+.nf
+.na
 #include <xtend/dsv.h>
 -lbiolibc
+.ad
+.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-void    dsv_copy_line(dsv_line_t *dest, dsv_line_t *src)
+int     dsv_copy_line(dsv_line_t *dest, dsv_line_t *src)
 
 .SH ARGUMENTS
 .nf
@@ -25,6 +29,11 @@ dest:   Pointer to empty dsv_lint_t structure to receive copy
 Duplicate an arbitrary DSV line, allocating space for fields and
 delimiters as needed.
 
+.SH RETURN VALUES
+
+XT_OK or XT_MALLOC_FAILED
+
 .SH SEE ALSO
 
 dsv_read_line(3)
+

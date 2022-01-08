@@ -45,9 +45,9 @@ int dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size, const ch
 int dsv_skip_field(FILE *stream, const char *delims);                           
 int dsv_skip_rest_of_line(FILE *stream);                                        
 int dsv_read_line(FILE *stream, dsv_line_t *dsv_line, const char *delims);      
-void dsv_write_line(FILE *stream, dsv_line_t *dsv_line);                        
-void dsv_copy_line(dsv_line_t *dest, dsv_line_t *src);                          
-void dsv_free_line(dsv_line_t *dsv_line);                                       
+int dsv_write_line(FILE *stream, dsv_line_t *dsv_line);                        
+int dsv_copy_line(dsv_line_t *dest, dsv_line_t *src);                          
+int dsv_free_line(dsv_line_t *dsv_line);                                       
 int tsv_read_field(FILE *stream, char buff[], size_t buff_size, size_t *len);   
 int tsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size, size_t *len);                                                                           
 int tsv_skip_field(FILE *stream);                                               

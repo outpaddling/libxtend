@@ -5,6 +5,7 @@
 #include "dsv.h"
 #include "mem.h"
 #include "file.h"
+#include "common.h"
 
 /***************************************************************************
  *  Library:
@@ -101,6 +102,7 @@ int     dsv_read_field(FILE *stream, char buff[], size_t buff_size,
  *
  *  Returns:
  *      Delimiter ending the field (either a member of delim or newline)
+ *      or XT_MALLOC_FAILED.
  *
  *  See also:
  *      dsv_read_field(3), dsv_skip_field(3), dsv_skip_rest_of_line(3),
@@ -342,6 +344,9 @@ int     dsv_read_line(FILE *stream, dsv_line_t *dsv_line, const char *delims)
  *      stream:     FILE stream to which fields are printed (e.g. stderr)
  *      dsv_line:   Pointer to dsv_line_t structure holding the fields
  *
+ *  Returns:
+ *      The number of fields successfully written
+ *
  *  See also:
  *      dsv_read_line(3)
  *
@@ -350,13 +355,17 @@ int     dsv_read_line(FILE *stream, dsv_line_t *dsv_line, const char *delims)
  *  2021-05-01  Jason Bacon Begin
  ***************************************************************************/
 
-void    dsv_write_line(FILE *stream, dsv_line_t *dsv_line)
+int     dsv_write_line(FILE *stream, dsv_line_t *dsv_line)
 
 {
-    int     c;
+    int     c, count = 0;
     
     for (c = 0; c < dsv_line->num_fields; ++c)
-	fprintf(stream, "%s%c", dsv_line->fields[c], dsv_line->delims[c]);
+    {
+	if ( fprintf(stream, "%s%c", dsv_line->fields[c], dsv_line->delims[c]) == 2 )
+	    ++count;
+    }
+    return count;
 }
 
 
@@ -373,6 +382,9 @@ void    dsv_write_line(FILE *stream, dsv_line_t *dsv_line)
  *      src:    Pointer to populated dsv_line_t structure to be duplicated
  *      dest:   Pointer to empty dsv_lint_t structure to receive copy
  *
+ *  Returns:
+ *      XT_OK or XT_MALLOC_FAILED
+ *      
  *  See also:
  *      dsv_read_line(3)
  *
@@ -381,7 +393,7 @@ void    dsv_write_line(FILE *stream, dsv_line_t *dsv_line)
  *  2021-05-01  Jason Bacon Begin
  ***************************************************************************/
 
-void    dsv_copy_line(dsv_line_t *dest, dsv_line_t *src)
+int     dsv_copy_line(dsv_line_t *dest, dsv_line_t *src)
 
 {
     size_t  c;
@@ -391,13 +403,19 @@ void    dsv_copy_line(dsv_line_t *dest, dsv_line_t *src)
     
     // FIXME: Check malloc() success
     dest->fields = xt_malloc(dest->array_size, sizeof(*dest->fields));
+    if ( dest->fields == NULL )
+	return XT_MALLOC_FAILED;
     dest->delims = xt_malloc(dest->array_size, sizeof(*dest->delims));
+    if ( dest->delims == NULL )
+	return XT_MALLOC_FAILED;
     
     for (c = 0; c < src->num_fields; ++c)
     {
-	dest->fields[c] = strdup(src->fields[c]);
+	if ( (dest->fields[c] = strdup(src->fields[c])) == NULL )
+	    return XT_MALLOC_FAILED;
 	dest->delims[c] = src->delims[c];
     }
+    return XT_OK;
 }
 
 
@@ -412,6 +430,9 @@ void    dsv_copy_line(dsv_line_t *dest, dsv_line_t *src)
  *  Arguments:
  *      dsv_line:   Pointer to a populated dsv_line_t structure
  *
+ *  Returns:
+ *      The number of fields freed.  Fields set to NULL are not freed.
+ *
  *  See also:
  *      dsv_read_line(3)
  *
@@ -420,18 +441,24 @@ void    dsv_copy_line(dsv_line_t *dest, dsv_line_t *src)
  *  2021-05-01  Jason Bacon Begin
  ***************************************************************************/
 
-void    dsv_free_line(dsv_line_t *dsv_line)
+int     dsv_free_line(dsv_line_t *dsv_line)
 
 {
-    int     c;
+    int     c, count = 0;
     
     if ( dsv_line->fields != NULL )
     {
 	for (c = 0; c < dsv_line->num_fields; ++c)
-	    free(dsv_line->fields[c]);
-	free(dsv_line->fields);
+	    if ( dsv_line->fields[c] != NULL )
+	    {
+		free(dsv_line->fields[c]);
+		++count;
+	    }
+	if ( dsv_line->fields != NULL )
+	    free(dsv_line->fields);
     }
     dsv_line->num_fields = 0;
+    return count;
 }
 
 

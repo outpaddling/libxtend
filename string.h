@@ -10,38 +10,22 @@
 #include <stdio.h>  // size_t
 #endif
 
-/* ltostrn.c */
-char *ltostrn(char string[], long val, unsigned base, size_t maxlen);
-
-/* strblank.c */
+/* string.c */
+size_t strlupper(char *dest, const char *src, size_t dest_size);
+size_t strupper(char *str);
+size_t strllower(char *dest, const char *src, size_t dest_size);
+size_t strlower(char *str);
+size_t str_argv_cat(char *string, char *argv[], size_t first_arg, size_t string_buff_size);
 int strblank(const char *string);
-
-/* strisnum.c */
 int strisint(const char *string, int base);
 int strisreal(const char *string);
-
-/* strlbasecpy.c */
 char *strlbasecpy(char *dest, const char *dest_base, const char *src, size_t dstsize);
-
-/* strptrcmp.c */
 int strptrcmp(const char **p1, const char **p2);
-
-/* strshellcpy.c */
 int strshellcpy(char *dest, const char *src, size_t dest_len);
-
-/* strsqueeze.c */
 size_t strsqueeze(char *dest, const char *src, size_t dstsize);
-
-/* strviscpy.c */
-char *strviscpy(unsigned char *dest, const unsigned char *src, size_t maxlen);
-
-/* strtr.c */
 void strtr(char *string, const char *from, const char *to, int flags);
-
-/* strtrim.c */
 void strtrim(char *string, const char *fat);
-
-/* str-argv-cat.c */
-size_t str_argv_cat(char *string, char *argv[], size_t first_arg, size_t string_buff_size);
+char *strviscpy(unsigned char *dest, const unsigned char *src, size_t maxlen);
+char *ltostrn(char string[], long val, unsigned base, size_t maxlen);
 
 #endif  // _XTEND_STRING_H_

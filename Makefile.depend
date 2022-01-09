@@ -7,7 +7,7 @@ digits.o: digits.c math.h
 dsv-mutators.o: dsv-mutators.c string.h dsv.h
 	${CC} -c ${CFLAGS} dsv-mutators.c
 
-dsv.o: dsv.c dsv.h mem.h file.h
+dsv.o: dsv.c dsv.h mem.h file.h common.h
 	${CC} -c ${CFLAGS} dsv.c
 
 fast-cp.o: fast-cp.c file.h math.h
@@ -28,9 +28,6 @@ gcd.o: gcd.c math.h
 get-home-dir.o: get-home-dir.c file.h string.h
 	${CC} -c ${CFLAGS} get-home-dir.c
 
-ltostrn.o: ltostrn.c string.h
-	${CC} -c ${CFLAGS} ltostrn.c
-
 numeric_cmp.o: numeric_cmp.c math.h
 	${CC} -c ${CFLAGS} numeric_cmp.c
 
@@ -49,35 +46,8 @@ spawnlp.o: spawnlp.c proc.h common.h
 spawnvp.o: spawnvp.c proc.h common.h
 	${CC} -c ${CFLAGS} spawnvp.c
 
-str-argv-cat.o: str-argv-cat.c string.h
-	${CC} -c ${CFLAGS} str-argv-cat.c
-
-strblank.o: strblank.c string.h
-	${CC} -c ${CFLAGS} strblank.c
-
-strisnum.o: strisnum.c string.h
-	${CC} -c ${CFLAGS} strisnum.c
-
-strlbasecpy.o: strlbasecpy.c string.h
-	${CC} -c ${CFLAGS} strlbasecpy.c
-
-strptrcmp.o: strptrcmp.c string.h
-	${CC} -c ${CFLAGS} strptrcmp.c
-
-strshellcpy.o: strshellcpy.c string.h file.h ctype.h
-	${CC} -c ${CFLAGS} strshellcpy.c
-
-strsqueeze.o: strsqueeze.c string.h
-	${CC} -c ${CFLAGS} strsqueeze.c
-
-strtr.o: strtr.c string.h
-	${CC} -c ${CFLAGS} strtr.c
-
-strtrim.o: strtrim.c string.h
-	${CC} -c ${CFLAGS} strtrim.c
-
-strviscpy.o: strviscpy.c string.h
-	${CC} -c ${CFLAGS} strviscpy.c
+string.o: string.c string.h file.h ctype.h
+	${CC} -c ${CFLAGS} string.c
 
 time.o: time.c time.h
 	${CC} -c ${CFLAGS} time.c

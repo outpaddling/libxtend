@@ -25,8 +25,9 @@ source, dest: File names of source and destination
 
 .SH DESCRIPTION
 
-fast_cp() copies a file using optimal buffering for both source and
-destination filesystems.
+fast_cp() copies a file using low-level I/O with an optimal
+buffer size (the least common multiple of block sizes) for both
+source and destination filesystems.
 
 .SH RETURN VALUES
 

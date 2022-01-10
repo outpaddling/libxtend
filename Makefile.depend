@@ -28,6 +28,9 @@ gcd.o: gcd.c math.h
 get-home-dir.o: get-home-dir.c file.h string.h
 	${CC} -c ${CFLAGS} get-home-dir.c
 
+mv.o: mv.c file.h
+	${CC} -c ${CFLAGS} mv.c
+
 numeric_cmp.o: numeric_cmp.c math.h
 	${CC} -c ${CFLAGS} numeric_cmp.c
 

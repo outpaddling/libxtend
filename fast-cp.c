@@ -13,8 +13,9 @@
  *      -lxtend
  *
  *  Description:
- *      fast_cp() copies a file using optimal buffering for both source and
- *      destination filesystems.
+ *      fast_cp() copies a file using low-level I/O with an optimal
+ *      buffer size (the least common multiple of block sizes) for both
+ *      source and destination filesystems.
  *  
  *  Arguments:
  *      source, dest: File names of source and destination
@@ -53,7 +54,7 @@ int     fast_cp(const char *source, const char *dest)
     fstat(infile,&infile_stats);
     fstat(outfile,&outfile_stats);
     x = lcm(infile_stats.st_blksize,outfile_stats.st_blksize);
-    buff_size = MIN(x,64*1024);
+    buff_size = MIN(x,256*1024);
 
     if ( (buff = (char *)malloc(buff_size)) == NULL )
     {

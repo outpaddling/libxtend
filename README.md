@@ -58,8 +58,8 @@ The code is organized following basic object-oriented design principals, but
 implemented in C to minimize overhead and keep the source code accessible to
 those who don't have time to master the complexities of C++.
 
-Structures are treated as classes, with accessor and mutator functions
-(or macros) provided, so dependent applications and libraries should not access
+Structures are treated as classes, with accessor macros and mutator functions
+provided, so dependent applications and libraries should not access
 structure members directly.  Since the C language cannot enforce this, it's
 up to application programmers to exercise self-discipline.
 

@@ -49,7 +49,7 @@ char    *parse_cmd(char *argv[], const char *cmd)
     char    *cmd_copy;
     int     c;
 
-    if ( (cmd_copy = malloc(XT_CMD_MAX)) == NULL )
+    if ( (cmd_copy = malloc(XT_CMD_MAX_CHARS)) == NULL )
     {
 	fprintf(stderr, "parse_cmd(): malloc failed.\n");
 	exit(EX_UNAVAILABLE);
@@ -57,7 +57,7 @@ char    *parse_cmd(char *argv[], const char *cmd)
     
     /* Expand shell meta-characters */
     // FIXME: Make sure strshellcpy() stops 1 short of max and remove -1
-    strshellcpy(cmd_copy, cmd, XT_CMD_MAX - 1);
+    strshellcpy(cmd_copy, cmd, XT_CMD_MAX_CHARS - 1);
     
     /* Break command into tokens for argv[] */
     argv[0] = strtok(cmd_copy, " \t");

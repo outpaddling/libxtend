@@ -5,8 +5,6 @@
  *  Process control
  */
 
-#define XT_CMD_MAX      4096
-
 /* spawn*() parent_action */
 #define P_NOWAIT  0
 #define P_WAIT    1

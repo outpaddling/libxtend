@@ -14,7 +14,7 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
+.nf
 .na
 int     dsv_line_set_array_size(dsv_line_t *dsv_line_ptr, size_t new_array_size)
 .ad
@@ -31,17 +31,17 @@ new_array_size  The new value for array_size
 .SH DESCRIPTION
 
 Mutator for array_size member in a dsv_line_t structure.
-Use this function to set array_size in a dsv_line_t variable
+Use this function to set array_size in a dsv_line_t object
 from non-member functions.  This function performs a direct
 assignment for scalar or pointer structure members.  If
 array_size is a pointer, data previously pointed to should
-generally be freed before calling this function to avoid memory
+be freed before calling this function to avoid memory
 leaks.
 
-Note that there is an equivalent macro (), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_array_size is guaranteed by other means.
+.SH RETURN VALUES
+
+BL_DSV_DATA_OK if the new value is acceptable and assigned
+BL_DSV_DATA_OUT_OF_RANGE otherwise
 
 .SH EXAMPLES
 .nf
@@ -50,7 +50,8 @@ of new_array_size is guaranteed by other means.
 dsv_line_t      dsv_line;
 size_t          new_array_size;
 
-if ( dsv_line_set_array_size(&dsv_line, new_array_size) == DSV_DATA_OK )
+if ( dsv_line_set_array_size(&dsv_line, new_array_size)
+        == BL_DSV_DATA_OK )
 {
 }
 .ad

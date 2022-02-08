@@ -14,7 +14,7 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
+.nf
 .na
 int     dsv_line_set_num_fields(dsv_line_t *dsv_line_ptr, size_t new_num_fields)
 .ad
@@ -31,17 +31,17 @@ new_num_fields  The new value for num_fields
 .SH DESCRIPTION
 
 Mutator for num_fields member in a dsv_line_t structure.
-Use this function to set num_fields in a dsv_line_t variable
+Use this function to set num_fields in a dsv_line_t object
 from non-member functions.  This function performs a direct
 assignment for scalar or pointer structure members.  If
 num_fields is a pointer, data previously pointed to should
-generally be freed before calling this function to avoid memory
+be freed before calling this function to avoid memory
 leaks.
 
-Note that there is an equivalent macro (), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_num_fields is guaranteed by other means.
+.SH RETURN VALUES
+
+BL_DSV_DATA_OK if the new value is acceptable and assigned
+BL_DSV_DATA_OUT_OF_RANGE otherwise
 
 .SH EXAMPLES
 .nf
@@ -50,7 +50,8 @@ of new_num_fields is guaranteed by other means.
 dsv_line_t      dsv_line;
 size_t          new_num_fields;
 
-if ( dsv_line_set_num_fields(&dsv_line, new_num_fields) == DSV_DATA_OK )
+if ( dsv_line_set_num_fields(&dsv_line, new_num_fields)
+        == BL_DSV_DATA_OK )
 {
 }
 .ad

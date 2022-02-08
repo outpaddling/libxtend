@@ -32,7 +32,7 @@
  *
  *  See also:
  *      dsv_read_field_malloc(3), dsv_skip_field(3),
- *      dsv_skip_rest_of_line(3), dsv_read_line(3)
+ *      dsv_skip_rest_of_line(3), dsv_line_read(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -106,7 +106,7 @@ int     dsv_read_field(FILE *stream, char buff[], size_t buff_size,
  *
  *  See also:
  *      dsv_read_field(3), dsv_skip_field(3), dsv_skip_rest_of_line(3),
- *      dsv_read_line(3)
+ *      dsv_line_read(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -183,7 +183,7 @@ int     dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
  *
  *  See also:
  *      dsv_read_field(3), dsv_read_field_malloc(3),
- *      dsv_skip_rest_of_line(3), dsv_read_line(3)
+ *      dsv_skip_rest_of_line(3), dsv_line_read(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -220,7 +220,7 @@ int     dsv_skip_field(FILE *stream, const char *delims)
  *
  *  See also:
  *      dsv_read_field(3), dsv_read_field_malloc(3),
- *      dsv_skip_field(3), dsv_read_line(3)
+ *      dsv_skip_field(3), dsv_line_read(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -257,8 +257,8 @@ int     dsv_skip_rest_of_line(FILE *stream)
  *      Instead, it separates fields as they are read from the input stream.
  *
  *  Arguments:
- *      stream:     FILE stream from which the line is read
  *      dsv_line:   Pointer to a dsv_line_t structure to hold the fields
+ *      stream:     FILE stream from which the line is read
  *      delims:     Array of acceptable delimiters
  *
  *  Returns:
@@ -273,7 +273,7 @@ int     dsv_skip_rest_of_line(FILE *stream)
  *  2021-04-30  Jason Bacon Begin
  ***************************************************************************/
 
-int     dsv_read_line(FILE *stream, dsv_line_t *dsv_line, const char *delims)
+int     dsv_line_read(dsv_line_t *dsv_line, FILE *stream, const char *delims)
 
 {
     int     actual_delim;
@@ -286,14 +286,14 @@ int     dsv_read_line(FILE *stream, dsv_line_t *dsv_line, const char *delims)
     if ( (dsv_line->fields = xt_malloc(dsv_line->array_size,
 				sizeof(*dsv_line->fields))) == NULL )
     {
-	fputs("dsv_read_line(): Could not allocate fields.\n", stderr);
+	fputs("dsv_line_read(): Could not allocate fields.\n", stderr);
 	exit(EX_UNAVAILABLE);
     }
     
     if ( (dsv_line->delims = xt_malloc(dsv_line->array_size,
 				sizeof(*dsv_line->delims))) == NULL )
     {
-	fputs("dsv_read_line(): Could not allocate delims.\n", stderr);
+	fputs("dsv_line_read(): Could not allocate delims.\n", stderr);
 	exit(EX_UNAVAILABLE);
     }
     
@@ -303,7 +303,7 @@ int     dsv_read_line(FILE *stream, dsv_line_t *dsv_line, const char *delims)
     {
 	if ( (dsv_line->fields[dsv_line->num_fields] = strdup(field)) == NULL )
 	{
-	    fprintf(stderr, "dsv_read_line(): Could not strdup() field %zu.\n",
+	    fprintf(stderr, "dsv_line_read(): Could not strdup() field %zu.\n",
 		    dsv_line->num_fields - 1);
 	    exit(EX_UNAVAILABLE);
 	}
@@ -314,14 +314,14 @@ int     dsv_read_line(FILE *stream, dsv_line_t *dsv_line, const char *delims)
 	    if ( (dsv_line->fields = xt_realloc(dsv_line->fields,
 		    dsv_line->array_size, sizeof(*dsv_line->fields))) == NULL )
 	    {
-		fputs("dsv_read_line(): Could not reallocate fields.\n", stderr);
+		fputs("dsv_line_read(): Could not reallocate fields.\n", stderr);
 		exit(EX_UNAVAILABLE);
 	    }
 	    
 	    if ( (dsv_line->delims = xt_realloc(dsv_line->delims,
 		    dsv_line->array_size, sizeof(*dsv_line->delims))) == NULL )
 	    {
-		fputs("dsv_read_line(): Could not reallocate delims.\n", stderr);
+		fputs("dsv_line_read(): Could not reallocate delims.\n", stderr);
 		exit(EX_UNAVAILABLE);
 	    }
 	}
@@ -341,21 +341,21 @@ int     dsv_read_line(FILE *stream, dsv_line_t *dsv_line, const char *delims)
  *      Print an arbitrary DSV line for debugging.
  *
  *  Arguments:
- *      stream:     FILE stream to which fields are printed (e.g. stderr)
  *      dsv_line:   Pointer to dsv_line_t structure holding the fields
+ *      stream:     FILE stream to which fields are printed (e.g. stderr)
  *
  *  Returns:
  *      The number of fields successfully written
  *
  *  See also:
- *      dsv_read_line(3)
+ *      dsv_line_read(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2021-05-01  Jason Bacon Begin
  ***************************************************************************/
 
-int     dsv_write_line(FILE *stream, dsv_line_t *dsv_line)
+int     dsv_line_write(dsv_line_t *dsv_line, FILE *stream)
 
 {
     int     c, count = 0;
@@ -386,14 +386,14 @@ int     dsv_write_line(FILE *stream, dsv_line_t *dsv_line)
  *      XT_OK or XT_MALLOC_FAILED
  *      
  *  See also:
- *      dsv_read_line(3)
+ *      dsv_line_read(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2021-05-01  Jason Bacon Begin
  ***************************************************************************/
 
-int     dsv_copy_line(dsv_line_t *dest, dsv_line_t *src)
+int     dsv_line_copy(dsv_line_t *dest, dsv_line_t *src)
 
 {
     size_t  c;
@@ -434,14 +434,14 @@ int     dsv_copy_line(dsv_line_t *dest, dsv_line_t *src)
  *      The number of fields freed.  Fields set to NULL are not freed.
  *
  *  See also:
- *      dsv_read_line(3)
+ *      dsv_line_read(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2021-05-01  Jason Bacon Begin
  ***************************************************************************/
 
-int     dsv_free_line(dsv_line_t *dsv_line)
+int     dsv_line_free(dsv_line_t *dsv_line)
 
 {
     int     c, count = 0;

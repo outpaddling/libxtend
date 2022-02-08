@@ -1,5 +1,5 @@
-#ifndef _XTEND_NET_H__
-#define _XTEND_NET_H__
+#ifndef _XTEND_NET_H_
+#define _XTEND_NET_H_
 
 int resolve_hostname(const char *hostname, char *ip, size_t ip_buff_len);
 

@@ -10,6 +10,10 @@
 #include <stdio.h>  // size_t
 #endif
 
+#ifndef _INTTYPES_H_
+#include <inttypes.h>
+#endif
+
 /* string.c */
 size_t strlupper(char *dest, const char *src, size_t dest_size);
 size_t strupper(char *str);

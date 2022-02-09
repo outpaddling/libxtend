@@ -7,4 +7,4 @@ int resolve_hostname(const char *hostname, char *ip, size_t ip_buff_len);
 #include "common.h"
 #endif
 
-#endif
+#endif  // _XTEND_NET_H_

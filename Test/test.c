@@ -8,25 +8,38 @@
 int     main(int argc,char *argv[])
 
 {
-    char    string[100] = "  Aldred E. Neumann.";
+    char        string[100] = "  Aldred E. Neumann.",
+		**array;
     unsigned    c;
     
     strtrim(string, " .");
-    puts("\nstrtrim:\nShould be 'Alfred E. Neumann'");
+    puts("\nstrtrim: Should be 'Alfred E. Neumann'");
     printf("'%s'\n", string);
     
-    puts("\nstrtrim:\nShould be ''");
+    puts("\nstrtrim: Should be ''");
     strlcpy(string, "       ", 100);
     strtrim(string, " .");
     printf("'%s'\n", string);
 
-    puts("\nn choose k:\nShould be 6 45 0");
+    puts("\nn choose k: Should be 6 45 0");
     printf("%lu %lu %lu\n", xt_n_choose_k(4,2), xt_n_choose_k(10,2),
 	    xt_n_choose_k(1,2));
     
-    puts("\nfactorials:\nShould be 1 ... 2432902008176640000");
+    puts("\nfactorials: Should be 1 ... 2432902008176640000");
     for (c = 0; c <= 20; ++c)
 	printf("%u! = %" PRIu64 "\n", c, xt_factorial(c));
+    
+    puts("\nstrsplit(): Should be 1 2 3 4 5");
+    strlcpy(string, "1,2,3,4,5", 100);
+    if ( strsplit(string, &array, ",") != 5 )
+	fprintf(stderr, "strsplit() did not return 5.\n");
+    else
+    {
+	for (c = 0; c < 5; ++c)
+	    printf("%s ", array[c]);
+	putchar('\n');
+    }
+    
     return EX_OK;
 }
 

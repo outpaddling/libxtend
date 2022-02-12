@@ -32,5 +32,6 @@ void strtrim(char *string, const char *fat);
 char *strviscpy(unsigned char *dest, const unsigned char *src, size_t maxlen);
 char *ltostrn(char string[], long val, unsigned base, size_t maxlen);
 uint64_t str2u64(const char *str);
+int strsplit(char *string, char ***array, const char *sep);
 
 #endif  // _XTEND_STRING_H_

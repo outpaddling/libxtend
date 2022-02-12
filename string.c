@@ -6,7 +6,7 @@
 #include "string.h"
 #include "file.h"
 #include "ctype.h"
-
+#include "mem.h"
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
@@ -855,4 +855,83 @@ uint64_t    str2u64(const char *str)
     for (c = 0, p = (char *)&v; (c < sizeof(v)) && (str[c] != '\0'); ++c, ++p)
 	*p = str[c];
     return v;
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <xtend/string.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      .B strsplit()
+ *      splits a string into tokens separated by any character
+ *      in the string argument sep.
+ *      The function interface is similar to split() in awk, except that
+ *      sep is a simple list of characters rather than a regular expression.
+ *
+ *      The array argument should be the address of a char ** variable.
+ *      strsplit() allocated memory for the pointers as needed and
+ *      assigns one token to each pointer.
+ *
+ *      Caution: strsplit() is destructive: It replaces the separators
+ *      in string with null bytes.  To preserve the original string,
+ *      duplicate it with strdup() first and pass the copy to strsplit().
+ *  
+ *  Arguments:
+ *      string  String to be parsed for tokens
+ *      array   Pointer array to be filled with tokens
+ *      sep     Character string listing all recognized separators
+ *
+ *  Returns:
+ *      The number of tokens into which string is separated, or 0 if
+ *      a memory allocation or other failure occurred.
+ *
+ *  Examples:
+ *      char    *string = "1,2,3,4,5", *copy, **array;
+ *      size_t  c, tokens;
+ *
+ *      copy = strdup(string);
+ *      tokens = strsplit(copy, &array, ",");
+ *      for (int c = 0; c < tokens; ++c)
+ *          puts(array[c]);
+ *
+ *  See also:
+ *      strsep(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-02-12  Jason Bacon Begin
+ ***************************************************************************/
+
+int     strsplit(char *string, char ***array, const char *sep)
+
+{
+    size_t  c,
+	    array_size = 64;
+
+    if ((*array = xt_malloc(array_size, sizeof(*array))) == NULL )
+    {
+	fprintf(stderr, "strsplit(): malloc() failed.\n");
+	return 0;
+    }
+    
+    for (c = 0; ((*array)[c] = strsep(&string, sep)) != NULL; )
+    {
+	if ( ++c == array_size )
+	{
+	    *array = xt_realloc(*array, array_size *= 2, sizeof(*array));
+	    if ( *array == NULL )
+	    {
+		fprintf(stderr, "strsplit(): malloc() failed.\n");
+		return 0;
+	    }
+	}
+    }
+    
+    // Trim
+    *array = xt_realloc(*array, c, sizeof(*array));
+    return c;
 }

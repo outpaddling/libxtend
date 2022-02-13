@@ -876,6 +876,12 @@ uint64_t    str2u64(const char *str)
  *      strsplit() allocated memory for the pointers as needed and
  *      assigns one token to each pointer.
  *
+ *      strsplit() should only be used when an array of strings
+ *      representing the tokens is actually needed.  In cases where each
+ *      token can be immediately processed and forgotten, use a loop with
+ *      strsep().  Introducing arrays into a program unnecessarily should
+ *      avoided as a habit to maximize speed and minimize memory use.
+ *
  *      Caution: strsplit() is destructive: It replaces the separators
  *      in string with null bytes.  To preserve the original string,
  *      duplicate it with strdup() first and pass the copy to strsplit().

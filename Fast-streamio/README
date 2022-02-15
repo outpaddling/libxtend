@@ -1,0 +1,25 @@
+
+This is an experiment to develop a faster stream I/O interface for
+limited situations where single-character I/O is needed (low-level block
+I/O is not convenient) and the standard C stream I/O functions cause a
+significant bottleneck.
+
+On FreeBSD, Linux, and NetBSD, this has proven to be rare.  Stream I/O
+adds significant CPU time over low-level I/O with open(), read(), write(),
+and close(), but rarely increases wall time since most programs are CPU-bound
+enough not to saturate the disk bandwidth.
+
+macOS Monterrey, however, has incredibly slow stream I/O, as shown below.
+iotest-low uses raw low-level I/O, iotest-ffile uses our simplified
+replacement for FILE * stream I/O, and iotest uses the standard FILE * I/O.
+
+coral.acadix.biz: M92p-tiny, i5 2.9, SSD
+----------------------------------------
+iotest-low copying to copy.iso...
+	1.83 real         0.06 user         0.88 sys
+iotest-ffile copying to copy.iso...
+	8.58 real         7.80 user         0.78 sys
+iotest copying to copy.iso...
+       17.69 real        17.24 user         0.44 sys
+
+

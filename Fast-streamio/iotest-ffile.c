@@ -68,12 +68,6 @@ int     ffgetc(ffile_t *stream)
 }
 
 
-#define FFGETC(st) \
-    ((st)->c == (st)->bytes_read ? \
-	((st)->bytes_read = read((st)->fd, (st)->buff, BLOCK_SIZE)) == 0 ? \
-	    EOF : ((st)->c = 0, (st)->buff[(st)->c++]) \
-	: (st)->buff[(st)->c++])
-
 int     ffputc(int ch, ffile_t *stream)
 
 {
@@ -100,6 +94,20 @@ int     ffclose(ffile_t *stream)
     return close(stream->fd);
 }
 
+
+#define FFGETC(st) \
+    ((st)->c == (st)->bytes_read ? \
+	((st)->bytes_read = read((st)->fd, (st)->buff, BLOCK_SIZE)) == 0 ? \
+	    EOF \
+	: ((st)->c = 0, (st)->buff[(st)->c++]) \
+    : (st)->buff[(st)->c++])
+
+#define FFPUTC(ch, st) \
+    ((st)->c == BLOCK_SIZE ? \
+	write((st)->fd, (st)->buff, BLOCK_SIZE) != BLOCK_SIZE ? \
+	    EOF \
+	: ((st)->c = 0, (st)->buff[(st)->c++] = ch) \
+    : ((st)->buff[(st)->c++] = ch))
 
 void    usage(char *argv[]);
 
@@ -131,7 +139,7 @@ int     main(int argc,char *argv[])
     }
     
     while ( (ch = FFGETC(infile)) != EOF )
-	ffputc(ch, outfile);
+	FFPUTC(ch, outfile);
     
     ffclose(outfile);
     ffclose(infile);

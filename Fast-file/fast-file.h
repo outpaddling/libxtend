@@ -28,14 +28,18 @@
 	: ((st)->c = 0, (st)->buff[(st)->c++] = ch) \
     : ((st)->buff[(st)->c++] = ch))
 
+#define XT_FAST_FILE_UNGETC_MAX 64
+
 typedef struct
 {
-    unsigned char    *buff;
-    size_t  bytes_read;
-    size_t  c;
-    size_t  block_size;
-    int     fd;
-    int     flags;
+    unsigned char   *buff;
+    unsigned char   *start;
+    ssize_t         bytes_read;
+    ssize_t         c;
+    size_t          block_size;
+    size_t          buff_size;
+    int             fd;
+    int             flags;
 }   ffile_t;
 
 /* fast-file.c */

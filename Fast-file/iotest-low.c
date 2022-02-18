@@ -18,13 +18,15 @@
 #include <sys/uio.h>
 #include <unistd.h>
 
+#define BLOCK_SIZE  32768
+
 void    usage(char *argv[]);
 
 int     main(int argc,char *argv[])
 
 {
     int     infile, outfile;
-    char    buff[4096];
+    char    buff[BLOCK_SIZE];
     ssize_t bytes;
     
     switch(argc)
@@ -36,9 +38,9 @@ int     main(int argc,char *argv[])
 	    usage(argv);
     }
     infile = open(argv[1], O_RDONLY);
-    outfile = open(argv[2], O_WRONLY|O_CREAT|O_TRUNC, 0644);
+    outfile = open(argv[2], O_WRONLY|O_CREAT|O_TRUNC, 0777);
     
-    while ( (bytes = read(infile, buff, 32768)) != 0 )
+    while ( (bytes = read(infile, buff, BLOCK_SIZE)) != 0 )
 	write(outfile, buff, bytes);
     
     close(outfile);

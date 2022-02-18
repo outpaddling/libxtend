@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include "mem.h"
 #include "fast-file.h"
-
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
@@ -37,7 +37,7 @@ ffile_t *ffopen(const char *filename, int flags)
     ffile_t     *stream;
     struct stat st;
     
-    if ( (stream = malloc(sizeof(*stream))) == NULL )
+    if ( (stream = xt_malloc(1, sizeof(*stream))) == NULL )
 	return NULL;
 
     if ( flags & O_WRONLY )
@@ -58,15 +58,17 @@ ffile_t *ffopen(const char *filename, int flags)
 	return NULL;
     }
     stream->block_size = st.st_blksize;
-    printf("Block size = %zu\n", stream->block_size);
+    //printf("Block size = %zu\n", stream->block_size);
     
     // Add space for a null byte
-    if ( (stream->buff = malloc(stream->block_size + 1)) == NULL )
+    stream->buff_size = XT_FAST_FILE_UNGETC_MAX + stream->block_size + 1;
+    if ( (stream->buff = xt_malloc(1, stream->buff_size)) == NULL )
     {
 	fputs("ffopen(): Could not allocate buffer.\n", stderr);
 	free(stream);
 	return NULL;
     }
+    stream->start = stream->buff + XT_FAST_FILE_UNGETC_MAX;
     stream->bytes_read = 0;
     stream->c = 0;
     stream->flags = flags;
@@ -106,7 +108,7 @@ int     ffgetc(ffile_t *stream)
     if ( stream->c == stream->bytes_read )
     {
 	if ( (stream->bytes_read =
-	    read(stream->fd, stream->buff, stream->block_size)) == 0 )
+	    read(stream->fd, stream->start, stream->block_size)) == 0 )
 	{
 	    //fprintf(stderr, "EOF found.\n");
 	    return EOF;
@@ -114,7 +116,7 @@ int     ffgetc(ffile_t *stream)
 	stream->c = 0;
 	//fprintf(stderr, "Read %zd bytes.\n", stream->bytes_read);
     }
-    return stream->buff[stream->c++];
+    return stream->start[stream->c++];
 }
 
 
@@ -152,11 +154,11 @@ int     ffputc(int ch, ffile_t *stream)
 	//stream->buff[stream->c] = '\0';
 	//fputs(stream->buff, stderr);
 	//fflush(stderr);
-	if ( write(stream->fd, stream->buff, stream->block_size) != stream->block_size )
+	if ( write(stream->fd, stream->start, stream->block_size) != stream->block_size )
 	    return EOF;
 	stream->c = 0;
     }
-    stream->buff[stream->c++] = ch;
+    stream->start[stream->c++] = ch;
     //fprintf(stderr, "%zd %c\n", stream->c, ch);
     return ch;
 }
@@ -191,7 +193,12 @@ int     ffputc(int ch, ffile_t *stream)
 int     ffclose(ffile_t *stream)
 
 {
+    int     status;
+    
     if ( stream->flags & O_WRONLY )
-	write(stream->fd, stream->buff, stream->c);
-    return close(stream->fd);
+	write(stream->fd, stream->buff + XT_FAST_FILE_UNGETC_MAX, stream->c);
+    status = close(stream->fd);
+    free(stream->buff);
+    free(stream);
+    return status;
 }

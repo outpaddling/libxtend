@@ -11,21 +11,17 @@
  ***************************************************************************/
 
 #include <stdio.h>
-#include <sysexits.h>
 #include <stdlib.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/uio.h>
-#include <unistd.h>
+#include <sysexits.h>
+#include "fast-file.h"
 
 void    usage(char *argv[]);
 
 int     main(int argc,char *argv[])
 
 {
-    int     infile, outfile;
-    char    buff[4096];
-    ssize_t bytes;
+    ffile_t *infile, *outfile;
+    int     ch;
     
     switch(argc)
     {
@@ -35,14 +31,24 @@ int     main(int argc,char *argv[])
 	default:
 	    usage(argv);
     }
-    infile = open(argv[1], O_RDONLY);
-    outfile = open(argv[2], O_WRONLY|O_CREAT|O_TRUNC, 0644);
+    infile = ffopen(argv[1], O_RDONLY);
+    if ( infile == NULL )
+    {
+	fprintf(stderr, "Error opening %s\n", argv[1]);
+	return 1;
+    }
+    outfile = ffopen(argv[2], O_WRONLY|O_CREAT|O_TRUNC);
+    if ( outfile == NULL )
+    {
+	fprintf(stderr, "Error opening %s\n", argv[2]);
+	return 1;
+    }
     
-    while ( (bytes = read(infile, buff, 4096)) != 0 )
-	write(outfile, buff, bytes);
+    while ( (ch = FFGETC(infile)) != EOF )
+	ffputc(ch, outfile);
     
-    close(outfile);
-    close(infile);
+    ffclose(outfile);
+    ffclose(infile);
     return EX_OK;
 }
 

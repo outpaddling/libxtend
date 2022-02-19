@@ -609,8 +609,10 @@ ffile_t *ffpopen(const char *cmd, int flags)
 	    if ( flags == O_RDONLY )    // O_RDONLY = 0x0, not bits
 	    {
 		// Child runs command and writes standard output to pipe
-		close(1);
+		// Readers won't get EOF until last descriptor is closed
+		// so don't leave this lying around
 		close(fd[0]);   // Not used by child
+		close(1);
 		if ( dup(fd[1]) != 1 )
 		{
 		    fprintf(stderr, "%s: dup() failed to return 1.\n",
@@ -623,8 +625,10 @@ ffile_t *ffpopen(const char *cmd, int flags)
 	    else
 	    {
 		// Child runs command and reads standard input from pipe
-		close(0);
+		// Readers won't get EOF until last descriptor is closed
+		// so don't leave this lying around
 		close(fd[1]);   // Not used by child
+		close(0);
 		if ( dup(fd[0]) != 0 )
 		{
 		    fprintf(stderr, "%s: dup() failed to return 0.\n",
@@ -640,6 +644,8 @@ ffile_t *ffpopen(const char *cmd, int flags)
 	    if ( flags == O_RDONLY )    // O_RDONLY = 0x0, no bits
 	    {
 		// Parent reads from child via pipe
+		// Readers won't get EOF until last descriptor is closed
+		// so don't leave this lying around
 		close(fd[1]);   // Not used by parent
 		if ( (stream = ffdopen(fd[0], O_RDONLY)) == NULL )
 		    return NULL;
@@ -647,6 +653,8 @@ ffile_t *ffpopen(const char *cmd, int flags)
 	    else
 	    {
 		// Parent writes to child via pipe
+		// Readers won't get EOF until last descriptor is closed
+		// so don't leave this lying around
 		close(fd[0]);   // Not used by parent
 		if ( (stream = ffdopen(fd[1], O_WRONLY)) == NULL )
 		    return NULL;

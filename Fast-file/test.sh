@@ -12,7 +12,10 @@ printf "Testing xt_ffopen() compression...\n"
 ./iotest-ffile test.sh temp.sh.gz
 printf "Testing xt_ffopen() decompression...\n"
 ./iotest-ffile temp.sh.gz temp.sh
-diff temp.sh test.sh
+if diff temp.sh test.sh; then
+    printf "Files match.\n"
+    rm -f temp*
+fi
 
 printf "Buffering $file to level the playing field...\n"
 cp $file copy.iso

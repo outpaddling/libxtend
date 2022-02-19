@@ -1,15 +1,3 @@
-/***************************************************************************
- *  Description:
- *  
- *  Arguments:
- *
- *  Returns:
- *
- *  History: 
- *  Date        Name        Modification
- *  2022-02-14  Jason Bacon Begin
- ***************************************************************************/
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -35,22 +23,17 @@ int     main(int argc,char *argv[])
     if ( strcmp(argv[1],"-") == 0 )
 	infile = ffstdin();
     else
-    {
-	//fprintf(stderr, "Opening %s for read %x ...\n", argv[1], O_RDONLY);
 	infile = xt_ffopen(argv[1], O_RDONLY);
-    }
     if ( infile == NULL )
     {
 	fprintf(stderr, "Error opening %s\n", argv[1]);
 	return 1;
     }
+
     if ( strcmp(argv[2],"-") == 0 )
 	outfile = ffstdout();
     else
-    {
-	//fprintf(stderr, "Opening %s for write...\n", argv[2]);
 	outfile = xt_ffopen(argv[2], O_WRONLY|O_CREAT|O_TRUNC);
-    }
     if ( outfile == NULL )
     {
 	fprintf(stderr, "Error opening %s\n", argv[2]);

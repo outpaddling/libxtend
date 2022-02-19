@@ -32,7 +32,10 @@
 	: ((st)->c = 0, (st)->start[(st)->c++] = ch) \
     : ((st)->start[(st)->c++] = ch))
 
-#define XT_FAST_FILE_UNGETC_MAX 16L
+#define XT_FAST_FILE_UNGETC_MAX 64L
+#define XT_FAST_FILE_MAX_ARGS   128
+
+#define FFILE_INIT  { NULL, NULL, 0, 0, 0, 0, 0, 0, 0 }
 
 typedef struct
 {
@@ -44,16 +47,22 @@ typedef struct
     ssize_t         buff_size;
     int             fd;
     int             flags;
+    pid_t           child_pid;
 }   ffile_t;
 
 /* fast-file.c */
+ffile_t *ff_init_stream(ffile_t *stream);
 ffile_t *ffopen(const char *filename, int flags);
 ffile_t *ffdopen(int fd, int flags);
-ffile_t *ffstdin(void);
-ffile_t *ffstdout(void);
 int ffgetc(ffile_t *stream);
 int ffputc(int ch, ffile_t *stream);
-int ffungetc(int ch, ffile_t *stream);
 int ffclose(ffile_t *stream);
+int ffungetc(int ch, ffile_t *stream);
+ffile_t *ffstdin(void);
+ffile_t *ffstdout(void);
+ffile_t *ffpopen(const char *cmd, int flags);
+int ffpclose(ffile_t *stream);
+ffile_t *xt_ffopen(const char *filename, int flags);
+int xt_ffclose(ffile_t *stream);
 
 #endif  // _XTEND_FAST_FILE_H_

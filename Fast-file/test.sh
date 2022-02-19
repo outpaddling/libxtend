@@ -8,6 +8,12 @@ for prog in iotest-ffile iotest-low iotest; do
     cc -I.. -O2 -o $prog $prog.c -L.. -lxtend
 done
 
+printf "Testing xt_ffopen() compression...\n"
+./iotest-ffile test.sh temp.sh.gz
+printf "Testing xt_ffopen() decompression...\n"
+./iotest-ffile temp.sh.gz temp.sh
+diff temp.sh test.sh
+
 printf "Buffering $file to level the playing field...\n"
 cp $file copy.iso
 rm copy.iso

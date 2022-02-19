@@ -22,7 +22,7 @@
 #endif
 
 /* parse-cmd.c */
-char *parse_cmd(char *argv[], const char *cmd);
+char *parse_cmd(char *argv[], int max_args, const char *cmd);
 
 /* spawnlp.c */
 int spawnlp(int parent_action, int echo, char *infile, char *outfile, char *errfile, char *arg0, ...);

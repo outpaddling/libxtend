@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 #include <string.h>
 #include "mem.h"
+#include "proc.h"
 #include "fast-file.h"
 
 
@@ -305,6 +307,7 @@ int     ffputc(int ch, ffile_t *stream)
 	    return EOF;
 	stream->c = 0;
     }
+    //putchar(ch);
     stream->start[stream->c++] = ch;
     return ch;
 }
@@ -369,7 +372,12 @@ int     ffclose(ffile_t *stream)
     int     status;
     
     if ( stream->flags & O_WRONLY )
-	write(stream->fd, stream->buff + XT_FAST_FILE_UNGETC_MAX, stream->c);
+    {
+	//fprintf(stderr, "ffclose() flushing output...\n");
+	//stream->start[stream->c] = '\0';
+	//fputs((char *)stream->start, stderr);
+	write(stream->fd, stream->start, stream->c);
+    }
     status = close(stream->fd);
     free(stream->buff);
     free(stream);
@@ -527,52 +535,190 @@ ffile_t *ffstdout()
 }
 
 
-ffile_t *fpopen(const char *cmd, int flags)
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <xtend/fast-file.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      .B ffpopen(3)
+ *      creates a pipe for interprocess communication, runs the specified
+ *      command, connecting the command's standard input or standard
+ *      output to the pipe, and returning a pointer to a ffile_t object
+ *      connected to the other end.
+ *
+ *      It behaves much like popen(3), except that it returns a fast-file
+ *      fffile_t pointer rather than a standard I/O FILE pointer, and
+ *      accepts a full set of open(3) flags rather than the fopen(3)
+ *      type strings "r", "w", etc.
+ *
+ *      This allows the calling program to spawn a child process
+ *      and read its standard output or write to its standard input as
+ *      easily as reading or writing a file.
+ *
+ *      The stream should be closed with ffpclose(3) rather than ffclose(3)
+ *      in order to wait for the child process to complete and return its
+ *      exit status.
+ *  
+ *  Arguments:
+ *      cmd     Full command to execute as the child, passed to sh(1)
+ *      flags   Open mode flags passed to open(3)
+ *
+ *  Returns:
+ *      Pointer to a ffile_t object on success, NULL otherwise
+ *
+ *  Examples:
+ *      ffile_t *instream;
+ *
+ *      if ( (instream = ffpopen("xzcat file.xz", O_RDONLY)) == NULL )
+ *      {
+ *          fprintf(stderr, "Failed to read xzcat file.xz.\n");
+ *          exit(EX_NOINPUT);
+ *      }
+ *
+ *      ffpclose(instream);
+ *
+ *  See also:
+ *      ffopen(3), ffpclose(3), popen(3), open(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-02-19  Jason Bacon Begin
+ ***************************************************************************/
+
+ffile_t *ffpopen(const char *cmd, int flags)
 
 {
     pid_t   pid;
+    int     fd[2];
     ffile_t *stream = NULL;
-
-    if ( (pid = fork()) == 0 )
+    char    *argv[XT_FAST_FILE_MAX_ARGS];
+    
+    if ( pipe(fd) == 0 )
     {
-	if ( flags & O_RDONLY )
+	if ( (pid = fork()) == 0 )  // Child process
 	{
-	    // Child runs command and writes to pipe
-	    // close(1)
-	    // exec()
+	    // Use shell to process redirection, etc.
+	    argv[0] = "sh";
+	    argv[1] = "-c";
+	    argv[2] = (char *)cmd;
+	    argv[3] = NULL;
+
+	    if ( flags == O_RDONLY )    // O_RDONLY = 0x0, not bits
+	    {
+		// Child runs command and writes standard output to pipe
+		close(1);
+		close(fd[0]);   // Not used by child
+		if ( dup(fd[1]) != 1 )
+		{
+		    fprintf(stderr, "%s: dup() failed to return 1.\n",
+			    __FUNCTION__);
+		    return NULL;
+		}
+		execvp("/bin/sh", argv);
+		return NULL;    // Should not be reached
+	    }
+	    else
+	    {
+		// Child runs command and reads standard input from pipe
+		close(0);
+		close(fd[1]);   // Not used by child
+		if ( dup(fd[0]) != 0 )
+		{
+		    fprintf(stderr, "%s: dup() failed to return 0.\n",
+			    __FUNCTION__);
+		    return NULL;
+		}
+		execvp("/bin/sh", argv);
+		return NULL;    // Should not be reached
+	    }
 	}
 	else
 	{
-	    // Child runs command and reads from pipe
-	    // close(0)
-	    // exec()
+	    if ( flags == O_RDONLY )    // O_RDONLY = 0x0, no bits
+	    {
+		// Parent reads from child via pipe
+		close(fd[1]);   // Not used by parent
+		if ( (stream = ffdopen(fd[0], O_RDONLY)) == NULL )
+		    return NULL;
+	    }
+	    else
+	    {
+		// Parent writes to child via pipe
+		close(fd[0]);   // Not used by parent
+		if ( (stream = ffdopen(fd[1], O_WRONLY)) == NULL )
+		    return NULL;
+	    }
+    
+	    // Set pid in ffile_t stream for waitpid() in ffpclose()
+	    stream->child_pid = pid;
+	    return stream;
 	}
-    }
-    else
-    {
-	if ( flags & O_RDONLY )
-	{
-	    // Parent writes to child via pipe
-	    // close(1)
-	}
-	else
-	{
-	    // Parent reads from child via pipe
-	    // close(0)
-	}
-
-	// Set pid in ffile_t stream for waitpid() in fpclose()
     }
     return stream;
 }
 
 
-int     fpclose(ffile_t *stream)
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <xtend/fast-file.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      .B ffpclose(3)
+ *      closes a stream opened by ffpopen(3), and
+ *      waits for the child process to complete and returns its
+ *      exit status.
+ *  
+ *  Arguments:
+ *      stream  ffile_t stream opened by ffpopen(3)
+ *
+ *  Returns:
+ *      Exit status of the child process spawned by ffpopen(3), or -1 on error
+ *
+ *  Examples:
+ *      ffile_t *instream;
+ *
+ *      if ( (instream = ffpopen("xzcat file.xz", O_RDONLY)) == NULL )
+ *      {
+ *          fprintf(stderr, "Failed to read xzcat file.xz.\n");
+ *          exit(EX_NOINPUT);
+ *      }
+ *
+ *      ffpclose(instream);
+ *
+ *  See also:
+ *      ffopen(3), ffpclose(3), popen(3), open(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-02-19  Jason Bacon Begin
+ ***************************************************************************/
+
+int     ffpclose(ffile_t *stream)
 
 {
-    // Wait for child to exit
-    // return wait4()   // Compatibility with pclose()
-    return 0;
+    int     status = 0;
+    pid_t   pid = stream->child_pid;
+    
+    if ( pid == 0 )
+    {
+	fprintf(stderr, "%s(): No child PID available.  Was the stream opened with ffpopen()?\n",
+		__FUNCTION__);
+	return -1;
+    }
+    
+    ffclose(stream);
+    
+    // Compatibility with pclose()
+    waitpid(pid, &status, 0);
+    //fprintf(stderr, "Back from waitpid().\n");
+    
+    return status;
 }
 
 
@@ -584,7 +730,7 @@ int     fpclose(ffile_t *stream)
  *  Description:
  *      Open a raw data file using fopen() or a gzipped, bzipped, or
  *      xzipped file using popen().  Must be used in conjunction with
- *      xt_fclose() to ensure that fclose() or fpclose() is called where
+ *      xt_ffclose() to ensure that ffclose() or ffpclose() is called where
  *      appropriate.
  *
  *  Arguments:
@@ -616,8 +762,10 @@ ffile_t *xt_ffopen(const char *filename, int flags)
 	return NULL;
     }
 
-    if ( flags & O_RDONLY )
+    //fprintf(stderr, "flags = %x\n", flags);
+    if ( flags == O_RDONLY )    // O_RDONLY = 0x0, no bits set
     {
+	//fprintf(stderr, "Reading from %s...\n", filename);
 	if ( strcmp(ext, ".gz") == 0 )
 	{
 // Big Sur zcat requires a .Z extension and CentOS 7 lacks gzcat
@@ -626,37 +774,38 @@ ffile_t *xt_ffopen(const char *filename, int flags)
 #else
 	    snprintf(cmd, XT_CMD_MAX_CHARS, "zcat %s", filename);
 #endif
-	    return fpopen(cmd, flags);
+	    return ffpopen(cmd, flags);
 	}
 	else if ( strcmp(ext, ".bz2") == 0 )
 	{
 	    snprintf(cmd, XT_CMD_MAX_CHARS, "bzcat %s", filename);
-	    return fpopen(cmd, flags);
+	    return ffpopen(cmd, flags);
 	}
 	else if ( strcmp(ext, ".xz") == 0 )
 	{
 	    snprintf(cmd, XT_CMD_MAX_CHARS, "xzcat %s", filename);
-	    return fpopen(cmd, flags);
+	    return ffpopen(cmd, flags);
 	}
 	else
 	    return ffopen(filename, flags);
     }
     else    // O_WRONLY
     {
+	//fprintf(stderr, "Writing to %s...\n", filename);
 	if ( strcmp(ext, ".gz") == 0 )
 	{
 	    snprintf(cmd, XT_CMD_MAX_CHARS, "gzip -c > %s", filename);
-	    return fpopen(cmd, flags);
+	    return ffpopen(cmd, flags);
 	}
 	else if ( strcmp(ext, ".bz2") == 0 )
 	{
 	    snprintf(cmd, XT_CMD_MAX_CHARS, "bzip2 -c > %s", filename);
-	    return fpopen(cmd, flags);
+	    return ffpopen(cmd, flags);
 	}
 	else if ( strcmp(ext, ".xz") == 0 )
 	{
 	    snprintf(cmd, XT_CMD_MAX_CHARS, "xz -c > %s", filename);
-	    return fpopen(cmd, flags);
+	    return ffpopen(cmd, flags);
 	}
 	else
 	    return ffopen(filename, flags);
@@ -670,7 +819,7 @@ ffile_t *xt_ffopen(const char *filename, int flags)
  *      -lxtend
  *
  *  Description:
- *      Close a FILE stream with fclose() or fpclose() as appropriate.
+ *      Close a FILE stream with ffclose() or ffpclose() as appropriate.
  *      Automatically determines the proper close function to call using
  *      S_ISFIFO on the stream stat structure.
  *
@@ -678,7 +827,7 @@ ffile_t *xt_ffopen(const char *filename, int flags)
  *      stream: The FILE structure to be closed
  *
  *  Returns:
- *      The value returned by fclose() or fpclose()
+ *      The value returned by ffclose() or ffpclose()
  *
  *  See also:
  *      fopen(3), popen(3), gzip(1), bzip2(1), xz(1)
@@ -695,7 +844,7 @@ int     xt_ffclose(ffile_t *stream)
     
     fstat(stream->fd, &stat);
     if ( S_ISFIFO(stat.st_mode) )
-	return fpclose(stream);
+	return ffpclose(stream);
     else
 	return ffclose(stream);
 }

@@ -43,7 +43,7 @@
  *  Circa 1990  Jason Bacon Begin
  ***************************************************************************/
 
-char    *parse_cmd(char *argv[], const char *cmd)
+char    *parse_cmd(char *argv[], int max_args, const char *cmd)
 
 {
     char    *cmd_copy;
@@ -60,8 +60,9 @@ char    *parse_cmd(char *argv[], const char *cmd)
     strshellcpy(cmd_copy, cmd, XT_CMD_MAX_CHARS - 1);
     
     /* Break command into tokens for argv[] */
+    // FIXME: Replace deprecated strtok() with strsep()
     argv[0] = strtok(cmd_copy, " \t");
-    for (c = 1; (argv[c] = strtok(NULL, " \t")) != NULL; ++c)
+    for (c = 1; (c < max_args) && (argv[c] = strtok(NULL, " \t")) != NULL; ++c)
 	;
     return cmd_copy;
 }

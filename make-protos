@@ -1,10 +1,8 @@
 #!/bin/sh -e
 
-: ${LOCALBASE:=../local}
+: ${PREFIX:=../local}
+: ${LOCALBASE:=/usr/local}
 
-protos=xtend-protos.h
-rm -f $protos
-touch $protos
 for file in *.c; do
-    cproto -I${LOCALBASE}/include $file >> $protos
+    cproto -I. -I${PREFIX}/include -I${LOCALBASE}/include $file
 done

@@ -9,6 +9,10 @@
 #include <unistd.h>
 #endif
 
+#ifndef _XT_COMMON_H_
+#include "common.h"
+#endif
+
 /*
  *  These macro implementations of ffgetc() and ffputc() show significantly
  *  lower CPU usage.

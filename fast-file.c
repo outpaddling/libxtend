@@ -525,3 +525,177 @@ ffile_t *ffstdout()
 {
     return ffdopen(1, O_WRONLY|O_APPEND);
 }
+
+
+ffile_t *fpopen(const char *cmd, int flags)
+
+{
+    pid_t   pid;
+    ffile_t *stream = NULL;
+
+    if ( (pid = fork()) == 0 )
+    {
+	if ( flags & O_RDONLY )
+	{
+	    // Child runs command and writes to pipe
+	    // close(1)
+	    // exec()
+	}
+	else
+	{
+	    // Child runs command and reads from pipe
+	    // close(0)
+	    // exec()
+	}
+    }
+    else
+    {
+	if ( flags & O_RDONLY )
+	{
+	    // Parent writes to child via pipe
+	    // close(1)
+	}
+	else
+	{
+	    // Parent reads from child via pipe
+	    // close(0)
+	}
+
+	// Set pid in ffile_t stream for waitpid() in fpclose()
+    }
+    return stream;
+}
+
+
+int     fpclose(ffile_t *stream)
+
+{
+    // Wait for child to exit
+    // return wait4()   // Compatibility with pclose()
+    return 0;
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <xtend/file.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      Open a raw data file using fopen() or a gzipped, bzipped, or
+ *      xzipped file using popen().  Must be used in conjunction with
+ *      xt_fclose() to ensure that fclose() or fpclose() is called where
+ *      appropriate.
+ *
+ *  Arguments:
+ *      filename:   Name of the file to be opened
+ *      mode:       "r" or "w", passed to fopen() or popen()
+ *
+ *  Returns:
+ *      A pointer to the FILE structure or NULL if open failed
+ *
+ *  See also:
+ *      fopen(3), popen(3), gzip(1), bzip2(1), xz(1)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-04-09  Jason Bacon Begin
+ ***************************************************************************/
+
+ffile_t *xt_ffopen(const char *filename, int flags)
+
+{
+    char    *ext = strrchr(filename, '.'),
+	    cmd[XT_CMD_MAX_CHARS + 1];
+    
+    if ( ext == NULL )
+    {
+	// FIXME: Use __FUNCTION__ in all such messages
+	fprintf(stderr, "%s(): No filename extension on %s.\n",
+		__FUNCTION__, filename);
+	return NULL;
+    }
+
+    if ( flags & O_RDONLY )
+    {
+	if ( strcmp(ext, ".gz") == 0 )
+	{
+// Big Sur zcat requires a .Z extension and CentOS 7 lacks gzcat
+#ifdef __APPLE__
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "gzcat %s", filename);
+#else
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "zcat %s", filename);
+#endif
+	    return fpopen(cmd, flags);
+	}
+	else if ( strcmp(ext, ".bz2") == 0 )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "bzcat %s", filename);
+	    return fpopen(cmd, flags);
+	}
+	else if ( strcmp(ext, ".xz") == 0 )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "xzcat %s", filename);
+	    return fpopen(cmd, flags);
+	}
+	else
+	    return ffopen(filename, flags);
+    }
+    else    // O_WRONLY
+    {
+	if ( strcmp(ext, ".gz") == 0 )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "gzip -c > %s", filename);
+	    return fpopen(cmd, flags);
+	}
+	else if ( strcmp(ext, ".bz2") == 0 )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "bzip2 -c > %s", filename);
+	    return fpopen(cmd, flags);
+	}
+	else if ( strcmp(ext, ".xz") == 0 )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "xz -c > %s", filename);
+	    return fpopen(cmd, flags);
+	}
+	else
+	    return ffopen(filename, flags);
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <xtend/file.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      Close a FILE stream with fclose() or fpclose() as appropriate.
+ *      Automatically determines the proper close function to call using
+ *      S_ISFIFO on the stream stat structure.
+ *
+ *  Arguments:
+ *      stream: The FILE structure to be closed
+ *
+ *  Returns:
+ *      The value returned by fclose() or fpclose()
+ *
+ *  See also:
+ *      fopen(3), popen(3), gzip(1), bzip2(1), xz(1)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-04-10  Jason Bacon Begin
+ ***************************************************************************/
+
+int     xt_ffclose(ffile_t *stream)
+
+{
+    struct stat stat;
+    
+    fstat(stream->fd, &stat);
+    if ( S_ISFIFO(stat.st_mode) )
+	return fpclose(stream);
+    else
+	return ffclose(stream);
+}

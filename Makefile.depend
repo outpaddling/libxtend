@@ -4,31 +4,36 @@ combinatorics.o: combinatorics.c math.h
 digits.o: digits.c math.h
 	${CC} -c ${CFLAGS} digits.c
 
-dsv-mutators.o: dsv-mutators.c string.h dsv.h
+dsv-mutators.o: dsv-mutators.c string.h dsv.h dsv-rvs.h dsv-accessors.h \
+  dsv-mutators.h
 	${CC} -c ${CFLAGS} dsv-mutators.c
 
-dsv.o: dsv.c dsv.h mem.h file.h common.h
+dsv.o: dsv.c dsv.h dsv-rvs.h dsv-accessors.h dsv-mutators.h mem.h file.h \
+  common.h
 	${CC} -c ${CFLAGS} dsv.c
 
-fast-cp.o: fast-cp.c file.h math.h
+fast-cp.o: fast-cp.c file.h common.h math.h
 	${CC} -c ${CFLAGS} fast-cp.c
 
-fd-purge.o: fd-purge.c file.h
+fast-file.o: fast-file.c mem.h fast-file.h
+	${CC} -c ${CFLAGS} fast-file.c
+
+fd-purge.o: fd-purge.c file.h common.h
 	${CC} -c ${CFLAGS} fd-purge.c
 
-fgetline.o: fgetline.c file.h
+fgetline.o: fgetline.c file.h common.h
 	${CC} -c ${CFLAGS} fgetline.c
 
-file-mod-cmp.o: file-mod-cmp.c file.h
+file-mod-cmp.o: file-mod-cmp.c file.h common.h
 	${CC} -c ${CFLAGS} file-mod-cmp.c
 
 gcd.o: gcd.c math.h
 	${CC} -c ${CFLAGS} gcd.c
 
-get-home-dir.o: get-home-dir.c file.h string.h
+get-home-dir.o: get-home-dir.c file.h common.h string.h
 	${CC} -c ${CFLAGS} get-home-dir.c
 
-mv.o: mv.c file.h
+mv.o: mv.c file.h common.h
 	${CC} -c ${CFLAGS} mv.c
 
 numeric_cmp.o: numeric_cmp.c math.h
@@ -40,7 +45,7 @@ parse-cmd.o: parse-cmd.c proc.h common.h string.h
 resolve-hostname.o: resolve-hostname.c string.h net.h common.h
 	${CC} -c ${CFLAGS} resolve-hostname.c
 
-rmkdir.o: rmkdir.c file.h
+rmkdir.o: rmkdir.c file.h common.h
 	${CC} -c ${CFLAGS} rmkdir.c
 
 spawnlp.o: spawnlp.c proc.h common.h
@@ -49,7 +54,7 @@ spawnlp.o: spawnlp.c proc.h common.h
 spawnvp.o: spawnvp.c proc.h common.h
 	${CC} -c ${CFLAGS} spawnvp.c
 
-string.o: string.c string.h file.h ctype.h
+string.o: string.c string.h file.h common.h ctype.h mem.h
 	${CC} -c ${CFLAGS} string.c
 
 time.o: time.c time.h
@@ -58,10 +63,10 @@ time.o: time.c time.h
 va-usage.o: va-usage.c proc.h common.h
 	${CC} -c ${CFLAGS} va-usage.c
 
-valid-extension.o: valid-extension.c file.h
+valid-extension.o: valid-extension.c file.h common.h
 	${CC} -c ${CFLAGS} valid-extension.c
 
-xt-file.o: xt-file.c file.h
+xt-file.o: xt-file.c file.h common.h
 	${CC} -c ${CFLAGS} xt-file.c
 
 xt-malloc.o: xt-malloc.c mem.h

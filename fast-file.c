@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <string.h>
 #include "mem.h"
 #include "fast-file.h"
 
@@ -357,8 +357,6 @@ int     ffclose(ffile_t *stream)
 int     ffungetc(int ch, ffile_t *stream)
 
 {
-    static unsigned count = 1;
-    
     if ( stream->c > -(XT_FAST_FILE_UNGETC_MAX + 1) )
     {
 	stream->start[--stream->c] = ch;

@@ -76,7 +76,8 @@ OBJS    = valid-extension.o xt-file.o string.o time.o mv.o \
 	  digits.o parse-cmd.o rmkdir.o \
 	  spawnlp.o spawnvp.o va-usage.o \
 	  xt-malloc.o dsv.o dsv-mutators.o \
-	  resolve-hostname.o numeric_cmp.o combinatorics.o
+	  resolve-hostname.o numeric_cmp.o combinatorics.o \
+	  fast-file.o
 
 ############################################################################
 # Compile, link, and install options

@@ -16,19 +16,19 @@
 
 #define FFGETC(st) \
     ((st)->c == (st)->bytes_read ? \
-	((st)->bytes_read = read((st)->fd, (st)->buff, (st)->block_size)) == 0 ? \
+	((st)->bytes_read = read((st)->fd, (st)->start, (st)->block_size)) == 0 ? \
 	    EOF \
-	: ((st)->c = 0, (st)->buff[(st)->c++]) \
-    : (st)->buff[(st)->c++])
+	: ((st)->c = 0, (st)->start[(st)->c++]) \
+    : (st)->start[(st)->c++])
 
 #define FFPUTC(ch, st) \
     ((st)->c == (st)->block_size ? \
-	write((st)->fd, (st)->buff, (st)->block_size) != (st)->block_size ? \
+	write((st)->fd, (st)->start, (st)->block_size) != (st)->block_size ? \
 	    EOF \
-	: ((st)->c = 0, (st)->buff[(st)->c++] = ch) \
-    : ((st)->buff[(st)->c++] = ch))
+	: ((st)->c = 0, (st)->start[(st)->c++] = ch) \
+    : ((st)->start[(st)->c++] = ch))
 
-#define XT_FAST_FILE_UNGETC_MAX 64
+#define XT_FAST_FILE_UNGETC_MAX 16L
 
 typedef struct
 {
@@ -36,8 +36,8 @@ typedef struct
     unsigned char   *start;
     ssize_t         bytes_read;
     ssize_t         c;
-    size_t          block_size;
-    size_t          buff_size;
+    ssize_t         block_size;
+    ssize_t         buff_size;
     int             fd;
     int             flags;
 }   ffile_t;
@@ -46,6 +46,7 @@ typedef struct
 ffile_t *ffopen(const char *filename, int flags);
 int ffgetc(ffile_t *stream);
 int ffputc(int ch, ffile_t *stream);
+int ffungetc(int ch, ffile_t *stream);
 int ffclose(ffile_t *stream);
 
 #endif  // _XTEND_FAST_FILE_H_

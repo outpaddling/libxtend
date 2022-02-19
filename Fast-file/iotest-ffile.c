@@ -21,7 +21,7 @@ int     main(int argc,char *argv[])
 
 {
     ffile_t *infile, *outfile;
-    int     ch;
+    int     ch, ch2, ch3;
     
     switch(argc)
     {
@@ -43,9 +43,17 @@ int     main(int argc,char *argv[])
 	fprintf(stderr, "Error opening %s\n", argv[2]);
 	return 1;
     }
+
+    // Test ungetc extra space behind stream->start
+    ch = FFGETC(infile);
+    ch2 = FFGETC(infile);
+    ch3 = FFGETC(infile);
+    ffungetc(ch3, infile);
+    ffungetc(ch2, infile);
+    ffungetc(ch, infile);
     
     while ( (ch = FFGETC(infile)) != EOF )
-	ffputc(ch, outfile);
+	FFPUTC(ch, outfile);
     
     ffclose(outfile);
     ffclose(infile);

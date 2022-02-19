@@ -11,9 +11,11 @@
  ***************************************************************************/
 
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <sysexits.h>
 #include "fast-file.h"
+
 
 void    usage(char *argv[]);
 
@@ -31,13 +33,19 @@ int     main(int argc,char *argv[])
 	default:
 	    usage(argv);
     }
-    infile = ffopen(argv[1], O_RDONLY);
+    if ( strcmp(argv[1],"-") == 0 )
+	infile = ffstdin();
+    else
+	infile = ffopen(argv[1], O_RDONLY);
     if ( infile == NULL )
     {
 	fprintf(stderr, "Error opening %s\n", argv[1]);
 	return 1;
     }
-    outfile = ffopen(argv[2], O_WRONLY|O_CREAT|O_TRUNC);
+    if ( strcmp(argv[2],"-") == 0 )
+	outfile = ffstdout();
+    else
+	outfile = ffopen(argv[2], O_WRONLY|O_CREAT|O_TRUNC);
     if ( outfile == NULL )
     {
 	fprintf(stderr, "Error opening %s\n", argv[2]);

@@ -44,6 +44,9 @@ typedef struct
 
 /* fast-file.c */
 ffile_t *ffopen(const char *filename, int flags);
+ffile_t *ffdopen(int fd, int flags);
+ffile_t *ffstdin(void);
+ffile_t *ffstdout(void);
 int ffgetc(ffile_t *stream);
 int ffputc(int ch, ffile_t *stream);
 int ffungetc(int ch, ffile_t *stream);

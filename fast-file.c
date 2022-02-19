@@ -6,6 +6,41 @@
 #include "mem.h"
 #include "fast-file.h"
 
+
+/*
+ *  Non-API function for completing stream initialization for ffopen()
+ *  and ffdopen()
+ */
+
+ffile_t *ff_init_stream(ffile_t *stream)
+
+{
+    struct stat st;
+    
+    // Get optimal block size for the underlying filesystem
+    if ( fstat(stream->fd, &st) != 0 )
+    {
+	free(stream);
+	fprintf(stderr, "ffopen(): Could not stat fd %d.\n", stream->fd);
+	return NULL;
+    }
+    stream->block_size = st.st_blksize;
+    fprintf(stderr, "Block size = %zd\n", stream->block_size);
+    // Add space for a null byte
+    stream->buff_size = XT_FAST_FILE_UNGETC_MAX + stream->block_size + 1;
+    if ( (stream->buff = xt_malloc(1, stream->buff_size)) == NULL )
+    {
+	fputs("ff_init_stream(): Could not allocate buffer.\n", stderr);
+	free(stream);
+	return NULL;
+    }
+    stream->start = stream->buff + XT_FAST_FILE_UNGETC_MAX;
+    stream->bytes_read = 0;
+    stream->c = 0;
+    return stream;
+}
+
+
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
@@ -60,7 +95,6 @@ ffile_t *ffopen(const char *filename, int flags)
 
 {
     ffile_t     *stream;
-    struct stat st;
     
     if ( (stream = xt_malloc(1, sizeof(*stream))) == NULL )
 	return NULL;
@@ -74,30 +108,68 @@ ffile_t *ffopen(const char *filename, int flags)
 	free(stream);
 	return NULL;
     }
-
-    // Get optimal block size for the underlying filesystem
-    if ( stat(filename, &st) != 0 )
-    {
-	free(stream);
-	fprintf(stderr, "ffopen(): Could not stat %s.\n", filename);
-	return NULL;
-    }
-    stream->block_size = st.st_blksize;
-    //printf("Block size = %zd\n", stream->block_size);
-    
-    // Add space for a null byte
-    stream->buff_size = XT_FAST_FILE_UNGETC_MAX + stream->block_size + 1;
-    if ( (stream->buff = xt_malloc(1, stream->buff_size)) == NULL )
-    {
-	fputs("ffopen(): Could not allocate buffer.\n", stderr);
-	free(stream);
-	return NULL;
-    }
-    stream->start = stream->buff + XT_FAST_FILE_UNGETC_MAX;
-    stream->bytes_read = 0;
-    stream->c = 0;
     stream->flags = flags;
-    return stream;
+
+    return ff_init_stream(stream);
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <fcntl.h>
+ *      #include <xtend/fast-file.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      .B ffdopen()
+ *      initializes a ffile_t stream, much as fdopen() does for a FILE
+ *      stream.  Unlike fdopen(), ffdopen() takes the same bit mask
+ *      argument as open() to determine the open mode.
+ *      See open(3) for details.
+ *
+ *      An optimally sized buffer for the underlying filesystem is allocated,
+ *      along with additional space for limited ffungetc() operations.
+ *      The ffile_t system is simpler than and several times as
+ *      fast as FILE on typical systems.  It is intended for processing
+ *      large files character-by-character, where low-level block I/O
+ *      is not convenient, but FILE I/O causes a bottleneck.
+ *  
+ *  Arguments:
+ *      fd          Open file descriptor to which stream is attached
+ *      flags       Bit flags passed to open(3)
+ *
+ *  Returns:
+ *      A pointer to a ffile_t object on success, NULL on failure
+ *
+ *  Examples:
+ *      ffile_t *stream;
+ *      char    *filename;
+ *      int     fd;
+ *      
+ *      fd = open(filename, O_RDONLY);
+ *      stream = ffdopen(fd, O_RDONLY);
+ *
+ *  See also:
+ *      ffopen(3), open(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-02-14  Jason Bacon Begin
+ ***************************************************************************/
+
+ffile_t *ffdopen(int fd, int flags)
+
+{
+    ffile_t     *stream;
+    
+    if ( (stream = xt_malloc(1, sizeof(*stream))) == NULL )
+	return NULL;
+    stream->fd = fd;
+    stream->flags = flags;
+
+    return ff_init_stream(stream);
 }
 
 
@@ -364,4 +436,92 @@ int     ffungetc(int ch, ffile_t *stream)
     }
     else
 	return EOF;
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <xtend/fast-file.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      .B ffstdin()
+ *      is a simple wrapper function for connecting file descriptor 0
+ *      to an ffile_t object using ffdopen(3).  This is useful for
+ *      high-performance filter programs, where using the traditional
+ *      FILE *stdin would cause a bottleneck.
+ *  
+ *  Arguments:
+ *      None
+ *
+ *  Returns:
+ *      Pointer to an ffile_t object if successful, NULL otherwise
+ *
+ *  Examples:
+ *      ffile_t *stream;
+ *
+ *      // "-" as a filename argument traditionally indicates stdin
+ *      if ( strcmp(argv[arg], "-") == 0 )
+ *          stream = ffstdin();
+ *      else
+ *          stream = ffopen(argv[arg], O_RDONLY);
+ *
+ *  See also:
+ *      ffopen(3), ffdopen(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-02-19  Jason Bacon Begin
+ ***************************************************************************/
+
+ffile_t *ffstdin()
+
+{
+    return ffdopen(0, O_RDONLY);
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <xtend/fast-file.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      .B ffstdout()
+ *      is a simple wrapper function for connecting file descriptor 1
+ *      to an ffile_t object using ffdopen(3).  This is useful for
+ *      high-performance filter programs, where using the traditional
+ *      FILE *stdout would cause a bottleneck.
+ *  
+ *  Arguments:
+ *      None
+ *
+ *  Returns:
+ *      Pointer to an ffile_t object if successful, NULL otherwise
+ *
+ *  Examples:
+ *      ffile_t *stream;
+ *
+ *      // "-" as a filename argument traditionally indicates stdout
+ *      if ( strcmp(argv[arg], "-") == 0 )
+ *          stream = ffstdout();
+ *      else
+ *          stream = ffopen(argv[arg], O_WRONLY|O_CREAT|O_TRUNC);
+ *
+ *  See also:
+ *      ffopen(3), ffdopen(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-02-19  Jason Bacon Begin
+ ***************************************************************************/
+
+ffile_t *ffstdout()
+
+{
+    return ffdopen(1, O_WRONLY|O_APPEND);
 }

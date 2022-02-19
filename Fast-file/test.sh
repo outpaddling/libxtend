@@ -12,7 +12,7 @@ printf "Buffering $file to level the playing field...\n"
 cp $file copy.iso
 rm copy.iso
 
-printf "Testing ffstdin()...\n"
+printf "Testing ffstdin() and ffstdout()...\n"
 /usr/bin/time ./iotest-ffile - - < $file > copy.iso
 cmp $file copy.iso
 rm copy.iso

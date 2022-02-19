@@ -25,7 +25,7 @@ ffile_t *ff_init_stream(ffile_t *stream)
 	return NULL;
     }
     stream->block_size = st.st_blksize;
-    fprintf(stderr, "Block size = %zd\n", stream->block_size);
+    //fprintf(stderr, "Block size = %zd\n", stream->block_size);
     // Add space for a null byte
     stream->buff_size = XT_FAST_FILE_UNGETC_MAX + stream->block_size + 1;
     if ( (stream->buff = xt_malloc(1, stream->buff_size)) == NULL )

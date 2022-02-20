@@ -30,10 +30,17 @@ mode:       "r" or "w", passed to fopen() or popen()
 
 .SH DESCRIPTION
 
-Open a raw data file using fopen() or a gzipped, bzipped, or
-xzipped file using popen().  Must be used in conjunction with
+.B xt_ffopen(3)
+opens a raw data file using fopen() or a gzipped, bzipped, or
+xzipped file using popen(), returning a pointer to a ffile_t
+stream.  Must be used in conjunction with
 xt_ffclose() to ensure that ffclose() or ffpclose() is called where
 appropriate.
+
+The ffile_t system is simpler than and several times as
+fast as FILE on typical systems.  It is intended for processing
+large files character-by-character, where low-level block I/O
+is not convenient, but FILE I/O causes a bottleneck.
 
 .SH RETURN VALUES
 

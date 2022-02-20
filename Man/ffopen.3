@@ -39,6 +39,7 @@ See open(3) for details.
 
 An optimally sized buffer for the underlying filesystem is allocated,
 along with additional space for limited ffungetc() operations.
+
 The ffile_t system is simpler than and several times as
 fast as FILE on typical systems.  It is intended for processing
 large files character-by-character, where low-level block I/O

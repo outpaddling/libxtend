@@ -29,9 +29,15 @@ stream: The FILE structure to be closed
 
 .SH DESCRIPTION
 
-Close a FILE stream with ffclose() or ffpclose() as appropriate.
+.B xt_ffclose(3)
+closes a ffile_t stream with ffclose() or ffpclose() as appropriate.
 Automatically determines the proper close function to call using
 S_ISFIFO on the stream stat structure.
+
+The ffile_t system is simpler than and several times as
+fast as FILE on typical systems.  It is intended for processing
+large files character-by-character, where low-level block I/O
+is not convenient, but FILE I/O causes a bottleneck.
 
 .SH RETURN VALUES
 

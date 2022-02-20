@@ -70,6 +70,10 @@ int     main(int argc,char *argv[])
     
     xt_ffclose(outfile);
     xt_ffclose(infile);
+    
+    outfile = ffopen("ffprintf-test.txt", O_WRONLY|O_CREAT|O_TRUNC);
+    ffprintf(outfile, "%s%d\n", "ffprintf test #", 1);
+    ffclose(outfile);
     return EX_OK;
 }
 

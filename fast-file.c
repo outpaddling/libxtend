@@ -4,6 +4,7 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <string.h>
+#include <stdarg.h>
 #include "mem.h"
 #include "proc.h"
 #include "fast-file.h"
@@ -60,6 +61,7 @@ ffile_t *ff_init_stream(ffile_t *stream)
  *
  *      An optimally sized buffer for the underlying filesystem is allocated,
  *      along with additional space for limited ffungetc() operations.
+ *
  *      The ffile_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
@@ -133,6 +135,7 @@ ffile_t *ffopen(const char *filename, int flags)
  *
  *      An optimally sized buffer for the underlying filesystem is allocated,
  *      along with additional space for limited ffungetc() operations.
+ *
  *      The ffile_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
@@ -385,7 +388,6 @@ int     ffclose(ffile_t *stream)
 }
 
 
-
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
@@ -460,6 +462,11 @@ int     ffungetc(int ch, ffile_t *stream)
  *      to an ffile_t object using ffdopen(3).  This is useful for
  *      high-performance filter programs, where using the traditional
  *      FILE *stdin would cause a bottleneck.
+ *
+ *      The ffile_t system is simpler than and several times as
+ *      fast as FILE on typical systems.  It is intended for processing
+ *      large files character-by-character, where low-level block I/O
+ *      is not convenient, but FILE I/O causes a bottleneck.
  *  
  *  Arguments:
  *      None
@@ -504,6 +511,11 @@ ffile_t *ffstdin()
  *      to an ffile_t object using ffdopen(3).  This is useful for
  *      high-performance filter programs, where using the traditional
  *      FILE *stdout would cause a bottleneck.
+ *
+ *      The ffile_t system is simpler than and several times as
+ *      fast as FILE on typical systems.  It is intended for processing
+ *      large files character-by-character, where low-level block I/O
+ *      is not convenient, but FILE I/O causes a bottleneck.
  *  
  *  Arguments:
  *      None
@@ -561,6 +573,11 @@ ffile_t *ffstdout()
  *      The stream should be closed with ffpclose(3) rather than ffclose(3)
  *      in order to wait for the child process to complete and return its
  *      exit status.
+ *
+ *      The ffile_t system is simpler than and several times as
+ *      fast as FILE on typical systems.  It is intended for processing
+ *      large files character-by-character, where low-level block I/O
+ *      is not convenient, but FILE I/O causes a bottleneck.
  *  
  *  Arguments:
  *      cmd     Full command to execute as the child, passed to sh(1)
@@ -681,6 +698,11 @@ ffile_t *ffpopen(const char *cmd, int flags)
  *      closes a stream opened by ffpopen(3), and
  *      waits for the child process to complete and returns its
  *      exit status.
+ *
+ *      The ffile_t system is simpler than and several times as
+ *      fast as FILE on typical systems.  It is intended for processing
+ *      large files character-by-character, where low-level block I/O
+ *      is not convenient, but FILE I/O causes a bottleneck.
  *  
  *  Arguments:
  *      stream  ffile_t stream opened by ffpopen(3)
@@ -736,10 +758,17 @@ int     ffpclose(ffile_t *stream)
  *      -lxtend
  *
  *  Description:
- *      Open a raw data file using fopen() or a gzipped, bzipped, or
- *      xzipped file using popen().  Must be used in conjunction with
+ *      .B xt_ffopen(3)
+ *      opens a raw data file using fopen() or a gzipped, bzipped, or
+ *      xzipped file using popen(), returning a pointer to a ffile_t
+ *      stream.  Must be used in conjunction with
  *      xt_ffclose() to ensure that ffclose() or ffpclose() is called where
  *      appropriate.
+ *
+ *      The ffile_t system is simpler than and several times as
+ *      fast as FILE on typical systems.  It is intended for processing
+ *      large files character-by-character, where low-level block I/O
+ *      is not convenient, but FILE I/O causes a bottleneck.
  *
  *  Arguments:
  *      filename:   Name of the file to be opened
@@ -827,9 +856,15 @@ ffile_t *xt_ffopen(const char *filename, int flags)
  *      -lxtend
  *
  *  Description:
- *      Close a FILE stream with ffclose() or ffpclose() as appropriate.
+ *      .B xt_ffclose(3)
+ *      closes a ffile_t stream with ffclose() or ffpclose() as appropriate.
  *      Automatically determines the proper close function to call using
  *      S_ISFIFO on the stream stat structure.
+ *
+ *      The ffile_t system is simpler than and several times as
+ *      fast as FILE on typical systems.  It is intended for processing
+ *      large files character-by-character, where low-level block I/O
+ *      is not convenient, but FILE I/O causes a bottleneck.
  *
  *  Arguments:
  *      stream: The FILE structure to be closed
@@ -855,4 +890,64 @@ int     xt_ffclose(ffile_t *stream)
 	return ffpclose(stream);
     else
 	return ffclose(stream);
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <xtend/fast-file.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      .B ffprintf(3)
+ *      writes formatted data to a ffile_t stream the same was as
+ *      fprintf(3) writes to a FILE stream.
+ *
+ *      The ffile_t system is simpler than and several times as
+ *      fast as FILE on typical systems.  It is intended for processing
+ *      large files character-by-character, where low-level block I/O
+ *      is not convenient, but FILE I/O causes a bottleneck.
+ *  
+ *  Arguments:
+ *      stream  Pointer to an ffile_t object opened by ffopen(3)
+ *      format  Format string indicating how remaining arguments are printed
+ *
+ *  Returns:
+ *      The number of characters written
+ *
+ *  Examples:
+ *      ffile_t *stream;
+ *      int     count = 1;
+ *
+ *      if ( (stream = ffopen(filename, O_WRONLY|O_CREAT|O_TRUNC)) == NULL )
+ *      {
+ *          fprintf(stderr, "Could not open %s.\n", filename);
+ *          exit(EX_CANTCREAT);
+ *      }
+ *      ffprintf(stream, "%d\n", count);
+ *      ffclose(stream);
+ *
+ *  See also:
+ *      fprintf(3), ffopen(3), ffclose(3), ffputc(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-02-19  Jason Bacon Begin
+ ***************************************************************************/
+
+int     ffprintf(ffile_t *stream, const char *format, ...)
+
+{
+    va_list ap;
+    char    *buff;
+    int     chars_printed, c;
+    
+    va_start(ap, format);
+    chars_printed = vasprintf(&buff, format, ap);
+    for (c = 0; buff[c] != '\0'; ++c)
+	FFPUTC(buff[c], stream);
+    free(buff);
+    return chars_printed;
 }

@@ -49,6 +49,11 @@ The stream should be closed with ffpclose(3) rather than ffclose(3)
 in order to wait for the child process to complete and return its
 exit status.
 
+The ffile_t system is simpler than and several times as
+fast as FILE on typical systems.  It is intended for processing
+large files character-by-character, where low-level block I/O
+is not convenient, but FILE I/O causes a bottleneck.
+
 .SH RETURN VALUES
 
 Pointer to a ffile_t object on success, NULL otherwise

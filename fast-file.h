@@ -64,5 +64,6 @@ ffile_t *ffpopen(const char *cmd, int flags);
 int ffpclose(ffile_t *stream);
 ffile_t *xt_ffopen(const char *filename, int flags);
 int xt_ffclose(ffile_t *stream);
+int ffprintf(ffile_t *stream, const char *format, ...);
 
 #endif  // _XTEND_FAST_FILE_H_

@@ -17,12 +17,6 @@
 #include "common.h"
 #endif
 
-// FIXME: Return this instead of EOF in dsv_read*()
-// Don't trust that EOF is -1 on all platforms
-#define XT_READ_EOF             -1
-#define XT_READ_MALLOC_FAILED   -2
-#define XT_READ_BUFF_OVERFLOW   -3
-
 /* valid-extension.c */
 bool valid_extension(const char *filename, const char *valid_ext);
 

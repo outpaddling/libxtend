@@ -125,7 +125,7 @@ int     dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
 	*buff_size = 1024;
 	*buff = xt_malloc(*buff_size, sizeof(**buff));
 	if ( *buff == NULL )
-	    return XT_READ_MALLOC_FAILED;
+	    return XT_MALLOC_FAILED;
     }
     
     for (c = 0; ( ((ch = getc(stream)) != '\n') && (ch != EOF) &&
@@ -136,7 +136,7 @@ int     dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
 	    *buff_size *= 2;
 	    *buff = xt_realloc(*buff, *buff_size, sizeof(**buff));
 	    if ( *buff == NULL )
-		return XT_READ_MALLOC_FAILED;
+		return XT_MALLOC_FAILED;
 	}
 	(*buff)[c] = ch;
     }

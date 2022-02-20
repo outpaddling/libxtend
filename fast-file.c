@@ -8,7 +8,7 @@
 #include "mem.h"
 #include "proc.h"
 #include "fast-file.h"
-
+#include "common.h"
 
 /*
  *  Non-API function for completing stream initialization for ffopen()
@@ -232,7 +232,7 @@ int     ffgetc(ffile_t *stream)
     if ( stream->c == stream->bytes_read )
     {
 	/*
-	 *  Move last part of buffer to ungetc() region.  Only the last
+	 *  Move last part of buffer to ffungetc() region.  Only the last
 	 *  block read should be < block_size chars, and it will never
 	 *  be moved here.
 	 */
@@ -950,4 +950,93 @@ int     ffprintf(ffile_t *stream, const char *format, ...)
 	FFPUTC(buff[c], stream);
     free(buff);
     return chars_printed;
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <xtend/fast-file.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      .B ffread_line_malloc()
+ *      reads a single line of text (up to the next newline or EOF)
+ *      from stream, allocating and/or extending the provided buffer if
+ *      needed.
+ *  
+ *  Arguments:
+ *      stream:     FILE stream from which field is read
+ *      buff:       Character buffer into which field is copied
+ *      buff_size:  Size of the array passed to buff
+ *      len:        Pointer to a variable which will receive the field length
+ *
+ *  Returns:
+ *      Delimiter ending the read: either newline or EOF
+ *
+ *  Examples:
+ *      ffile_t *stream;
+ *      char    *buff;
+ *      size_t  buff_len, len;
+ *
+ *      while ( ffile_read_line_malloc(stream, buff, &buff_len, &len) != EOF )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      dsv_read_field_malloc(3), ffgetc(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-02-20  Jason Bacon Begin
+ ***************************************************************************/
+
+int     ffread_line_malloc(ffile_t *stream, char **buff, size_t *buff_size,
+			   size_t *len)
+
+{
+    size_t  c;
+    int     ch, ch2;
+    
+    if ( *buff_size == 0 )
+    {
+	*buff_size = 1024;
+	*buff = xt_malloc(*buff_size, sizeof(**buff));
+	if ( *buff == NULL )
+	    return XT_MALLOC_FAILED;
+    }
+    
+    for (c = 0; ( ((ch = FFGETC(stream)) != '\n') && (ch != EOF) ); ++c)
+    {
+	if ( c == *buff_size - 1 )
+	{
+	    *buff_size *= 2;
+	    *buff = xt_realloc(*buff, *buff_size, sizeof(**buff));
+	    if ( *buff == NULL )
+		return XT_MALLOC_FAILED;
+	}
+	(*buff)[c] = ch;
+    }
+    (*buff)[c] = '\0';
+    *len = c;
+
+    /* Trim array */
+    if ( *buff_size != c + 1 )
+    {
+	*buff_size = c + 1;
+	*buff = xt_realloc(*buff, *buff_size, sizeof(**buff));
+    }
+
+    /*
+     *  Treat space specially in that multiple spaces are considered a single
+     *  separator
+     */
+    if ( ch == ' ' )
+    {
+	while ( (ch2 = FFGETC(stream)) == ch )
+	    ;
+	ffungetc(ch2, stream);
+    }
+    return ch;
 }

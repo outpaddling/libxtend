@@ -967,7 +967,7 @@ int     ffprintf(ffile_t *stream, const char *format, ...)
  *      needed.
  *  
  *  Arguments:
- *      stream:     FILE stream from which field is read
+ *      stream:     ffile_t stream from which field is read
  *      buff:       Character buffer into which field is copied
  *      buff_size:  Size of the array passed to buff
  *      len:        Pointer to a variable which will receive the field length
@@ -1026,17 +1026,6 @@ int     ffread_line_malloc(ffile_t *stream, char **buff, size_t *buff_size,
     {
 	*buff_size = c + 1;
 	*buff = xt_realloc(*buff, *buff_size, sizeof(**buff));
-    }
-
-    /*
-     *  Treat space specially in that multiple spaces are considered a single
-     *  separator
-     */
-    if ( ch == ' ' )
-    {
-	while ( (ch2 = FFGETC(stream)) == ch )
-	    ;
-	ffungetc(ch2, stream);
     }
     return ch;
 }

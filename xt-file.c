@@ -1,6 +1,8 @@
 #include <string.h>
+#include <sysexits.h>
 #include <sys/stat.h>
 #include "file.h"
+#include "mem.h"
 
 /***************************************************************************
  *  Library:
@@ -128,4 +130,173 @@ int     xt_fclose(FILE *stream)
 	return pclose(stream);
     else
 	return fclose(stream);
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <xtend/file.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      .B xt_inhale_strings()
+ *      reads a list of strings from a file, one per line, into a pointer
+ *      array.  Memory is allocated for the pointer array and for each
+ *      string.
+ *
+ *      Memory should be freed using xt_free_strings(3) as soon as the
+ *      strings are no longer needed.
+ *
+ *      Inhaling large amounts of data into arrays should generally be
+ *      avoided in favor of more memory-efficient use-once-and-discard
+ *      strategies, but may be advantageous for small lists of strings
+ *      accessed repeatedly, or necessary for a few tasks such as sorting.
+ *  
+ *  Arguments:
+ *      stream  FILE * from which strings are read, one per line
+ *      list    Pointer to a char ** (poiner array), populated with strings
+ *
+ *  Returns:
+ *      The number of strings read, XT_READ_IO_ERR on read error
+ *
+ *  Examples:
+ *      FILE    *instream;
+ *      char    **strings;
+ *      ssize_t string_count;
+ *
+ *      string_count = xt_inhale_strings(instream, &strings);
+ *      ...
+ *      xt_free_strings(strings);
+ *
+ *  See also:
+ *      xt_free_strings(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-02-21  Jason Bacon Begin
+ ***************************************************************************/
+
+ssize_t xt_inhale_strings(FILE *stream, char ***list)
+
+{
+    size_t  list_size = 1024,
+	    c,
+	    buff_size = 0,
+	    len;
+    char    *temp;
+    
+    if ( (*list = (char **)xt_malloc(list_size, sizeof(*list))) == NULL )
+    {
+	fprintf(stderr, "load_strings(): Unable to allocate list.\n");
+	return EX_UNAVAILABLE;
+    }
+    
+    for (c = 0; xt_read_line_malloc(stream, &temp, &buff_size, &len) != EOF; ++c)
+    {
+	if ( c == list_size - 1 )
+	{
+	    if ( (*list = (char **)xt_realloc(*list, list_size, sizeof(*list))) == NULL )
+	    {
+		fprintf(stderr, "load_strings(): Unable to reallocate list.\n");
+		return EX_UNAVAILABLE;
+	    }
+	}
+	(*list)[c] = temp;
+	buff_size = 0;  // Make xt_read_line_malloc() allocate a new string
+    }
+    (*list)[c] = NULL;  // So xt_free_strings() doesn't need count
+    return c;
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <xtend/fast-file.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      .B xt_read_line_malloc()
+ *      reads a single line of text (up to the next newline or EOF)
+ *      from stream, allocating and/or extending the provided buffer if
+ *      needed.
+ *
+ *      The buff_size argument must be initilized to 0 if buff has
+ *      not been previously allocated.  This will cause an initial
+ *      allocation to occur.  If buff has been previously allocated,
+ *      the buff_size must accurately reflect the allocated memory size.
+ *      This will happen naturally when reusing buff in a loop, as shown
+ *      in the example below.
+ *  
+ *  Arguments:
+ *      stream:     FILE stream from which field is read
+ *      buff:       Character buffer into which field is copied
+ *      buff_size:  Size of the array passed to buff
+ *      len:        Pointer to a variable which will receive the field length
+ *
+ *  Returns:
+ *      Delimiter ending the read: either newline or EOF
+ *
+ *  Examples:
+ *      FILE    *stream;
+ *      char    *buff;
+ *      size_t  buff_len, len;
+ *
+ *      // Reuse buff to minimize malloc() calls.  buff will be extended
+ *      // as needed when longer strings are read.  Initialize buff here
+ *      // rather than above for the most cohesive code.
+ *      buff_len = 0;
+ *      while ( ffile_read_line_malloc(stream, buff, &buff_len, &len) != EOF )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      dsv_read_field_malloc(3), ffgetc(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-02-20  Jason Bacon Begin
+ ***************************************************************************/
+
+int     xt_read_line_malloc(FILE *stream, char **buff, size_t *buff_size,
+			    size_t *len)
+
+{
+    size_t  c;
+    int     ch;
+    
+    if ( *buff_size == 0 )
+    {
+	*buff_size = 1024;
+	*buff = xt_malloc(*buff_size, sizeof(**buff));
+	if ( *buff == NULL )
+	    return XT_MALLOC_FAILED;
+    }
+    
+    for (c = 0; ( ((ch = getc(stream)) != '\n') && (ch != EOF) ); ++c)
+    {
+	if ( c == *buff_size - 1 )
+	{
+	    *buff_size *= 2;
+	    *buff = xt_realloc(*buff, *buff_size, sizeof(**buff));
+	    if ( *buff == NULL )
+		return XT_MALLOC_FAILED;
+	}
+	(*buff)[c] = ch;
+    }
+    (*buff)[c] = '\0';
+    //fprintf(stderr, "buff = %s\n", *buff);
+    *len = c;
+
+    /* Trim array */
+    if ( *buff_size != c + 1 )
+    {
+	*buff_size = c + 1;
+	*buff = xt_realloc(*buff, *buff_size, sizeof(**buff));
+    }
+    //fprintf(stderr, "Returning %d\n", ch);
+    return ch;
 }

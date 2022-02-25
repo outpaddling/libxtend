@@ -997,7 +997,7 @@ int     ffread_line_malloc(ffile_t *stream, char **buff, size_t *buff_size,
 
 {
     size_t  c;
-    int     ch, ch2;
+    int     ch;
     
     if ( *buff_size == 0 )
     {

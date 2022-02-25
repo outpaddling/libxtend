@@ -167,9 +167,14 @@ standard make/environment variables such as CC, CFLAGS, PREFIX, etc.
 
 The library, headers, and man pages are installed under
 ${DESTDIR}${PREFIX}.  DESTDIR is empty by default and is primarily used by
-package managers to stage installations.  PREFIX defaults to ${LOCALBASE}.
+package managers to stage installations.  PREFIX defaults to ../local.
 
-To install directly to /myprefix, assuming libxtend is installed there as well,
+Add-on libraries required for the build, such as biolibc, should be found
+under either ${PREFIX} or ${LOCALBASE}, which defaults to ${PREFIX}.
+LOCALBASE can be set independently if you want to use libraries installed
+by FreeBSD ports (/usr/local), MacPorts (/opt/local), pkgsrc (/usr/pkg), etc.
+
+To install directly to /myprefix, assuming biolibc is installed there as well,
 using a make variable:
 
 ```

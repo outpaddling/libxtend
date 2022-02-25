@@ -183,7 +183,7 @@ ssize_t xt_inhale_strings(FILE *stream, char ***list)
 {
     size_t  list_size = 1024,
 	    c,
-	    buff_size = 0,
+	    buff_size,
 	    len;
     char    *temp;
     
@@ -193,10 +193,12 @@ ssize_t xt_inhale_strings(FILE *stream, char ***list)
 	return EX_UNAVAILABLE;
     }
     
+    buff_size = 0;  // Make xt_read_line_malloc() allocate a new string
     for (c = 0; xt_read_line_malloc(stream, &temp, &buff_size, &len) != EOF; ++c)
     {
 	if ( c == list_size - 1 )
 	{
+	    list_size *= 2;
 	    if ( (*list = (char **)xt_realloc(*list, list_size, sizeof(*list))) == NULL )
 	    {
 		fprintf(stderr, "load_strings(): Unable to reallocate list.\n");

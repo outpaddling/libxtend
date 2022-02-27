@@ -43,7 +43,7 @@ Unfortunately and inexplicably, until libxtend, the community hasn't really
 stepped up to extend the limited offerings of the general libraries libc and
 libm in a serious way.  I can't help but wonder how many times over the
 decades someone has written their own version of
-[strtrim()](https://github.com/outpaddling/libxtend/blob/main/strtrim.c).
+[strtrim()](https://github.com/outpaddling/libxtend/blob/main/string.c).
 
 Libxtend aims to do just that, providing many of the functions people have
 often wished were part of the standard libraries.

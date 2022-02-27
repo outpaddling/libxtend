@@ -1,3 +1,7 @@
+#ifdef __linux__
+#define _GNU_SOURCE     // vasprintf(), must come before stdio.h
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>

@@ -31,7 +31,7 @@
  *  Circa 1990  Jason Bacon Begin
  ***************************************************************************/
  
-size_t  fgetline(FILE *fp, char *buff, size_t maxlen)
+size_t  xt_fgetline(FILE *fp, char *buff, size_t maxlen)
 
 {
     char    *p = buff, 

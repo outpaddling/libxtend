@@ -17,11 +17,15 @@
 #include "common.h"
 #endif
 
+#define fgetline(fp, buff, maxlen) \
+	    _Pragma("message(\"fgetline() is deprecated.  Use xt_fgetline().\")") \
+	    xt_fgetline(fp, buff, maxlen)
+
 /* valid-extension.c */
 bool valid_extension(const char *filename, const char *valid_ext);
 
 /* fast-cp.c */
-int fast_cp(const char *source, const char *dest);
+int fast_cp(const char *source, const char *dest); //__attribute__((deprecated("Use xt_fast_cp()")));
 
 /* file-mod-cmp.c */
 int file_mod_cmp(const char *file1, const char *file2);
@@ -30,7 +34,7 @@ int file_mod_cmp(const char *file1, const char *file2);
 void fd_purge(int fd);
 
 /* fgetline.c */
-size_t fgetline(FILE *fp, char *buff, size_t maxlen);
+size_t xt_fgetline(FILE *fp, char *buff, size_t maxlen);
 
 /* get-home-dir.c */
 char *get_home_dir(char *dir, size_t maxlen);

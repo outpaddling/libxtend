@@ -30,7 +30,7 @@
  *  2021-05-04  Jason Bacon Begin
  ***************************************************************************/
 
-bool    valid_extension(const char *filename, const char *valid_ext)
+bool    xt_valid_extension(const char *filename, const char *valid_ext)
 
 {
     char    *zip_exts[] = { ".gz", ".bz2", ".xz" },

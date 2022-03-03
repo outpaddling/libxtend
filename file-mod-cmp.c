@@ -31,7 +31,7 @@
  *  Circa 1990  Jason Bacon Begin
  ***************************************************************************/
 
-int     file_mod_cmp(const char *file1, const char *file2)
+int     xt_file_mod_cmp(const char *file1, const char *file2)
 
 {
     struct stat stats1, stats2;

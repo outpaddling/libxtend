@@ -45,7 +45,7 @@ int     mv(const char *src, const char *dest)
     
     if ( rename(src,dest) != 0 )
     {
-	if ( (status = fast_cp(src,dest)) == 0 )
+	if ( (status = xt_fast_cp(src,dest)) == 0 )
 	    unlink(src);
 	else
 	    unlink(dest);

@@ -30,7 +30,7 @@
  *  Circa 1990  Jason Bacon Begin
  ***************************************************************************/
 
-time_t  difftimeofday(struct timeval *later, struct timeval *earlier)
+time_t  xt_difftimeofday(struct timeval *later, struct timeval *earlier)
 
 {
     return 1000000 * (later->tv_sec - earlier->tv_sec) +
@@ -143,7 +143,7 @@ unsigned long xt_toc(FILE *stream, const char *message,
     if ( message != NULL )
 	fputs(message, stream);
     gettimeofday(&end_time, NULL);
-    diff = difftimeofday(&end_time, start_time);
+    diff = xt_difftimeofday(&end_time, start_time);
     fprintf(stream, "Elapsed time     = %10lu microseconds", diff);
     if ( diff >= 1000000 )
     {

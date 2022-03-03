@@ -13,8 +13,12 @@
 #include <sys/resource.h>
 #endif
 
+#define difftimeofday(later, earlier) \
+	    _Pragma("message(\"difftimeofday() is deprecated.  Use xt_difftimeofday().\")") \
+	    xt_difftimeofday(later, earlier)
+
 /* difftimeofday.c */
-time_t difftimeofday(struct timeval *later, struct timeval *earlier);
+time_t xt_difftimeofday(struct timeval *later, struct timeval *earlier);
 int xt_tic(struct timeval *start_time, struct rusage *start_usage);
 unsigned long xt_toc(FILE *stream, const char *message, struct timeval *start_time, struct rusage *start_usage);
 

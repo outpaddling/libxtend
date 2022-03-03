@@ -22,7 +22,7 @@
  *  Circa 1990  Jason Bacon Begin
  ***************************************************************************/
 
-void    fd_purge(int fd)
+void    xt_fd_purge(int fd)
 
 {
     char    buff[128];

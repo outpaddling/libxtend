@@ -35,7 +35,7 @@
  *  Circa 1990  Jason Bacon Begin
  ***************************************************************************/
 
-char   *get_home_dir(char *dir, size_t maxlen)
+char   *xt_get_home_dir(char *dir, size_t maxlen)
 
 {
     int     user;

@@ -31,7 +31,7 @@
  *  Circa 1990  Jason Bacon Begin
  ***************************************************************************/
 
-int     fast_cp(const char *source, const char *dest)
+int     xt_fast_cp(const char *source, const char *dest)
 
 {
     int         infile,outfile;

@@ -28,7 +28,7 @@
  *  2021-05-10  Jason Bacon Begin
  ***************************************************************************/
 
-int     rmkdir(const char *path, mode_t mode)
+int     xt_rmkdir(const char *path, mode_t mode)
 
 {
     char    *parent_end;
@@ -49,7 +49,7 @@ int     rmkdir(const char *path, mode_t mode)
 	{
 	    /* Try to make parent with recursive call */
 	    *parent_end = '\0';
-	    if ( rmkdir(path,mode) == 0 )
+	    if ( xt_rmkdir(path,mode) == 0 )
 	    {
 		/* If parent successfully made, try again to make current */
 		*parent_end = '/';

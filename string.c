@@ -490,7 +490,7 @@ int     strshellcpy(char *dest, const char *src, size_t dest_len)
 		++src;
 		if ( *src == '/' )  /* Process owner's home dir */
 		{
-		    get_home_dir(home,PATH_MAX);
+		    xt_get_home_dir(home,PATH_MAX);
 		    for (p=home; dest_len-- && (*p != '\0'); )
 			*dest++ = *p++;
 		}

@@ -873,7 +873,7 @@ uint64_t    str2u64(const char *str)
  *      sep is a simple list of characters rather than a regular expression.
  *
  *      The array argument should be the address of a char ** variable.
- *      strsplit() allocated memory for the pointers as needed and
+ *      strsplit() allocates memory for the pointers as needed and
  *      assigns one token to each pointer.
  *
  *      strsplit() should only be used when an array of strings

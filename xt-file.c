@@ -217,7 +217,7 @@ ssize_t xt_inhale_strings(FILE *stream, char ***list)
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Library:
- *      #include <xtend/fast-file.h>
+ *      #include <xtend/file.h>
  *      -lxtend
  *
  *  Description:

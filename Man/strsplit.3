@@ -38,8 +38,14 @@ The function interface is similar to split() in awk, except that
 sep is a simple list of characters rather than a regular expression.
 
 The array argument should be the address of a char ** variable.
-strsplit() allocated memory for the pointers as needed and
+strsplit() allocates memory for the pointers as needed and
 assigns one token to each pointer.
+
+strsplit() should only be used when an array of strings
+representing the tokens is actually needed.  In cases where each
+token can be immediately processed and forgotten, use a loop with
+strsep().  Introducing arrays into a program unnecessarily should
+avoided as a habit to maximize speed and minimize memory use.
 
 Caution: strsplit() is destructive: It replaces the separators
 in string with null bytes.  To preserve the original string,

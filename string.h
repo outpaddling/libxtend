@@ -25,6 +25,7 @@ int strisint(const char *string, int base);
 int strisreal(const char *string);
 char *strlbasecpy(char *dest, const char *dest_base, const char *src, size_t dstsize);
 int strptrcmp(const char **p1, const char **p2);
+int strptrcasecmp(const char **p1, const char **p2);
 int strshellcpy(char *dest, const char *src, size_t dest_len);
 size_t strsqueeze(char *dest, const char *src, size_t dstsize);
 void strtr(char *string, const char *from, const char *to, int flags);

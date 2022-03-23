@@ -11,19 +11,21 @@
  *      arguments representing the number of objects to allocate and the
  *      size of an element.  This prevents the very common mistake with
  *      malloc(3) of forgetting to multiply by the size of an element.
+ *
  *      Specifying the size using sizeof(*variable) has the advantage of
  *      being type-independent.  I.e. if you change the type of the variable,
- *      this code need not be updated.
+ *      this code need not be updated.  Simply add one * to whatever
+ *      the return value is assigned to.
  *  
  *  Arguments:
  *      nelem:  Number of objects to allocate
  *      size:   Size of a single object
  *
  *  Examples:
- *      #define     MAX_WIDGETS 1000
+ *      size_t      widget_list_size = 1024;
  *      widget_t    *widgets;
  *
- *      widgets = xt_malloc(MAX_WIDGETS, sizeof(*widgets));
+ *      widgets = xt_malloc(widget_list_size, sizeof(*widgets));
  *
  *  Returns:
  *      Address of the newly allocated array, or NULL if allocation failed
@@ -54,9 +56,11 @@ void    *xt_malloc(size_t nelem, size_t size)
  *      to allocate and the size of an element.  This prevents the very
  *      common mistake with realloc(3) of forgetting to multiply by the size
  *      of an element.
+ *
  *      Specifying the size using sizeof(*variable) has the advantage of
  *      being type-independent.  I.e. if you change the type of the variable,
- *      this code need not be updated.
+ *      this code need not be updated.  Simply add one * to whatever
+ *      the return value is assigned to.
  *  
  *  Arguments:
  *      array:  Address of the previously allocated array
@@ -64,12 +68,13 @@ void    *xt_malloc(size_t nelem, size_t size)
  *      size:   Size of a single object
  *
  *  Examples:
- *      #define     MAX_WIDGETS 1000
+ *      size_t      widget_list_size = 1024;
  *      widget_t    *widgets;
  *
- *      widgets = xt_malloc(MAX_WIDGETS, sizeof(*widgets));
+ *      widgets = xt_malloc(widget_list_size, sizeof(*widgets));
  *      ...
- *      widgets = xt_realloc(widgets, new_widget_count, sizeof(*widgets));
+ *      widget_list_size *= 2;
+ *      widgets = xt_realloc(widgets, widget_list_size, sizeof(*widgets));
  *
  *  Returns:
  *      Address of the newly allocated array, or NULL if allocation failed

@@ -38,13 +38,13 @@ FILE    *xt_fopen(const char *filename, const char *mode)
     
     if ( (strcmp(mode, "r") != 0 ) && (strcmp(mode, "w") != 0) )
     {
-	fprintf(stderr, "xt_open(): Only \"r\" and \"w\" modes supported.\n");
+	fprintf(stderr, "xt_fopen(): Only \"r\" and \"w\" modes supported.\n");
 	return NULL;
     }
     
     if ( ext == NULL )
     {
-	fprintf(stderr, "xt_open(): No filename extension on %s.\n", filename);
+	fprintf(stderr, "xt_fopen(): No filename extension on %s.\n", filename);
 	return NULL;
     }
 

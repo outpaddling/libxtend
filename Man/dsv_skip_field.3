@@ -16,15 +16,16 @@
 .PP
 .nf
 .na
-int     dsv_skip_field(FILE *stream, const char *delims)
+int     dsv_skip_field(FILE *stream, const char *delims, size_t *len)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-stream:     FILE stream from which field is read
-delims:     Array of characters that may serve as delimiters
+stream      FILE stream from which field is read
+delims      Array of characters that may serve as delimiters
+len         Length of field discarded
 .ad
 .fi
 

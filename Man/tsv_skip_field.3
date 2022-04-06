@@ -16,14 +16,15 @@
 .PP
 .nf
 .na
-int     tsv_skip_field(FILE *stream)
+int     tsv_skip_field(FILE *stream, size_t *len)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-stream:     FILE stream from which field is read
+stream      FILE stream from which field is read
+len         Length of field discarded
 .ad
 .fi
 

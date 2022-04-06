@@ -21,11 +21,11 @@
  *      delimiter.
  *
  *  Arguments:
- *      stream:     FILE stream from which field is read
- *      buff:       Character buff into which field is copied
- *      buff_size:  Size of the array passed to buff
- *      delims:     Array of characters that may serve as delimiters
- *      len:        Pointer to a variable which will receive the field length
+ *      stream      FILE stream from which field is read
+ *      buff        Character buff into which field is copied
+ *      buff_size   Size of the array passed to buff
+ *      delims      Array of characters that may serve as delimiters
+ *      len         Pointer to a variable which will receive the field length
  *
  *  Returns:
  *      Delimiter ending the field (either a member of delim or newline)
@@ -94,11 +94,11 @@ int     dsv_read_field(FILE *stream, char buff[], size_t buff_size,
  *      delimiter.
  *
  *  Arguments:
- *      stream:     FILE stream from which field is read
- *      buff:       Character buffer into which field is copied
- *      buff_size:  Size of the array passed to buff
- *      delims:     Array of characters that may serve as delimiters
- *      len:        Pointer to a variable which will receive the field length
+ *      stream      FILE stream from which field is read
+ *      buff        Character buffer into which field is copied
+ *      buff_size   Size of the array passed to buff
+ *      delims      Array of characters that may serve as delimiters
+ *      len         Pointer to a variable which will receive the field length
  *
  *  Returns:
  *      Delimiter ending the field (either a member of delim or newline)
@@ -175,8 +175,9 @@ int     dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
  *      newline ('\\\\n').
  *
  *  Arguments:
- *      stream:     FILE stream from which field is read
- *      delims:     Array of characters that may serve as delimiters
+ *      stream      FILE stream from which field is read
+ *      delims      Array of characters that may serve as delimiters
+ *      len         Length of field discarded
  *
  *  Returns:
  *      Delimiter ending the field (either a member of delim or newline)
@@ -190,13 +191,13 @@ int     dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
  *  2021-02-24  Jason Bacon Begin
  ***************************************************************************/
 
-int     dsv_skip_field(FILE *stream, const char *delims)
+int     dsv_skip_field(FILE *stream, const char *delims, size_t *len)
 
 {
     int     ch;
     
-    while ( (strchr(delims, ch = getc(stream)) == NULL) &&
-	    (ch != '\n') && (ch != EOF) )
+    for (*len = 0; (strchr(delims, ch = getc(stream)) == NULL) &&
+	    (ch != '\n') && (ch != EOF); ++*len )
 	;
     
     return ch;
@@ -213,7 +214,7 @@ int     dsv_skip_field(FILE *stream, const char *delims)
  *      I.e., discard everything up to and including the next newline ('\\\\n').
  *
  *  Arguments:
- *      stream:     FILE stream from which field is read
+ *      stream      FILE stream from which field is read
  *
  *  Returns:
  *      Delimiter ending the field (should always be newline ('\\\\n'))
@@ -257,9 +258,9 @@ int     dsv_skip_rest_of_line(FILE *stream)
  *      Instead, it separates fields as they are read from the input stream.
  *
  *  Arguments:
- *      dsv_line:   Pointer to a dsv_line_t structure to hold the fields
- *      stream:     FILE stream from which the line is read
- *      delims:     Array of acceptable delimiters
+ *      dsv_line    Pointer to a dsv_line_t structure to hold the fields
+ *      stream      FILE stream from which the line is read
+ *      delims      Array of acceptable delimiters
  *
  *  Returns:
  *      Actual delimiter of last field (should be newline)
@@ -352,8 +353,8 @@ int     dsv_line_read(dsv_line_t *dsv_line, FILE *stream, const char *delims)
  *      Print an arbitrary DSV line for debugging.
  *
  *  Arguments:
- *      dsv_line:   Pointer to dsv_line_t structure holding the fields
- *      stream:     FILE stream to which fields are printed (e.g. stderr)
+ *      dsv_line    Pointer to dsv_line_t structure holding the fields
+ *      stream      FILE stream to which fields are printed (e.g. stderr)
  *
  *  Returns:
  *      The number of fields successfully written
@@ -399,8 +400,8 @@ int     dsv_line_write(dsv_line_t *dsv_line, FILE *stream)
  *      delimiters as needed.
  *
  *  Arguments:
- *      src:    Pointer to populated dsv_line_t structure to be duplicated
- *      dest:   Pointer to empty dsv_lint_t structure to receive copy
+ *      src     Pointer to populated dsv_line_t structure to be duplicated
+ *      dest    Pointer to empty dsv_lint_t structure to receive copy
  *
  *  Returns:
  *      XT_OK or XT_MALLOC_FAILED
@@ -448,7 +449,7 @@ int     dsv_line_copy(dsv_line_t *dest, dsv_line_t *src)
  *      Free allocated memory for a DSV object.
  *
  *  Arguments:
- *      dsv_line:   Pointer to a populated dsv_line_t structure
+ *      dsv_line    Pointer to a populated dsv_line_t structure
  *
  *  Returns:
  *      The number of fields freed.  Fields set to NULL are not freed.
@@ -500,10 +501,10 @@ int     dsv_line_free(dsv_line_t *dsv_line)
  *      Equivalent to dsv_read_field(stream, buff, buff_size, '\\\\\t', len)
  *
  *  Arguments:
- *      stream:     FILE stream from which field is read
- *      buff:       Character buff into which field is copied
- *      buff_size:  Size of the array passed to buff
- *      len:        Pointer to a variable which will receive the field length
+ *      stream      FILE stream from which field is read
+ *      buff        Character buff into which field is copied
+ *      buff_size   Size of the array passed to buff
+ *      len         Pointer to a variable which will receive the field length
  *
  *  See also:
  *      dsv_read_field(3)
@@ -526,10 +527,10 @@ int     tsv_read_field(FILE *stream, char buff[], size_t buff_size,
  *      Equivalent to dsv_read_field_malloc(stream, *buff, *buff_size, '\\\\\t', len)
  *
  *  Arguments:
- *      stream:     FILE stream from which field is read
- *      buff:       Character buff into which field is copied
- *      buff_size:  Size of the array passed to buff
- *      len:        Pointer to a variable which will receive the field length
+ *      stream      FILE stream from which field is read
+ *      buff        Character buff into which field is copied
+ *      buff_size   Size of the array passed to buff
+ *      len         Pointer to a variable which will receive the field length
  *
  *  See also:
  *      dsv_read_field_malloc(3)
@@ -552,16 +553,17 @@ int     tsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
  *      Equivalent to dsv_skip_field(stream, '\\\\\t')
  *
  *  Arguments:
- *      stream:     FILE stream from which field is read
+ *      stream      FILE stream from which field is read
+ *      len         Length of field discarded
  *
  *  See also:
  *      dsv_skip_field(3)
  ***************************************************************************/
 
-int     tsv_skip_field(FILE *stream)
+int     tsv_skip_field(FILE *stream, size_t *len)
 
 {
-    return dsv_skip_field(stream, "\t");
+    return dsv_skip_field(stream, "\t", len);
 }
 
 
@@ -574,7 +576,7 @@ int     tsv_skip_field(FILE *stream)
  *      Equivalent to dsv_skip_rest_of_line(stream)
  *
  *  Arguments:
- *      stream:     FILE stream from which field is read
+ *      stream      FILE stream from which field is read
  *
  *  See also:
  *      dsv_skip_rest_of_line(3)
@@ -596,10 +598,10 @@ int     tsv_skip_rest_of_line(FILE *stream)
  *      Equivalent to dsv_read_field(stream, buff, buff_size, ',', len)
  *
  *  Arguments:
- *      stream:     FILE stream from which field is read
- *      buff:       Character buff into which field is copied
- *      buff_size:  Size of the array passed to buff
- *      len:        Pointer to a variable which will receive the field length
+ *      stream      FILE stream from which field is read
+ *      buff        Character buff into which field is copied
+ *      buff_size   Size of the array passed to buff
+ *      len         Pointer to a variable which will receive the field length
  *
  *  See also:
  *      dsv_read_field(3)
@@ -622,10 +624,10 @@ int     csv_read_field(FILE *stream, char buff[], size_t buff_size,
  *      Equivalent to dsv_read_field_malloc(stream, *buff, *buff_size, ',', len)
  *
  *  Arguments:
- *      stream:     FILE stream from which field is read
- *      buff:       Character buff into which field is copied
- *      buff_size:  Size of the array passed to buff
- *      len:        Pointer to a variable which will receive the field length
+ *      stream      FILE stream from which field is read
+ *      buff        Character buff into which field is copied
+ *      buff_size   Size of the array passed to buff
+ *      len         Pointer to a variable which will receive the field length
  *
  *  See also:
  *      dsv_read_field_malloc(3)
@@ -648,16 +650,17 @@ int     csv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
  *      Equivalent to dsv_skip_field(stream, ',')
  *
  *  Arguments:
- *      stream:     FILE stream from which field is read
+ *      stream      FILE stream from which field is read
+ *      len         Length of field discarded
  *
  *  See also:
  *      dsv_skip_field(3)
  ***************************************************************************/
 
-int     csv_skip_field(FILE *stream)
+int     csv_skip_field(FILE *stream, size_t *len)
 
 {
-    return dsv_skip_field(stream, ",");
+    return dsv_skip_field(stream, ",", len);
 }
 
 
@@ -670,7 +673,7 @@ int     csv_skip_field(FILE *stream)
  *      Equivalent to dsv_skip_rest_of_line(stream)
  *
  *  Arguments:
- *      stream:     FILE stream from which field is read
+ *      stream      FILE stream from which field is read
  *
  *  See also:
  *      dsv_skip_rest_of_line(3)

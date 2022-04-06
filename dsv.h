@@ -58,7 +58,7 @@ typedef struct
 /* dsv.c */
 int dsv_read_field(FILE *stream, char buff[], size_t buff_size, const char *delims, size_t *len);
 int dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size, const char *delims, size_t *len);
-int dsv_skip_field(FILE *stream, const char *delims);
+int dsv_skip_field(FILE *stream, const char *delims, size_t *len);
 int dsv_skip_rest_of_line(FILE *stream);
 int dsv_line_read(dsv_line_t *dsv_line, FILE *stream, const char *delims);
 int dsv_line_write(dsv_line_t *dsv_line, FILE *stream);
@@ -66,11 +66,11 @@ int dsv_line_copy(dsv_line_t *dest, dsv_line_t *src);
 int dsv_line_free(dsv_line_t *dsv_line);
 int tsv_read_field(FILE *stream, char buff[], size_t buff_size, size_t *len);
 int tsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size, size_t *len);
-int tsv_skip_field(FILE *stream);
+int tsv_skip_field(FILE *stream, size_t *len);
 int tsv_skip_rest_of_line(FILE *stream);
 int csv_read_field(FILE *stream, char buff[], size_t buff_size, size_t *len);
 int csv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size, size_t *len);
-int csv_skip_field(FILE *stream);
+int csv_skip_field(FILE *stream, size_t *len);
 int csv_skip_rest_of_line(FILE *stream);
 
 #endif  // _XTEND_DSV_H_

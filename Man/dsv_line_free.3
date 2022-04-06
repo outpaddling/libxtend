@@ -35,6 +35,20 @@ Free allocated memory for a DSV object.
 
 The number of fields freed.  Fields set to NULL are not freed.
 
+.SH EXAMPLES
+.nf
+.na
+
+dsv_line_t  line;
+
+while ( dsv_line_read(&line, stdin, "t") != EOF )
+{
+    dsv_line_write(line, stdout);
+    dsv_line_free(&line);
+}
+.ad
+.fi
+
 .SH SEE ALSO
 
 dsv_line_read(3)

@@ -36,6 +36,20 @@ Print an arbitrary DSV line for debugging.
 
 The number of fields successfully written
 
+.SH EXAMPLES
+.nf
+.na
+
+dsv_line_t  line;
+
+while ( dsv_line_read(&line, stdin, "t") != EOF )
+{
+    dsv_line_write(line, stdout);
+    dsv_line_free(&line);
+}
+.ad
+.fi
+
 .SH SEE ALSO
 
 dsv_line_read(3)

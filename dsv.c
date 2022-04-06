@@ -264,7 +264,17 @@ int     dsv_skip_rest_of_line(FILE *stream)
  *  Returns:
  *      Actual delimiter of last field (should be newline)
  *
+ *  Examples:
+ *      dsv_line_t  line;
+ *
+ *      while ( dsv_line_read(&line, stdin, "\t") != EOF )
+ *      {
+ *          dsv_line_write(line, stdout);
+ *          dsv_line_free(&line);
+ *      }
+ *
  *  See also:
+ *      dsv_line_free(3), dsv_line_write(3), dsv_line_copy(3),
  *      dsv_read_field(3), dsv_read_field_malloc(3),
  *      dsv_skip_field(3), dsv_skip_rest_of_line(3)
  *
@@ -283,6 +293,7 @@ int     dsv_line_read(dsv_line_t *dsv_line, FILE *stream, const char *delims)
     dsv_line->array_size = 32;  // Start small and double each time we run out
     dsv_line->num_fields = 0;
     
+    // FIXME: Reuse previously allocated memory?
     if ( (dsv_line->fields = xt_malloc(dsv_line->array_size,
 				sizeof(*dsv_line->fields))) == NULL )
     {
@@ -346,6 +357,15 @@ int     dsv_line_read(dsv_line_t *dsv_line, FILE *stream, const char *delims)
  *
  *  Returns:
  *      The number of fields successfully written
+ *
+ *  Examples:
+ *      dsv_line_t  line;
+ *
+ *      while ( dsv_line_read(&line, stdin, "\t") != EOF )
+ *      {
+ *          dsv_line_write(line, stdout);
+ *          dsv_line_free(&line);
+ *      }
  *
  *  See also:
  *      dsv_line_read(3)
@@ -432,6 +452,15 @@ int     dsv_line_copy(dsv_line_t *dest, dsv_line_t *src)
  *
  *  Returns:
  *      The number of fields freed.  Fields set to NULL are not freed.
+ *
+ *  Examples:
+ *      dsv_line_t  line;
+ *
+ *      while ( dsv_line_read(&line, stdin, "\t") != EOF )
+ *      {
+ *          dsv_line_write(line, stdout);
+ *          dsv_line_free(&line);
+ *      }
  *
  *  See also:
  *      dsv_line_read(3)

@@ -30,8 +30,13 @@ dest    Pointer to empty dsv_lint_t structure to receive copy
 
 .SH DESCRIPTION
 
-Duplicate an arbitrary DSV line, allocating space for fields and
-delimiters as needed.
+Duplicate an arbitrary dsv_line_t object, allocating space for
+fields and delimiters as needed.
+The dsv_line_t structure contains an array of strings, each
+holding one field from the line, and an an array of delimiters,
+each holding the character that ended the corresponding field.
+Note that each field could potentially end with a different
+delimiter, as multiple delimiters can be specified.
 
 .SH RETURN VALUES
 
@@ -39,5 +44,8 @@ XT_OK or XT_MALLOC_FAILED
 
 .SH SEE ALSO
 
-dsv_line_read(3)
+dsv_line_init(3), dsv_line_free(3),
+dsv_line_read(3), dsv_line_write(3), dsv_line_copy(3),
+dsv_read_field(3), dsv_read_field_malloc(3),
+dsv_skip_field(3), dsv_skip_rest_of_line(3)
 

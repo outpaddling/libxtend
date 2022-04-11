@@ -245,8 +245,8 @@ int     dsv_skip_rest_of_line(FILE *stream)
  *      -lbiolibc
  *
  *  Description:
- *      Read a line of an arbitrary DSV file, storing the fields in a
- *      dsv_line_t structure, which contains an array of strings, each
+ *      Read a line of an arbitrary DSV file into a dsv_line_t object.
+ *      The dsv_line_t structure contains an array of strings, each
  *      holding one field from the line, and an an array of delimiters,
  *      each holding the character that ended the corresponding field.
  *      Note that each field could potentially end with a different
@@ -268,6 +268,7 @@ int     dsv_skip_rest_of_line(FILE *stream)
  *  Examples:
  *      dsv_line_t  line;
  *
+ *      dsv_line_init(&line);
  *      while ( dsv_line_read(&line, stdin, "\t") != EOF )
  *      {
  *          dsv_line_write(line, stdout);
@@ -275,7 +276,8 @@ int     dsv_skip_rest_of_line(FILE *stream)
  *      }
  *
  *  See also:
- *      dsv_line_free(3), dsv_line_write(3), dsv_line_copy(3),
+ *      dsv_line_init(3), dsv_line_free(3),
+ *      dsv_line_read(3), dsv_line_write(3), dsv_line_copy(3),
  *      dsv_read_field(3), dsv_read_field_malloc(3),
  *      dsv_skip_field(3), dsv_skip_rest_of_line(3)
  *
@@ -350,7 +352,12 @@ int     dsv_line_read(dsv_line_t *dsv_line, FILE *stream, const char *delims)
  *      -lbiolibc
  *
  *  Description:
- *      Print an arbitrary DSV line for debugging.
+ *      Write an arbitrary DSV line to the specified stream.
+ *      The dsv_line_t structure contains an array of strings, each
+ *      holding one field from the line, and an an array of delimiters,
+ *      each holding the character that ended the corresponding field.
+ *      Note that each field could potentially end with a different
+ *      delimiter, as multiple delimiters can be specified.
  *
  *  Arguments:
  *      dsv_line    Pointer to dsv_line_t structure holding the fields
@@ -362,6 +369,7 @@ int     dsv_line_read(dsv_line_t *dsv_line, FILE *stream, const char *delims)
  *  Examples:
  *      dsv_line_t  line;
  *
+ *      dsv_line_init(&line);
  *      while ( dsv_line_read(&line, stdin, "\t") != EOF )
  *      {
  *          dsv_line_write(line, stdout);
@@ -369,7 +377,10 @@ int     dsv_line_read(dsv_line_t *dsv_line, FILE *stream, const char *delims)
  *      }
  *
  *  See also:
- *      dsv_line_read(3)
+ *      dsv_line_init(3), dsv_line_free(3),
+ *      dsv_line_read(3), dsv_line_write(3), dsv_line_copy(3),
+ *      dsv_read_field(3), dsv_read_field_malloc(3),
+ *      dsv_skip_field(3), dsv_skip_rest_of_line(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -391,13 +402,67 @@ int     dsv_line_write(dsv_line_t *dsv_line, FILE *stream)
 
 
 /***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <xtend/dsv.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      Initialize a dsv_line_t structure.
+ *      The dsv_line_t structure contains an array of strings, each
+ *      holding one field from the line, and an an array of delimiters,
+ *      each holding the character that ended the corresponding field.
+ *      Note that each field could potentially end with a different
+ *      delimiter, as multiple delimiters can be specified.
+ *  
+ *  Arguments:
+ *      dsv_line    Pointer to a dsv_lint_t object.    
+ *
+ *  Examples:
+ *      dsv_line_t  line;
+ *
+ *      dsv_line_init(&line);
+ *      while ( dsv_line_read(&line, stdin, "\t") != EOF )
+ *      {
+ *          dsv_line_write(line, stdout);
+ *          dsv_line_free(&line);
+ *      }
+ *
+ *  See also:
+ *      dsv_line_init(3), dsv_line_free(3),
+ *      dsv_line_read(3), dsv_line_write(3), dsv_line_copy(3),
+ *      dsv_read_field(3), dsv_read_field_malloc(3),
+ *      dsv_skip_field(3), dsv_skip_rest_of_line(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-11  Jason Bacon Begin
+ ***************************************************************************/
+
+void    dsv_line_init(dsv_line_t *dsv_line)
+
+{
+    dsv_line->array_size = 0;
+    dsv_line->num_fields = 0;
+    dsv_line->fields = NULL;
+    dsv_line->delims = NULL;
+}
+
+
+/***************************************************************************
  *  Library:
  *      #include <xtend/dsv.h>
  *      -lbiolibc
  *
  *  Description:
- *      Duplicate an arbitrary DSV line, allocating space for fields and
- *      delimiters as needed.
+ *      Duplicate an arbitrary dsv_line_t object, allocating space for
+ *      fields and delimiters as needed.
+ *      The dsv_line_t structure contains an array of strings, each
+ *      holding one field from the line, and an an array of delimiters,
+ *      each holding the character that ended the corresponding field.
+ *      Note that each field could potentially end with a different
+ *      delimiter, as multiple delimiters can be specified.
  *
  *  Arguments:
  *      src     Pointer to populated dsv_line_t structure to be duplicated
@@ -407,7 +472,10 @@ int     dsv_line_write(dsv_line_t *dsv_line, FILE *stream)
  *      XT_OK or XT_MALLOC_FAILED
  *      
  *  See also:
- *      dsv_line_read(3)
+ *      dsv_line_init(3), dsv_line_free(3),
+ *      dsv_line_read(3), dsv_line_write(3), dsv_line_copy(3),
+ *      dsv_read_field(3), dsv_read_field_malloc(3),
+ *      dsv_skip_field(3), dsv_skip_rest_of_line(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -447,6 +515,11 @@ int     dsv_line_copy(dsv_line_t *dest, dsv_line_t *src)
  *
  *  Description:
  *      Free allocated memory for a DSV object.
+ *      The dsv_line_t structure contains an array of strings, each
+ *      holding one field from the line, and an an array of delimiters,
+ *      each holding the character that ended the corresponding field.
+ *      Note that each field could potentially end with a different
+ *      delimiter, as multiple delimiters can be specified.
  *
  *  Arguments:
  *      dsv_line    Pointer to a populated dsv_line_t structure
@@ -464,7 +537,10 @@ int     dsv_line_copy(dsv_line_t *dest, dsv_line_t *src)
  *      }
  *
  *  See also:
- *      dsv_line_read(3)
+ *      dsv_line_init(3), dsv_line_free(3),
+ *      dsv_line_read(3), dsv_line_write(3), dsv_line_copy(3),
+ *      dsv_read_field(3), dsv_read_field_malloc(3),
+ *      dsv_skip_field(3), dsv_skip_rest_of_line(3)
  *
  *  History: 
  *  Date        Name        Modification

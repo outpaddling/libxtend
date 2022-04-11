@@ -30,6 +30,11 @@ dsv_line    Pointer to a populated dsv_line_t structure
 .SH DESCRIPTION
 
 Free allocated memory for a DSV object.
+The dsv_line_t structure contains an array of strings, each
+holding one field from the line, and an an array of delimiters,
+each holding the character that ended the corresponding field.
+Note that each field could potentially end with a different
+delimiter, as multiple delimiters can be specified.
 
 .SH RETURN VALUES
 
@@ -51,5 +56,8 @@ while ( dsv_line_read(&line, stdin, "t") != EOF )
 
 .SH SEE ALSO
 
-dsv_line_read(3)
+dsv_line_init(3), dsv_line_free(3),
+dsv_line_read(3), dsv_line_write(3), dsv_line_copy(3),
+dsv_read_field(3), dsv_read_field_malloc(3),
+dsv_skip_field(3), dsv_skip_rest_of_line(3)
 

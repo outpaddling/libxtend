@@ -60,6 +60,7 @@ int dsv_read_field(FILE *stream, char buff[], size_t buff_size, const char *deli
 int dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size, const char *delims, size_t *len);
 int dsv_skip_field(FILE *stream, const char *delims, size_t *len);
 int dsv_skip_rest_of_line(FILE *stream);
+void dsv_line_init(dsv_line_t *dsv_line);
 int dsv_line_read(dsv_line_t *dsv_line, FILE *stream, const char *delims);
 int dsv_line_write(dsv_line_t *dsv_line, FILE *stream);
 int dsv_line_copy(dsv_line_t *dest, dsv_line_t *src);

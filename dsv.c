@@ -269,7 +269,7 @@ int     dsv_skip_rest_of_line(FILE *stream)
  *      dsv_line_t  line;
  *
  *      dsv_line_init(&line);
- *      while ( dsv_line_read(&line, stdin, "\t") != EOF )
+ *      while ( dsv_line_read(&line, stdin, "\\\\\t") != EOF )
  *      {
  *          dsv_line_write(line, stdout);
  *          dsv_line_free(&line);

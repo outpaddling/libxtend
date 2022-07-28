@@ -1,7 +1,8 @@
 #!/bin/sh -e
 
 cd ..
-make clean all
+./cave-man-install.sh
+
 cd Test
 cc -o test test.c -L.. -lxtend
 ./test

@@ -2,9 +2,7 @@
  *  Description:
  *      FILE test
  *
- *  Arguments:
- *
- *  Returns:
+ *      Edit only as file.c.  file.c is auto-generated.
  *
  *  History: 
  *  Date        Name        Modification
@@ -24,10 +22,16 @@ int     main(int argc,char *argv[])
     int     c;
     FILE *file;
     
+    if ( argc != 2 )
+	usage(argv);
+    
     puts("\nFILE");
-    file = fopen("testfile", "w");
+    file = fopen(argv[1], "w");
     for (c = 0; c < 200000000; ++c)
 	fputc(c % 255, file);
+    
+    fputs("\nHello, world!\n", file);
+    fprintf(file, "%d\n", 5000);
     fclose(file);
     
     return EX_OK;

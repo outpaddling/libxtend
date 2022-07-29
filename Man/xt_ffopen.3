@@ -24,15 +24,15 @@ ffile_t *xt_ffopen(const char *filename, int flags)
 .nf
 .na
 filename:   Name of the file to be opened
-mode:       "r" or "w", passed to fopen() or popen()
+mode:       Bit mask as used by open()
 .ad
 .fi
 
 .SH DESCRIPTION
 
 .B xt_ffopen(3)
-opens a raw data file using fopen() or a gzipped, bzipped, or
-xzipped file using popen(), returning a pointer to a ffile_t
+opens a raw data file using ffopen() or a gzipped, bzipped, or
+xzipped file using ffpopen(), returning a pointer to a ffile_t
 stream.  Must be used in conjunction with
 xt_ffclose() to ensure that ffclose() or ffpclose() is called where
 appropriate.

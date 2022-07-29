@@ -23,7 +23,7 @@ int     xt_ffclose(ffile_t *stream)
 .SH ARGUMENTS
 .nf
 .na
-stream: The FILE structure to be closed
+stream: Pointer to the ffile_t structure to be closed
 .ad
 .fi
 
@@ -45,5 +45,5 @@ The value returned by ffclose() or ffpclose()
 
 .SH SEE ALSO
 
-fopen(3), popen(3), gzip(1), bzip2(1), xz(1)
+ffpopen(3), xt_ffopen(3), gzip(1), bzip2(1), xz(1)
 

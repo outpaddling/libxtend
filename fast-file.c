@@ -763,8 +763,8 @@ int     ffpclose(ffile_t *stream)
  *
  *  Description:
  *      .B xt_ffopen(3)
- *      opens a raw data file using fopen() or a gzipped, bzipped, or
- *      xzipped file using popen(), returning a pointer to a ffile_t
+ *      opens a raw data file using ffopen() or a gzipped, bzipped, or
+ *      xzipped file using ffpopen(), returning a pointer to a ffile_t
  *      stream.  Must be used in conjunction with
  *      xt_ffclose() to ensure that ffclose() or ffpclose() is called where
  *      appropriate.
@@ -776,7 +776,7 @@ int     ffpclose(ffile_t *stream)
  *
  *  Arguments:
  *      filename:   Name of the file to be opened
- *      mode:       "r" or "w", passed to fopen() or popen()
+ *      mode:       Bit mask as used by open()
  *
  *  Returns:
  *      A pointer to the FILE structure or NULL if open failed
@@ -871,13 +871,13 @@ ffile_t *xt_ffopen(const char *filename, int flags)
  *      is not convenient, but FILE I/O causes a bottleneck.
  *
  *  Arguments:
- *      stream: The FILE structure to be closed
+ *      stream: Pointer to the ffile_t structure to be closed
  *
  *  Returns:
  *      The value returned by ffclose() or ffpclose()
  *
  *  See also:
- *      fopen(3), popen(3), gzip(1), bzip2(1), xz(1)
+ *      ffpopen(3), xt_ffopen(3), gzip(1), bzip2(1), xz(1)
  *
  *  History: 
  *  Date        Name        Modification
@@ -934,7 +934,7 @@ int     xt_ffclose(ffile_t *stream)
  *      ffclose(stream);
  *
  *  See also:
- *      fprintf(3), ffopen(3), ffclose(3), ffputc(3)
+ *      fprintf(3), ffopen(3), ffclose(3), ffputc(3), ffputs(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -954,6 +954,57 @@ int     ffprintf(ffile_t *stream, const char *format, ...)
 	FFPUTC(buff[c], stream);
     free(buff);
     return chars_printed;
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <xtend/fast-file.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      ffputs() writes a null-terminated string to the given ffile_t
+ *      stream.  It is fnuctionally equivalent to fputs() with FILE.
+ *  
+ *  Arguments:
+ *      string      A null-terminated string
+ *      stream      Pointer to an ffile_t structure opened with ffopen()
+ *
+ *  Returns:
+ *      A non-negative integer on success, EOF on failure
+ *
+ *  Examples:
+ *      ffile_t *stream;
+ *      char    *buff;
+ *      size_t  buff_len, len;
+ *
+ *      if ( (outstream = ffopen(outfilename, O_WRONLY|O_CREAT|O_TRUNC)) == NULL )
+ *      {
+ *          fprintf(stderr, "Cannot open %s for writing.\n", outfilename);
+ *          exit(EX_NOINPUT);
+ *      }
+ *      ffputs("Hello, world!\n", outstream);
+ *      ffclose(outstream);
+ *
+ *  See also:
+ *      fputs(3), ffopen(3), ffclose(3), ffputc(3), ffprintf(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-07-29  Jason Bacon Begin
+ ***************************************************************************/
+
+int     ffputs(const char *string, ffile_t *stream)
+
+{
+    size_t  c;
+    int     status = 0;
+    
+    for (c = 0; (status >= 0) && (string[c] != '\0'); ++c)
+	status = FFPUTC(string[c], stream);
+    return status;
 }
 
 

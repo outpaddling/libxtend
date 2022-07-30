@@ -67,5 +67,6 @@ int xt_ffclose(ffile_t *stream);
 int ffprintf(ffile_t *stream, const char *format, ...);
 int ffread_line_malloc(ffile_t *stream, char **buff, size_t *buff_size, size_t *len);
 int ffputs(const char *string, ffile_t *stream);
+char *ffgets(char *string, size_t size, ffile_t *stream);
 
 #endif  // _XTEND_FAST_FILE_H_

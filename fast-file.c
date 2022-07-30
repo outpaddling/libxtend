@@ -976,9 +976,8 @@ int     ffprintf(ffile_t *stream, const char *format, ...)
  *      A non-negative integer on success, EOF on failure
  *
  *  Examples:
- *      ffile_t *stream;
+ *      ffile_t *outstream;
  *      char    *buff;
- *      size_t  buff_len, len;
  *
  *      if ( (outstream = ffopen(outfilename, O_WRONLY|O_CREAT|O_TRUNC)) == NULL )
  *      {
@@ -989,7 +988,7 @@ int     ffprintf(ffile_t *stream, const char *format, ...)
  *      ffclose(outstream);
  *
  *  See also:
- *      fputs(3), ffopen(3), ffclose(3), ffputc(3), ffprintf(3)
+ *      fputs(3), ffgets(3), ffopen(3), ffclose(3), ffputc(3), ffprintf(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -1005,6 +1004,63 @@ int     ffputs(const char *string, ffile_t *stream)
     for (c = 0; (status >= 0) && (string[c] != '\0'); ++c)
 	status = FFPUTC(string[c], stream);
     return status;
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <xtend/fast-file.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      ffgets() writes a line of text from the given ffile_t
+ *      stream.  It is fnuctionally equivalent to fgets() with FILE.
+ *      The maximum number of characters read is size - 1, to allow
+ *      for a null-terminator byte.
+ *  
+ *  Arguments:
+ *      string      A character array into which the line is read
+ *      size        Size of the character array
+ *      stream      Pointer to an ffile_t structure opened with ffopen()
+ *
+ *  Returns:
+ *      A non-negative integer on success, EOF on failure
+ *
+ *  Examples:
+ *      ffile_t *instream;
+ *      char    buff[BUFF_SIZE];
+ *
+ *      if ( (instream = ffopen(outfilename, O_RDONLY)) == NULL )
+ *      {
+ *          fprintf(stderr, "Cannot open %s for writing.\n", outfilename);
+ *          exit(EX_NOINPUT);
+ *      }
+ *      ffgets(buff, BUFF_SIZE, instream);
+ *      ffclose(instream);
+ *
+ *  See also:
+ *      fgets(3), ffputs(3), ffopen(3), ffclose(3), ffputc(3), ffprintf(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-07-29  Jason Bacon Begin
+ ***************************************************************************/
+
+char    *ffgets(char *string, size_t size, ffile_t *stream)
+
+{
+    size_t  c;
+    int     ch;
+    
+    c = 0;
+    while ( (c < size - 1) && ((ch = FFGETC(stream)) != '\n') && (ch != EOF) )
+	string[c++] = ch;
+    if ( (c == 0) && (ch == EOF) )
+	return NULL;
+    else
+	return string;
 }
 
 

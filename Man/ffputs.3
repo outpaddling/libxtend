@@ -41,9 +41,8 @@ A non-negative integer on success, EOF on failure
 .nf
 .na
 
-ffile_t *stream;
+ffile_t *outstream;
 char    *buff;
-size_t  buff_len, len;
 
 if ( (outstream = ffopen(outfilename, O_WRONLY|O_CREAT|O_TRUNC)) == NULL )
 {
@@ -57,5 +56,5 @@ ffclose(outstream);
 
 .SH SEE ALSO
 
-fputs(3), ffopen(3), ffclose(3), ffputc(3), ffprintf(3)
+fputs(3), ffgets(3), ffopen(3), ffclose(3), ffputc(3), ffprintf(3)
 

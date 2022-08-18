@@ -53,6 +53,11 @@
  *  Circa 1990  Jason Bacon Begin
  ***************************************************************************/
 
+// FIXME: Ugly stop-gap for now.  sig_t is not portable, so don't use it.
+#if defined(__sun__)
+typedef void (*sig_t)(int);
+#endif
+
 int     spawnvp(int parent_action, int echo, char *argv[],
 		char *infile, char *outfile, char *errfile)
 

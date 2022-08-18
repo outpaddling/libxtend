@@ -3,9 +3,8 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sysexits.h>
-#include <sys/param.h>  // MIN()
 #include "file.h"
-#include "math.h"       // lcm()
+#include "math.h"       // lcm(), XT_MIN()
 
 /***************************************************************************
  *  Library:
@@ -54,7 +53,7 @@ int     xt_fast_cp(const char *source, const char *dest)
     fstat(infile,&infile_stats);
     fstat(outfile,&outfile_stats);
     x = lcm(infile_stats.st_blksize,outfile_stats.st_blksize);
-    buff_size = MIN(x,256*1024);
+    buff_size = XT_MIN(x,256*1024);
 
     if ( (buff = (char *)malloc(buff_size)) == NULL )
     {

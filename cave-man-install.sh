@@ -19,19 +19,22 @@
 # /usr/local/lib, etc.
 case $(uname) in
 Darwin)
-    export CFLAGS="-Wall -g -O"
+    CFLAGS="-Wall -g -O"
     LIBDIR=$(realpath $LOCALBASE/lib)
-    export LDFLAGS="-L. -L$LIBDIR -Wl,-rpath,$LIBDIR:/usr/lib:/lib"
+    LDFLAGS="-L. -L$LIBDIR -Wl,-rpath,$LIBDIR:/usr/lib:/lib"
     install=apple-install
     ;;
 
 *)
-    export CFLAGS="-Wall -g -O"
+    CFLAGS="-Wall -g -O"
     LIBDIR=$(realpath $LOCALBASE/lib)
-    export LDFLAGS="-L. -L$LIBDIR -Wl,-rpath,$LIBDIR:/usr/lib:/lib"
+    LDFLAGS="-L. -L$LIBDIR -Wl,-rpath,$LIBDIR:/usr/lib:/lib"
     install=install
     ;;
 
 esac
-
+if [ $(uname) = SunOS ]; then
+    LDFLAGS="$LDFLAGS -lresolv  -lsocket   -lnsl"
+fi
+export CFLAGS LIBDIR LDFLAGS LOCALBASE
 make clean $install

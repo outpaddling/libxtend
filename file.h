@@ -73,4 +73,7 @@ int xt_fclose(FILE *stream);
 ssize_t xt_inhale_strings(FILE *stream, char ***list);
 int xt_read_line_malloc(FILE *stream, char **buff, size_t *buff_size, size_t *len);
 
+/* dprintf.c */
+int xt_dprintf(int fd, const char * restrict format, ...);
+
 #endif // _XTEND_FILE_H_

@@ -4,18 +4,21 @@ combinatorics.o: combinatorics.c math.h
 digits.o: digits.c math.h
 	${CC} -c ${CFLAGS} digits.c
 
+dprintf.o: dprintf.c
+	${CC} -c ${CFLAGS} dprintf.c
+
 dsv-mutators.o: dsv-mutators.c string.h dsv.h dsv-rvs.h dsv-accessors.h \
-  dsv-mutators.h
+ dsv-mutators.h
 	${CC} -c ${CFLAGS} dsv-mutators.c
 
 dsv.o: dsv.c dsv.h dsv-rvs.h dsv-accessors.h dsv-mutators.h mem.h file.h \
-  common.h
+ common.h
 	${CC} -c ${CFLAGS} dsv.c
 
 fast-cp.o: fast-cp.c file.h common.h math.h
 	${CC} -c ${CFLAGS} fast-cp.c
 
-fast-file.o: fast-file.c mem.h fast-file.h
+fast-file.o: fast-file.c mem.h proc.h common.h fast-file.h
 	${CC} -c ${CFLAGS} fast-file.c
 
 fd-purge.o: fd-purge.c file.h common.h
@@ -66,7 +69,7 @@ va-usage.o: va-usage.c proc.h common.h
 valid-extension.o: valid-extension.c file.h common.h
 	${CC} -c ${CFLAGS} valid-extension.c
 
-xt-file.o: xt-file.c file.h common.h
+xt-file.o: xt-file.c file.h common.h mem.h
 	${CC} -c ${CFLAGS} xt-file.c
 
 xt-malloc.o: xt-malloc.c mem.h

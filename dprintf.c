@@ -4,8 +4,6 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-#if defined(__sun__)
-
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
@@ -60,4 +58,3 @@ int     xt_dprintf(int fd, const char * restrict format, ...)
     
     return count;
 }
-#endif

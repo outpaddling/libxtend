@@ -1,3 +1,7 @@
+#ifdef __linux__
+#define _GNU_SOURCE     // vasprintf()
+#endif
+
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>

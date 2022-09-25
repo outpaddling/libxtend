@@ -29,7 +29,7 @@
  *      unsigned long   n = 5, k = 2;
  *
  *      printf("Ways to choose %lu items from %lu = %lu\n",
- *              k, n, xt_binomial(n, k));
+ *              k, n, xt_n_choose_k(n, k));
  *
  *  See also:
  *      lgamma(3)

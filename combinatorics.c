@@ -72,7 +72,7 @@ unsigned long   xt_n_choose_k(unsigned long n, unsigned long k)
  *      Note that 21! is beyond the range of uint64_t, so programs that
  *      need it should either use a multiple precision library or rearrange
  *      the computations to avoid repeated multiplication leading to overflow.
- *      n_choose_k(3) uses the latter approach to avoid computing whole
+ *      xt_n_choose_k(3) uses the latter approach to avoid computing whole
  *      factorials before finally dividing.
  *  
  *  Arguments:

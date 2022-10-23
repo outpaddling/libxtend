@@ -8,11 +8,11 @@ dprintf.o: dprintf.c
 	${CC} -c ${CFLAGS} dprintf.c
 
 dsv-mutators.o: dsv-mutators.c string.h dsv.h dsv-rvs.h dsv-accessors.h \
- dsv-mutators.h
+  dsv-mutators.h
 	${CC} -c ${CFLAGS} dsv-mutators.c
 
 dsv.o: dsv.c dsv.h dsv-rvs.h dsv-accessors.h dsv-mutators.h mem.h file.h \
- common.h
+  common.h
 	${CC} -c ${CFLAGS} dsv.c
 
 fast-cp.o: fast-cp.c file.h common.h math.h
@@ -74,4 +74,7 @@ xt-file.o: xt-file.c file.h common.h mem.h
 
 xt-malloc.o: xt-malloc.c mem.h
 	${CC} -c ${CFLAGS} xt-malloc.c
+
+xt-shuffle.o: xt-shuffle.c
+	${CC} -c ${CFLAGS} xt-shuffle.c
 

@@ -12,8 +12,6 @@
 #define DSV_INIT                { 0, 0, NULL, NULL }
 #define DSV_FIELD_MAX_CHARS     32767
 
-#define DSV_FIELD(line,col)     ((line)->fields[col-1]) // 1-based column
-
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *

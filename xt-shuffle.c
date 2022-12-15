@@ -5,7 +5,7 @@
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Library:
- *      #include <xtend/array.h>
+ *      #include <xtend/stdlib.h>
  *      -lxtend
  *
  *  Description:

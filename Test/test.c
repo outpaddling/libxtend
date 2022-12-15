@@ -11,6 +11,9 @@ int     main(int argc,char *argv[])
     char        string[100] = "  Aldred E. Neumann.",
 		**array;
     unsigned    c;
+    char        rn[100] = "XIV", *endptr;
+    
+    printf("%s = %d, *endptr = %d\n", rn, romantoi(rn, &endptr), *endptr);
     
     strtrim(string, " .");
     puts("\nstrtrim: Should be 'Alfred E. Neumann'");

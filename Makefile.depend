@@ -51,6 +51,9 @@ resolve-hostname.o: resolve-hostname.c string.h net.h common.h
 rmkdir.o: rmkdir.c file.h common.h
 	${CC} -c ${CFLAGS} rmkdir.c
 
+roman.o: roman.c
+	${CC} -c ${CFLAGS} roman.c
+
 spawnlp.o: spawnlp.c proc.h common.h
 	${CC} -c ${CFLAGS} spawnlp.c
 

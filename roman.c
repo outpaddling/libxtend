@@ -58,7 +58,7 @@
  *  2022-12-14  Jason Bacon Begin
  ***************************************************************************/
 
-int     romantoi(const char *nptr, const char **endptr)
+int     romantoi(const char *nptr, char **endptr)
 
 {
     int     digit, next_digit, previous_digit, val, consecutive;
@@ -108,7 +108,7 @@ int     romantoi(const char *nptr, const char **endptr)
 	++nptr;
     }
     
-    *endptr = nptr;
+    *endptr = (char *)nptr;
     return val;
 }
 

@@ -4,6 +4,7 @@
 #include <inttypes.h>
 #include "../math.h"
 #include "../string.h"
+#include "../stdlib.h"
 
 int     main(int argc,char *argv[])
 
@@ -11,9 +12,16 @@ int     main(int argc,char *argv[])
     char        string[100] = "  Aldred E. Neumann.",
 		**array;
     unsigned    c;
-    char        rn[100] = "XIV", *endptr;
+    char        *rn[] =
+		{
+		    "I", "II", "III", "IIII", "IIIII", "XIV", "XIIV",
+		    "XLIX", "VVI", "LLI", "DDI", "XXXXX", "CCCCC",
+		    "MMMMM", "MMMMMM", NULL
+		}, *endptr;
     
-    printf("%s = %d, *endptr = %d\n", rn, romantoi(rn, &endptr), *endptr);
+    for (c = 0; rn[c] != NULL; ++c)
+	printf("%s = %d, *endptr = %d\n",
+	    rn[c], romantoi(rn[c], &endptr), *endptr);
     
     strtrim(string, " .");
     puts("\nstrtrim: Should be 'Alfred E. Neumann'");

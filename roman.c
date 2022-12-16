@@ -1,15 +1,3 @@
-/***************************************************************************
- *  Description:
- *  
- *  Arguments:
- *
- *  Returns:
- *
- *  History: 
- *  Date        Name        Modification
- *  2022-12-14  Jason Bacon Begin
- ***************************************************************************/
-
 #include <stdio.h>
 #include <sysexits.h>
 #include <stdlib.h>
@@ -26,8 +14,12 @@
  *  Description:
  *      The 
  *      .B romantoi() function converts a string containing a valid
- *      Roman numeral to an integer, much like strtol().  It supports
- *      values up to MMMIM (3,999).  Like strtol(), it returns the
+ *      Roman numeral to an integer, much like strtol().  It rejects
+ *      non-normalized values, such as IIIII, XXXXX, or CCCCC, which
+ *      should be written as V, L, and D, respectively.  IIII, XXXX, and
+ *      CCCC are accepted in place of IV, XL, and CD.  Any number of
+ *      consecutive Ms (1000s) are accepted, since there is no larger digit.
+ *      Like strtol(), it returns the
  *      address of the first character not converted as part of the
  *      number.  This can be used to verify that the number ended as
  *      it should have, perhaps with a '\0' byte.
@@ -62,6 +54,7 @@ int     romantoi(const char *nptr, char **endptr)
 
 {
     int     digit, next_digit, previous_digit, val, consecutive;
+    const char    *p;
     
     // Array of values using subscripts from 'C' to 'X'
     const static int  digits[] = 
@@ -74,16 +67,24 @@ int     romantoi(const char *nptr, char **endptr)
     // FIXME: Check for more than 3 consecutive identical digits
     val = 0;
     previous_digit = 0;
-    while ( isalpha(*nptr) )
+    p = nptr;
+    while ( isalpha(*p) )
     {
-	digit = digits[toupper(*nptr) - 'C'];
+	digit = digits[toupper(*p) - 'C'];
+	// fprintf(stderr, "digit = %d\n", digit);
 	
 	// Can't have more than 3 I's in a row
 	if ( digit == previous_digit )
 	{
-	    if ( ++consecutive > 3 )
+	    ++consecutive;
+	    
+	    // IIIII should be V, XXXXX should be L, etc.
+	    if ( ((consecutive > 4) && (digit != 1000)) ||
+		 ((consecutive > 1) &&
+		  ((digit == 5) || (digit == 50) || (digit == 500))) )
 	    {
-		fprintf(stderr, "romantoi(): Invalid Roman numeral.\n");
+		fprintf(stderr, "romantoi(): Invalid Roman numeral: %s.\n",
+			nptr);
 		return 0;
 	    }
 	}
@@ -92,23 +93,31 @@ int     romantoi(const char *nptr, char **endptr)
 	
 	if ( digit != 0 )
 	{
-	    if ( ! isalpha(nptr[1]) )
+	    if ( ! isalpha(p[1]) )
 		next_digit = 0;
 	    else
-		next_digit = digits[toupper(*(nptr + 1)) - 'C'];
+		next_digit = digits[toupper(*(p + 1)) - 'C'];
 	    if ( next_digit > digit )
 	    {
+		// Only 1 lesser digit allowed before a greater one.
+		// E.g. IV is valid, IIV is not.
+		if ( consecutive > 1 )
+		{
+		    fprintf(stderr, "romantoi(): Invalid Roman numeral: %s.\n",
+			    nptr);
+		    return 0;
+		}
 		val += next_digit - digit;  // IV, IX, XL, XC, DC, CM
-		++nptr;
+		++p;
 	    }
 	    else
 		val += digit;
 	}
 	previous_digit = digit;
-	++nptr;
+	++p;
     }
     
-    *endptr = (char *)nptr;
+    *endptr = (char *)p;
     return val;
 }
 

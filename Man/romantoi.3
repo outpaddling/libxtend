@@ -30,19 +30,19 @@ endptr: Address of a pointer variable to receive the end of the string
 
 .SH DESCRIPTION
 
-
-
 The
 .B romantoi() function converts a string containing a valid
-Roman numeral to an integer, much like strtol().  It supports
-values up to MMMIM (3,999).  Like strtol(), it returns the
+Roman numeral to an integer, much like strtol().  It rejects
+non-normalized values, such as IIIII, XXXXX, or CCCCC, which
+should be written as V, L, and D, respectively.  IIII, XXXX, and
+CCCC are accepted in place of IV, XL, and CD.  Any number of
+consecutive Ms (1000s) are accepted, since there is no larger digit.
+Like strtol(), it returns the
 address of the first character not converted as part of the
 number.  This can be used to verify that the number ended as
 it should have, perhaps with a '0' byte.
 
 .SH RETURN VALUES
-
-
 
 The integer value of the Roman numeral if converted, or 0 if
 an invalid numeral is detected.

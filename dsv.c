@@ -46,11 +46,31 @@ int     dsv_read_field(FILE *stream, char buff[], size_t buff_size,
     size_t  c;
     char    *p;
     int     ch, ch2;
-    
-    for (c = 0, p = buff; (c < buff_size) && 
+
+    // Quoted field
+    // FIXME: Allow for alternate quote characters
+    if ( (ch = getc(stream)) == '"' )
+    {
+	// Read to closing quote
+	for (c = 0, p = buff; (c < buff_size) && 
+			  ((ch = getc(stream)) != '"') &&
+			  (ch != '\n') && (ch != EOF); ++c, ++p )
+	    *p = ch;
+	
+	// Read to delimiter
+	if ( (ch != '\n') && (ch != EOF) )
+	    while ( (strchr(delims, ch = getc(stream)) == NULL) &&
+			  (ch != '\n') && (ch != EOF) )
+		;
+    }
+    else
+    {
+	ungetc(ch, stream);
+	for (c = 0, p = buff; (c < buff_size) && 
 			  ( strchr(delims, ch = getc(stream)) == NULL) &&
 			  (ch != '\n') && (ch != EOF); ++c, ++p )
-	*p = ch;
+	    *p = ch;
+    }
     *p = '\0';
     
     if ( c == buff_size )

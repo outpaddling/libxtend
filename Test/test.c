@@ -5,6 +5,10 @@
 #include "../math.h"
 #include "../string.h"
 #include "../stdlib.h"
+#include "../file.h"
+#include "../dsv.h"
+
+#define BUFF_SIZE   1024
 
 int     main(int argc,char *argv[])
 
@@ -17,7 +21,15 @@ int     main(int argc,char *argv[])
 		    "I", "II", "III", "IIII", "IIIII", "XIV", "XIIV",
 		    "XLIX", "VVI", "LLI", "DDI", "XXXXX", "CCCCC",
 		    "MMMMM", "MMMMMM", NULL
-		}, *endptr;
+		}, *endptr,
+		field[BUFF_SIZE];
+    FILE        *fp;
+    size_t      len;
+    
+    fp = xt_fopen("test.csv", "r");
+    while ( csv_read_field(fp, field, BUFF_SIZE, &len) != '\n' )
+	puts(field);
+    xt_fclose(fp);
     
     for (c = 0; rn[c] != NULL; ++c)
 	printf("%s = %d, *endptr = %d\n",
@@ -50,6 +62,8 @@ int     main(int argc,char *argv[])
 	    printf("%s ", array[c]);
 	putchar('\n');
     }
+    
+    
     
     return EX_OK;
 }

@@ -3,6 +3,7 @@
 
 #define XT_MIN(a,b) ((a) < (b) ? (a) : (b))
 #define XT_MAX(a,b) ((a) > (b) ? (a) : (b))
+#define XT_ABS(a)   ((a) >= 0  ? (a) : -(a))
 
 #ifndef _INTTYPES_H_
 #include <inttypes.h>

@@ -11,7 +11,7 @@ functions as well some more esoteric features.
 ## C programming at a higher level
 
 You may have heard people grumbling that C is too "low-level" to work with
-conveniently.  This perspective is not unjustified, but the reality is that
+conveniently.  This perspective is not completely unjustified, but the reality is that
 it doesn't have to be this way.
 
 C was designed to be a minimal language, but not a low-level language.

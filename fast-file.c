@@ -429,7 +429,7 @@ int     ffclose(ffile_t *stream)
  *          exit(EX_NOINPUT);
  *      }
  *      if ( (ch = FFGETC(instream)) != MY_FAVORITE_CHAR )
- *          ungetc(ch, instream);
+ *          ffungetc(ch, instream);
  *      ffclose(instream);
  *
  *  See also:

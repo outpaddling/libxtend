@@ -154,6 +154,13 @@ See the pkgsrc documentation for more information.
 Community support for pkgsrc is available through the
 [pkgsrc-users](http://netbsd.org/mailinglists) mailing list.
 
+### Other package managers
+
+Packages for libxtend are known to exist in the following package managers.
+These are maintained by third parties and not directly supported here.
+
+[BioArchLinux](https://github.com/BioArchLinux/Packages)
+
 ### Building libxtend locally
 
 Below are caveman install instructions for development purposes, not

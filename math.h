@@ -1,9 +1,11 @@
 #ifndef _XTEND_MATH_H_
 #define _XTEND_MATH_H_
 
-#define XT_MIN(a,b) ((a) < (b) ? (a) : (b))
-#define XT_MAX(a,b) ((a) > (b) ? (a) : (b))
-#define XT_ABS(a)   ((a) >= 0  ? (a) : -(a))
+// FIXME: Write man pages for these
+#define XT_MIN(a,b)     ((a) < (b) ? (a) : (b))
+#define XT_MAX(a,b)     ((a) > (b) ? (a) : (b))
+#define XT_ABS(a)       ((a) >= 0  ? (a) : -(a))
+#define XT_SIGNUM(a)    ((a) / XT_ABS(a))
 
 #ifndef _INTTYPES_H_
 #include <inttypes.h>

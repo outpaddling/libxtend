@@ -72,6 +72,9 @@ va-usage.o: va-usage.c proc.h common.h
 valid-extension.o: valid-extension.c file.h common.h
 	${CC} -c ${CFLAGS} valid-extension.c
 
+xt-daemonize.o: xt-daemonize.c
+	${CC} -c ${CFLAGS} xt-daemonize.c
+
 xt-file.o: xt-file.c file.h common.h mem.h
 	${CC} -c ${CFLAGS} xt-file.c
 

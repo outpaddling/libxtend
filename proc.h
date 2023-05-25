@@ -34,4 +34,7 @@ void redirect(char *infile, char *outfile, char *errfile);
 /* va-usage.c */
 void va_usage(const char *format_string, ...);
 
+/* xt-daemonize.c */
+int xt_daemonize(int nochdir, int noclose);
+
 #endif  // _XTEND_PROC_H_

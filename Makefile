@@ -77,7 +77,7 @@ OBJS    = valid-extension.o xt-file.o string.o time.o mv.o \
 	  spawnlp.o spawnvp.o va-usage.o \
 	  xt-malloc.o dsv.o dsv-mutators.o \
 	  resolve-hostname.o numeric_cmp.o combinatorics.o \
-	  fast-file.o dprintf.o xt-shuffle.o roman.o
+	  fast-file.o dprintf.o xt-shuffle.o roman.o xt-daemonize.o
 
 ############################################################################
 # Compile, link, and install options
@@ -192,7 +192,7 @@ depend:
 # Remove generated files (objs and nroff output from man pages)
 
 clean:
-	rm -f ${OBJS} ${SLIB} lib*.so.* lib*.dylib *.nr
+	rm -f ${OBJS} ${SLIB} lib*.so.* lib*.dylib *.nr xt-daemonize
 
 # Keep backup files during normal clean, but provide an option to remove them
 realclean: clean

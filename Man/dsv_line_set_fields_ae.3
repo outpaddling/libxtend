@@ -37,8 +37,8 @@ in a dsv_line_t object from non-member functions.
 
 .SH RETURN VALUES
 
-BL_DSV_DATA_OK if the new value is acceptable and assigned
-BL_DSV_DATA_OUT_OF_RANGE otherwise
+DSV_DATA_OK if the new value is acceptable and assigned
+DSV_DATA_OUT_OF_RANGE otherwise
 
 .SH EXAMPLES
 .nf
@@ -49,7 +49,7 @@ size_t          c;
 char **         new_fields_element;
 
 if ( dsv_line_set_fields_ae(&dsv_line, c, new_fields_element)
-        == BL_DSV_DATA_OK )
+        == DSV_DATA_OK )
 {
 }
 .ad

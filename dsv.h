@@ -12,6 +12,9 @@
 #define DSV_INIT                { 0, 0, NULL, NULL }
 #define DSV_FIELD_MAX_CHARS     32767
 
+// Before including generated headers
+typedef struct dsv_line dsv_line_t;
+
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
@@ -34,21 +37,6 @@
  *  2022-02-08  Jason Bacon Begin
  ***************************************************************************/
 
-typedef struct
-{
-    size_t      array_size,
-		num_fields;
-    char        **fields,
-		*delims;
-}   dsv_line_t;
-
-#define DSV_LINE_ARRAY_SIZE(ptr)        ((ptr)->array_size)
-#define DSV_LINE_NUM_FIELDS(ptr)        ((ptr)->num_fields)
-#define DSV_LINE_FIELDS(ptr)            ((ptr)->fields)
-#define DSV_LINE_FIELDS_AE(ptr,c)       ((ptr)->fields[c])
-#define DSV_LINE_DELIMS(ptr)            ((ptr)->delims)
-#define DSV_LINE_DELIMS_AE(ptr,c)       ((ptr)->delims[c])
-
 #include "dsv-rvs.h"
 #include "dsv-accessors.h"
 #include "dsv-mutators.h"
@@ -58,6 +46,7 @@ int dsv_read_field(FILE *stream, char buff[], size_t buff_size, const char *deli
 int dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size, const char *delims, size_t *len);
 int dsv_skip_field(FILE *stream, const char *delims, size_t *len);
 int dsv_skip_rest_of_line(FILE *stream);
+dsv_line_t *dsv_line_new(void);
 void dsv_line_init(dsv_line_t *dsv_line);
 int dsv_line_read(dsv_line_t *dsv_line, FILE *stream, const char *delims);
 int dsv_line_write(dsv_line_t *dsv_line, FILE *stream);

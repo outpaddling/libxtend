@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sysexits.h>
-#include "dsv.h"
+#include "dsv-private.h"
 #include "mem.h"
 #include "file.h"
 #include "common.h"
@@ -286,17 +286,16 @@ int     dsv_skip_rest_of_line(FILE *stream)
  *      Actual delimiter of last field (should be newline)
  *
  *  Examples:
- *      dsv_line_t  line;
+ *      dsv_line_t  *line = dsv_line_new();
  *
- *      dsv_line_init(&line);
- *      while ( dsv_line_read(&line, stdin, "\\\\\t") != EOF )
+ *      while ( dsv_line_read(line, stdin, "\\\\\t") != EOF )
  *      {
  *          dsv_line_write(line, stdout);
- *          dsv_line_free(&line);
+ *          dsv_line_free(line);
  *      }
  *
  *  See also:
- *      dsv_line_init(3), dsv_line_free(3),
+ *      dsv_line_new(3), dsv_line_free(3),
  *      dsv_line_read(3), dsv_line_write(3), dsv_line_copy(3),
  *      dsv_read_field(3), dsv_read_field_malloc(3),
  *      dsv_skip_field(3), dsv_skip_rest_of_line(3)
@@ -387,17 +386,16 @@ int     dsv_line_read(dsv_line_t *dsv_line, FILE *stream, const char *delims)
  *      The number of fields successfully written
  *
  *  Examples:
- *      dsv_line_t  line;
+ *      dsv_line_t  *line = dsv_line_new();
  *
- *      dsv_line_init(&line);
- *      while ( dsv_line_read(&line, stdin, "\t") != EOF )
+ *      while ( dsv_line_read(line, stdin, "\t") != EOF )
  *      {
  *          dsv_line_write(line, stdout);
- *          dsv_line_free(&line);
+ *          dsv_line_free(line);
  *      }
  *
  *  See also:
- *      dsv_line_init(3), dsv_line_free(3),
+ *      dsv_line_new(3), dsv_line_free(3),
  *      dsv_line_read(3), dsv_line_write(3), dsv_line_copy(3),
  *      dsv_read_field(3), dsv_read_field_malloc(3),
  *      dsv_skip_field(3), dsv_skip_rest_of_line(3)
@@ -435,22 +433,27 @@ int     dsv_line_write(dsv_line_t *dsv_line, FILE *stream)
  *      each holding the character that ended the corresponding field.
  *      Note that each field could potentially end with a different
  *      delimiter, as multiple delimiters can be specified.
+ *
+ *      Normally does not need to be called explicitly, since it is
+ *      called by dsv_line_new().
  *  
  *  Arguments:
  *      dsv_line    Pointer to a dsv_lint_t object.    
  *
  *  Examples:
- *      dsv_line_t  line;
+ *      dsv_line_t  *line = dsv_line_new();
  *
- *      dsv_line_init(&line);
- *      while ( dsv_line_read(&line, stdin, "\t") != EOF )
+ *      while ( dsv_line_read(line, stdin, "\t") != EOF )
  *      {
  *          dsv_line_write(line, stdout);
- *          dsv_line_free(&line);
+ *          dsv_line_free(line);
  *      }
  *
+ *      // Reinitialize
+ *      dsv_line_init(line);
+ *
  *  See also:
- *      dsv_line_init(3), dsv_line_free(3),
+ *      dsv_line_new(3), dsv_line_free(3),
  *      dsv_line_read(3), dsv_line_write(3), dsv_line_copy(3),
  *      dsv_read_field(3), dsv_read_field_malloc(3),
  *      dsv_skip_field(3), dsv_skip_rest_of_line(3)
@@ -467,6 +470,64 @@ void    dsv_line_init(dsv_line_t *dsv_line)
     dsv_line->num_fields = 0;
     dsv_line->fields = NULL;
     dsv_line->delims = NULL;
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <xtend/dsv.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      Allocate and initialize a dsv_line_t structure.
+ *      The dsv_line_t structure contains an array of strings, each
+ *      holding one field from the line, and an an array of delimiters,
+ *      each holding the character that ended the corresponding field.
+ *      Note that each field could potentially end with a different
+ *      delimiter, as multiple delimiters can be specified.
+ *  
+ *  Arguments:
+ *      None
+ *
+ *  Returns
+ *      Pointer to a dsv_lint_t object, or NULL if malloc() failed.
+ *
+ *  Examples:
+ *      dsv_line_t  *line = dsv_line_new();
+ *
+ *      while ( dsv_line_read(line, stdin, "\t") != EOF )
+ *      {
+ *          dsv_line_write(line, stdout);
+ *          dsv_line_free(line);
+ *      }
+ *
+ *  See also:
+ *      dsv_line_new(3), dsv_line_free(3),
+ *      dsv_line_read(3), dsv_line_write(3), dsv_line_copy(3),
+ *      dsv_read_field(3), dsv_read_field_malloc(3),
+ *      dsv_skip_field(3), dsv_skip_rest_of_line(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-11  Jason Bacon Begin
+ ***************************************************************************/
+
+
+dsv_line_t  *dsv_line_new(void)
+
+{
+    dsv_line_t  *line = malloc(sizeof(dsv_line_t));
+    
+    if ( line == NULL )
+    {
+	fputs("dsv_line_new(): malloc failed.\n", stderr);
+	exit(EX_UNAVAILABLE);
+    }
+    
+    dsv_line_init(line);
+    return line;
 }
 
 
@@ -492,7 +553,7 @@ void    dsv_line_init(dsv_line_t *dsv_line)
  *      XT_OK or XT_MALLOC_FAILED
  *      
  *  See also:
- *      dsv_line_init(3), dsv_line_free(3),
+ *      dsv_line_new(3), dsv_line_free(3),
  *      dsv_line_read(3), dsv_line_write(3), dsv_line_copy(3),
  *      dsv_read_field(3), dsv_read_field_malloc(3),
  *      dsv_skip_field(3), dsv_skip_rest_of_line(3)
@@ -548,16 +609,16 @@ int     dsv_line_copy(dsv_line_t *dest, dsv_line_t *src)
  *      The number of fields freed.  Fields set to NULL are not freed.
  *
  *  Examples:
- *      dsv_line_t  line;
+ *      dsv_line_t  *line = dsv_line_new();
  *
- *      while ( dsv_line_read(&line, stdin, "\t") != EOF )
+ *      while ( dsv_line_read(line, stdin, "\t") != EOF )
  *      {
  *          dsv_line_write(line, stdout);
- *          dsv_line_free(&line);
+ *          dsv_line_free(line);
  *      }
  *
  *  See also:
- *      dsv_line_init(3), dsv_line_free(3),
+ *      dsv_line_new(3), dsv_line_free(3),
  *      dsv_line_read(3), dsv_line_write(3), dsv_line_copy(3),
  *      dsv_read_field(3), dsv_read_field_malloc(3),
  *      dsv_skip_field(3), dsv_skip_rest_of_line(3)

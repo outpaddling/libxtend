@@ -10,8 +10,8 @@
 #include <ctype.h>
 #include <stdbool.h>        // In case of bool
 #include <stdint.h>         // In case of int64_t, etc
-#include "string.h"         // strlcpy() on Linux
-#include "dsv.h"
+#include <xtend/string.h>   // strlcpy() on Linux
+#include "dsv-private.h"
 
 
 /***************************************************************************
@@ -33,15 +33,15 @@
  *      new_array_size  The new value for array_size
  *
  *  Returns:
- *      BL_DSV_DATA_OK if the new value is acceptable and assigned
- *      BL_DSV_DATA_OUT_OF_RANGE otherwise
+ *      DSV_DATA_OK if the new value is acceptable and assigned
+ *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      dsv_line_t      dsv_line;
  *      size_t          new_array_size;
  *
  *      if ( dsv_line_set_array_size(&dsv_line, new_array_size)
- *              == BL_DSV_DATA_OK )
+ *              == DSV_DATA_OK )
  *      {
  *      }
  *
@@ -50,18 +50,18 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-08  gen-get-set Auto-generated from dsv.h
+ *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
 int     dsv_line_set_array_size(dsv_line_t *dsv_line_ptr, size_t new_array_size)
 
 {
     if ( false )
-	return BL_DSV_DATA_OUT_OF_RANGE;
+	return DSV_DATA_OUT_OF_RANGE;
     else
     {
 	dsv_line_ptr->array_size = new_array_size;
-	return BL_DSV_DATA_OK;
+	return DSV_DATA_OK;
     }
 }
 
@@ -85,15 +85,15 @@ int     dsv_line_set_array_size(dsv_line_t *dsv_line_ptr, size_t new_array_size)
  *      new_num_fields  The new value for num_fields
  *
  *  Returns:
- *      BL_DSV_DATA_OK if the new value is acceptable and assigned
- *      BL_DSV_DATA_OUT_OF_RANGE otherwise
+ *      DSV_DATA_OK if the new value is acceptable and assigned
+ *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      dsv_line_t      dsv_line;
  *      size_t          new_num_fields;
  *
  *      if ( dsv_line_set_num_fields(&dsv_line, new_num_fields)
- *              == BL_DSV_DATA_OK )
+ *              == DSV_DATA_OK )
  *      {
  *      }
  *
@@ -102,18 +102,18 @@ int     dsv_line_set_array_size(dsv_line_t *dsv_line_ptr, size_t new_array_size)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-08  gen-get-set Auto-generated from dsv.h
+ *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
 int     dsv_line_set_num_fields(dsv_line_t *dsv_line_ptr, size_t new_num_fields)
 
 {
     if ( false )
-	return BL_DSV_DATA_OUT_OF_RANGE;
+	return DSV_DATA_OUT_OF_RANGE;
     else
     {
 	dsv_line_ptr->num_fields = new_num_fields;
-	return BL_DSV_DATA_OK;
+	return DSV_DATA_OK;
     }
 }
 
@@ -137,15 +137,15 @@ int     dsv_line_set_num_fields(dsv_line_t *dsv_line_ptr, size_t new_num_fields)
  *      new_fields      The new value for fields
  *
  *  Returns:
- *      BL_DSV_DATA_OK if the new value is acceptable and assigned
- *      BL_DSV_DATA_OUT_OF_RANGE otherwise
+ *      DSV_DATA_OK if the new value is acceptable and assigned
+ *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      dsv_line_t      dsv_line;
  *      char **         new_fields;
  *
  *      if ( dsv_line_set_fields(&dsv_line, new_fields)
- *              == BL_DSV_DATA_OK )
+ *              == DSV_DATA_OK )
  *      {
  *      }
  *
@@ -154,18 +154,18 @@ int     dsv_line_set_num_fields(dsv_line_t *dsv_line_ptr, size_t new_num_fields)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-08  gen-get-set Auto-generated from dsv.h
+ *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
 int     dsv_line_set_fields(dsv_line_t *dsv_line_ptr, char ** new_fields)
 
 {
     if ( new_fields == NULL )
-	return BL_DSV_DATA_OUT_OF_RANGE;
+	return DSV_DATA_OUT_OF_RANGE;
     else
     {
 	dsv_line_ptr->fields = new_fields;
-	return BL_DSV_DATA_OK;
+	return DSV_DATA_OK;
     }
 }
 
@@ -186,8 +186,8 @@ int     dsv_line_set_fields(dsv_line_t *dsv_line_ptr, char ** new_fields)
  *      new_fields_element The new value for fields[c]
  *
  *  Returns:
- *      BL_DSV_DATA_OK if the new value is acceptable and assigned
- *      BL_DSV_DATA_OUT_OF_RANGE otherwise
+ *      DSV_DATA_OK if the new value is acceptable and assigned
+ *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      dsv_line_t      dsv_line;
@@ -195,7 +195,7 @@ int     dsv_line_set_fields(dsv_line_t *dsv_line_ptr, char ** new_fields)
  *      char **         new_fields_element;
  *
  *      if ( dsv_line_set_fields_ae(&dsv_line, c, new_fields_element)
- *              == BL_DSV_DATA_OK )
+ *              == DSV_DATA_OK )
  *      {
  *      }
  *
@@ -204,18 +204,18 @@ int     dsv_line_set_fields(dsv_line_t *dsv_line_ptr, char ** new_fields)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-08  gen-get-set Auto-generated from dsv.h
+ *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
 int     dsv_line_set_fields_ae(dsv_line_t *dsv_line_ptr, size_t c, char * new_fields_element)
 
 {
     if ( new_fields_element == NULL )
-	return BL_DSV_DATA_OUT_OF_RANGE;
+	return DSV_DATA_OUT_OF_RANGE;
     else
     {
 	dsv_line_ptr->fields[c] = new_fields_element;
-	return BL_DSV_DATA_OK;
+	return DSV_DATA_OK;
     }
 }
 
@@ -237,8 +237,8 @@ int     dsv_line_set_fields_ae(dsv_line_t *dsv_line_ptr, size_t c, char * new_fi
  *      array_size      Size of the fields array.
  *
  *  Returns:
- *      BL_DSV_DATA_OK if the new value is acceptable and assigned
- *      BL_DSV_DATA_OUT_OF_RANGE otherwise
+ *      DSV_DATA_OK if the new value is acceptable and assigned
+ *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      dsv_line_t      dsv_line;
@@ -246,7 +246,7 @@ int     dsv_line_set_fields_ae(dsv_line_t *dsv_line_ptr, size_t c, char * new_fi
  *      size_t          array_size;
  *
  *      if ( dsv_line_set_fields_cpy(&dsv_line, new_fields, array_size)
- *              == BL_DSV_DATA_OK )
+ *              == DSV_DATA_OK )
  *      {
  *      }
  *
@@ -255,14 +255,14 @@ int     dsv_line_set_fields_ae(dsv_line_t *dsv_line_ptr, size_t c, char * new_fi
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-08  gen-get-set Auto-generated from dsv.h
+ *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
 int     dsv_line_set_fields_cpy(dsv_line_t *dsv_line_ptr, char ** new_fields, size_t array_size)
 
 {
     if ( new_fields == NULL )
-	return BL_DSV_DATA_OUT_OF_RANGE;
+	return DSV_DATA_OUT_OF_RANGE;
     else
     {
 	size_t  c;
@@ -270,7 +270,7 @@ int     dsv_line_set_fields_cpy(dsv_line_t *dsv_line_ptr, char ** new_fields, si
 	// FIXME: Assuming all elements should be copied
 	for (c = 0; c < array_size; ++c)
 	    dsv_line_ptr->fields[c] = new_fields[c];
-	return BL_DSV_DATA_OK;
+	return DSV_DATA_OK;
     }
 }
 
@@ -294,15 +294,15 @@ int     dsv_line_set_fields_cpy(dsv_line_t *dsv_line_ptr, char ** new_fields, si
  *      new_delims      The new value for delims
  *
  *  Returns:
- *      BL_DSV_DATA_OK if the new value is acceptable and assigned
- *      BL_DSV_DATA_OUT_OF_RANGE otherwise
+ *      DSV_DATA_OK if the new value is acceptable and assigned
+ *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      dsv_line_t      dsv_line;
  *      char *          new_delims;
  *
  *      if ( dsv_line_set_delims(&dsv_line, new_delims)
- *              == BL_DSV_DATA_OK )
+ *              == DSV_DATA_OK )
  *      {
  *      }
  *
@@ -311,18 +311,18 @@ int     dsv_line_set_fields_cpy(dsv_line_t *dsv_line_ptr, char ** new_fields, si
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-08  gen-get-set Auto-generated from dsv.h
+ *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
 int     dsv_line_set_delims(dsv_line_t *dsv_line_ptr, char * new_delims)
 
 {
     if ( new_delims == NULL )
-	return BL_DSV_DATA_OUT_OF_RANGE;
+	return DSV_DATA_OUT_OF_RANGE;
     else
     {
 	dsv_line_ptr->delims = new_delims;
-	return BL_DSV_DATA_OK;
+	return DSV_DATA_OK;
     }
 }
 
@@ -343,8 +343,8 @@ int     dsv_line_set_delims(dsv_line_t *dsv_line_ptr, char * new_delims)
  *      new_delims_element The new value for delims[c]
  *
  *  Returns:
- *      BL_DSV_DATA_OK if the new value is acceptable and assigned
- *      BL_DSV_DATA_OUT_OF_RANGE otherwise
+ *      DSV_DATA_OK if the new value is acceptable and assigned
+ *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      dsv_line_t      dsv_line;
@@ -352,7 +352,7 @@ int     dsv_line_set_delims(dsv_line_t *dsv_line_ptr, char * new_delims)
  *      char *          new_delims_element;
  *
  *      if ( dsv_line_set_delims_ae(&dsv_line, c, new_delims_element)
- *              == BL_DSV_DATA_OK )
+ *              == DSV_DATA_OK )
  *      {
  *      }
  *
@@ -361,18 +361,18 @@ int     dsv_line_set_delims(dsv_line_t *dsv_line_ptr, char * new_delims)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-08  gen-get-set Auto-generated from dsv.h
+ *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
 int     dsv_line_set_delims_ae(dsv_line_t *dsv_line_ptr, size_t c, char  new_delims_element)
 
 {
     if ( false )
-	return BL_DSV_DATA_OUT_OF_RANGE;
+	return DSV_DATA_OUT_OF_RANGE;
     else
     {
 	dsv_line_ptr->delims[c] = new_delims_element;
-	return BL_DSV_DATA_OK;
+	return DSV_DATA_OK;
     }
 }
 
@@ -394,8 +394,8 @@ int     dsv_line_set_delims_ae(dsv_line_t *dsv_line_ptr, size_t c, char  new_del
  *      array_size      Size of the delims array.
  *
  *  Returns:
- *      BL_DSV_DATA_OK if the new value is acceptable and assigned
- *      BL_DSV_DATA_OUT_OF_RANGE otherwise
+ *      DSV_DATA_OK if the new value is acceptable and assigned
+ *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      dsv_line_t      dsv_line;
@@ -403,7 +403,7 @@ int     dsv_line_set_delims_ae(dsv_line_t *dsv_line_ptr, size_t c, char  new_del
  *      size_t          array_size;
  *
  *      if ( dsv_line_set_delims_cpy(&dsv_line, new_delims, array_size)
- *              == BL_DSV_DATA_OK )
+ *              == DSV_DATA_OK )
  *      {
  *      }
  *
@@ -412,18 +412,18 @@ int     dsv_line_set_delims_ae(dsv_line_t *dsv_line_ptr, size_t c, char  new_del
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-08  gen-get-set Auto-generated from dsv.h
+ *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
 int     dsv_line_set_delims_cpy(dsv_line_t *dsv_line_ptr, char * new_delims, size_t array_size)
 
 {
     if ( new_delims == NULL )
-	return BL_DSV_DATA_OUT_OF_RANGE;
+	return DSV_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(dsv_line_ptr->delims, new_delims, array_size);
-	return BL_DSV_DATA_OK;
+	return DSV_DATA_OK;
     }
 }

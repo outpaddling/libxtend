@@ -40,8 +40,8 @@ leaks.
 
 .SH RETURN VALUES
 
-BL_DSV_DATA_OK if the new value is acceptable and assigned
-BL_DSV_DATA_OUT_OF_RANGE otherwise
+DSV_DATA_OK if the new value is acceptable and assigned
+DSV_DATA_OUT_OF_RANGE otherwise
 
 .SH EXAMPLES
 .nf
@@ -51,7 +51,7 @@ dsv_line_t      dsv_line;
 size_t          new_array_size;
 
 if ( dsv_line_set_array_size(&dsv_line, new_array_size)
-        == BL_DSV_DATA_OK )
+        == DSV_DATA_OK )
 {
 }
 .ad

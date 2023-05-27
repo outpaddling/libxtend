@@ -7,7 +7,11 @@ digits.o: digits.c math.h
 dprintf.o: dprintf.c
 	${CC} -c ${CFLAGS} dprintf.c
 
-dsv-mutators.o: dsv-mutators.c string.h dsv.h dsv-rvs.h dsv-accessors.h \
+dsv-accessors.o: dsv-accessors.c dsv.h dsv-rvs.h dsv-accessors.h \
+  dsv-mutators.h
+	${CC} -c ${CFLAGS} dsv-accessors.c
+
+dsv-mutators.o: dsv-mutators.c dsv.h dsv-rvs.h dsv-accessors.h \
   dsv-mutators.h
 	${CC} -c ${CFLAGS} dsv-mutators.c
 

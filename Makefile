@@ -75,7 +75,7 @@ OBJS    = valid-extension.o xt-file.o string.o time.o mv.o \
 	  fast-cp.o gcd.o fd-purge.o fgetline.o file-mod-cmp.o get-home-dir.o \
 	  digits.o parse-cmd.o rmkdir.o \
 	  spawnlp.o spawnvp.o va-usage.o \
-	  xt-malloc.o dsv.o dsv-mutators.o \
+	  xt-malloc.o dsv.o dsv-accessors.o dsv-mutators.o \
 	  resolve-hostname.o numeric_cmp.o combinatorics.o \
 	  fast-file.o dprintf.o xt-shuffle.o roman.o xt-daemonize.o
 
@@ -205,23 +205,23 @@ common-install:
 	${MKDIR} -p ${DESTDIR}${PREFIX}/lib \
 		    ${DESTDIR}${PREFIX}/include/xtend \
 		    ${DESTDIR}${MANDIR}/man3
-	${INSTALL} -m 0444 *.h ${DESTDIR}${PREFIX}/include/xtend; \
-	${INSTALL} -m 0444 Man/*.3 ${DESTDIR}${MANDIR}/man3
-	${INSTALL} -m 0444 ${SLIB} ${DESTDIR}${PREFIX}/lib
+	${INSTALL} -m 0644 *.h ${DESTDIR}${PREFIX}/include/xtend
+	${RM} -f ${DESTDIR}${PREFIX}/include/xtend/*-private.h
+	${INSTALL} -m 0644 Man/*.3 ${DESTDIR}${MANDIR}/man3
+	${INSTALL} -m 0644 ${SLIB} ${DESTDIR}${PREFIX}/lib
 
 # CentOS 7 install does not support -l, use ln -s directly
 install: all common-install
-	${INSTALL} -m 0555 ${DLIB} ${DESTDIR}${PREFIX}/lib
+	${INSTALL} -m 0755 ${DLIB} ${DESTDIR}${PREFIX}/lib
 	ln -sf ${DLIB} ${DESTDIR}${PREFIX}/lib/${SONAME}
 	ln -sf ${DLIB} ${DESTDIR}${PREFIX}/lib/lib${LIB}.so
 
 install-strip: install
-	${CHMOD} 0655 ${DESTDIR}${PREFIX}/lib/${DLIB}
+	${CHMOD} 0755 ${DESTDIR}${PREFIX}/lib/${DLIB}
 	${STRIP} ${DESTDIR}${PREFIX}/lib/${DLIB}
-	${CHMOD} 0555 ${DESTDIR}${PREFIX}/lib/${DLIB}
 
 apple-install: apple common-install
-	${INSTALL} -m 0555 ${DYLIB} ${DESTDIR}${PREFIX}/lib
+	${INSTALL} -m 0755 ${DYLIB} ${DESTDIR}${PREFIX}/lib
 	ln -sf ${DYLIB} ${DESTDIR}${PREFIX}/lib/${INSTALL_NAME}
 	ln -sf ${DYLIB} ${DESTDIR}${PREFIX}/lib/lib${LIB}.dylib
 

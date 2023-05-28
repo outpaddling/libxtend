@@ -52,12 +52,9 @@ FILE    *xt_fopen(const char *filename, const char *mode)
     {
 	if ( strcmp(ext, ".gz") == 0 )
 	{
-// Big Sur zcat requires a .Z extension and CentOS 7 lacks gzcat
-#ifdef __APPLE__
-	    snprintf(cmd, XT_CMD_MAX_CHARS, "gzcat %s", filename);
-#else
-	    snprintf(cmd, XT_CMD_MAX_CHARS, "zcat %s", filename);
-#endif
+	    // zcat/gzcat are not universal
+	    // Big Sur zcat requires a .Z extension and CentOS 7 lacks gzcat
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "gunzip -c %s", filename);
 	    return popen(cmd, mode);
 	}
 	else if ( strcmp(ext, ".bz2") == 0 )
@@ -68,6 +65,11 @@ FILE    *xt_fopen(const char *filename, const char *mode)
 	else if ( strcmp(ext, ".xz") == 0 )
 	{
 	    snprintf(cmd, XT_CMD_MAX_CHARS, "xzcat %s", filename);
+	    return popen(cmd, mode);
+	}
+	else if ( strcmp(ext, ".zst") == 0 )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "zstdcat %s", filename);
 	    return popen(cmd, mode);
 	}
 	else
@@ -88,6 +90,11 @@ FILE    *xt_fopen(const char *filename, const char *mode)
 	else if ( strcmp(ext, ".xz") == 0 )
 	{
 	    snprintf(cmd, XT_CMD_MAX_CHARS, "xz -c > %s", filename);
+	    return popen(cmd, mode);
+	}
+	else if ( strcmp(ext, ".zst") == 0 )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "zstd -c > %s", filename);
 	    return popen(cmd, mode);
 	}
 	else

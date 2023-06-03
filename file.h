@@ -38,10 +38,6 @@
 	    _Pragma("message(\"fd_purge() is deprecated.  Use xt_fd_purge().\")") \
 	    xt_fd_purge(fd)
 
-#define get_home_dir(dir, maxlen) \
-	    _Pragma("message(\"get_home_dir() is deprecated.  Use xt_get_home_dir().\")") \
-	    xt_get_home_dir(dir, maxlen)
-
 #define rmkdir(path, mode) \
 	    _Pragma("message(\"rmkdir() is deprecated.  Use xt_rmkdir().\")") \
 	    xt_rmkdir(path, mode)
@@ -60,9 +56,6 @@ void xt_fd_purge(int fd);
 
 /* fgetline.c */
 size_t xt_fgetline(FILE *fp, char *buff, size_t maxlen);
-
-/* get-home-dir.c */
-char *xt_get_home_dir(char *dir, size_t maxlen);
 
 /* rmkdir.c */
 int xt_rmkdir(const char *path, mode_t mode);

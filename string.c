@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include "string.h"
-#include "file.h"
+#include "proc.h"
 #include "ctype.h"
 #include "mem.h"
 

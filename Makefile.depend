@@ -7,16 +7,16 @@ digits.o: digits.c math.h
 dprintf.o: dprintf.c
 	${CC} -c ${CFLAGS} dprintf.c
 
-dsv-accessors.o: dsv-accessors.c dsv.h dsv-rvs.h dsv-accessors.h \
-  dsv-mutators.h
+dsv-accessors.o: dsv-accessors.c string.h dsv-private.h dsv.h dsv-rvs.h \
+  dsv-accessors.h dsv-mutators.h
 	${CC} -c ${CFLAGS} dsv-accessors.c
 
-dsv-mutators.o: dsv-mutators.c dsv.h dsv-rvs.h dsv-accessors.h \
-  dsv-mutators.h
+dsv-mutators.o: dsv-mutators.c string.h dsv-private.h dsv.h dsv-rvs.h \
+  dsv-accessors.h dsv-mutators.h
 	${CC} -c ${CFLAGS} dsv-mutators.c
 
-dsv.o: dsv.c dsv.h dsv-rvs.h dsv-accessors.h dsv-mutators.h mem.h file.h \
-  common.h
+dsv.o: dsv.c dsv-private.h dsv.h dsv-rvs.h dsv-accessors.h dsv-mutators.h \
+  mem.h file.h common.h
 	${CC} -c ${CFLAGS} dsv.c
 
 fast-cp.o: fast-cp.c file.h common.h math.h
@@ -81,6 +81,9 @@ xt-daemonize.o: xt-daemonize.c
 
 xt-file.o: xt-file.c file.h common.h mem.h
 	${CC} -c ${CFLAGS} xt-file.c
+
+xt-get-user-name.o: xt-get-user-name.c
+	${CC} -c ${CFLAGS} xt-get-user-name.c
 
 xt-malloc.o: xt-malloc.c mem.h
 	${CC} -c ${CFLAGS} xt-malloc.c

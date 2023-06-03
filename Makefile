@@ -72,7 +72,8 @@ DYLIB_PATH ?= $(shell realpath ${PREFIX}/lib)
 # List object files that comprise BIN.
 
 OBJS    = valid-extension.o xt-file.o string.o time.o mv.o \
-	  fast-cp.o gcd.o fd-purge.o fgetline.o file-mod-cmp.o get-home-dir.o \
+	  fast-cp.o gcd.o fd-purge.o fgetline.o file-mod-cmp.o \
+	  get-home-dir.o xt-get-user-name.o \
 	  digits.o parse-cmd.o rmkdir.o \
 	  spawnlp.o spawnvp.o va-usage.o \
 	  xt-malloc.o dsv.o dsv-accessors.o dsv-mutators.o \

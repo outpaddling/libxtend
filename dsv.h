@@ -1,6 +1,10 @@
 #ifndef _XTEND_DSV_H_
 #define _XTEND_DSV_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifndef _STDIO_H_
 #include <stdio.h>
 #endif
@@ -60,5 +64,9 @@ int csv_read_field(FILE *stream, char buff[], size_t buff_size, size_t *len);
 int csv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size, size_t *len);
 int csv_skip_field(FILE *stream, size_t *len);
 int csv_skip_rest_of_line(FILE *stream);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // _XTEND_DSV_H_

@@ -1,6 +1,10 @@
 #ifndef _XTEND_FILE_H_
 #define _XTEND_FILE_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifndef _STDIO_H_
 #include <stdio.h>
 #endif
@@ -68,5 +72,9 @@ int xt_read_line_malloc(FILE *stream, char **buff, size_t *buff_size, size_t *le
 
 /* dprintf.c */
 int xt_dprintf(int fd, const char * restrict format, ...);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // _XTEND_FILE_H_

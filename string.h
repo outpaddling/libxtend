@@ -1,6 +1,10 @@
 #ifndef _XTEND_STRING_H_
 #define _XTEND_STRING_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifdef __linux__
 #define strlcpy(dest,src,len)   strcpy(dest,src)
 #define strlcat(dest,src,len)   strcat(dest,src)
@@ -34,5 +38,9 @@ char *strviscpy(unsigned char *dest, const unsigned char *src, size_t maxlen);
 char *ltostrn(char string[], long val, unsigned base, size_t maxlen);
 uint64_t str2u64(const char *str);
 int strsplit(char *string, char ***array, const char *sep);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // _XTEND_STRING_H_

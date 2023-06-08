@@ -1,6 +1,10 @@
 #ifndef _XTEND_COMMON_H_
 #define _XTEND_COMMON_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define XT_FORMAT_MAX_CHARS 4096
 #define XT_CMD_MAX_CHARS    4096
 
@@ -13,5 +17,9 @@
 
 #define XT_FAIL                 -4
 #define XT_MALLOC_FAILED        -5
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // _XTEND_COMMON_H

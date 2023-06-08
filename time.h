@@ -1,6 +1,10 @@
 #ifndef _XTEND_TIME_H_
 #define _XTEND_TIME_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifndef _STDIO_H_
 #include <stdio.h>
 #endif
@@ -21,5 +25,9 @@
 time_t xt_difftimeofday(struct timeval *later, struct timeval *earlier);
 int xt_tic(struct timeval *start_time, struct rusage *start_usage);
 unsigned long xt_toc(FILE *stream, const char *message, struct timeval *start_time, struct rusage *start_usage);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // _XTEND_TIME_H_

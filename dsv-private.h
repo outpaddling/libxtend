@@ -1,4 +1,11 @@
 
+#ifndef _DSV_PRIVATE_H_
+#define _DSV_PRIVATE_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 struct dsv_line
 {
     size_t      array_size,
@@ -7,4 +14,10 @@ struct dsv_line
 		*delims;
 };
 
+#ifdef __cplusplus
+}
+#endif
+
 #include "dsv.h"
+
+#endif

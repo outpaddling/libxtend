@@ -1,6 +1,10 @@
 #ifndef _XTEND_MATH_H_
 #define _XTEND_MATH_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // FIXME: Write man pages for these
 #define XT_MIN(a,b)     ((a) < (b) ? (a) : (b))
 #define XT_MAX(a,b)     ((a) > (b) ? (a) : (b))
@@ -29,5 +33,9 @@ int short_cmp(const short *d1, const short *d2);
 /* combinatorics.c */
 unsigned long xt_n_choose_k(unsigned long n, unsigned long k);
 uint64_t xt_factorial(unsigned n);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // _XTEND_MATH_H_

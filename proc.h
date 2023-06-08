@@ -1,6 +1,10 @@
 #ifndef _XTEND_PROC_H_
 #define _XTEND_PROC_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  *  Process control
  */
@@ -46,5 +50,9 @@ void va_usage(const char *format_string, ...);
 
 /* xt-daemonize.c */
 int xt_daemonize(int nochdir, int noclose);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // _XTEND_PROC_H_

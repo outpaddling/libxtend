@@ -13,7 +13,7 @@ extern "C" {
 void *xt_shuffle(void *base, size_t nelem, size_t size);
 
 /* roman.c */
-int romantoi(const char *nptr, char **endptr);
+int xt_romantoi(const char *nptr, char **endptr);
 
 #ifdef __cplusplus
 }

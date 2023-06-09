@@ -15,15 +15,15 @@
  *      -lxtend
  *
  *  Description:
- *      spawnvp() and spawnlp() are wrappers around fork(2) and exec(3)
+ *      xt_spawnvp() and xt_spawnlp() are wrappers around fork(2) and exec(3)
  *      which make it easy to run a child process without an intermediate
- *      shell process as is used by system(3).  The spawnlp() function
+ *      shell process as is used by system(3).  The xt_spawnlp() function
  *      spawns a child process using a variable argument list.  The 6th
  *      argument is passed to argv[0] of the child, the 7th to argv[1], etc.
  *
- *      The spawnvp() function spawns a process using the command contained
- *      in an argv[] array constructed by the caller.  spawnlp() automatically
- *      constructs such an argv[] array and calls spawnvp().
+ *      The xt_spawnvp() function spawns a process using the command contained
+ *      in an argv[] array constructed by the caller.  xt_spawnlp() automatically
+ *      constructs such an argv[] array and calls xt_spawnvp().
  *
  *      The calling process waits for the child to complete if P_WAIT is
  *      passed to parent_action, or continues immediately if P_NOWAIT
@@ -46,7 +46,7 @@
  *      The PID of the child process if P_NOWAIT is passed
  *
  *  See also:
- *      spawnlp(3), fork(2), exec(3)
+ *      xt_spawnlp(3), fork(2), exec(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -58,7 +58,7 @@
 typedef void (*sig_t)(int);
 #endif
 
-int     spawnvp(int parent_action, int echo, char *argv[],
+int     xt_spawnvp(int parent_action, int echo, char *argv[],
 		char *infile, char *outfile, char *errfile)
 
 {
@@ -79,14 +79,14 @@ int     spawnvp(int parent_action, int echo, char *argv[],
 	    break;
 	default:
 	    fprintf(stderr,
-		"spawnvp(): Invalid echo flag: must be ECHO or NO_ECHO.\n");
+		"xt_spawnvp(): Invalid echo flag: must be ECHO or NO_ECHO.\n");
 	    exit(1);
     }
     
     /* If in child process, exec the new program */
     if ((pid = fork()) == 0)
     {
-	redirect(infile,outfile,errfile);
+	xt_redirect(infile,outfile,errfile);
 	signal(SIGINT,SIG_DFL); /* Allow child process to be interrupted */
 	execvp(argv[0], argv);
 	exit(errno|0x80);   /* Return errno - all I could think of */
@@ -104,7 +104,7 @@ int     spawnvp(int parent_action, int echo, char *argv[],
 	    case    P_NOWAIT:
 		return pid;
 	    default:
-		fprintf(stderr,"spawnvp(): Invalid parent action.\n");
+		fprintf(stderr,"xt_spawnvp(): Invalid parent action.\n");
 		exit(1);
 	}
     }
@@ -123,13 +123,13 @@ int     spawnvp(int parent_action, int echo, char *argv[],
  *  process to the files named by the corresponding arguments.  The original
  *  file streams are not preserved.  If you need to restore any of these
  *  streams to their original state, they must be saved (e.g. using dup(),
- *  dup2(), or ttyname()) prior to calling redirect().
+ *  dup2(), or ttyname()) prior to calling xt_redirect().
  * 
  * Author: 
  *  Jason W. Bacon
  ****************************************************************************/
  
-void    redirect(
+void    xt_redirect(
     char    *infile,    /* If not NULL, stdin is redirected from this file */
     char    *outfile,   /* If not NULL, stdout is redirected to this file */
     char    *errfile    /* If not NULL, stderr is redirected to this file */
@@ -140,13 +140,13 @@ void    redirect(
     {
 	close(0);
 	if ( open(infile, O_RDONLY) == -1 )
-	    fprintf(stderr,"redirect(): Cannot open infile: %s.\n",infile);
+	    fprintf(stderr,"xt_redirect(): Cannot open infile: %s.\n",infile);
     }
     if (outfile != NULL)
     {
 	close(1);
 	if ( open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0600) == -1 )
-	    fprintf(stderr,"redirect(): Cannot open outfile: %s.\n",outfile);
+	    fprintf(stderr,"xt_redirect(): Cannot open outfile: %s.\n",outfile);
     }
     if (errfile != NULL)
     {
@@ -154,12 +154,12 @@ void    redirect(
 	if ( strcmp(errfile,outfile) == 0 )
 	{
 	    if ( dup(1) == -1 )
-		fprintf(stderr,"redirect(): Cannot open errfile: %s.\n",errfile);
+		fprintf(stderr,"xt_redirect(): Cannot open errfile: %s.\n",errfile);
 	}
 	else
 	{
 	    if ( open(errfile, O_WRONLY | O_CREAT | O_TRUNC, 0600) == -1 )
-		fprintf(stderr,"redirect(): Cannot open errfile: %s.\n",errfile);
+		fprintf(stderr,"xt_redirect(): Cannot open errfile: %s.\n",errfile);
 	}
     }
 }

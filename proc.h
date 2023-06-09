@@ -36,17 +36,17 @@ char *xt_get_home_dir(char *dir, size_t maxlen);
 char *xt_get_user_name(char *user_name, size_t maxlen);
 
 /* parse-cmd.c */
-char *parse_cmd(char *argv[], int max_args, const char *cmd);
+char *xt_parse_cmd(char *argv[], int max_args, const char *cmd);
 
 /* spawnlp.c */
-int spawnlp(int parent_action, int echo, char *infile, char *outfile, char *errfile, char *arg0, ...);
+int xt_spawnlp(int parent_action, int echo, char *infile, char *outfile, char *errfile, char *arg0, ...);
 
 /* spawnvp.c */
-int spawnvp(int parent_action, int echo, char *argv[], char *infile, char *outfile, char *errfile);
-void redirect(char *infile, char *outfile, char *errfile);
+int xt_spawnvp(int parent_action, int echo, char *argv[], char *infile, char *outfile, char *errfile);
+void xt_redirect(char *infile, char *outfile, char *errfile);
 
 /* va-usage.c */
-void va_usage(const char *format_string, ...);
+void xt_va_usage(const char *format_string, ...);
 
 /* xt-daemonize.c */
 int xt_daemonize(int nochdir, int noclose);

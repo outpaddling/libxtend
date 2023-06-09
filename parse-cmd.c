@@ -12,7 +12,7 @@
  *
  *  Description:
  *      Breaks a shell command into an argv[] style array suitable
- *      for spawnvp() or execv*().  A copy of cmd is created using
+ *      for xt_spawnvp() or execv*().  A copy of cmd is created using
  *      strshellcpy(), which expands certain shell features such as
  *      variables and paths starting with '~'.  The copy is then
  *      modified by replacing separators with '\0' and the argv[] array
@@ -31,19 +31,19 @@
  *  Examples:
  *      char *cmd, *argv[], *expanded_cmd;
  *
- *      expanded_cmd = parse_cmd(argv, cmd);
- *      spawnvp(P_WAIT, P_NOECHO, argv, NULL, NULL, NULL);
+ *      expanded_cmd = xt_parse_cmd(argv, cmd);
+ *      xt_spawnvp(P_WAIT, P_NOECHO, argv, NULL, NULL, NULL);
  *      free(expanded_cmd);
  *
  *  See also:
- *      spawnvp(3), spawnlp(3), exec(3)
+ *      xt_spawnvp(3), xt_spawnlp(3), exec(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  Circa 1990  Jason Bacon Begin
  ***************************************************************************/
 
-char    *parse_cmd(char *argv[], int max_args, const char *cmd)
+char    *xt_parse_cmd(char *argv[], int max_args, const char *cmd)
 
 {
     char    *cmd_copy;
@@ -51,7 +51,7 @@ char    *parse_cmd(char *argv[], int max_args, const char *cmd)
 
     if ( (cmd_copy = malloc(XT_CMD_MAX_CHARS)) == NULL )
     {
-	fprintf(stderr, "parse_cmd(): malloc failed.\n");
+	fprintf(stderr, "xt_parse_cmd(): malloc failed.\n");
 	exit(EX_UNAVAILABLE);
     }
     

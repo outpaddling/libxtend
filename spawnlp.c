@@ -8,15 +8,15 @@
  *      -lxtend
  *
  *  Description:
- *      spawnvp() and spawnlp() are wrappers around fork(2) and exec(3)
+ *      xt_spawnvp() and xt_spawnlp() are wrappers around fork(2) and exec(3)
  *      which make it easy to run a child process without an intermediate
- *      shell process as is used by system(3).  The spawnlp() function
+ *      shell process as is used by system(3).  The xt_spawnlp() function
  *      spawns a child process using a variable argument list.  The 6th
  *      argument is passed to argv[0] of the child, the 7th to argv[1], etc.
  *
- *      The spawnvp() function spawns a process using the command contained
- *      in an argv[] array constructed by the caller.  spawnlp() automatically
- *      constructs such an argv[] array and calls spawnvp().
+ *      The xt_spawnvp() function spawns a process using the command contained
+ *      in an argv[] array constructed by the caller.  xt_spawnlp() automatically
+ *      constructs such an argv[] array and calls xt_spawnvp().
  *
  *      The calling process waits for the child to complete if P_WAIT is
  *      passed to parent_action, or continues immediately if P_NOWAIT
@@ -39,14 +39,14 @@
  *      The PID of the child process if P_NOWAIT is passed
  *
  *  See also:
- *      spawnvp(3), fork(2), exec(3)
+ *      xt_spawnvp(3), fork(2), exec(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  Circa 1990  Jason Bacon Begin
  ***************************************************************************/
 
-int     spawnlp(int parent_action, int echo,
+int     xt_spawnlp(int parent_action, int echo,
 		char *infile, char *outfile, char *errfile,
 		char *arg0, ...)
 
@@ -59,5 +59,5 @@ int     spawnlp(int parent_action, int echo,
     argv[0] = arg0;
     for (c=1; (argv[c] = (char *)va_arg(list,char *)) != NULL; ++c)
 	;
-    return(spawnvp(parent_action,echo,argv,infile,outfile,errfile));
+    return(xt_spawnvp(parent_action,echo,argv,infile,outfile,errfile));
 }

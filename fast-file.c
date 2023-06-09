@@ -28,7 +28,7 @@ ffile_t *ff_init_stream(ffile_t *stream)
     if ( fstat(stream->fd, &st) != 0 )
     {
 	free(stream);
-	fprintf(stderr, "ffopen(): Could not stat fd %d.\n", stream->fd);
+	fprintf(stderr, "ff_init_stream(): Could not stat fd %d.\n", stream->fd);
 	return NULL;
     }
     stream->block_size = st.st_blksize;
@@ -57,9 +57,9 @@ ffile_t *ff_init_stream(ffile_t *stream)
  *      -lxtend
  *
  *  Description:
- *      .B ffopen()
+ *      .B ffopen_raw()
  *      initializes a ffile_t stream, much as fopen() does for a FILE
- *      stream.  Unlike fopen(), ffopen() takes the same bit mask
+ *      stream.  Unlike fopen(), ffopen_raw() takes the same bit mask
  *      argument as open() to determine the open mode.
  *      See open(3) for details.
  *
@@ -83,13 +83,13 @@ ffile_t *ff_init_stream(ffile_t *stream)
  *      char    *filename;
  *      
  *      // Read only
- *      stream = ffopen(filename, O_RDONLY);
+ *      stream = ffopen_raw(filename, O_RDONLY);
  *
  *      // Overwrite
- *      stream = ffopen(filename, O_WRONLY|O_CREAT|O_TRUNC);
+ *      stream = ffopen_raw(filename, O_WRONLY|O_CREAT|O_TRUNC);
  *
  *      // Append
- *      stream = ffopen(filename, O_WRONLY|O_APPEND);
+ *      stream = ffopen_raw(filename, O_WRONLY|O_APPEND);
  *
  *  See also:
  *      open(3), ffgetc(3), ffputc(3), ffungetc(3), ffclose(3)
@@ -99,7 +99,7 @@ ffile_t *ff_init_stream(ffile_t *stream)
  *  2022-02-14  Jason Bacon Begin
  ***************************************************************************/
 
-ffile_t *ffopen(const char *filename, int flags)
+ffile_t *ffopen_raw(const char *filename, int flags)
 
 {
     ffile_t     *stream;
@@ -328,7 +328,7 @@ int     ffputc(int ch, ffile_t *stream)
  *      -lxtend
  *
  *  Description:
- *      .B ffclose()
+ *      .B ffclose_raw()
  *      closes a ffile_t stream opened by ffopen(3).  It writes out any
  *      remaining data in the output buffer, deallocates memory allocated
  *      by ffopen(3), and closes the underlying file descriptor opened by
@@ -362,8 +362,8 @@ int     ffputc(int ch, ffile_t *stream)
  *      }
  *      while ( (ch = FFGETC(stream)) != EOF )
  *          FFPUTC(ch, outstream);
- *      ffclose(instream);
- *      ffclose(outstream);
+ *      ffclose_raw(instream);
+ *      ffclose_raw(outstream);
  *
  *  See also:
  *      ffopen(3), ffgetc(3), ffputc(3)
@@ -373,7 +373,7 @@ int     ffputc(int ch, ffile_t *stream)
  *  2022-02-14  Jason Bacon Begin
  ***************************************************************************/
 
-int     ffclose(ffile_t *stream)
+int     ffclose_raw(ffile_t *stream)
 
 {
     int     status;
@@ -762,11 +762,11 @@ int     ffpclose(ffile_t *stream)
  *      -lxtend
  *
  *  Description:
- *      .B xt_ffopen(3)
+ *      .B ffopen(3)
  *      opens a raw data file using ffopen() or a gzipped, bzipped, or
  *      xzipped file using ffpopen(), returning a pointer to a ffile_t
  *      stream.  Must be used in conjunction with
- *      xt_ffclose() to ensure that ffclose() or ffpclose() is called where
+ *      ffclose() to ensure that ffclose() or ffpclose() is called where
  *      appropriate.
  *
  *      The ffile_t system is simpler than and several times as
@@ -789,7 +789,7 @@ int     ffpclose(ffile_t *stream)
  *  2021-04-09  Jason Bacon Begin
  ***************************************************************************/
 
-ffile_t *xt_ffopen(const char *filename, int flags)
+ffile_t *ffopen(const char *filename, int flags)
 
 {
     char    *ext = strrchr(filename, '.'),
@@ -849,7 +849,7 @@ ffile_t *xt_ffopen(const char *filename, int flags)
 	    return ffpopen(cmd, flags);
 	}
 	else
-	    return ffopen(filename, flags);
+	    return ffopen_raw(filename, flags);
     }
 }
 
@@ -860,7 +860,7 @@ ffile_t *xt_ffopen(const char *filename, int flags)
  *      -lxtend
  *
  *  Description:
- *      .B xt_ffclose(3)
+ *      .B ffclose(3)
  *      closes a ffile_t stream with ffclose() or ffpclose() as appropriate.
  *      Automatically determines the proper close function to call using
  *      S_ISFIFO on the stream stat structure.
@@ -877,14 +877,14 @@ ffile_t *xt_ffopen(const char *filename, int flags)
  *      The value returned by ffclose() or ffpclose()
  *
  *  See also:
- *      ffpopen(3), xt_ffopen(3), gzip(1), bzip2(1), xz(1)
+ *      ffpopen(3), ffopen(3), gzip(1), bzip2(1), xz(1)
  *
  *  History: 
  *  Date        Name        Modification
  *  2021-04-10  Jason Bacon Begin
  ***************************************************************************/
 
-int     xt_ffclose(ffile_t *stream)
+int     ffclose(ffile_t *stream)
 
 {
     struct stat stat;
@@ -893,7 +893,7 @@ int     xt_ffclose(ffile_t *stream)
     if ( S_ISFIFO(stat.st_mode) )
 	return ffpclose(stream);
     else
-	return ffclose(stream);
+	return ffclose_raw(stream);
 }
 
 

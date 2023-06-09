@@ -50,7 +50,7 @@
  *  2022-12-14  Jason Bacon Begin
  ***************************************************************************/
 
-int     romantoi(const char *nptr, char **endptr)
+int     xt_romantoi(const char *nptr, char **endptr)
 
 {
     int     digit, next_digit, previous_digit, val, consecutive;

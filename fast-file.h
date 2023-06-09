@@ -56,18 +56,18 @@ typedef struct
 
 /* fast-file.c */
 ffile_t *ff_init_stream(ffile_t *stream);
-ffile_t *ffopen(const char *filename, int flags);
+ffile_t *ffopen_raw(const char *filename, int flags);
 ffile_t *ffdopen(int fd, int flags);
 int ffgetc(ffile_t *stream);
 int ffputc(int ch, ffile_t *stream);
-int ffclose(ffile_t *stream);
+int ffclose_raw(ffile_t *stream);
 int ffungetc(int ch, ffile_t *stream);
 ffile_t *ffstdin(void);
 ffile_t *ffstdout(void);
 ffile_t *ffpopen(const char *cmd, int flags);
 int ffpclose(ffile_t *stream);
-ffile_t *xt_ffopen(const char *filename, int flags);
-int xt_ffclose(ffile_t *stream);
+ffile_t *ffopen(const char *filename, int flags);
+int ffclose(ffile_t *stream);
 int ffprintf(ffile_t *stream, const char *format, ...);
 int ffread_line_malloc(ffile_t *stream, char **buff, size_t *buff_size, size_t *len);
 int ffputs(const char *string, ffile_t *stream);

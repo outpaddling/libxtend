@@ -10,7 +10,7 @@
  *      -lxtend
  *
  *  Description:
- *      va_usage() is a simple convenience function that takes a
+ *      xt_va_usage() is a simple convenience function that takes a
  *      printf-style variable argument list, prints a message to stderr,
  *      and terminates the proces with an exit status of EX_USAGE.
  *      The message should indicate correct command-line usage of the
@@ -31,7 +31,7 @@
  *  Circa 1990  Jason Bacon Begin
  ***************************************************************************/
 
-void    va_usage(const char *format_string, ...)
+void    xt_va_usage(const char *format_string, ...)
 
 {
     va_list list;

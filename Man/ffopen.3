@@ -5,8 +5,7 @@
 \" Indicate #includes, library name, -L and -l flags
 .nf
 .na
-#include <fcntl.h>
-#include <xtend/fast-file.h>
+#include <xtend/file.h>
 -lxtend
 .ad
 .fi
@@ -24,21 +23,19 @@ ffile_t *ffopen(const char *filename, int flags)
 .SH ARGUMENTS
 .nf
 .na
-filename    Absolute or relative path of the file to open
-flags       Bit flags passed to open(3)
+filename:   Name of the file to be opened
+mode:       Bit mask as used by open()
 .ad
 .fi
 
 .SH DESCRIPTION
 
-.B ffopen()
-initializes a ffile_t stream, much as fopen() does for a FILE
-stream.  Unlike fopen(), ffopen() takes the same bit mask
-argument as open() to determine the open mode.
-See open(3) for details.
-
-An optimally sized buffer for the underlying filesystem is allocated,
-along with additional space for limited ffungetc() operations.
+.B ffopen(3)
+opens a raw data file using ffopen() or a gzipped, bzipped, or
+xzipped file using ffpopen(), returning a pointer to a ffile_t
+stream.  Must be used in conjunction with
+ffclose() to ensure that ffclose() or ffpclose() is called where
+appropriate.
 
 The ffile_t system is simpler than and several times as
 fast as FILE on typical systems.  It is intended for processing
@@ -47,27 +44,9 @@ is not convenient, but FILE I/O causes a bottleneck.
 
 .SH RETURN VALUES
 
-A pointer to a ffile_t object on success, NULL on failure
-
-.SH EXAMPLES
-.nf
-.na
-
-ffile_t *stream;
-char    *filename;
-
-// Read only
-stream = ffopen(filename, O_RDONLY);
-
-// Overwrite
-stream = ffopen(filename, O_WRONLY|O_CREAT|O_TRUNC);
-
-// Append
-stream = ffopen(filename, O_WRONLY|O_APPEND);
-.ad
-.fi
+A pointer to the FILE structure or NULL if open failed
 
 .SH SEE ALSO
 
-open(3), ffgetc(3), ffputc(3), ffungetc(3), ffclose(3)
+fopen(3), popen(3), gzip(1), bzip2(1), xz(1)
 

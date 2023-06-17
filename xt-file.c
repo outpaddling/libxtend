@@ -36,6 +36,7 @@ FILE    *xt_fopen(const char *filename, const char *mode)
     char    *ext = strrchr(filename, '.'),
 	    cmd[XT_CMD_MAX_CHARS + 1];
     struct stat st;
+    FILE    *fp;
     
     if ( (strcmp(mode, "r") != 0 ) && (strcmp(mode, "w") != 0) )
     {
@@ -82,6 +83,11 @@ FILE    *xt_fopen(const char *filename, const char *mode)
     }
     else    // "w"
     {
+	// popen() does not return NULL when file cannot be created!
+	if ( (fp = fopen(filename, mode)) == NULL )
+	    return NULL;
+	fclose(fp);
+	
 	if ( strcmp(ext, ".gz") == 0 )
 	{
 	    snprintf(cmd, XT_CMD_MAX_CHARS, "gzip -c > %s", filename);

@@ -26,14 +26,31 @@ int     main(int argc,char *argv[])
     FILE        *fp;
     size_t      len;
     
+    puts("xt_fopen()...");
     fp = xt_fopen("test.csv", "r");
     while ( csv_read_field(fp, field, BUFF_SIZE, &len) != '\n' )
 	puts(field);
     xt_fclose(fp);
+
+    if ( xt_fopen("/asdfasdfad/asdfasfadsf.gz", "r") != NULL )
+    {
+	fputs("xt_fopen(\"/asdfasdfad/asdfasfadsf.gz\", \"r\") should have failed.\n", stderr);
+	return EX_SOFTWARE;
+    }
+    else
+	puts("Nonexistent xt_fopen() failed as it should.");
+    
+    if ( xt_fopen("/asdfasdfad/asdfasfadsf.gz", "w") != NULL )
+    {
+	fputs("xt_fopen(\"/asdfasdfad/asdfasfadsf.gz\", \"w\") should have failed.\n", stderr);
+	return EX_SOFTWARE;
+    }
+    else
+	puts("Unwritable xt_fopen() failed as it should.");
     
     for (c = 0; rn[c] != NULL; ++c)
 	printf("%s = %d, *endptr = %d\n",
-	    rn[c], romantoi(rn[c], &endptr), *endptr);
+	    rn[c], xt_romantoi(rn[c], &endptr), *endptr);
     
     strtrim(string, " .");
     puts("\nstrtrim: Should be 'Alfred E. Neumann'");
@@ -62,8 +79,6 @@ int     main(int argc,char *argv[])
 	    printf("%s ", array[c]);
 	putchar('\n');
     }
-    
-    
     
     return EX_OK;
 }

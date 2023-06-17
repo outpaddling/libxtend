@@ -1,6 +1,6 @@
 /***************************************************************************
  *  Description:
- *      FILE test
+ *      FILE test for comparison with fast-file
  *
  *      Edit only as file.c.  file.c is auto-generated.
  *

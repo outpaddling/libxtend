@@ -35,6 +35,7 @@ FILE    *xt_fopen(const char *filename, const char *mode)
 {
     char    *ext = strrchr(filename, '.'),
 	    cmd[XT_CMD_MAX_CHARS + 1];
+    struct stat st;
     
     if ( (strcmp(mode, "r") != 0 ) && (strcmp(mode, "w") != 0) )
     {
@@ -47,9 +48,13 @@ FILE    *xt_fopen(const char *filename, const char *mode)
 	fprintf(stderr, "xt_fopen(): No filename extension on %s.\n", filename);
 	return NULL;
     }
-
+    
     if ( *mode == 'r' )
     {
+	// popen() does not return NULL when file does not exist!
+	if ( stat(filename, &st) != 0 )
+	    return NULL;
+	
 	if ( strcmp(ext, ".gz") == 0 )
 	{
 	    // zcat/gzcat are not universal

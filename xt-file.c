@@ -78,6 +78,11 @@ FILE    *xt_fopen(const char *filename, const char *mode)
 	    snprintf(cmd, XT_CMD_MAX_CHARS, "zstdcat %s", filename);
 	    return popen(cmd, mode);
 	}
+	else if ( strcmp(ext, ".lz4") == 0 )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "lz4cat %s", filename);
+	    return popen(cmd, mode);
+	}
 	else
 	    return fopen(filename, mode);
     }
@@ -106,6 +111,11 @@ FILE    *xt_fopen(const char *filename, const char *mode)
 	else if ( strcmp(ext, ".zst") == 0 )
 	{
 	    snprintf(cmd, XT_CMD_MAX_CHARS, "zstd -c > %s", filename);
+	    return popen(cmd, mode);
+	}
+	else if ( strcmp(ext, ".lz4") == 0 )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "lz4 -c > %s", filename);
 	    return popen(cmd, mode);
 	}
 	else

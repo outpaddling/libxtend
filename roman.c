@@ -67,10 +67,11 @@ int     xt_romantoi(const char *nptr, char **endptr)
     // FIXME: Check for more than 3 consecutive identical digits
     val = 0;
     previous_digit = 0;
+    consecutive = 0;
     p = nptr;
-    while ( isalpha(*p) )
+    while ( isalpha((int)*p) )
     {
-	digit = digits[toupper(*p) - 'C'];
+	digit = digits[toupper((int)*p) - 'C'];
 	// fprintf(stderr, "digit = %d\n", digit);
 	
 	// Can't have more than 3 I's in a row
@@ -93,10 +94,10 @@ int     xt_romantoi(const char *nptr, char **endptr)
 	
 	if ( digit != 0 )
 	{
-	    if ( ! isalpha(p[1]) )
+	    if ( ! isalpha((int)p[1]) )
 		next_digit = 0;
 	    else
-		next_digit = digits[toupper(*(p + 1)) - 'C'];
+		next_digit = digits[toupper((int)*(p + 1)) - 'C'];
 	    if ( next_digit > digit )
 	    {
 		// Only 1 lesser digit allowed before a greater one.

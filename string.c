@@ -51,7 +51,7 @@ size_t  strlupper(char *dest, const char *src, size_t dest_size)
     size_t  c;
     
     for (c = 0; (src[c] != '\0') && (c < dest_size - 1); ++c)
-	dest[c] = toupper(src[c]);
+	dest[c] = toupper((int)src[c]);
     dest[c] = '\0';
     while ( src[c] != '\0' )
 	++c;
@@ -101,7 +101,7 @@ size_t  strupper(char *str)
     size_t  c;
     
     for (c = 0; str[c] != '\0'; ++c)
-	str[c] = toupper(str[c]);
+	str[c] = toupper((int)str[c]);
     return c;
 }
 
@@ -149,7 +149,7 @@ size_t  strllower(char *dest, const char *src, size_t dest_size)
     size_t  c;
     
     for (c = 0; (src[c] != '\0') && (c < dest_size - 1); ++c)
-	dest[c] = tolower(src[c]);
+	dest[c] = tolower((int)src[c]);
     dest[c] = '\0';
     while ( src[c] != '\0' )
 	++c;
@@ -199,7 +199,7 @@ size_t  strlower(char *str)
     size_t  c;
     
     for (c = 0; str[c] != '\0'; ++c)
-	str[c] = tolower(str[c]);
+	str[c] = tolower((int)str[c]);
     return c;
 }
 

@@ -1055,7 +1055,7 @@ char    *ffgets(char *string, size_t size, ffile_t *stream)
     int     ch;
     
     c = 0;
-    while ( (c < size - 1) && ((ch = FFGETC(stream)) != '\n') && (ch != EOF) )
+    while ( ((ch = FFGETC(stream)) != '\n') && (ch != EOF) && (c < size - 1) )
 	string[c++] = ch;
     if ( (c == 0) && (ch == EOF) )
 	return NULL;

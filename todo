@@ -1,5 +1,8 @@
+
 Make sure free() functions don't free the parent object, since they could
 be passed the address of a static or auto variable
 
 str_multi_cmp(string, "string1|string2|...");
 
+strdup_delim(const char *string, const char *delim)
+    Duplicate string up to any char in delim

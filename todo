@@ -2,8 +2,6 @@
 Make sure free() functions don't free the parent object, since they could
 be passed the address of a static or auto variable
 
-xt_basename(const char *path)
-
 xt_str_multi_cmp(string, "string1|string2|...");
 
 xt_strdup_delim(const char *string, const char *delim)

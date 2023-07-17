@@ -32,6 +32,10 @@ delims      Array of acceptable delimiters
 .SH DESCRIPTION
 
 Read a line of an arbitrary DSV file into a dsv_line_t object.
+Memory is allocated for the text of the fields, and it must
+be freed using fsv_line_free(3) before calling
+dsv_line_read(3) on the same object again.
+
 The dsv_line_t structure contains an array of strings, each
 holding one field from the line, and an an array of delimiters,
 each holding the character that ended the corresponding field.

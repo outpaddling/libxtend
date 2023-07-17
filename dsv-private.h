@@ -8,7 +8,7 @@ extern "C" {
 
 struct dsv_line
 {
-    size_t      array_size,
+    size_t      num_fields_array_size,
 		num_fields;
     char        **fields,
 		*delims;

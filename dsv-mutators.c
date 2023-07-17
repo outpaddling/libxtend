@@ -53,14 +53,14 @@
  *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
-int     dsv_line_set_array_size(dsv_line_t *dsv_line_ptr, size_t new_array_size)
+int     dsv_line_set_num_fields_array_size(dsv_line_t *dsv_line_ptr, size_t new_array_size)
 
 {
     if ( false )
 	return DSV_DATA_OUT_OF_RANGE;
     else
     {
-	dsv_line_ptr->array_size = new_array_size;
+	dsv_line_ptr->num_fields_array_size = new_array_size;
 	return DSV_DATA_OK;
     }
 }

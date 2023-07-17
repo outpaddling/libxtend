@@ -41,10 +41,10 @@
  *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
-size_t    dsv_line_get_array_size(dsv_line_t *dsv_line_ptr)
+size_t    dsv_line_get_num_fields_array_size(dsv_line_t *dsv_line_ptr)
 
 {
-    return dsv_line_ptr->array_size;
+    return dsv_line_ptr->num_fields_array_size;
 }
 
 

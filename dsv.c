@@ -266,6 +266,10 @@ int     dsv_skip_rest_of_line(FILE *stream)
  *
  *  Description:
  *      Read a line of an arbitrary DSV file into a dsv_line_t object.
+ *      Memory is allocated for the text of the fields, and it must
+ *      be freed using fsv_line_free(3) before calling
+ *      dsv_line_read(3) on the same object again.
+ *
  *      The dsv_line_t structure contains an array of strings, each
  *      holding one field from the line, and an an array of delimiters,
  *      each holding the character that ended the corresponding field.
@@ -312,18 +316,18 @@ int     dsv_line_read(dsv_line_t *dsv_line, FILE *stream, const char *delims)
     char    field[DSV_FIELD_MAX_CHARS + 1];
     size_t  actual_len;
     
-    dsv_line->array_size = 32;  // Start small and double each time we run out
+    dsv_line->num_fields_array_size = 32;  // Start small and double each time we run out
     dsv_line->num_fields = 0;
     
     // FIXME: Reuse previously allocated memory?
-    if ( (dsv_line->fields = xt_malloc(dsv_line->array_size,
+    if ( (dsv_line->fields = xt_malloc(dsv_line->num_fields_array_size,
 				sizeof(*dsv_line->fields))) == NULL )
     {
 	fputs("dsv_line_read(): Could not allocate fields.\n", stderr);
 	exit(EX_UNAVAILABLE);
     }
     
-    if ( (dsv_line->delims = xt_malloc(dsv_line->array_size,
+    if ( (dsv_line->delims = xt_malloc(dsv_line->num_fields_array_size,
 				sizeof(*dsv_line->delims))) == NULL )
     {
 	fputs("dsv_line_read(): Could not allocate delims.\n", stderr);
@@ -331,8 +335,8 @@ int     dsv_line_read(dsv_line_t *dsv_line, FILE *stream, const char *delims)
     }
     
     // FIXME: Check actual_delim and/or actual_len to detect truncation
-    while ( ((actual_delim = dsv_read_field(stream,
-		field, DSV_FIELD_MAX_CHARS, delims, &actual_len)) != EOF) )
+    while ( ((actual_delim = dsv_read_field(stream, field,
+		DSV_FIELD_MAX_CHARS, delims, &actual_len)) != EOF) )
     {
 	if ( (dsv_line->fields[dsv_line->num_fields] = strdup(field)) == NULL )
 	{
@@ -340,19 +344,21 @@ int     dsv_line_read(dsv_line_t *dsv_line, FILE *stream, const char *delims)
 		    dsv_line->num_fields - 1);
 	    exit(EX_UNAVAILABLE);
 	}
+	
 	dsv_line->delims[dsv_line->num_fields++] = actual_delim;
-	if ( dsv_line->num_fields == dsv_line->array_size )
+	
+	if ( dsv_line->num_fields == dsv_line->num_fields_array_size )
 	{
-	    dsv_line->array_size *= 2;
+	    dsv_line->num_fields_array_size *= 2;
 	    if ( (dsv_line->fields = xt_realloc(dsv_line->fields,
-		    dsv_line->array_size, sizeof(*dsv_line->fields))) == NULL )
+		    dsv_line->num_fields_array_size, sizeof(*dsv_line->fields))) == NULL )
 	    {
 		fputs("dsv_line_read(): Could not reallocate fields.\n", stderr);
 		exit(EX_UNAVAILABLE);
 	    }
 	    
 	    if ( (dsv_line->delims = xt_realloc(dsv_line->delims,
-		    dsv_line->array_size, sizeof(*dsv_line->delims))) == NULL )
+		    dsv_line->num_fields_array_size, sizeof(*dsv_line->delims))) == NULL )
 	    {
 		fputs("dsv_line_read(): Could not reallocate delims.\n", stderr);
 		exit(EX_UNAVAILABLE);
@@ -466,7 +472,7 @@ int     dsv_line_write(dsv_line_t *dsv_line, FILE *stream)
 void    dsv_line_init(dsv_line_t *dsv_line)
 
 {
-    dsv_line->array_size = 0;
+    dsv_line->num_fields_array_size = 0;
     dsv_line->num_fields = 0;
     dsv_line->fields = NULL;
     dsv_line->delims = NULL;
@@ -569,13 +575,13 @@ int     dsv_line_copy(dsv_line_t *dest, dsv_line_t *src)
     size_t  c;
     
     // Prune unused pointers in src
-    dest->array_size = dest->num_fields = src->num_fields;
+    dest->num_fields_array_size = dest->num_fields = src->num_fields;
     
     // FIXME: Check malloc() success
-    dest->fields = xt_malloc(dest->array_size, sizeof(*dest->fields));
+    dest->fields = xt_malloc(dest->num_fields_array_size, sizeof(*dest->fields));
     if ( dest->fields == NULL )
 	return XT_MALLOC_FAILED;
-    dest->delims = xt_malloc(dest->array_size, sizeof(*dest->delims));
+    dest->delims = xt_malloc(dest->num_fields_array_size, sizeof(*dest->delims));
     if ( dest->delims == NULL )
 	return XT_MALLOC_FAILED;
     

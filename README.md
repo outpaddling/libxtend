@@ -31,6 +31,10 @@ if ( string1 == string2 )
 ```
 The latter is regarded by C proponents as a purely cosmetic improvement, not
 worthy of the additional complexity required to support it in the C compiler.
+Note also that there is more than one way to interpret equality of
+strings (e.g. case sensitive or case insentitive), so we would either
+need another operator besides ==, or have to fall back on a function
+anyway.
 
 The idea was that the C language would provide only the essential features
 of a portable, high-level programming language,

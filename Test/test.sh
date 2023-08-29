@@ -3,8 +3,8 @@
 cd ..
 ./cave-man-install.sh
 cd Test
-cc -o test test.c -L.. -lxtend
-./test
+cc -o main-test main-test.c -L.. -lxtend
+./main-test
 
 # ffile_t
 cc -o ffile ffile.c -L.. -lxtend

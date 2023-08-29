@@ -18,7 +18,7 @@ extern "C" {
 #endif
 
 /*
- *  These macro implementations of ffgetc() and ffputc() show significantly
+ *  These macro implementations of xt_ff_getc() and xt_ff_putc() show significantly
  *  lower CPU usage.
  */
 
@@ -52,26 +52,26 @@ typedef struct
     int             fd;
     int             flags;
     pid_t           child_pid;
-}   ffile_t;
+}   xt_ffile_t;
 
 /* fast-file.c */
-ffile_t *ff_init_stream(ffile_t *stream);
-ffile_t *ffopen_raw(const char *filename, int flags);
-ffile_t *ffdopen(int fd, int flags);
-int ffgetc(ffile_t *stream);
-int ffputc(int ch, ffile_t *stream);
-int ffclose_raw(ffile_t *stream);
-int ffungetc(int ch, ffile_t *stream);
-ffile_t *ffstdin(void);
-ffile_t *ffstdout(void);
-ffile_t *ffpopen(const char *cmd, int flags);
-int ffpclose(ffile_t *stream);
-ffile_t *ffopen(const char *filename, int flags);
-int ffclose(ffile_t *stream);
-int ffprintf(ffile_t *stream, const char *format, ...);
-int ffread_line_malloc(ffile_t *stream, char **buff, size_t *buff_size, size_t *len);
-int ffputs(const char *string, ffile_t *stream);
-char *ffgets(char *string, size_t size, ffile_t *stream);
+xt_ffile_t *xt_ff_init_stream(xt_ffile_t *stream);
+xt_ffile_t *xt_ff_open_raw(const char *filename, int flags);
+xt_ffile_t *xt_ff_dopen(int fd, int flags);
+int xt_ff_getc(xt_ffile_t *stream);
+int xt_ff_putc(int ch, xt_ffile_t *stream);
+int xt_ff_close_raw(xt_ffile_t *stream);
+int xt_ff_ungetc(int ch, xt_ffile_t *stream);
+xt_ffile_t *xt_ff_stdin(void);
+xt_ffile_t *xt_ff_stdout(void);
+xt_ffile_t *xt_ff_popen(const char *cmd, int flags);
+int xt_ff_pclose(xt_ffile_t *stream);
+xt_ffile_t *xt_ff_open(const char *filename, int flags);
+int xt_ff_close(xt_ffile_t *stream);
+int xt_ff_printf(xt_ffile_t *stream, const char *format, ...);
+int xt_ff_read_line_malloc(xt_ffile_t *stream, char **buff, size_t *buff_size, size_t *len);
+int xt_ff_puts(const char *string, xt_ffile_t *stream);
+char *xt_ff_gets(char *string, size_t size, xt_ffile_t *stream);
 
 #ifdef __cplusplus
 }

@@ -15,11 +15,11 @@
 #include "common.h"
 
 /*
- *  Non-API function for completing stream initialization for ffopen()
- *  and ffdopen()
+ *  Non-API function for completing stream initialization for xt_ff_open()
+ *  and xt_ff_dopen()
  */
 
-ffile_t *ff_init_stream(ffile_t *stream)
+xt_ffile_t *xt_ff_init_stream(xt_ffile_t *stream)
 
 {
     struct stat st;
@@ -28,7 +28,7 @@ ffile_t *ff_init_stream(ffile_t *stream)
     if ( fstat(stream->fd, &st) != 0 )
     {
 	free(stream);
-	fprintf(stderr, "ff_init_stream(): Could not stat fd %d.\n", stream->fd);
+	fprintf(stderr, "xt_ff_init_stream(): Could not stat fd %d.\n", stream->fd);
 	return NULL;
     }
     stream->block_size = st.st_blksize;
@@ -37,7 +37,7 @@ ffile_t *ff_init_stream(ffile_t *stream)
     stream->buff_size = XT_FAST_FILE_UNGETC_MAX + stream->block_size + 1;
     if ( (stream->buff = xt_malloc(1, stream->buff_size)) == NULL )
     {
-	fputs("ff_init_stream(): Could not allocate buffer.\n", stderr);
+	fputs("xt_ff_init_stream(): Could not allocate buffer.\n", stderr);
 	free(stream);
 	return NULL;
     }
@@ -45,6 +45,99 @@ ffile_t *ff_init_stream(ffile_t *stream)
     stream->bytes_read = 0;
     stream->c = 0;
     return stream;
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <xtend/file.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      .B xt_ff_open(3)
+ *      opens a raw data file using xt_ff_open() or a gzipped, bzipped, or
+ *      xzipped file using xt_ff_popen(), returning a pointer to a xt_ffile_t
+ *      stream.  Must be used in conjunction with
+ *      xt_ff_close() to ensure that xt_ff_close() or xt_ff_pclose() is called where
+ *      appropriate.
+ *
+ *      The xt_ffile_t system is simpler than and several times as
+ *      fast as FILE on typical systems.  It is intended for processing
+ *      large files character-by-character, where low-level block I/O
+ *      is not convenient, but FILE I/O causes a bottleneck.
+ *
+ *  Arguments:
+ *      filename:   Name of the file to be opened
+ *      mode:       Bit mask as used by open()
+ *
+ *  Returns:
+ *      A pointer to the FILE structure or NULL if open failed
+ *
+ *  See also:
+ *      fopen(3), popen(3), gzip(1), bzip2(1), xz(1)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-04-09  Jason Bacon Begin
+ ***************************************************************************/
+
+xt_ffile_t *xt_ff_open(const char *filename, int flags)
+
+{
+    char    *ext = strrchr(filename, '.'),
+	    cmd[XT_CMD_MAX_CHARS + 1];
+    
+    if ( ext == NULL )
+	ext = "";
+
+    //fprintf(stderr, "flags = %x\n", flags);
+    if ( flags == O_RDONLY )    // O_RDONLY = 0x0, no bits set
+    {
+	//fprintf(stderr, "Reading from %s...\n", filename);
+	if ( strcmp(ext, ".gz") == 0 )
+	{
+// Big Sur zcat requires a .Z extension and CentOS 7 lacks gzcat
+#ifdef __APPLE__
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "gzcat %s", filename);
+#else
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "zcat %s", filename);
+#endif
+	    return xt_ff_popen(cmd, flags);
+	}
+	else if ( strcmp(ext, ".bz2") == 0 )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "bzcat %s", filename);
+	    return xt_ff_popen(cmd, flags);
+	}
+	else if ( strcmp(ext, ".xz") == 0 )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "xzcat %s", filename);
+	    return xt_ff_popen(cmd, flags);
+	}
+	else
+	    return xt_ff_open(filename, flags);
+    }
+    else    // O_WRONLY
+    {
+	//fprintf(stderr, "Writing to %s...\n", filename);
+	if ( strcmp(ext, ".gz") == 0 )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "gzip -c > %s", filename);
+	    return xt_ff_popen(cmd, flags);
+	}
+	else if ( strcmp(ext, ".bz2") == 0 )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "bzip2 -c > %s", filename);
+	    return xt_ff_popen(cmd, flags);
+	}
+	else if ( strcmp(ext, ".xz") == 0 )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "xz -c > %s", filename);
+	    return xt_ff_popen(cmd, flags);
+	}
+	else
+	    return xt_ff_open_raw(filename, flags);
+    }
 }
 
 
@@ -57,16 +150,16 @@ ffile_t *ff_init_stream(ffile_t *stream)
  *      -lxtend
  *
  *  Description:
- *      .B ffopen_raw()
- *      initializes a ffile_t stream, much as fopen() does for a FILE
- *      stream.  Unlike fopen(), ffopen_raw() takes the same bit mask
+ *      .B xt_ff_open_raw()
+ *      initializes a xt_ffile_t stream, much as fopen() does for a FILE
+ *      stream.  Unlike fopen(), xt_ff_open_raw() takes the same bit mask
  *      argument as open() to determine the open mode.
  *      See open(3) for details.
  *
  *      An optimally sized buffer for the underlying filesystem is allocated,
- *      along with additional space for limited ffungetc() operations.
+ *      along with additional space for limited xt_ff_ungetc() operations.
  *
- *      The ffile_t system is simpler than and several times as
+ *      The xt_ffile_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
@@ -76,33 +169,33 @@ ffile_t *ff_init_stream(ffile_t *stream)
  *      flags       Bit flags passed to open(3)
  *
  *  Returns:
- *      A pointer to a ffile_t object on success, NULL on failure
+ *      A pointer to a xt_ffile_t object on success, NULL on failure
  *
  *  Examples:
- *      ffile_t *stream;
+ *      xt_ffile_t *stream;
  *      char    *filename;
  *      
  *      // Read only
- *      stream = ffopen_raw(filename, O_RDONLY);
+ *      stream = xt_ff_open_raw(filename, O_RDONLY);
  *
  *      // Overwrite
- *      stream = ffopen_raw(filename, O_WRONLY|O_CREAT|O_TRUNC);
+ *      stream = xt_ff_open_raw(filename, O_WRONLY|O_CREAT|O_TRUNC);
  *
  *      // Append
- *      stream = ffopen_raw(filename, O_WRONLY|O_APPEND);
+ *      stream = xt_ff_open_raw(filename, O_WRONLY|O_APPEND);
  *
  *  See also:
- *      open(3), ffgetc(3), ffputc(3), ffungetc(3), ffclose(3)
+ *      open(3), xt_ff_getc(3), xt_ff_putc(3), xt_ff_ungetc(3), xt_ff_close(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-02-14  Jason Bacon Begin
  ***************************************************************************/
 
-ffile_t *ffopen_raw(const char *filename, int flags)
+xt_ffile_t *xt_ff_open_raw(const char *filename, int flags)
 
 {
-    ffile_t     *stream;
+    xt_ffile_t     *stream;
     
     if ( (stream = xt_malloc(1, sizeof(*stream))) == NULL )
 	return NULL;
@@ -118,7 +211,7 @@ ffile_t *ffopen_raw(const char *filename, int flags)
     }
     stream->flags = flags;
 
-    return ff_init_stream(stream);
+    return xt_ff_init_stream(stream);
 }
 
 
@@ -131,16 +224,16 @@ ffile_t *ffopen_raw(const char *filename, int flags)
  *      -lxtend
  *
  *  Description:
- *      .B ffdopen()
- *      initializes a ffile_t stream, much as fdopen() does for a FILE
- *      stream.  Unlike fdopen(), ffdopen() takes the same bit mask
+ *      .B xt_ff_dopen()
+ *      initializes a xt_ffile_t stream, much as fdopen() does for a FILE
+ *      stream.  Unlike fdopen(), xt_ff_dopen() takes the same bit mask
  *      argument as open() to determine the open mode.
  *      See open(3) for details.
  *
  *      An optimally sized buffer for the underlying filesystem is allocated,
- *      along with additional space for limited ffungetc() operations.
+ *      along with additional space for limited xt_ff_ungetc() operations.
  *
- *      The ffile_t system is simpler than and several times as
+ *      The xt_ffile_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
@@ -150,35 +243,35 @@ ffile_t *ffopen_raw(const char *filename, int flags)
  *      flags       Bit flags passed to open(3)
  *
  *  Returns:
- *      A pointer to a ffile_t object on success, NULL on failure
+ *      A pointer to a xt_ffile_t object on success, NULL on failure
  *
  *  Examples:
- *      ffile_t *stream;
+ *      xt_ffile_t *stream;
  *      char    *filename;
  *      int     fd;
  *      
  *      fd = open(filename, O_RDONLY);
- *      stream = ffdopen(fd, O_RDONLY);
+ *      stream = xt_ff_dopen(fd, O_RDONLY);
  *
  *  See also:
- *      ffopen(3), open(3)
+ *      xt_ff_open(3), open(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-02-14  Jason Bacon Begin
  ***************************************************************************/
 
-ffile_t *ffdopen(int fd, int flags)
+xt_ffile_t *xt_ff_dopen(int fd, int flags)
 
 {
-    ffile_t     *stream;
+    xt_ffile_t     *stream;
     
     if ( (stream = xt_malloc(1, sizeof(*stream))) == NULL )
 	return NULL;
     stream->fd = fd;
     stream->flags = flags;
 
-    return ff_init_stream(stream);
+    return xt_ff_init_stream(stream);
 }
 
 
@@ -190,45 +283,43 @@ ffile_t *ffdopen(int fd, int flags)
  *      -lxtend
  *
  *  Description:
- *      .B ffgetc()
- *      and the macro equivalent
- *      .B FFGETC()
- *      read a single character from a ffile_t stream opened by ffopen(3).
+ *      .B xt_ff_getc()
+ *      reads a single character from a xt_ffile_t stream opened by xt_ff_open(3).
  *
- *      The ffile_t system is simpler than and several times as
+ *      The xt_ffile_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
  *  Arguments:
- *      stream  Pointer to an ffile_t object
+ *      stream  Pointer to an xt_ffile_t object
  *
  *  Returns:
  *      The character read, or EOF if no more data are available
  *
  *  Examples:
- *      ffile_t *stream;
+ *      xt_ffile_t *stream;
  *      int     ch;
  *
- *      if ( (stream = ffopen(filename, O_RDONLY)) == NULL )
+ *      if ( (stream = xt_ff_open(filename, O_RDONLY)) == NULL )
  *      {
  *          fprintf(stderr, "Cannot open %s for reading.\n", filename);
  *          exit(EX_NOINPUT);
  *      }
- *      while ( (ch = FFGETC(stream)) != EOF )
+ *      while ( (ch = xt_ff_getc(stream)) != EOF )
  *      {
  *      }
- *      ffclose(stream);
+ *      xt_ff_close(stream);
  *
  *  See also:
- *      ffopen(3), ffputc(3), ffclose(3)
+ *      xt_ff_open(3), xt_ff_putc(3), xt_ff_close(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-02-14  Jason Bacon Begin
  ***************************************************************************/
 
-int     ffgetc(ffile_t *stream)
+int     xt_ff_getc(xt_ffile_t *stream)
 
 {
     unsigned char   *start;
@@ -236,7 +327,7 @@ int     ffgetc(ffile_t *stream)
     if ( stream->c == stream->bytes_read )
     {
 	/*
-	 *  Move last part of buffer to ffungetc() region.  Only the last
+	 *  Move last part of buffer to xt_ff_ungetc() region.  Only the last
 	 *  block read should be < block_size chars, and it will never
 	 *  be moved here.
 	 */
@@ -260,52 +351,50 @@ int     ffgetc(ffile_t *stream)
  *      -lxtend
  *
  *  Description:
- *      .B ffputc()
- *      and the macro equivalent
- *      .B FFPUTC()
- *      write a single character to a ffile_t stream opened by ffopen(3).
+ *      .B xt_ff_putc()
+ *      writes a single character to a xt_ffile_t stream opened by xt_ff_open(3).
  *
- *      The ffile_t system is simpler than and several times as
+ *      The xt_ffile_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
  *  Arguments:
  *      ch      Character to write to stream
- *      stream  Pointer to an ffile_t object opened by ffopen(3)
+ *      stream  Pointer to an xt_ffile_t object opened by xt_ff_open(3)
  *
  *  Returns:
  *      The character written, or EOF if unable to write
  *
  *  Examples:
  *      char    *infilename, *outfilename;
- *      ffile_t *instream, *outstream;
+ *      xt_ffile_t *instream, *outstream;
  *      int     ch;
  *
- *      if ( (instream = ffopen(infilename, O_RDONLY)) == NULL )
+ *      if ( (instream = xt_ff_open(infilename, O_RDONLY)) == NULL )
  *      {
  *          fprintf(stderr, "Cannot open %s for reading.\n", infilename);
  *          exit(EX_NOINPUT);
  *      }
- *      if ( (outstream = ffopen(outfilename, O_WRONLY|O_CREAT|O_TRUNC)) == NULL )
+ *      if ( (outstream = xt_ff_open(outfilename, O_WRONLY|O_CREAT|O_TRUNC)) == NULL )
  *      {
  *          fprintf(stderr, "Cannot open %s for writing.\n", outfilename);
  *          exit(EX_NOINPUT);
  *      }
- *      while ( (ch = FFGETC(stream)) != EOF )
- *          FFPUTC(ch, outstream);
- *      ffclose(instream);
- *      ffclose(outstream);
+ *      while ( (ch = xt_ff_getc(stream)) != EOF )
+ *          xt_ff_puts(ch, outstream);
+ *      xt_ff_close(instream);
+ *      xt_ff_close(outstream);
  *
  *  See also:
- *      ffopen(3), ffgetc(3), ffclose(3)
+ *      xt_ff_open(3), xt_ff_getc(3), xt_ff_close(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-02-14  Jason Bacon Begin
  ***************************************************************************/
 
-int     ffputc(int ch, ffile_t *stream)
+int     xt_ff_putc(int ch, xt_ffile_t *stream)
 
 {
     if ( stream->c == stream->block_size )
@@ -328,59 +417,59 @@ int     ffputc(int ch, ffile_t *stream)
  *      -lxtend
  *
  *  Description:
- *      .B ffclose_raw()
- *      closes a ffile_t stream opened by ffopen(3).  It writes out any
+ *      .B xt_ff_close_raw()
+ *      closes a xt_ffile_t stream opened by xt_ff_open(3).  It writes out any
  *      remaining data in the output buffer, deallocates memory allocated
- *      by ffopen(3), and closes the underlying file descriptor opened by
+ *      by xt_ff_open(3), and closes the underlying file descriptor opened by
  *      open(3).
  *
- *      The ffile_t system is simpler than and several times as
+ *      The xt_ffile_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
  *  Arguments:
- *      stream  Pointer to an ffile_t object opened by ffopen(3)
+ *      stream  Pointer to an xt_ffile_t object opened by xt_ff_open(3)
  *
  *  Returns:
  *      The return status of the underlying close(3) call
  *
  *  Examples:
  *      char    *infilename, *outfilename;
- *      ffile_t *instream, *outstream;
+ *      xt_ffile_t *instream, *outstream;
  *      int     ch;
  *
- *      if ( (instream = ffopen(infilename, O_RDONLY)) == NULL )
+ *      if ( (instream = xt_ff_open(infilename, O_RDONLY)) == NULL )
  *      {
  *          fprintf(stderr, "Cannot open %s for reading.\n", infilename);
  *          exit(EX_NOINPUT);
  *      }
- *      if ( (outstream = ffopen(outfilename, O_WRONLY|O_CREAT|O_TRUNC)) == NULL )
+ *      if ( (outstream = xt_ff_open(outfilename, O_WRONLY|O_CREAT|O_TRUNC)) == NULL )
  *      {
  *          fprintf(stderr, "Cannot open %s for writing.\n", outfilename);
  *          exit(EX_NOINPUT);
  *      }
- *      while ( (ch = FFGETC(stream)) != EOF )
- *          FFPUTC(ch, outstream);
- *      ffclose_raw(instream);
- *      ffclose_raw(outstream);
+ *      while ( (ch = xt_ff_getc(stream)) != EOF )
+ *          xt_ff_putc(ch, outstream);
+ *      xt_ff_close_raw(instream);
+ *      xt_ff_close_raw(outstream);
  *
  *  See also:
- *      ffopen(3), ffgetc(3), ffputc(3)
+ *      xt_ff_open(3), xt_ff_getc(3), xt_ff_putc(3)
  *  
  *  History: 
  *  Date        Name        Modification
  *  2022-02-14  Jason Bacon Begin
  ***************************************************************************/
 
-int     ffclose_raw(ffile_t *stream)
+int     xt_ff_close_raw(xt_ffile_t *stream)
 
 {
     int     status;
     
     if ( stream->flags & O_WRONLY )
     {
-	//fprintf(stderr, "ffclose() flushing output...\n");
+	//fprintf(stderr, "xt_ff_close() flushing output...\n");
 	//stream->start[stream->c] = '\0';
 	//fputs((char *)stream->start, stderr);
 	write(stream->fd, stream->start, stream->c);
@@ -400,47 +489,47 @@ int     ffclose_raw(ffile_t *stream)
  *      -lxtend
  *
  *  Description:
- *      .B ffungetc()
- *      returns a single character read by ffgetc(3) to the input buffer of
- *      a stream opened by ffopen(3).  All characters from the most recently
+ *      .B xt_ff_ungetc()
+ *      returns a single character read by xt_ff_getc(3) to the input buffer of
+ *      a stream opened by xt_ff_open(3).  All characters from the most recently
  *      read block plus a maximum of XT_FAST_FILE_UNGETC_MAX characters
  *      from the previously read block may be returned.
  *
- *      The ffile_t system is simpler than and several times as
+ *      The xt_ffile_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
  *  Arguments:
  *      ch      Character to return to the input buffer
- *      stream  Pointer to an ffile_t object opened by ffopen(3)
+ *      stream  Pointer to an xt_ffile_t object opened by xt_ff_open(3)
  *
  *  Returns:
  *      The character written, or EOF if unable to write
  *
  *  Examples:
  *      char    *infilename;
- *      ffile_t *instream;
+ *      xt_ffile_t *instream;
  *      int     ch;
  *
- *      if ( (instream = ffopen(infilename, O_RDONLY)) == NULL )
+ *      if ( (instream = xt_ff_open(infilename, O_RDONLY)) == NULL )
  *      {
  *          fprintf(stderr, "Cannot open %s for reading.\n", infilename);
  *          exit(EX_NOINPUT);
  *      }
- *      if ( (ch = FFGETC(instream)) != MY_FAVORITE_CHAR )
- *          ffungetc(ch, instream);
- *      ffclose(instream);
+ *      if ( (ch = xt_ff_getc(instream)) != MY_FAVORITE_CHAR )
+ *          xt_ff_ungetc(ch, instream);
+ *      xt_ff_close(instream);
  *
  *  See also:
- *      ffopen(3), ffgetc(3), ffclose(3)
+ *      xt_ff_open(3), xt_ff_getc(3), xt_ff_close(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-02-18  Jason Bacon Begin
  ***************************************************************************/
 
-int     ffungetc(int ch, ffile_t *stream)
+int     xt_ff_ungetc(int ch, xt_ffile_t *stream)
 
 {
     if ( stream->c > -(XT_FAST_FILE_UNGETC_MAX + 1) )
@@ -461,13 +550,13 @@ int     ffungetc(int ch, ffile_t *stream)
  *      -lxtend
  *
  *  Description:
- *      .B ffstdin()
+ *      .B xt_ff_stdin()
  *      is a simple wrapper function for connecting file descriptor 0
- *      to an ffile_t object using ffdopen(3).  This is useful for
+ *      to an xt_ffile_t object using xt_ff_dopen(3).  This is useful for
  *      high-performance filter programs, where using the traditional
  *      FILE *stdin would cause a bottleneck.
  *
- *      The ffile_t system is simpler than and several times as
+ *      The xt_ffile_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
@@ -476,29 +565,29 @@ int     ffungetc(int ch, ffile_t *stream)
  *      None
  *
  *  Returns:
- *      Pointer to an ffile_t object if successful, NULL otherwise
+ *      Pointer to an xt_ffile_t object if successful, NULL otherwise
  *
  *  Examples:
- *      ffile_t *stream;
+ *      xt_ffile_t *stream;
  *
  *      // "-" as a filename argument traditionally indicates stdin
  *      if ( strcmp(argv[arg], "-") == 0 )
- *          stream = ffstdin();
+ *          stream = xt_ff_stdin();
  *      else
- *          stream = ffopen(argv[arg], O_RDONLY);
+ *          stream = xt_ff_open(argv[arg], O_RDONLY);
  *
  *  See also:
- *      ffopen(3), ffdopen(3)
+ *      xt_ff_open(3), xt_ff_dopen(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-02-19  Jason Bacon Begin
  ***************************************************************************/
 
-ffile_t *ffstdin()
+xt_ffile_t *xt_ff_stdin()
 
 {
-    return ffdopen(0, O_RDONLY);
+    return xt_ff_dopen(0, O_RDONLY);
 }
 
 
@@ -510,13 +599,13 @@ ffile_t *ffstdin()
  *      -lxtend
  *
  *  Description:
- *      .B ffstdout()
+ *      .B xt_ff_stdout()
  *      is a simple wrapper function for connecting file descriptor 1
- *      to an ffile_t object using ffdopen(3).  This is useful for
+ *      to an xt_ffile_t object using xt_ff_dopen(3).  This is useful for
  *      high-performance filter programs, where using the traditional
  *      FILE *stdout would cause a bottleneck.
  *
- *      The ffile_t system is simpler than and several times as
+ *      The xt_ffile_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
@@ -525,29 +614,29 @@ ffile_t *ffstdin()
  *      None
  *
  *  Returns:
- *      Pointer to an ffile_t object if successful, NULL otherwise
+ *      Pointer to an xt_ffile_t object if successful, NULL otherwise
  *
  *  Examples:
- *      ffile_t *stream;
+ *      xt_ffile_t *stream;
  *
  *      // "-" as a filename argument traditionally indicates stdout
  *      if ( strcmp(argv[arg], "-") == 0 )
- *          stream = ffstdout();
+ *          stream = xt_ff_stdout();
  *      else
- *          stream = ffopen(argv[arg], O_WRONLY|O_CREAT|O_TRUNC);
+ *          stream = xt_ff_open(argv[arg], O_WRONLY|O_CREAT|O_TRUNC);
  *
  *  See also:
- *      ffopen(3), ffdopen(3)
+ *      xt_ff_open(3), xt_ff_dopen(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-02-19  Jason Bacon Begin
  ***************************************************************************/
 
-ffile_t *ffstdout()
+xt_ffile_t *xt_ff_stdout()
 
 {
-    return ffdopen(1, O_WRONLY|O_APPEND);
+    return xt_ff_dopen(1, O_WRONLY|O_APPEND);
 }
 
 
@@ -559,14 +648,14 @@ ffile_t *ffstdout()
  *      -lxtend
  *
  *  Description:
- *      .B ffpopen(3)
+ *      .B xt_ff_popen(3)
  *      creates a pipe for interprocess communication, runs the specified
  *      command, connecting the command's standard input or standard
- *      output to the pipe, and returning a pointer to a ffile_t object
+ *      output to the pipe, and returning a pointer to a xt_ffile_t object
  *      connected to the other end.
  *
  *      It behaves much like popen(3), except that it returns a fast-file
- *      fffile_t pointer rather than a standard I/O FILE pointer, and
+ *      xt_fffile_t pointer rather than a standard I/O FILE pointer, and
  *      accepts a full set of open(3) flags rather than the fopen(3)
  *      type strings "r", "w", etc.
  *
@@ -574,11 +663,11 @@ ffile_t *ffstdout()
  *      and read its standard output or write to its standard input as
  *      easily as reading or writing a file.
  *
- *      The stream should be closed with ffpclose(3) rather than ffclose(3)
+ *      The stream should be closed with xt_ff_pclose(3) rather than xt_ff_close(3)
  *      in order to wait for the child process to complete and return its
  *      exit status.
  *
- *      The ffile_t system is simpler than and several times as
+ *      The xt_ffile_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
@@ -588,33 +677,33 @@ ffile_t *ffstdout()
  *      flags   Open mode flags passed to open(3)
  *
  *  Returns:
- *      Pointer to a ffile_t object on success, NULL otherwise
+ *      Pointer to a xt_ff_ile_t object on success, NULL otherwise
  *
  *  Examples:
- *      ffile_t *instream;
+ *      xt_ffile_t *instream;
  *
- *      if ( (instream = ffpopen("xzcat file.xz", O_RDONLY)) == NULL )
+ *      if ( (instream = xt_ff_popen("xzcat file.xz", O_RDONLY)) == NULL )
  *      {
  *          fprintf(stderr, "Failed to read xzcat file.xz.\n");
  *          exit(EX_NOINPUT);
  *      }
  *
- *      ffpclose(instream);
+ *      xt_ff_pclose(instream);
  *
  *  See also:
- *      ffopen(3), ffpclose(3), popen(3), open(3)
+ *      xt_ff_open(3), xt_ff_pclose(3), popen(3), open(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-02-19  Jason Bacon Begin
  ***************************************************************************/
 
-ffile_t *ffpopen(const char *cmd, int flags)
+xt_ffile_t *xt_ff_popen(const char *cmd, int flags)
 
 {
     pid_t   pid;
     int     fd[2];
-    ffile_t *stream = NULL;
+    xt_ffile_t *stream = NULL;
     char    *argv[XT_FAST_FILE_MAX_ARGS];
     
     if ( pipe(fd) == 0 )
@@ -668,7 +757,7 @@ ffile_t *ffpopen(const char *cmd, int flags)
 		// Readers won't get EOF until last descriptor is closed
 		// so don't leave this lying around
 		close(fd[1]);   // Not used by parent
-		if ( (stream = ffdopen(fd[0], O_RDONLY)) == NULL )
+		if ( (stream = xt_ff_dopen(fd[0], O_RDONLY)) == NULL )
 		    return NULL;
 	    }
 	    else
@@ -677,11 +766,11 @@ ffile_t *ffpopen(const char *cmd, int flags)
 		// Readers won't get EOF until last descriptor is closed
 		// so don't leave this lying around
 		close(fd[0]);   // Not used by parent
-		if ( (stream = ffdopen(fd[1], O_WRONLY)) == NULL )
+		if ( (stream = xt_ff_dopen(fd[1], O_WRONLY)) == NULL )
 		    return NULL;
 	    }
     
-	    // Set pid in ffile_t stream for waitpid() in ffpclose()
+	    // Set pid in xt_ffile_t stream for waitpid() in xt_ff_pclose()
 	    stream->child_pid = pid;
 	    return stream;
 	}
@@ -698,42 +787,42 @@ ffile_t *ffpopen(const char *cmd, int flags)
  *      -lxtend
  *
  *  Description:
- *      .B ffpclose(3)
- *      closes a stream opened by ffpopen(3), and
+ *      .B xt_ff_pclose(3)
+ *      closes a stream opened by xt_ff_popen(3), and
  *      waits for the child process to complete and returns its
  *      exit status.
  *
- *      The ffile_t system is simpler than and several times as
+ *      The xt_ffile_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
  *  Arguments:
- *      stream  ffile_t stream opened by ffpopen(3)
+ *      stream  xt_ffile_t stream opened by xt_ff_popen(3)
  *
  *  Returns:
- *      Exit status of the child process spawned by ffpopen(3), or -1 on error
+ *      Exit status of the child process spawned by xt_ff_popen(3), or -1 on error
  *
  *  Examples:
- *      ffile_t *instream;
+ *      xt_ffile_t *instream;
  *
- *      if ( (instream = ffpopen("xzcat file.xz", O_RDONLY)) == NULL )
+ *      if ( (instream = xt_ff_popen("xzcat file.xz", O_RDONLY)) == NULL )
  *      {
  *          fprintf(stderr, "Failed to read xzcat file.xz.\n");
  *          exit(EX_NOINPUT);
  *      }
  *
- *      ffpclose(instream);
+ *      xt_ff_pclose(instream);
  *
  *  See also:
- *      ffopen(3), ffpclose(3), popen(3), open(3)
+ *      xt_ff_open(3), xt_ff_pclose(3), popen(3), open(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-02-19  Jason Bacon Begin
  ***************************************************************************/
 
-int     ffpclose(ffile_t *stream)
+int     xt_ff_pclose(xt_ffile_t *stream)
 
 {
     int     status = 0;
@@ -741,12 +830,12 @@ int     ffpclose(ffile_t *stream)
     
     if ( pid == 0 )
     {
-	fprintf(stderr, "%s(): No child PID available.  Was the stream opened with ffpopen()?\n",
+	fprintf(stderr, "%s(): No child PID available.  Was the stream opened with xt_ff_popen()?\n",
 		__FUNCTION__);
 	return -1;
     }
     
-    ffclose(stream);
+    xt_ff_close(stream);
     
     // Compatibility with pclose()
     waitpid(pid, &status, 0);
@@ -762,138 +851,40 @@ int     ffpclose(ffile_t *stream)
  *      -lxtend
  *
  *  Description:
- *      .B ffopen(3)
- *      opens a raw data file using ffopen() or a gzipped, bzipped, or
- *      xzipped file using ffpopen(), returning a pointer to a ffile_t
- *      stream.  Must be used in conjunction with
- *      ffclose() to ensure that ffclose() or ffpclose() is called where
- *      appropriate.
- *
- *      The ffile_t system is simpler than and several times as
- *      fast as FILE on typical systems.  It is intended for processing
- *      large files character-by-character, where low-level block I/O
- *      is not convenient, but FILE I/O causes a bottleneck.
- *
- *  Arguments:
- *      filename:   Name of the file to be opened
- *      mode:       Bit mask as used by open()
- *
- *  Returns:
- *      A pointer to the FILE structure or NULL if open failed
- *
- *  See also:
- *      fopen(3), popen(3), gzip(1), bzip2(1), xz(1)
- *
- *  History: 
- *  Date        Name        Modification
- *  2021-04-09  Jason Bacon Begin
- ***************************************************************************/
-
-ffile_t *ffopen(const char *filename, int flags)
-
-{
-    char    *ext = strrchr(filename, '.'),
-	    cmd[XT_CMD_MAX_CHARS + 1];
-    
-    if ( ext == NULL )
-    {
-	// FIXME: Use __FUNCTION__ in all such messages
-	fprintf(stderr, "%s(): No filename extension on %s.\n",
-		__FUNCTION__, filename);
-	return NULL;
-    }
-
-    //fprintf(stderr, "flags = %x\n", flags);
-    if ( flags == O_RDONLY )    // O_RDONLY = 0x0, no bits set
-    {
-	//fprintf(stderr, "Reading from %s...\n", filename);
-	if ( strcmp(ext, ".gz") == 0 )
-	{
-// Big Sur zcat requires a .Z extension and CentOS 7 lacks gzcat
-#ifdef __APPLE__
-	    snprintf(cmd, XT_CMD_MAX_CHARS, "gzcat %s", filename);
-#else
-	    snprintf(cmd, XT_CMD_MAX_CHARS, "zcat %s", filename);
-#endif
-	    return ffpopen(cmd, flags);
-	}
-	else if ( strcmp(ext, ".bz2") == 0 )
-	{
-	    snprintf(cmd, XT_CMD_MAX_CHARS, "bzcat %s", filename);
-	    return ffpopen(cmd, flags);
-	}
-	else if ( strcmp(ext, ".xz") == 0 )
-	{
-	    snprintf(cmd, XT_CMD_MAX_CHARS, "xzcat %s", filename);
-	    return ffpopen(cmd, flags);
-	}
-	else
-	    return ffopen(filename, flags);
-    }
-    else    // O_WRONLY
-    {
-	//fprintf(stderr, "Writing to %s...\n", filename);
-	if ( strcmp(ext, ".gz") == 0 )
-	{
-	    snprintf(cmd, XT_CMD_MAX_CHARS, "gzip -c > %s", filename);
-	    return ffpopen(cmd, flags);
-	}
-	else if ( strcmp(ext, ".bz2") == 0 )
-	{
-	    snprintf(cmd, XT_CMD_MAX_CHARS, "bzip2 -c > %s", filename);
-	    return ffpopen(cmd, flags);
-	}
-	else if ( strcmp(ext, ".xz") == 0 )
-	{
-	    snprintf(cmd, XT_CMD_MAX_CHARS, "xz -c > %s", filename);
-	    return ffpopen(cmd, flags);
-	}
-	else
-	    return ffopen_raw(filename, flags);
-    }
-}
-
-
-/***************************************************************************
- *  Library:
- *      #include <xtend/file.h>
- *      -lxtend
- *
- *  Description:
- *      .B ffclose(3)
- *      closes a ffile_t stream with ffclose() or ffpclose() as appropriate.
+ *      .B xt_ff_close(3)
+ *      closes a xt_ffile_t stream with xt_ff_close() or xt_ff_pclose() as appropriate.
  *      Automatically determines the proper close function to call using
  *      S_ISFIFO on the stream stat structure.
  *
- *      The ffile_t system is simpler than and several times as
+ *      The xt_ffile_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *
  *  Arguments:
- *      stream: Pointer to the ffile_t structure to be closed
+ *      stream: Pointer to the xt_ffile_t structure to be closed
  *
  *  Returns:
- *      The value returned by ffclose() or ffpclose()
+ *      The value returned by xt_ff_close() or xt_ff_pclose()
  *
  *  See also:
- *      ffpopen(3), ffopen(3), gzip(1), bzip2(1), xz(1)
+ *      xt_ff_popen(3), xt_ff_open(3), gzip(1), bzip2(1), xz(1)
  *
  *  History: 
  *  Date        Name        Modification
  *  2021-04-10  Jason Bacon Begin
  ***************************************************************************/
 
-int     ffclose(ffile_t *stream)
+int     xt_ff_close(xt_ffile_t *stream)
 
 {
     struct stat stat;
     
     fstat(stream->fd, &stat);
     if ( S_ISFIFO(stat.st_mode) )
-	return ffpclose(stream);
+	return xt_ff_pclose(stream);
     else
-	return ffclose_raw(stream);
+	return xt_ff_close_raw(stream);
 }
 
 
@@ -905,43 +896,43 @@ int     ffclose(ffile_t *stream)
  *      -lxtend
  *
  *  Description:
- *      .B ffprintf(3)
- *      writes formatted data to a ffile_t stream the same was as
+ *      .B xt_ff_printf(3)
+ *      writes formatted data to a xt_ffile_t stream the same was as
  *      fprintf(3) writes to a FILE stream.
  *
- *      The ffile_t system is simpler than and several times as
+ *      The xt_ff_ile_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
  *  Arguments:
- *      stream  Pointer to an ffile_t object opened by ffopen(3)
+ *      stream  Pointer to an xt_ffile_t object opened by xt_ff_open(3)
  *      format  Format string indicating how remaining arguments are printed
  *
  *  Returns:
  *      The number of characters written
  *
  *  Examples:
- *      ffile_t *stream;
+ *      xt_ff_ile_t *stream;
  *      int     count = 1;
  *
- *      if ( (stream = ffopen(filename, O_WRONLY|O_CREAT|O_TRUNC)) == NULL )
+ *      if ( (stream = xt_ff_open(filename, O_WRONLY|O_CREAT|O_TRUNC)) == NULL )
  *      {
  *          fprintf(stderr, "Could not open %s.\n", filename);
  *          exit(EX_CANTCREAT);
  *      }
- *      ffprintf(stream, "%d\n", count);
- *      ffclose(stream);
+ *      xt_ff_printf(stream, "%d\n", count);
+ *      xt_ff_close(stream);
  *
  *  See also:
- *      fprintf(3), ffopen(3), ffclose(3), ffputc(3), ffputs(3)
+ *      fprintf(3), xt_ff_open(3), xt_ff_close(3), xt_ff_putc(3), xt_ff_puts(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-02-19  Jason Bacon Begin
  ***************************************************************************/
 
-int     ffprintf(ffile_t *stream, const char *format, ...)
+int     xt_ff_printf(xt_ffile_t *stream, const char *format, ...)
 
 {
     va_list ap;
@@ -951,7 +942,7 @@ int     ffprintf(ffile_t *stream, const char *format, ...)
     va_start(ap, format);
     chars_printed = vasprintf(&buff, format, ap);
     for (c = 0; buff[c] != '\0'; ++c)
-	FFPUTC(buff[c], stream);
+	xt_ff_putc(buff[c], stream);
     free(buff);
     return chars_printed;
 }
@@ -965,44 +956,44 @@ int     ffprintf(ffile_t *stream, const char *format, ...)
  *      -lxtend
  *
  *  Description:
- *      ffputs() writes a null-terminated string to the given ffile_t
+ *      xt_ff_puts() writes a null-terminated string to the given xt_ffile_t
  *      stream.  It is fnuctionally equivalent to fputs() with FILE.
  *  
  *  Arguments:
  *      string      A null-terminated string
- *      stream      Pointer to an ffile_t structure opened with ffopen()
+ *      stream      Pointer to an xt_ffile_t structure opened with xt_ff_open()
  *
  *  Returns:
  *      A non-negative integer on success, EOF on failure
  *
  *  Examples:
- *      ffile_t *outstream;
+ *      xt_ffile_t *outstream;
  *      char    *buff;
  *
- *      if ( (outstream = ffopen(outfilename, O_WRONLY|O_CREAT|O_TRUNC)) == NULL )
+ *      if ( (outstream = xt_ff_open(outfilename, O_WRONLY|O_CREAT|O_TRUNC)) == NULL )
  *      {
  *          fprintf(stderr, "Cannot open %s for writing.\n", outfilename);
  *          exit(EX_NOINPUT);
  *      }
- *      ffputs("Hello, world!\n", outstream);
- *      ffclose(outstream);
+ *      xt_ff_puts("Hello, world!\n", outstream);
+ *      xt_ff_close(outstream);
  *
  *  See also:
- *      fputs(3), ffgets(3), ffopen(3), ffclose(3), ffputc(3), ffprintf(3)
+ *      fputs(3), xt_ff_gets(3), xt_ff_open(3), xt_ff_close(3), xt_ff_putc(3), xt_ff_printf(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-07-29  Jason Bacon Begin
  ***************************************************************************/
 
-int     ffputs(const char *string, ffile_t *stream)
+int     xt_ff_puts(const char *string, xt_ffile_t *stream)
 
 {
     size_t  c;
     int     status = 0;
     
     for (c = 0; (status >= 0) && (string[c] != '\0'); ++c)
-	status = FFPUTC(string[c], stream);
+	status = xt_ff_putc(string[c], stream);
     return status;
 }
 
@@ -1015,7 +1006,7 @@ int     ffputs(const char *string, ffile_t *stream)
  *      -lxtend
  *
  *  Description:
- *      ffgets() writes a line of text from the given ffile_t
+ *      xt_ff_gets() writes a line of text from the given xt_ffile_t
  *      stream.  It is fnuctionally equivalent to fgets() with FILE.
  *      The maximum number of characters read is size - 1, to allow
  *      for a null-terminator byte.
@@ -1023,39 +1014,39 @@ int     ffputs(const char *string, ffile_t *stream)
  *  Arguments:
  *      string      A character array into which the line is read
  *      size        Size of the character array
- *      stream      Pointer to an ffile_t structure opened with ffopen()
+ *      stream      Pointer to an xt_ffile_t structure opened with xt_ff_open()
  *
  *  Returns:
  *      A non-negative integer on success, EOF on failure
  *
  *  Examples:
- *      ffile_t *instream;
+ *      xt_ffile_t *instream;
  *      char    buff[BUFF_SIZE];
  *
- *      if ( (instream = ffopen(outfilename, O_RDONLY)) == NULL )
+ *      if ( (instream = xt_ff_open(outfilename, O_RDONLY)) == NULL )
  *      {
  *          fprintf(stderr, "Cannot open %s for writing.\n", outfilename);
  *          exit(EX_NOINPUT);
  *      }
- *      ffgets(buff, BUFF_SIZE, instream);
- *      ffclose(instream);
+ *      xt_ff_gets(buff, BUFF_SIZE, instream);
+ *      xt_ff_close(instream);
  *
  *  See also:
- *      fgets(3), ffputs(3), ffopen(3), ffclose(3), ffputc(3), ffprintf(3)
+ *      fgets(3), xt_ff_puts(3), xt_ff_open(3), xt_ff_close(3), xt_ff_putc(3), xt_ff_printf(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-07-29  Jason Bacon Begin
  ***************************************************************************/
 
-char    *ffgets(char *string, size_t size, ffile_t *stream)
+char    *xt_ff_gets(char *string, size_t size, xt_ffile_t *stream)
 
 {
     size_t  c;
     int     ch;
     
     c = 0;
-    while ( ((ch = FFGETC(stream)) != '\n') && (ch != EOF) && (c < size - 1) )
+    while ( ((ch = xt_ff_getc(stream)) != '\n') && (ch != EOF) && (c < size - 1) )
 	string[c++] = ch;
     if ( (c == 0) && (ch == EOF) )
 	return NULL;
@@ -1072,13 +1063,13 @@ char    *ffgets(char *string, size_t size, ffile_t *stream)
  *      -lxtend
  *
  *  Description:
- *      .B ffread_line_malloc()
+ *      .B xt_ff_read_line_malloc()
  *      reads a single line of text (up to the next newline or EOF)
  *      from stream, allocating and/or extending the provided buffer if
  *      needed.
  *  
  *  Arguments:
- *      stream:     ffile_t stream from which field is read
+ *      stream:     xt_ffile_t stream from which field is read
  *      buff:       Character buffer into which field is copied
  *      buff_size:  Size of the array passed to buff
  *      len:        Pointer to a variable which will receive the field length
@@ -1087,23 +1078,23 @@ char    *ffgets(char *string, size_t size, ffile_t *stream)
  *      Delimiter ending the read: either newline or EOF
  *
  *  Examples:
- *      ffile_t *stream;
+ *      xt_ffile_t *stream;
  *      char    *buff;
  *      size_t  buff_len, len;
  *
- *      while ( ffile_read_line_malloc(stream, buff, &buff_len, &len) != EOF )
+ *      while ( xt_ff_ile_read_line_malloc(stream, buff, &buff_len, &len) != EOF )
  *      {
  *      }
  *
  *  See also:
- *      dsv_read_field_malloc(3), ffgetc(3)
+ *      dsv_read_field_malloc(3), xt_ff_getc(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-02-20  Jason Bacon Begin
  ***************************************************************************/
 
-int     ffread_line_malloc(ffile_t *stream, char **buff, size_t *buff_size,
+int     xt_ff_read_line_malloc(xt_ffile_t *stream, char **buff, size_t *buff_size,
 			   size_t *len)
 
 {
@@ -1118,7 +1109,7 @@ int     ffread_line_malloc(ffile_t *stream, char **buff, size_t *buff_size,
 	    return XT_MALLOC_FAILED;
     }
     
-    for (c = 0; ( ((ch = FFGETC(stream)) != '\n') && (ch != EOF) ); ++c)
+    for (c = 0; ( ((ch = xt_ff_getc(stream)) != '\n') && (ch != EOF) ); ++c)
     {
 	if ( c == *buff_size - 1 )
 	{

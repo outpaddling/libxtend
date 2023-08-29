@@ -11,7 +11,7 @@
 #include <stdarg.h>
 #include "mem.h"
 #include "proc.h"
-#include "fast-file.h"
+#include "fast-file-private.h"
 #include "common.h"
 
 /*
@@ -31,19 +31,19 @@ xt_ffile_t *xt_ff_init_stream(xt_ffile_t *stream)
 	fprintf(stderr, "xt_ff_init_stream(): Could not stat fd %d.\n", stream->fd);
 	return NULL;
     }
-    stream->block_size = st.st_blksize;
-    //fprintf(stderr, "Block size = %zd\n", stream->block_size);
+    stream->disk_block_size = st.st_blksize;
+    //fprintf(stderr, "Block size = %zd\n", stream->disk_block_size);
     // Add space for a null byte
-    stream->buff_size = XT_FAST_FILE_UNGETC_MAX + stream->block_size + 1;
+    stream->buff_size = XT_FAST_FILE_UNGETC_MAX + stream->disk_block_size + 1;
     if ( (stream->buff = xt_malloc(1, stream->buff_size)) == NULL )
     {
 	fputs("xt_ff_init_stream(): Could not allocate buffer.\n", stderr);
 	free(stream);
 	return NULL;
     }
-    stream->start = stream->buff + XT_FAST_FILE_UNGETC_MAX;
+    stream->start_ptr = stream->buff + XT_FAST_FILE_UNGETC_MAX;
     stream->bytes_read = 0;
-    stream->c = 0;
+    stream->buff_index = 0;
     return stream;
 }
 
@@ -283,6 +283,78 @@ xt_ffile_t *xt_ff_dopen(int fd, int flags)
  *      -lxtend
  *
  *  Description:
+ *      .B xt_ff_close_raw()
+ *      closes a xt_ffile_t stream opened by xt_ff_open(3).  It writes out any
+ *      remaining data in the output buffer, deallocates memory allocated
+ *      by xt_ff_open(3), and closes the underlying file descriptor opened by
+ *      open(3).
+ *
+ *      The xt_ffile_t system is simpler than and several times as
+ *      fast as FILE on typical systems.  It is intended for processing
+ *      large files character-by-character, where low-level block I/O
+ *      is not convenient, but FILE I/O causes a bottleneck.
+ *  
+ *  Arguments:
+ *      stream  Pointer to an xt_ffile_t object opened by xt_ff_open(3)
+ *
+ *  Returns:
+ *      The return status of the underlying close(3) call
+ *
+ *  Examples:
+ *      char    *infilename, *outfilename;
+ *      xt_ffile_t *instream, *outstream;
+ *      int     ch;
+ *
+ *      if ( (instream = xt_ff_open(infilename, O_RDONLY)) == NULL )
+ *      {
+ *          fprintf(stderr, "Cannot open %s for reading.\n", infilename);
+ *          exit(EX_NOINPUT);
+ *      }
+ *      if ( (outstream = xt_ff_open(outfilename, O_WRONLY|O_CREAT|O_TRUNC)) == NULL )
+ *      {
+ *          fprintf(stderr, "Cannot open %s for writing.\n", outfilename);
+ *          exit(EX_NOINPUT);
+ *      }
+ *      while ( (ch = xt_ff_getc(stream)) != EOF )
+ *          xt_ff_putc(ch, outstream);
+ *      xt_ff_close_raw(instream);
+ *      xt_ff_close_raw(outstream);
+ *
+ *  See also:
+ *      xt_ff_open(3), xt_ff_getc(3), xt_ff_putc(3)
+ *  
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-02-14  Jason Bacon Begin
+ ***************************************************************************/
+
+int     xt_ff_close_raw(xt_ffile_t *stream)
+
+{
+    int     status;
+    
+    if ( stream->flags & O_WRONLY )
+    {
+	//fprintf(stderr, "xt_ff_close() flushing output...\n");
+	//stream->start_ptr[stream->buff_index] = '\0';
+	//fputs((char *)stream->start_ptr, stderr);
+	write(stream->fd, stream->start_ptr, stream->buff_index);
+    }
+    status = close(stream->fd);
+    free(stream->buff);
+    free(stream);
+    return status;
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <xtend/fast-file.h>
+ *      -lxtend
+ *
+ *  Description:
  *      .B xt_ff_getc()
  *      reads a single character from a xt_ffile_t stream opened by xt_ff_open(3).
  *
@@ -319,27 +391,27 @@ xt_ffile_t *xt_ff_dopen(int fd, int flags)
  *  2022-02-14  Jason Bacon Begin
  ***************************************************************************/
 
-int     xt_ff_getc(xt_ffile_t *stream)
+inline int     xt_ff_getc(xt_ffile_t *stream)
 
 {
-    unsigned char   *start;
+    unsigned char   *start_ptr;
     
-    if ( stream->c == stream->bytes_read )
+    if ( stream->buff_index == stream->bytes_read )
     {
 	/*
 	 *  Move last part of buffer to xt_ff_ungetc() region.  Only the last
-	 *  block read should be < block_size chars, and it will never
+	 *  block read should be < disk_block_size chars, and it will never
 	 *  be moved here.
 	 */
-	start = stream->start + stream->block_size - XT_FAST_FILE_UNGETC_MAX;
-	memcpy(stream->buff, start, XT_FAST_FILE_UNGETC_MAX);
+	start_ptr = stream->start_ptr + stream->disk_block_size - XT_FAST_FILE_UNGETC_MAX;
+	memcpy(stream->buff, start_ptr, XT_FAST_FILE_UNGETC_MAX);
 		
 	if ( (stream->bytes_read =
-	      read(stream->fd, stream->start, stream->block_size)) == 0 )
+	      read(stream->fd, stream->start_ptr, stream->disk_block_size)) == 0 )
 	    return EOF;
-	stream->c = 0;
+	stream->buff_index = 0;
     }
-    return stream->start[stream->c++];
+    return stream->start_ptr[stream->buff_index++];
 }
 
 
@@ -394,90 +466,17 @@ int     xt_ff_getc(xt_ffile_t *stream)
  *  2022-02-14  Jason Bacon Begin
  ***************************************************************************/
 
-int     xt_ff_putc(int ch, xt_ffile_t *stream)
+inline int     xt_ff_putc(int ch, xt_ffile_t *stream)
 
 {
-    if ( stream->c == stream->block_size )
+    if ( stream->buff_index == stream->disk_block_size )
     {
-	if ( write(stream->fd, stream->start, stream->block_size) != stream->block_size )
+	if ( write(stream->fd, stream->start_ptr, stream->disk_block_size) != stream->disk_block_size )
 	    return EOF;
-	stream->c = 0;
+	stream->buff_index = 0;
     }
-    //putchar(ch);
-    stream->start[stream->c++] = ch;
+    stream->start_ptr[stream->buff_index++] = ch;
     return ch;
-}
-
-
-/***************************************************************************
- *  Use auto-c2man to generate a man page from this comment
- *
- *  Library:
- *      #include <xtend/fast-file.h>
- *      -lxtend
- *
- *  Description:
- *      .B xt_ff_close_raw()
- *      closes a xt_ffile_t stream opened by xt_ff_open(3).  It writes out any
- *      remaining data in the output buffer, deallocates memory allocated
- *      by xt_ff_open(3), and closes the underlying file descriptor opened by
- *      open(3).
- *
- *      The xt_ffile_t system is simpler than and several times as
- *      fast as FILE on typical systems.  It is intended for processing
- *      large files character-by-character, where low-level block I/O
- *      is not convenient, but FILE I/O causes a bottleneck.
- *  
- *  Arguments:
- *      stream  Pointer to an xt_ffile_t object opened by xt_ff_open(3)
- *
- *  Returns:
- *      The return status of the underlying close(3) call
- *
- *  Examples:
- *      char    *infilename, *outfilename;
- *      xt_ffile_t *instream, *outstream;
- *      int     ch;
- *
- *      if ( (instream = xt_ff_open(infilename, O_RDONLY)) == NULL )
- *      {
- *          fprintf(stderr, "Cannot open %s for reading.\n", infilename);
- *          exit(EX_NOINPUT);
- *      }
- *      if ( (outstream = xt_ff_open(outfilename, O_WRONLY|O_CREAT|O_TRUNC)) == NULL )
- *      {
- *          fprintf(stderr, "Cannot open %s for writing.\n", outfilename);
- *          exit(EX_NOINPUT);
- *      }
- *      while ( (ch = xt_ff_getc(stream)) != EOF )
- *          xt_ff_putc(ch, outstream);
- *      xt_ff_close_raw(instream);
- *      xt_ff_close_raw(outstream);
- *
- *  See also:
- *      xt_ff_open(3), xt_ff_getc(3), xt_ff_putc(3)
- *  
- *  History: 
- *  Date        Name        Modification
- *  2022-02-14  Jason Bacon Begin
- ***************************************************************************/
-
-int     xt_ff_close_raw(xt_ffile_t *stream)
-
-{
-    int     status;
-    
-    if ( stream->flags & O_WRONLY )
-    {
-	//fprintf(stderr, "xt_ff_close() flushing output...\n");
-	//stream->start[stream->c] = '\0';
-	//fputs((char *)stream->start, stderr);
-	write(stream->fd, stream->start, stream->c);
-    }
-    status = close(stream->fd);
-    free(stream->buff);
-    free(stream);
-    return status;
 }
 
 
@@ -529,12 +528,12 @@ int     xt_ff_close_raw(xt_ffile_t *stream)
  *  2022-02-18  Jason Bacon Begin
  ***************************************************************************/
 
-int     xt_ff_ungetc(int ch, xt_ffile_t *stream)
+inline int     xt_ff_ungetc(int ch, xt_ffile_t *stream)
 
 {
-    if ( stream->c > -(XT_FAST_FILE_UNGETC_MAX + 1) )
+    if ( stream->buff_index > -(XT_FAST_FILE_UNGETC_MAX + 1) )
     {
-	stream->start[--stream->c] = ch;
+	stream->start_ptr[--stream->buff_index] = ch;
 	return ch;
     }
     else

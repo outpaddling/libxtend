@@ -1,6 +1,6 @@
 
-#ifndef _DSV_PRIVATE_H_
-#define _DSV_PRIVATE_H_
+#ifndef _XTEND_DSV_PRIVATE_H_
+#define _XTEND_DSV_PRIVATE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -20,4 +20,4 @@ struct dsv_line
 
 #include "dsv.h"
 
-#endif
+#endif  // _XTEND_DSV_PRIVATE_H_

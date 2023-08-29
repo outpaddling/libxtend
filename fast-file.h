@@ -17,42 +17,10 @@ extern "C" {
 #include "common.h"
 #endif
 
-/*
- *  These macro implementations of xt_ff_getc() and xt_ff_putc() show significantly
- *  lower CPU usage.
- */
-
-#define FFGETC(st) \
-    ((st)->c == (st)->bytes_read ? \
-	((st)->bytes_read = read((st)->fd, (st)->start, (st)->block_size)) == 0 ? \
-	    EOF \
-	: ((st)->c = 0, (st)->start[(st)->c++]) \
-    : (st)->start[(st)->c++])
-
-#define FFPUTC(ch, st) \
-    ((st)->c == (st)->block_size ? \
-	write((st)->fd, (st)->start, (st)->block_size) != (st)->block_size ? \
-	    EOF \
-	: ((st)->c = 0, (st)->start[(st)->c++] = ch) \
-    : ((st)->start[(st)->c++] = ch))
-
 #define XT_FAST_FILE_UNGETC_MAX 64L
 #define XT_FAST_FILE_MAX_ARGS   128
 
 #define FFILE_INIT  { NULL, NULL, 0, 0, 0, 0, 0, 0, 0 }
-
-typedef struct
-{
-    unsigned char   *buff;
-    unsigned char   *start;
-    ssize_t         bytes_read;
-    ssize_t         c;
-    ssize_t         block_size;
-    ssize_t         buff_size;
-    int             fd;
-    int             flags;
-    pid_t           child_pid;
-}   xt_ffile_t;
 
 /* fast-file.c */
 xt_ffile_t *xt_ff_init_stream(xt_ffile_t *stream);
@@ -72,6 +40,10 @@ int xt_ff_printf(xt_ffile_t *stream, const char *format, ...);
 int xt_ff_read_line_malloc(xt_ffile_t *stream, char **buff, size_t *buff_size, size_t *len);
 int xt_ff_puts(const char *string, xt_ffile_t *stream);
 char *xt_ff_gets(char *string, size_t size, xt_ffile_t *stream);
+
+#include "fast-file-rvs.h"
+#include "fast-file-accessors.h"
+#include "fast-file-mutators.h"
 
 #ifdef __cplusplus
 }

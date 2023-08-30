@@ -121,7 +121,7 @@ AR          ?= ar
 RANLIB      ?= ranlib
 
 INCLUDES    += -isystem ${LOCALBASE}/include
-CFLAGS      += -fPIC ${INCLUDES}
+CFLAGS      += -fPIC ${INCLUDES} -DLIBXTEND_LIBRARY_BUILD
 
 ############################################################################
 # Assume first command in PATH.  Override with full pathnames if necessary.

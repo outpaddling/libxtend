@@ -5,6 +5,13 @@
 extern "C" {
 #endif
 
+#ifndef LIBXTEND_LIBRARY_BUILD
+#pragma message("Most programs should not include fast-file-private.h.  " \
+		"Please use the official API in fast-file.h unless you really \n" \
+		"need the added performance of XT_FF_GETC() or XT_FF_PUTC() " \
+		"over xt_ff_getc() / xt_ff_putc().")
+#endif
+
 #ifndef _FCNTL_H_
 #include <fcntl.h>  // pid_t
 #endif

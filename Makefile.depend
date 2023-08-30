@@ -22,7 +22,18 @@ dsv.o: dsv.c dsv-private.h dsv.h dsv-rvs.h dsv-accessors.h dsv-mutators.h \
 fast-cp.o: fast-cp.c file.h common.h math.h
 	${CC} -c ${CFLAGS} fast-cp.c
 
-fast-file.o: fast-file.c mem.h proc.h common.h fast-file.h
+fast-file-accessors.o: fast-file-accessors.c string.h fast-file-private.h \
+  fast-file.h common.h fast-file-rvs.h fast-file-accessors.h \
+  fast-file-mutators.h
+	${CC} -c ${CFLAGS} fast-file-accessors.c
+
+fast-file-mutators.o: fast-file-mutators.c string.h fast-file-private.h \
+  fast-file.h common.h fast-file-rvs.h fast-file-accessors.h \
+  fast-file-mutators.h
+	${CC} -c ${CFLAGS} fast-file-mutators.c
+
+fast-file.o: fast-file.c mem.h proc.h common.h fast-file-private.h \
+  fast-file.h fast-file-rvs.h fast-file-accessors.h fast-file-mutators.h
 	${CC} -c ${CFLAGS} fast-file.c
 
 fd-purge.o: fd-purge.c file.h common.h
@@ -64,7 +75,7 @@ spawnlp.o: spawnlp.c proc.h common.h
 spawnvp.o: spawnvp.c proc.h common.h
 	${CC} -c ${CFLAGS} spawnvp.c
 
-string.o: string.c string.h file.h common.h ctype.h mem.h
+string.o: string.c string.h proc.h common.h ctype.h mem.h
 	${CC} -c ${CFLAGS} string.c
 
 time.o: time.c time.h
@@ -82,7 +93,7 @@ xt-daemonize.o: xt-daemonize.c
 xt-file.o: xt-file.c file.h common.h mem.h
 	${CC} -c ${CFLAGS} xt-file.c
 
-xt-get-user-name.o: xt-get-user-name.c
+xt-get-user-name.o: xt-get-user-name.c proc.h common.h string.h
 	${CC} -c ${CFLAGS} xt-get-user-name.c
 
 xt-malloc.o: xt-malloc.c mem.h

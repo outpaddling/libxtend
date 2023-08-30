@@ -25,7 +25,7 @@
  *      it should have, perhaps with a '\0' byte.
  *  
  *  Arguments:
- *      nptr:   Pointer to the first character of the Roman numeral
+ *      string: Pointer to the first character of the Roman numeral
  *      endptr: Address of a pointer variable to receive the end of the string
  *
  *  Returns:
@@ -50,7 +50,7 @@
  *  2022-12-14  Jason Bacon Begin
  ***************************************************************************/
 
-int     xt_romantoi(const char *nptr, char **endptr)
+int     xt_romantoi(const char *string, char **endptr)
 
 {
     int     digit, next_digit, previous_digit, val, consecutive;
@@ -68,7 +68,7 @@ int     xt_romantoi(const char *nptr, char **endptr)
     val = 0;
     previous_digit = 0;
     consecutive = 0;
-    p = nptr;
+    p = string;
     while ( isalpha((int)*p) )
     {
 	digit = digits[toupper((int)*p) - 'C'];
@@ -85,7 +85,7 @@ int     xt_romantoi(const char *nptr, char **endptr)
 		  ((digit == 5) || (digit == 50) || (digit == 500))) )
 	    {
 		fprintf(stderr, "romantoi(): Invalid Roman numeral: %s.\n",
-			nptr);
+			string);
 		return 0;
 	    }
 	}
@@ -105,7 +105,7 @@ int     xt_romantoi(const char *nptr, char **endptr)
 		if ( consecutive > 1 )
 		{
 		    fprintf(stderr, "romantoi(): Invalid Roman numeral: %s.\n",
-			    nptr);
+			    string);
 		    return 0;
 		}
 		val += next_digit - digit;  // IV, IX, XL, XC, DC, CM

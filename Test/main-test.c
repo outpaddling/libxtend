@@ -48,9 +48,14 @@ int     main(int argc,char *argv[])
     else
 	puts("Unwritable xt_fopen() failed as it should.");
     
+    fputs("xt_romantoi()...\n", stderr);
     for (c = 0; rn[c] != NULL; ++c)
-	printf("%s = %d, *endptr = %d\n",
-	    rn[c], xt_romantoi(rn[c], &endptr), *endptr);
+    {
+	// On Alma8, calling xt_romantoi() inside printf intermittently
+	// leads to invalid endptr in prrintf
+	int n = xt_romantoi(rn[c], &endptr);
+	printf("%s = %d, *endptr = %d\n", rn[c], n, *endptr);
+    }
     
     strtrim(string, " .");
     puts("\nstrtrim: Should be 'Alfred E. Neumann'");

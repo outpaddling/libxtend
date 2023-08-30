@@ -115,7 +115,7 @@ xt_ffile_t *xt_ff_open(const char *filename, int flags)
 	    return xt_ff_popen(cmd, flags);
 	}
 	else
-	    return xt_ff_open(filename, flags);
+	    return xt_ff_open_raw(filename, flags);
     }
     else    // O_WRONLY
     {

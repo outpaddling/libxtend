@@ -42,7 +42,7 @@ int     main(int argc,char *argv[])
     if ( fp == NULL )
 	return 1;
     xt_ff_gets(buff, BUFF_SIZE, fp);
-    printf("Read back %s", buff);
+    printf("Read back %s\n", buff);
     //ffscanff(fp, "%d", &c);
     while ( xt_ff_getc(fp) != EOF )
 	;

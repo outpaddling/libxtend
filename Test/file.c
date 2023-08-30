@@ -1,8 +1,8 @@
 /***************************************************************************
  *  Description:
- *      FILE test for comparison with fast-file
+ *      FILE test
  *
- *      Edit only as file.c.  file.c is auto-generated.
+ *      Edit only as ffile.c.  file.c is auto-generated.
  *
  *  History: 
  *  Date        Name        Modification
@@ -23,13 +23,15 @@ int     main(int argc,char *argv[])
 {
     int     c;
     FILE *fp;
-    char    buf[BUFF_SIZE];
+    char    buff[BUFF_SIZE];
     
     if ( argc != 2 )
 	usage(argv);
     
     puts("\nFILE");
     fp = fopen(argv[1], "w");
+    if ( fp == NULL )
+	return 1;
     fputs("Hello, world!\n", fp);
     fprintf(fp, "%d\n", 5000);
     for (c = 0; c < 200000000; ++c)
@@ -37,10 +39,12 @@ int     main(int argc,char *argv[])
     fclose(fp);
     
     fp = fopen(argv[1], "r");
-    fgets(buf, BUFF_SIZE, fp);
-    printf("Read back %s", buf);
-    //fscanf(fp, "%d", &c);
-    while ( getc(fp) != EOF )
+    if ( fp == NULL )
+	return 1;
+    fgets(buff, BUFF_SIZE, fp);
+    printf("Read back %s\n", buff);
+    //ffscanff(fp, "%d", &c);
+    while ( fgetc(fp) != EOF )
 	;
     fclose(fp);
     

@@ -1,4 +1,5 @@
 #!/bin/sh -e
 
-rm -f ffile main-test testfile1 *.core
+rm -rf *.dSYM
+rm -f ffile ffile-macros* file.c main-test testfile1 *.core
 git status

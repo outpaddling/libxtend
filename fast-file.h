@@ -5,10 +5,6 @@
 extern "C" {
 #endif
 
-#ifndef _FCNTL_H_
-#include <fcntl.h>
-#endif
-
 #ifndef _UNISTD_H_
 #include <unistd.h>
 #endif

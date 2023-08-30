@@ -11,6 +11,13 @@ cc -o ffile ffile.c -L.. -lxtend
 rm -f testfile*
 time ./ffile testfile1
 
+# ffile_t macros
+sed -e 's|xt_ff_getc|XT_FF_GETC|g' \
+    -e 's|xt_ff_putc|XT_FF_PUTC|g' \
+    ffile.c > ffile-macros.c
+cc -o ffile-macros -flto ffile-macros.c -L.. -lxtend
+time ./ffile-macros testfile2
+
 # FILE
 sed -e 's|xt_ffile_t|FILE|g' \
     -e 's|xt_ff_|f|g' \
@@ -18,7 +25,7 @@ sed -e 's|xt_ffile_t|FILE|g' \
     -e 's|O_RDONLY|"r"|g' \
     ffile.c > file.c
 cc -o file file.c -L.. -lxtend
-time ./file testfile2
+time ./file testfile3
 
 head -2 testfile*
 cmp testfile1 testfile2

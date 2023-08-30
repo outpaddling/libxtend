@@ -207,7 +207,7 @@ common-install:
 		    ${DESTDIR}${PREFIX}/include/xtend \
 		    ${DESTDIR}${MANDIR}/man3
 	${INSTALL} -m 0644 *.h ${DESTDIR}${PREFIX}/include/xtend
-	${RM} -f ${DESTDIR}${PREFIX}/include/xtend/*-private.h
+	${RM} -f ${DESTDIR}${PREFIX}/include/xtend/dsv-private.h
 	${INSTALL} -m 0644 Man/*.3 ${DESTDIR}${MANDIR}/man3
 	${INSTALL} -m 0644 ${SLIB} ${DESTDIR}${PREFIX}/lib
 

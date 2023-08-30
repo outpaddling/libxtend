@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <sysexits.h>
 #include <stdlib.h>
-#include "../fast-file.c"
+#include "../fast-file-private.h"
 
 #define BUFF_SIZE   1024
 
@@ -28,13 +28,13 @@ int     main(int argc,char *argv[])
     if ( argc != 2 )
 	usage(argv);
     
-    puts("\nxt_ffile_t");
+    puts("\nxt_ffile_t xt_ff_getc() / xt_ff_putc()");
     fp = xt_ff_open(argv[1], O_WRONLY|O_CREAT|O_TRUNC);
     if ( fp == NULL )
 	return 1;
     xt_ff_puts("Hello, world!\n", fp);
     xt_ff_printf(fp, "%d\n", 5000);
-    for (c = 0; c < 200000000; ++c)
+    for (c = 0; c < 1000000000; ++c)
 	xt_ff_putc(c % 255, fp);
     xt_ff_close(fp);
     

@@ -1045,7 +1045,7 @@ char    *xt_ff_gets(char *string, size_t size, xt_ffile_t *stream)
     int     ch;
     
     c = 0;
-    while ( ((ch = xt_ff_getc(stream)) != '\n') && (ch != EOF) && (c < size - 1) )
+    while ( ((ch = XT_FF_GETC(stream)) != '\n') && (ch != EOF) && (c < size - 1) )
 	string[c++] = ch;
     if ( (c == 0) && (ch == EOF) )
 	return NULL;
@@ -1108,7 +1108,7 @@ int     xt_ff_read_line_malloc(xt_ffile_t *stream, char **buff, size_t *buff_siz
 	    return XT_MALLOC_FAILED;
     }
     
-    for (c = 0; ( ((ch = xt_ff_getc(stream)) != '\n') && (ch != EOF) ); ++c)
+    for (c = 0; ( ((ch = XT_FF_GETC(stream)) != '\n') && (ch != EOF) ); ++c)
     {
 	if ( c == *buff_size - 1 )
 	{

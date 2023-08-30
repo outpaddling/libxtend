@@ -51,8 +51,12 @@ int     main(int argc,char *argv[])
     fputs("xt_romantoi()...\n", stderr);
     for (c = 0; rn[c] != NULL; ++c)
     {
-	// On Alma8, calling xt_romantoi() inside printf intermittently
-	// leads to invalid endptr in prrintf
+	// On Alma8, calling xt_romantoi() inside printf() intermittently
+	// leads to invalid endptr.  This should not happen.
+	// The function call should complete before printf() processes
+	// the return values.
+	// printf("%s = %d, *endptr = %d\n", rn[c],
+	//        xt_romantoi(rn[c], &endptr), *endptr);
 	int n = xt_romantoi(rn[c], &endptr);
 	printf("%s = %d, *endptr = %d\n", rn[c], n, *endptr);
     }

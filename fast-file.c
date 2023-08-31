@@ -394,7 +394,7 @@ int     xt_ff_close_raw(xt_ffile_t *stream)
 inline int     xt_ff_getc(xt_ffile_t *stream)
 
 {
-    unsigned char   *start_ptr;
+    // unsigned char   *start_ptr;
     
     if ( stream->buff_index == stream->bytes_read )
     {
@@ -403,8 +403,10 @@ inline int     xt_ff_getc(xt_ffile_t *stream)
 	 *  block read should be < disk_block_size chars, and it will never
 	 *  be moved here.
 	 */
-	start_ptr = stream->start_ptr + stream->disk_block_size - XT_FAST_FILE_UNGETC_MAX;
-	memcpy(stream->buff, start_ptr, XT_FAST_FILE_UNGETC_MAX);
+	// FIXME: I think this is old and no longer needed
+	// No recollection of why it was added
+	// start_ptr = stream->start_ptr + stream->disk_block_size - XT_FAST_FILE_UNGETC_MAX;
+	// memcpy(stream->buff, start_ptr, XT_FAST_FILE_UNGETC_MAX);
 		
 	if ( (stream->bytes_read =
 	      read(stream->fd, stream->start_ptr, stream->disk_block_size)) == 0 )

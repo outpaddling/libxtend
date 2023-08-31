@@ -22,6 +22,7 @@ time ./ffile-macros testfile2
 
 # FILE
 sed -e 's|xt_ffile_t|FILE|g' \
+    -e 's|xt_ff_ungetc|ungetc|g' \
     -e 's|xt_ff_|f|g' \
     -e 's|O_WRONLY\|O_CREAT\|O_TRUNC|"w"|g' \
     -e 's|O_RDONLY|"r"|g' \

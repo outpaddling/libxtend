@@ -16,7 +16,7 @@ extern "C" {
 #include <fcntl.h>  // pid_t
 #endif
 
-typedef struct
+struct xt_ffile
 {
     unsigned char   *buff;
     unsigned char   *start_ptr;
@@ -27,7 +27,7 @@ typedef struct
     int             fd;
     int             flags;
     pid_t           child_pid;
-}   xt_ffile_t;
+};
 
 
 /*

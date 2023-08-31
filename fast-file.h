@@ -18,6 +18,13 @@ extern "C" {
 
 #define FFILE_INIT  { NULL, NULL, 0, 0, 0, 0, 0, 0, 0 }
 
+// Before prototypes and including generated headers
+typedef struct xt_ffile xt_ffile_t;
+
+#include "fast-file-rvs.h"
+#include "fast-file-accessors.h"
+#include "fast-file-mutators.h"
+
 /* fast-file.c */
 xt_ffile_t *xt_ff_init_stream(xt_ffile_t *stream);
 xt_ffile_t *xt_ff_open_raw(const char *filename, int flags);
@@ -36,10 +43,6 @@ int xt_ff_printf(xt_ffile_t *stream, const char *format, ...);
 int xt_ff_read_line_malloc(xt_ffile_t *stream, char **buff, size_t *buff_size, size_t *len);
 int xt_ff_puts(const char *string, xt_ffile_t *stream);
 char *xt_ff_gets(char *string, size_t size, xt_ffile_t *stream);
-
-#include "fast-file-rvs.h"
-#include "fast-file-accessors.h"
-#include "fast-file-mutators.h"
 
 #ifdef __cplusplus
 }

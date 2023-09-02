@@ -22,11 +22,11 @@ void    usage(char *argv[]);
 int     main(int argc,char *argv[])
 
 {
-    int     c, len;
+    size_t  c, len;
     xt_ffile_t *fp;
     char    buff[BUFF_SIZE],
 	    string[] = "Hello, world!\n";
-    
+
     if ( argc != 2 )
 	usage(argv);
     

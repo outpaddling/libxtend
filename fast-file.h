@@ -29,6 +29,7 @@ typedef struct xt_ffile xt_ffile_t;
 xt_ffile_t *xt_ff_init_stream(xt_ffile_t *stream);
 xt_ffile_t *xt_ff_open_raw(const char *filename, int flags);
 xt_ffile_t *xt_ff_dopen(int fd, int flags);
+int xt_ff_fillbuff(xt_ffile_t *stream);
 int xt_ff_getc(xt_ffile_t *stream);
 int xt_ff_putc(int ch, xt_ffile_t *stream);
 int xt_ff_close_raw(xt_ffile_t *stream);
@@ -43,6 +44,10 @@ int xt_ff_printf(xt_ffile_t *stream, const char *format, ...);
 int xt_ff_read_line_malloc(xt_ffile_t *stream, char **buff, size_t *buff_size, size_t *len);
 int xt_ff_puts(const char *string, xt_ffile_t *stream);
 char *xt_ff_gets(char *string, size_t size, xt_ffile_t *stream);
+xt_ffile_t *xt_ff_tmpfile(void);
+size_t xt_ff_read(xt_ffile_t *stream, void * restrict ptr, size_t size, size_t nmemb);
+int xt_ff_seeko(xt_ffile_t *stream, off_t offset, int whence);
+void xt_ff_rewind(xt_ffile_t *stream);
 
 #ifdef __cplusplus
 }

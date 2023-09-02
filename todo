@@ -1,4 +1,8 @@
 
+Unit-test all fast-file functions
+    Then convert dsv to use fast-file
+    Then convert all dependent projects
+
 Make sure free() functions don't free the parent object, since they could
 be passed the address of a static or auto variable
 

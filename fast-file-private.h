@@ -43,19 +43,17 @@ struct xt_ffile
  *  gain.
  */
 
-#define XT_FF_GETC(st) \
-    ((st)->buff_index == (st)->bytes_read ? \
-	((st)->bytes_read = read((st)->fd, (st)->start_ptr, (st)->disk_block_size)) == 0 ? \
-	    EOF \
-	: ((st)->buff_index = 0, (st)->start_ptr[(st)->buff_index++]) \
-    : (st)->start_ptr[(st)->buff_index++])
+#define XT_FF_GETC(stream) \
+    ((stream)->buff_index == (stream)->bytes_read \
+	? xt_ff_fillbuff(stream) \
+	: (stream)->start_ptr[(stream)->buff_index++])
 
-#define XT_FF_PUTC(ch, st) \
-    ((st)->buff_index == (st)->disk_block_size ? \
-	write((st)->fd, (st)->start_ptr, (st)->disk_block_size) != (st)->disk_block_size ? \
+#define XT_FF_PUTC(ch, stream) \
+    ((stream)->buff_index == (stream)->disk_block_size ? \
+	write((stream)->fd, (stream)->start_ptr, (stream)->disk_block_size) != (stream)->disk_block_size ? \
 	    EOF \
-	: ((st)->buff_index = 0, (st)->start_ptr[(st)->buff_index++] = ch) \
-    : ((st)->start_ptr[(st)->buff_index++] = ch))
+	: ((stream)->buff_index = 0, (stream)->start_ptr[(stream)->buff_index++] = ch) \
+    : ((stream)->start_ptr[(stream)->buff_index++] = ch))
 
 #include "fast-file.h"
 

@@ -23,15 +23,10 @@ int     main(int argc,char *argv[])
 		    "MMMMM", "MMMMMM", NULL
 		}, *endptr,
 		field[BUFF_SIZE];
-    FILE        *fp;
     size_t      len;
+    xt_ffile_t  *ffp;
     
-    puts("xt_fopen()...");
-    fp = xt_fopen("test.csv", "r");
-    while ( csv_read_field(fp, field, BUFF_SIZE, &len) != '\n' )
-	puts(field);
-    xt_fclose(fp);
-
+    puts("\nxt_fopen()...");
     if ( xt_fopen("/asdfasdfad/asdfasfadsf.gz", "r") != NULL )
     {
 	fputs("xt_fopen(\"/asdfasdfad/asdfasfadsf.gz\", \"r\") should have failed.\n", stderr);
@@ -48,7 +43,7 @@ int     main(int argc,char *argv[])
     else
 	puts("Unwritable xt_fopen() failed as it should.");
     
-    fputs("xt_romantoi()...\n", stderr);
+    fputs("\nxt_romantoi()...\n", stderr);
     for (c = 0; rn[c] != NULL; ++c)
     {
 	// On Alma8, calling xt_romantoi() inside printf() intermittently
@@ -88,6 +83,12 @@ int     main(int argc,char *argv[])
 	    printf("%s ", array[c]);
 	putchar('\n');
     }
+
+    puts("\ncsv_read() with xt_ffile_t...");
+    ffp = xt_ff_open("test.csv", O_RDONLY);
+    while ( csv_read_field(ffp, field, BUFF_SIZE, &len) != '\n' )
+	puts(field);
+    xt_ff_close(ffp);
     
     return EX_OK;
 }

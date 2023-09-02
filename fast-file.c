@@ -351,6 +351,46 @@ int     xt_ff_close_raw(xt_ffile_t *stream)
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Library:
+ *      #include <>
+ *      -l
+ *
+ *  Description:
+ *  
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Examples:
+ *
+ *  Files:
+ *
+ *  Environment
+ *
+ *  See also:
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2023-09-02  Jason Bacon Begin
+ ***************************************************************************/
+
+inline int  xt_ff_fillbuff(xt_ffile_t *stream)
+
+{
+    if ( (stream->bytes_read = read(stream->fd, stream->start_ptr,
+				    stream->disk_block_size)) == 0 )
+	return EOF;
+    else
+    {
+	stream->buff_index = 0;
+	return stream->start_ptr[stream->buff_index++];
+    }
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
  *      #include <xtend/fast-file.h>
  *      -lxtend
  *
@@ -407,13 +447,11 @@ inline int     xt_ff_getc(xt_ffile_t *stream)
 	// No recollection of why it was added
 	// start_ptr = stream->start_ptr + stream->disk_block_size - XT_FAST_FILE_UNGETC_MAX;
 	// memcpy(stream->buff, start_ptr, XT_FAST_FILE_UNGETC_MAX);
-		
-	if ( (stream->bytes_read =
-	      read(stream->fd, stream->start_ptr, stream->disk_block_size)) == 0 )
-	    return EOF;
-	stream->buff_index = 0;
+	
+	return xt_ff_fillbuff(stream);
     }
-    return stream->start_ptr[stream->buff_index++];
+    else
+	return stream->start_ptr[stream->buff_index++];
 }
 
 
@@ -1131,4 +1169,168 @@ int     xt_ff_read_line_malloc(xt_ffile_t *stream, char **buff, size_t *buff_siz
 	*buff = xt_realloc(*buff, *buff_size, sizeof(**buff));
     }
     return ch;
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <>
+ *      -l
+ *
+ *  Description:
+ *  
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Examples:
+ *
+ *  Files:
+ *
+ *  Environment
+ *
+ *  See also:
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2023-09-02  Jason Bacon Begin
+ ***************************************************************************/
+
+xt_ffile_t *xt_ff_tmpfile(void)
+
+{
+    // FIXME: See tmpfile() man page and replicate behavior
+    int     fd,
+	    flags = O_RDWR|O_CREAT|O_TRUNC; // See mkstemp(3)
+    
+    if ( (fd = mkstemp("/tmp/temp.XXXXX")) == -1 )
+	return NULL;
+	
+    return xt_ff_dopen(fd, flags);
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <>
+ *      -l
+ *
+ *  Description:
+ *  
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Examples:
+ *
+ *  Files:
+ *
+ *  Environment
+ *
+ *  See also:
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2023-09-02  Jason Bacon Begin
+ ***************************************************************************/
+
+size_t  xt_ff_read(xt_ffile_t *stream, void * restrict ptr,
+		   size_t size, size_t nmemb)
+
+{
+    // FIXME: This is a naive design chosen for simplicity
+    // to ensure initial correctness.  Think about potentially more
+    // efficient designs.
+    int     ch;
+    size_t  bytes_desired = size * nmemb,
+	    c = 0;
+    
+    while ( (c < bytes_desired) && ((ch = XT_FF_GETC(stream)) != EOF) )
+	*(char *)ptr++ = ch, ++c;
+    
+    return c / size;    // Return number of objects read
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <>
+ *      -l
+ *
+ *  Description:
+ *  
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Examples:
+ *
+ *  Files:
+ *
+ *  Environment
+ *
+ *  See also:
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2023-09-02  Jason Bacon Begin
+ ***************************************************************************/
+
+int     xt_ff_seeko(xt_ffile_t *stream, off_t offset, int whence)
+
+{
+    int     ch;
+    
+    // FIXME: This is a naive design chosen for simplicity
+    // to ensure initial correctness.  Think about potentially more
+    // efficient designs.  In particular, don't purge the input buffer
+    // if the seek is within buffered data.
+    
+    if ( lseek(xt_ffile_get_fd(stream), offset, whence) == offset )
+    {
+	ch = xt_ff_fillbuff(stream);
+	xt_ff_ungetc(ch, stream);
+	return 0;   // Success
+    }
+    else
+	return -1;  // lseek() sets errno
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <>
+ *      -l
+ *
+ *  Description:
+ *  
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Examples:
+ *
+ *  Files:
+ *
+ *  Environment
+ *
+ *  See also:
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2023-09-02  Jason Bacon Begin
+ ***************************************************************************/
+
+void    xt_ff_rewind(xt_ffile_t *stream)
+
+{
+    xt_ff_seeko(stream, 0, SEEK_SET);
 }

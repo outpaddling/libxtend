@@ -16,7 +16,7 @@
 .PP
 .nf
 .na
-int     xt_ff_ungetc(int ch, xt_ffile_t *stream)
+inline int     xt_ff_ungetc(xt_ff_t *stream, int ch)
 .ad
 .fi
 
@@ -24,7 +24,7 @@ int     xt_ff_ungetc(int ch, xt_ffile_t *stream)
 .nf
 .na
 ch      Character to return to the input buffer
-stream  Pointer to an xt_ffile_t object opened by xt_ff_open(3)
+stream  Pointer to an xt_ff_t object opened by xt_ff_open(3)
 .ad
 .fi
 
@@ -36,7 +36,7 @@ a stream opened by xt_ff_open(3).  All characters from the most recently
 read block plus a maximum of XT_FAST_FILE_UNGETC_MAX characters
 from the previously read block may be returned.
 
-The xt_ffile_t system is simpler than and several times as
+The xt_ff_t system is simpler than and several times as
 fast as FILE on typical systems.  It is intended for processing
 large files character-by-character, where low-level block I/O
 is not convenient, but FILE I/O causes a bottleneck.
@@ -50,7 +50,7 @@ The character written, or EOF if unable to write
 .na
 
 char    *infilename;
-xt_ffile_t *instream;
+xt_ff_t *instream;
 int     ch;
 
 if ( (instream = xt_ff_open(infilename, O_RDONLY)) == NULL )

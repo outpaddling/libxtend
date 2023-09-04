@@ -16,7 +16,7 @@
 .PP
 .nf
 .na
-int     xt_ff_putc(int ch, xt_ffile_t *stream)
+inline int     xt_ff_putc(xt_ff_t *stream, int ch)
 .ad
 .fi
 
@@ -24,16 +24,16 @@ int     xt_ff_putc(int ch, xt_ffile_t *stream)
 .nf
 .na
 ch      Character to write to stream
-stream  Pointer to an xt_ffile_t object opened by xt_ff_open(3)
+stream  Pointer to an xt_ff_t object opened by xt_ff_open(3)
 .ad
 .fi
 
 .SH DESCRIPTION
 
 .B xt_ff_putc()
-writes a single character to a xt_ffile_t stream opened by xt_ff_open(3).
+writes a single character to a xt_ff_t stream opened by xt_ff_open(3).
 
-The xt_ffile_t system is simpler than and several times as
+The xt_ff_t system is simpler than and several times as
 fast as FILE on typical systems.  It is intended for processing
 large files character-by-character, where low-level block I/O
 is not convenient, but FILE I/O causes a bottleneck.
@@ -47,7 +47,7 @@ The character written, or EOF if unable to write
 .na
 
 char    *infilename, *outfilename;
-xt_ffile_t *instream, *outstream;
+xt_ff_t *instream, *outstream;
 int     ch;
 
 if ( (instream = xt_ff_open(infilename, O_RDONLY)) == NULL )

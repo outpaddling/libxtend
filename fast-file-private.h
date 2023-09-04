@@ -16,7 +16,7 @@ extern "C" {
 #include <fcntl.h>  // pid_t
 #endif
 
-struct xt_ffile
+struct xt_fast_file
 {
     unsigned char   *buff;
     unsigned char   *start_ptr;
@@ -31,7 +31,7 @@ struct xt_ffile
 
 
 /*
- *  Most programs should not use this header, as it exposes xt_ffile_t,
+ *  Most programs should not use this header, as it exposes xt_ff_t,
  *  which is meant to be opaque.
  *  However, these macro equivalents of xt_ff_getc() and xt_ff_putc() show
  *  significantly lower CPU usage.  We bend the rules of opaque structures
@@ -48,7 +48,7 @@ struct xt_ffile
 	? xt_ff_fillbuff(stream) \
 	: (stream)->start_ptr[(stream)->buff_index++])
 
-#define XT_FF_PUTC(ch, stream) \
+#define XT_FF_PUTC(stream, ch) \
     ((stream)->buff_index == (stream)->disk_block_size ? \
 	write((stream)->fd, (stream)->start_ptr, (stream)->disk_block_size) != (stream)->disk_block_size ? \
 	    EOF \

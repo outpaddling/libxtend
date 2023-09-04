@@ -16,7 +16,7 @@
 .PP
 .nf
 .na
-int     xt_ff_read_line_malloc(xt_ffile_t *stream, char **buff, size_t *buff_size,
+int     xt_ff_read_line_malloc(xt_ff_t *stream, char **buff, size_t *buff_size,
 size_t *len)
 .ad
 .fi
@@ -24,7 +24,7 @@ size_t *len)
 .SH ARGUMENTS
 .nf
 .na
-stream:     xt_ffile_t stream from which field is read
+stream:     xt_ff_t stream from which field is read
 buff:       Character buffer into which field is copied
 buff_size:  Size of the array passed to buff
 len:        Pointer to a variable which will receive the field length
@@ -46,7 +46,7 @@ Delimiter ending the read: either newline or EOF
 .nf
 .na
 
-xt_ffile_t *stream;
+xt_ff_t *stream;
 char    *buff;
 size_t  buff_len, len;
 

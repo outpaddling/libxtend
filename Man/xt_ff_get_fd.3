@@ -16,7 +16,7 @@
 .PP
 .nf
 .na
-int    xt_ffile_get_fd(xt_ffile_t *xt_ffile_ptr)
+int    xt_ffile_get_fd(xt_ff_t *xt_ffile_ptr)
 .ad
 .fi
 
@@ -29,8 +29,8 @@ xt_ffile_ptr    Pointer to the structure to set
 
 .SH DESCRIPTION
 
-Accessor for fd member in a xt_ffile_t structure.
-Use this function to get fd in a xt_ffile_t object
+Accessor for fd member in a xt_ff_t structure.
+Use this function to get fd in a xt_ff_t object
 from non-member functions.
 
 .SH RETURN VALUES
@@ -41,7 +41,7 @@ Value of the structure member fd.
 .nf
 .na
 
-xt_ffile_t      xt_ffile;
+xt_ff_t      xt_ffile;
 int             fd;
 
 fd = xt_ffile_get_fd(&xt_ffile);

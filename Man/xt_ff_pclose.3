@@ -16,14 +16,14 @@
 .PP
 .nf
 .na
-int     xt_ff_pclose(xt_ffile_t *stream)
+int     xt_ff_pclose(xt_ff_t *stream)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-stream  xt_ffile_t stream opened by xt_ff_popen(3)
+stream  xt_ff_t stream opened by xt_ff_popen(3)
 .ad
 .fi
 
@@ -34,7 +34,7 @@ closes a stream opened by xt_ff_popen(3), and
 waits for the child process to complete and returns its
 exit status.
 
-The xt_ffile_t system is simpler than and several times as
+The xt_ff_t system is simpler than and several times as
 fast as FILE on typical systems.  It is intended for processing
 large files character-by-character, where low-level block I/O
 is not convenient, but FILE I/O causes a bottleneck.
@@ -47,7 +47,7 @@ Exit status of the child process spawned by xt_ff_popen(3), or -1 on error
 .nf
 .na
 
-xt_ffile_t *instream;
+xt_ff_t *instream;
 
 if ( (instream = xt_ff_popen("xzcat file.xz", O_RDONLY)) == NULL )
 {

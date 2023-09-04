@@ -16,7 +16,7 @@
 .PP
 .nf
 .na
-int     xt_ffile_set_start_ptr_cpy(xt_ffile_t *xt_ffile_ptr, unsigned char * new_start_ptr, size_t array_size)
+int     xt_ffile_set_start_ptr_cpy(xt_ff_t *xt_ffile_ptr, unsigned char * new_start_ptr, size_t array_size)
 .ad
 .fi
 
@@ -31,8 +31,8 @@ array_size      Size of the start_ptr array.
 
 .SH DESCRIPTION
 
-Mutator for start_ptr member in a xt_ffile_t structure.
-Use this function to set start_ptr in a xt_ffile_t object
+Mutator for start_ptr member in a xt_ff_t structure.
+Use this function to set start_ptr in a xt_ff_t object
 from non-member functions.  This function copies the array pointed to
 by new_start_ptr to xt_ffile_ptr->start_ptr.
 
@@ -45,7 +45,7 @@ EXTEND_DATA_OUT_OF_RANGE otherwise
 .nf
 .na
 
-xt_ffile_t      xt_ffile;
+xt_ff_t      xt_ffile;
 unsigned char * new_start_ptr;
 size_t          array_size;
 

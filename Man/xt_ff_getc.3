@@ -16,23 +16,23 @@
 .PP
 .nf
 .na
-int     xt_ff_getc(xt_ffile_t *stream)
+inline int     xt_ff_getc(xt_ff_t *stream)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-stream  Pointer to an xt_ffile_t object
+stream  Pointer to an xt_ff_t object
 .ad
 .fi
 
 .SH DESCRIPTION
 
 .B xt_ff_getc()
-reads a single character from a xt_ffile_t stream opened by xt_ff_open(3).
+reads a single character from a xt_ff_t stream opened by xt_ff_open(3).
 
-The xt_ffile_t system is simpler than and several times as
+The xt_ff_t system is simpler than and several times as
 fast as FILE on typical systems.  It is intended for processing
 large files character-by-character, where low-level block I/O
 is not convenient, but FILE I/O causes a bottleneck.
@@ -45,7 +45,7 @@ The character read, or EOF if no more data are available
 .nf
 .na
 
-xt_ffile_t *stream;
+xt_ff_t *stream;
 int     ch;
 
 if ( (stream = xt_ff_open(filename, O_RDONLY)) == NULL )

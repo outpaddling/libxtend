@@ -16,7 +16,7 @@
 .PP
 .nf
 .na
-int     xt_ffile_set_buff_ae(xt_ffile_t *xt_ffile_ptr, size_t c, unsigned char  new_buff_element)
+int     xt_ffile_set_buff_ae(xt_ff_t *xt_ffile_ptr, size_t c, unsigned char  new_buff_element)
 .ad
 .fi
 
@@ -31,9 +31,9 @@ new_buff_element The new value for buff[c]
 
 .SH DESCRIPTION
 
-Mutator for an array element of buff member in a xt_ffile_t
+Mutator for an array element of buff member in a xt_ff_t
 structure. Use this function to set xt_ffile_ptr->buff[c]
-in a xt_ffile_t object from non-member functions.
+in a xt_ff_t object from non-member functions.
 
 .SH RETURN VALUES
 
@@ -44,7 +44,7 @@ EXTEND_DATA_OUT_OF_RANGE otherwise
 .nf
 .na
 
-xt_ffile_t      xt_ffile;
+xt_ff_t      xt_ffile;
 size_t          c;
 unsigned char * new_buff_element;
 

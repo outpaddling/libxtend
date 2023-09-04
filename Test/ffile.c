@@ -39,10 +39,10 @@ int     main(int argc,char *argv[])
     fp = xt_ff_open(argv[1], O_WRONLY|O_CREAT|O_TRUNC);
     if ( fp == NULL )
 	return 1;
-    xt_ff_puts(string, fp);
+    xt_ff_puts(fp, string);
     xt_ff_printf(fp, "%d\n", 5000);
     for (c = 0; c < 1000000000; ++c)
-	xt_ff_putc(c % 255, fp);
+	xt_ff_putc(fp, c % 255);
     xt_ff_close(fp);
     
     /*
@@ -52,17 +52,25 @@ int     main(int argc,char *argv[])
     fp = xt_ff_open(argv[1], O_RDONLY);
     if ( fp == NULL )
 	return 1;
-    xt_ff_gets(buff, BUFF_SIZE, fp);
+    xt_ff_gets(fp, buff, BUFF_SIZE);
     printf("Read back %s\n", buff);
 
     // Unget and read again
     len = strlen(string);
     for (c = 0; c < len; ++c)
-	xt_ff_ungetc(string[len - c - 1], fp);
-    xt_ff_gets(buff, BUFF_SIZE, fp);
-    printf("Read back ungotten %s\n", buff);
+	xt_ff_ungetc(fp, string[len - c - 1]);
+    xt_ff_gets(fp, buff, BUFF_SIZE);
+    printf("After xt_ff_ungetc(): %s\n", buff);
     
-    puts("Should print 5000:");
+    xt_ff_rewind(fp);
+    xt_ff_gets(fp, buff, BUFF_SIZE);
+    printf("After xt_ff_rewind() + xt_ff_gets(): %s\n", buff);
+    
+    xt_ff_rewind(fp);
+    xt_ff_read(fp, buff, strlen(string), 1);
+    printf("After xt_ff_rewind() and xt_ff_read(): %s\n", buff);
+    
+    printf("Should print 5000: ");
     // FIXME: Not yet implemented 
     // xt_ff_scanf(fp, "%d", &c);
     for (c = 0; c < 4; ++c) // length of "5000"

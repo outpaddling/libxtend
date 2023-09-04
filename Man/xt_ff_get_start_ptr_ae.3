@@ -16,7 +16,7 @@
 .PP
 .nf
 .na
-unsigned char  xt_ffile_get_start_ptr_ae(xt_ffile_t *xt_ffile_ptr, size_t c)
+unsigned char  xt_ffile_get_start_ptr_ae(xt_ff_t *xt_ffile_ptr, size_t c)
 .ad
 .fi
 
@@ -30,9 +30,9 @@ c               Subscript to the start_ptr array
 
 .SH DESCRIPTION
 
-Accessor for an array element of start_ptr member in a xt_ffile_t
+Accessor for an array element of start_ptr member in a xt_ff_t
 structure. Use this function to get xt_ffile_ptr->start_ptr[c]
-in a xt_ffile_t object from non-member functions.
+in a xt_ff_t object from non-member functions.
 
 .SH RETURN VALUES
 
@@ -42,7 +42,7 @@ Value of one element of structure member start_ptr.
 .nf
 .na
 
-xt_ffile_t      xt_ffile;
+xt_ff_t      xt_ffile;
 size_t          c;
 unsigned char * start_ptr_element;
 

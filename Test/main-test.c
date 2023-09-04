@@ -2,11 +2,13 @@
 #include <sysexits.h>
 #include <string.h>
 #include <inttypes.h>
+#include <fcntl.h>      // O_RDONLY
 #include "../math.h"
 #include "../string.h"
 #include "../stdlib.h"
 #include "../file.h"
 #include "../dsv.h"
+#include "../fast-file.h"
 
 #define BUFF_SIZE   1024
 
@@ -24,7 +26,7 @@ int     main(int argc,char *argv[])
 		}, *endptr,
 		field[BUFF_SIZE];
     size_t      len;
-    xt_ffile_t  *ffp;
+    FILE        *fp;
     
     puts("\nxt_fopen()...");
     if ( xt_fopen("/asdfasdfad/asdfasfadsf.gz", "r") != NULL )
@@ -84,11 +86,12 @@ int     main(int argc,char *argv[])
 	putchar('\n');
     }
 
-    puts("\ncsv_read() with xt_ffile_t...");
-    ffp = xt_ff_open("test.csv", O_RDONLY);
-    while ( csv_read_field(ffp, field, BUFF_SIZE, &len) != '\n' )
+    puts("\ncsv_read()...");
+    puts("Should be \"Builder, Bob\" | Builder | 40 | Male");
+    fp = fopen("test.csv", "r");
+    while ( csv_read_field(fp, field, BUFF_SIZE, &len) != '\n' )
 	puts(field);
-    xt_ff_close(ffp);
+    fclose(fp);
     
     return EX_OK;
 }

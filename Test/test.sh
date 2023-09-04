@@ -8,28 +8,27 @@ cd Test
 cc $CFLAGS -o main-test main-test.c -L.. -lxtend
 ./main-test
 
+# FILE
+cc $CFLAGS -o file file.c -L.. -lxtend
+
 # ffile_t
 cc $CFLAGS -o ffile ffile.c -L.. -lxtend
-rm -f testfile*
-time ./ffile testfile1
 
 # ffile_t macros
 sed -e 's|xt_ff_getc|XT_FF_GETC|g' \
     -e 's|xt_ff_putc|XT_FF_PUTC|g' \
     ffile.c > ffile-macros.c
 cc $CFLAGS -o ffile-macros -flto ffile-macros.c -L.. -lxtend
-time ./ffile-macros testfile2
 
-# FILE
-sed -e 's|xt_ffile_t|FILE|g' \
-    -e 's|xt_ff_ungetc|ungetc|g' \
-    -e 's|xt_ff_|f|g' \
-    -e 's|O_WRONLY\|O_CREAT\|O_TRUNC|"w"|g' \
-    -e 's|O_RDONLY|"r"|g' \
-    ffile.c > file.c
-cc $CFLAGS -o file file.c -L.. -lxtend
-time ./file testfile3
+# FILE run time
+time ./file testfile-FILE
+
+# xt_ffile_t functions
+time ./ffile testfile-functions
+
+# xt_ffile_t macros
+time ./ffile-macros testfile-macros
 
 head -2 testfile*
-cmp testfile1 testfile2
-rm -f testfile* test file ffile
+cmp testfile-FILE testfile-functions
+rm -f testfile* test file ffile ffile-macros

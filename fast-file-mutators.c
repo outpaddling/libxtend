@@ -20,8 +20,8 @@
  *      -lxtend
  *
  *  Description:
- *      Mutator for buff member in a xt_ffile_t structure.
- *      Use this function to set buff in a xt_ffile_t object
+ *      Mutator for buff member in a xt_ff_t structure.
+ *      Use this function to set buff in a xt_ff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      buff is a pointer, data previously pointed to should
@@ -37,7 +37,7 @@
  *      EXTEND_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      unsigned char * new_buff;
  *
  *      if ( xt_ffile_set_buff(&xt_ffile, new_buff)
@@ -53,7 +53,7 @@
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_buff(xt_ffile_t *xt_ffile_ptr, unsigned char * new_buff)
+int     xt_ffile_set_buff(xt_ff_t *xt_ffile_ptr, unsigned char * new_buff)
 
 {
     if ( new_buff == NULL )
@@ -72,9 +72,9 @@ int     xt_ffile_set_buff(xt_ffile_t *xt_ffile_ptr, unsigned char * new_buff)
  *      -lxtend
  *
  *  Description:
- *      Mutator for an array element of buff member in a xt_ffile_t
+ *      Mutator for an array element of buff member in a xt_ff_t
  *      structure. Use this function to set xt_ffile_ptr->buff[c]
- *      in a xt_ffile_t object from non-member functions.
+ *      in a xt_ff_t object from non-member functions.
  *
  *  Arguments:
  *      xt_ffile_ptr    Pointer to the structure to set
@@ -86,7 +86,7 @@ int     xt_ffile_set_buff(xt_ffile_t *xt_ffile_ptr, unsigned char * new_buff)
  *      EXTEND_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      size_t          c;
  *      unsigned char * new_buff_element;
  *
@@ -103,7 +103,7 @@ int     xt_ffile_set_buff(xt_ffile_t *xt_ffile_ptr, unsigned char * new_buff)
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_buff_ae(xt_ffile_t *xt_ffile_ptr, size_t c, unsigned char  new_buff_element)
+int     xt_ffile_set_buff_ae(xt_ff_t *xt_ffile_ptr, size_t c, unsigned char  new_buff_element)
 
 {
     if ( false )
@@ -122,8 +122,8 @@ int     xt_ffile_set_buff_ae(xt_ffile_t *xt_ffile_ptr, size_t c, unsigned char  
  *      -lxtend
  *
  *  Description:
- *      Mutator for buff member in a xt_ffile_t structure.
- *      Use this function to set buff in a xt_ffile_t object
+ *      Mutator for buff member in a xt_ff_t structure.
+ *      Use this function to set buff in a xt_ff_t object
  *      from non-member functions.  This function copies the array pointed to
  *      by new_buff to xt_ffile_ptr->buff.
  *
@@ -137,7 +137,7 @@ int     xt_ffile_set_buff_ae(xt_ffile_t *xt_ffile_ptr, size_t c, unsigned char  
  *      EXTEND_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      unsigned char * new_buff;
  *      size_t          array_size;
  *
@@ -154,7 +154,7 @@ int     xt_ffile_set_buff_ae(xt_ffile_t *xt_ffile_ptr, size_t c, unsigned char  
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_buff_cpy(xt_ffile_t *xt_ffile_ptr, unsigned char * new_buff, size_t array_size)
+int     xt_ffile_set_buff_cpy(xt_ff_t *xt_ffile_ptr, unsigned char * new_buff, size_t array_size)
 
 {
     if ( new_buff == NULL )
@@ -177,8 +177,8 @@ int     xt_ffile_set_buff_cpy(xt_ffile_t *xt_ffile_ptr, unsigned char * new_buff
  *      -lxtend
  *
  *  Description:
- *      Mutator for start_ptr member in a xt_ffile_t structure.
- *      Use this function to set start_ptr in a xt_ffile_t object
+ *      Mutator for start_ptr member in a xt_ff_t structure.
+ *      Use this function to set start_ptr in a xt_ff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      start_ptr is a pointer, data previously pointed to should
@@ -194,7 +194,7 @@ int     xt_ffile_set_buff_cpy(xt_ffile_t *xt_ffile_ptr, unsigned char * new_buff
  *      EXTEND_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      unsigned char * new_start_ptr;
  *
  *      if ( xt_ffile_set_start_ptr(&xt_ffile, new_start_ptr)
@@ -210,7 +210,7 @@ int     xt_ffile_set_buff_cpy(xt_ffile_t *xt_ffile_ptr, unsigned char * new_buff
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_start_ptr(xt_ffile_t *xt_ffile_ptr, unsigned char * new_start_ptr)
+int     xt_ffile_set_start_ptr(xt_ff_t *xt_ffile_ptr, unsigned char * new_start_ptr)
 
 {
     if ( new_start_ptr == NULL )
@@ -229,9 +229,9 @@ int     xt_ffile_set_start_ptr(xt_ffile_t *xt_ffile_ptr, unsigned char * new_sta
  *      -lxtend
  *
  *  Description:
- *      Mutator for an array element of start_ptr member in a xt_ffile_t
+ *      Mutator for an array element of start_ptr member in a xt_ff_t
  *      structure. Use this function to set xt_ffile_ptr->start_ptr[c]
- *      in a xt_ffile_t object from non-member functions.
+ *      in a xt_ff_t object from non-member functions.
  *
  *  Arguments:
  *      xt_ffile_ptr    Pointer to the structure to set
@@ -243,7 +243,7 @@ int     xt_ffile_set_start_ptr(xt_ffile_t *xt_ffile_ptr, unsigned char * new_sta
  *      EXTEND_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      size_t          c;
  *      unsigned char * new_start_ptr_element;
  *
@@ -260,7 +260,7 @@ int     xt_ffile_set_start_ptr(xt_ffile_t *xt_ffile_ptr, unsigned char * new_sta
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_start_ptr_ae(xt_ffile_t *xt_ffile_ptr, size_t c, unsigned char  new_start_ptr_element)
+int     xt_ffile_set_start_ptr_ae(xt_ff_t *xt_ffile_ptr, size_t c, unsigned char  new_start_ptr_element)
 
 {
     if ( false )
@@ -279,8 +279,8 @@ int     xt_ffile_set_start_ptr_ae(xt_ffile_t *xt_ffile_ptr, size_t c, unsigned c
  *      -lxtend
  *
  *  Description:
- *      Mutator for start_ptr member in a xt_ffile_t structure.
- *      Use this function to set start_ptr in a xt_ffile_t object
+ *      Mutator for start_ptr member in a xt_ff_t structure.
+ *      Use this function to set start_ptr in a xt_ff_t object
  *      from non-member functions.  This function copies the array pointed to
  *      by new_start_ptr to xt_ffile_ptr->start_ptr.
  *
@@ -294,7 +294,7 @@ int     xt_ffile_set_start_ptr_ae(xt_ffile_t *xt_ffile_ptr, size_t c, unsigned c
  *      EXTEND_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      unsigned char * new_start_ptr;
  *      size_t          array_size;
  *
@@ -311,7 +311,7 @@ int     xt_ffile_set_start_ptr_ae(xt_ffile_t *xt_ffile_ptr, size_t c, unsigned c
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_start_ptr_cpy(xt_ffile_t *xt_ffile_ptr, unsigned char * new_start_ptr, size_t array_size)
+int     xt_ffile_set_start_ptr_cpy(xt_ff_t *xt_ffile_ptr, unsigned char * new_start_ptr, size_t array_size)
 
 {
     if ( new_start_ptr == NULL )
@@ -334,8 +334,8 @@ int     xt_ffile_set_start_ptr_cpy(xt_ffile_t *xt_ffile_ptr, unsigned char * new
  *      -lxtend
  *
  *  Description:
- *      Mutator for bytes_read member in a xt_ffile_t structure.
- *      Use this function to set bytes_read in a xt_ffile_t object
+ *      Mutator for bytes_read member in a xt_ff_t structure.
+ *      Use this function to set bytes_read in a xt_ff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      bytes_read is a pointer, data previously pointed to should
@@ -351,7 +351,7 @@ int     xt_ffile_set_start_ptr_cpy(xt_ffile_t *xt_ffile_ptr, unsigned char * new
  *      EXTEND_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      ssize_t         new_bytes_read;
  *
  *      if ( xt_ffile_set_bytes_read(&xt_ffile, new_bytes_read)
@@ -367,7 +367,7 @@ int     xt_ffile_set_start_ptr_cpy(xt_ffile_t *xt_ffile_ptr, unsigned char * new
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_bytes_read(xt_ffile_t *xt_ffile_ptr, ssize_t new_bytes_read)
+int     xt_ffile_set_bytes_read(xt_ff_t *xt_ffile_ptr, ssize_t new_bytes_read)
 
 {
     if ( false )
@@ -386,8 +386,8 @@ int     xt_ffile_set_bytes_read(xt_ffile_t *xt_ffile_ptr, ssize_t new_bytes_read
  *      -lxtend
  *
  *  Description:
- *      Mutator for buff_index member in a xt_ffile_t structure.
- *      Use this function to set buff_index in a xt_ffile_t object
+ *      Mutator for buff_index member in a xt_ff_t structure.
+ *      Use this function to set buff_index in a xt_ff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      buff_index is a pointer, data previously pointed to should
@@ -403,7 +403,7 @@ int     xt_ffile_set_bytes_read(xt_ffile_t *xt_ffile_ptr, ssize_t new_bytes_read
  *      EXTEND_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      ssize_t         new_buff_index;
  *
  *      if ( xt_ffile_set_buff_index(&xt_ffile, new_buff_index)
@@ -419,7 +419,7 @@ int     xt_ffile_set_bytes_read(xt_ffile_t *xt_ffile_ptr, ssize_t new_bytes_read
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_buff_index(xt_ffile_t *xt_ffile_ptr, ssize_t new_buff_index)
+int     xt_ffile_set_buff_index(xt_ff_t *xt_ffile_ptr, ssize_t new_buff_index)
 
 {
     if ( false )
@@ -438,8 +438,8 @@ int     xt_ffile_set_buff_index(xt_ffile_t *xt_ffile_ptr, ssize_t new_buff_index
  *      -lxtend
  *
  *  Description:
- *      Mutator for disk_block_size member in a xt_ffile_t structure.
- *      Use this function to set disk_block_size in a xt_ffile_t object
+ *      Mutator for disk_block_size member in a xt_ff_t structure.
+ *      Use this function to set disk_block_size in a xt_ff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      disk_block_size is a pointer, data previously pointed to should
@@ -455,7 +455,7 @@ int     xt_ffile_set_buff_index(xt_ffile_t *xt_ffile_ptr, ssize_t new_buff_index
  *      EXTEND_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      ssize_t         new_disk_block_size;
  *
  *      if ( xt_ffile_set_disk_block_size(&xt_ffile, new_disk_block_size)
@@ -471,7 +471,7 @@ int     xt_ffile_set_buff_index(xt_ffile_t *xt_ffile_ptr, ssize_t new_buff_index
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_disk_block_size(xt_ffile_t *xt_ffile_ptr, ssize_t new_disk_block_size)
+int     xt_ffile_set_disk_block_size(xt_ff_t *xt_ffile_ptr, ssize_t new_disk_block_size)
 
 {
     if ( false )
@@ -490,8 +490,8 @@ int     xt_ffile_set_disk_block_size(xt_ffile_t *xt_ffile_ptr, ssize_t new_disk_
  *      -lxtend
  *
  *  Description:
- *      Mutator for buff_size member in a xt_ffile_t structure.
- *      Use this function to set buff_size in a xt_ffile_t object
+ *      Mutator for buff_size member in a xt_ff_t structure.
+ *      Use this function to set buff_size in a xt_ff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      buff_size is a pointer, data previously pointed to should
@@ -507,7 +507,7 @@ int     xt_ffile_set_disk_block_size(xt_ffile_t *xt_ffile_ptr, ssize_t new_disk_
  *      EXTEND_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      ssize_t         new_buff_size;
  *
  *      if ( xt_ffile_set_buff_size(&xt_ffile, new_buff_size)
@@ -523,7 +523,7 @@ int     xt_ffile_set_disk_block_size(xt_ffile_t *xt_ffile_ptr, ssize_t new_disk_
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_buff_size(xt_ffile_t *xt_ffile_ptr, ssize_t new_buff_size)
+int     xt_ffile_set_buff_size(xt_ff_t *xt_ffile_ptr, ssize_t new_buff_size)
 
 {
     if ( false )
@@ -542,8 +542,8 @@ int     xt_ffile_set_buff_size(xt_ffile_t *xt_ffile_ptr, ssize_t new_buff_size)
  *      -lxtend
  *
  *  Description:
- *      Mutator for fd member in a xt_ffile_t structure.
- *      Use this function to set fd in a xt_ffile_t object
+ *      Mutator for fd member in a xt_ff_t structure.
+ *      Use this function to set fd in a xt_ff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      fd is a pointer, data previously pointed to should
@@ -559,7 +559,7 @@ int     xt_ffile_set_buff_size(xt_ffile_t *xt_ffile_ptr, ssize_t new_buff_size)
  *      EXTEND_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      int             new_fd;
  *
  *      if ( xt_ffile_set_fd(&xt_ffile, new_fd)
@@ -575,7 +575,7 @@ int     xt_ffile_set_buff_size(xt_ffile_t *xt_ffile_ptr, ssize_t new_buff_size)
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_fd(xt_ffile_t *xt_ffile_ptr, int new_fd)
+int     xt_ffile_set_fd(xt_ff_t *xt_ffile_ptr, int new_fd)
 
 {
     if ( false )
@@ -594,8 +594,8 @@ int     xt_ffile_set_fd(xt_ffile_t *xt_ffile_ptr, int new_fd)
  *      -lxtend
  *
  *  Description:
- *      Mutator for flags member in a xt_ffile_t structure.
- *      Use this function to set flags in a xt_ffile_t object
+ *      Mutator for flags member in a xt_ff_t structure.
+ *      Use this function to set flags in a xt_ff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      flags is a pointer, data previously pointed to should
@@ -611,7 +611,7 @@ int     xt_ffile_set_fd(xt_ffile_t *xt_ffile_ptr, int new_fd)
  *      EXTEND_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      int             new_flags;
  *
  *      if ( xt_ffile_set_flags(&xt_ffile, new_flags)
@@ -627,7 +627,7 @@ int     xt_ffile_set_fd(xt_ffile_t *xt_ffile_ptr, int new_fd)
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_flags(xt_ffile_t *xt_ffile_ptr, int new_flags)
+int     xt_ffile_set_flags(xt_ff_t *xt_ffile_ptr, int new_flags)
 
 {
     if ( false )
@@ -646,8 +646,8 @@ int     xt_ffile_set_flags(xt_ffile_t *xt_ffile_ptr, int new_flags)
  *      -lxtend
  *
  *  Description:
- *      Mutator for child_pid member in a xt_ffile_t structure.
- *      Use this function to set child_pid in a xt_ffile_t object
+ *      Mutator for child_pid member in a xt_ff_t structure.
+ *      Use this function to set child_pid in a xt_ff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      child_pid is a pointer, data previously pointed to should
@@ -663,7 +663,7 @@ int     xt_ffile_set_flags(xt_ffile_t *xt_ffile_ptr, int new_flags)
  *      EXTEND_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      pid_t           new_child_pid;
  *
  *      if ( xt_ffile_set_child_pid(&xt_ffile, new_child_pid)
@@ -679,7 +679,7 @@ int     xt_ffile_set_flags(xt_ffile_t *xt_ffile_ptr, int new_flags)
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_child_pid(xt_ffile_t *xt_ffile_ptr, pid_t new_child_pid)
+int     xt_ffile_set_child_pid(xt_ff_t *xt_ffile_ptr, pid_t new_child_pid)
 
 {
     if ( false )

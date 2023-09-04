@@ -16,14 +16,14 @@
 .PP
 .nf
 .na
-int     xt_ff_printf(xt_ffile_t *stream, const char *format, ...)
+int     xt_ff_printf(xt_ff_t *stream, const char *format, ...)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-stream  Pointer to an xt_ffile_t object opened by xt_ff_open(3)
+stream  Pointer to an xt_ff_t object opened by xt_ff_open(3)
 format  Format string indicating how remaining arguments are printed
 .ad
 .fi
@@ -31,7 +31,7 @@ format  Format string indicating how remaining arguments are printed
 .SH DESCRIPTION
 
 .B xt_ff_printf(3)
-writes formatted data to a xt_ffile_t stream the same was as
+writes formatted data to a xt_ff_t stream the same was as
 fprintf(3) writes to a FILE stream.
 
 The xt_ff_ile_t system is simpler than and several times as

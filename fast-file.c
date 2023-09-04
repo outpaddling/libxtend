@@ -19,7 +19,7 @@
  *  and xt_ff_dopen()
  */
 
-xt_ffile_t *xt_ff_init_stream(xt_ffile_t *stream)
+xt_ff_t *xt_ff_init_stream(xt_ff_t *stream)
 
 {
     struct stat st;
@@ -56,12 +56,12 @@ xt_ffile_t *xt_ff_init_stream(xt_ffile_t *stream)
  *  Description:
  *      .B xt_ff_open(3)
  *      opens a raw data file using xt_ff_open() or a gzipped, bzipped, or
- *      xzipped file using xt_ff_popen(), returning a pointer to a xt_ffile_t
+ *      xzipped file using xt_ff_popen(), returning a pointer to a xt_ff_t
  *      stream.  Must be used in conjunction with
  *      xt_ff_close() to ensure that xt_ff_close() or xt_ff_pclose() is called where
  *      appropriate.
  *
- *      The xt_ffile_t system is simpler than and several times as
+ *      The xt_ff_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
@@ -81,7 +81,7 @@ xt_ffile_t *xt_ff_init_stream(xt_ffile_t *stream)
  *  2021-04-09  Jason Bacon Begin
  ***************************************************************************/
 
-xt_ffile_t *xt_ff_open(const char *filename, int flags)
+xt_ff_t *xt_ff_open(const char *filename, int flags)
 
 {
     char    *ext = strrchr(filename, '.'),
@@ -151,7 +151,7 @@ xt_ffile_t *xt_ff_open(const char *filename, int flags)
  *
  *  Description:
  *      .B xt_ff_open_raw()
- *      initializes a xt_ffile_t stream, much as fopen() does for a FILE
+ *      initializes a xt_ff_t stream, much as fopen() does for a FILE
  *      stream.  Unlike fopen(), xt_ff_open_raw() takes the same bit mask
  *      argument as open() to determine the open mode.
  *      See open(3) for details.
@@ -159,7 +159,7 @@ xt_ffile_t *xt_ff_open(const char *filename, int flags)
  *      An optimally sized buffer for the underlying filesystem is allocated,
  *      along with additional space for limited xt_ff_ungetc() operations.
  *
- *      The xt_ffile_t system is simpler than and several times as
+ *      The xt_ff_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
@@ -169,10 +169,10 @@ xt_ffile_t *xt_ff_open(const char *filename, int flags)
  *      flags       Bit flags passed to open(3)
  *
  *  Returns:
- *      A pointer to a xt_ffile_t object on success, NULL on failure
+ *      A pointer to a xt_ff_t object on success, NULL on failure
  *
  *  Examples:
- *      xt_ffile_t *stream;
+ *      xt_ff_t *stream;
  *      char    *filename;
  *      
  *      // Read only
@@ -192,10 +192,10 @@ xt_ffile_t *xt_ff_open(const char *filename, int flags)
  *  2022-02-14  Jason Bacon Begin
  ***************************************************************************/
 
-xt_ffile_t *xt_ff_open_raw(const char *filename, int flags)
+xt_ff_t *xt_ff_open_raw(const char *filename, int flags)
 
 {
-    xt_ffile_t     *stream;
+    xt_ff_t     *stream;
     
     if ( (stream = xt_malloc(1, sizeof(*stream))) == NULL )
 	return NULL;
@@ -225,7 +225,7 @@ xt_ffile_t *xt_ff_open_raw(const char *filename, int flags)
  *
  *  Description:
  *      .B xt_ff_dopen()
- *      initializes a xt_ffile_t stream, much as fdopen() does for a FILE
+ *      initializes a xt_ff_t stream, much as fdopen() does for a FILE
  *      stream.  Unlike fdopen(), xt_ff_dopen() takes the same bit mask
  *      argument as open() to determine the open mode.
  *      See open(3) for details.
@@ -233,7 +233,7 @@ xt_ffile_t *xt_ff_open_raw(const char *filename, int flags)
  *      An optimally sized buffer for the underlying filesystem is allocated,
  *      along with additional space for limited xt_ff_ungetc() operations.
  *
- *      The xt_ffile_t system is simpler than and several times as
+ *      The xt_ff_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
@@ -243,10 +243,10 @@ xt_ffile_t *xt_ff_open_raw(const char *filename, int flags)
  *      flags       Bit flags passed to open(3)
  *
  *  Returns:
- *      A pointer to a xt_ffile_t object on success, NULL on failure
+ *      A pointer to a xt_ff_t object on success, NULL on failure
  *
  *  Examples:
- *      xt_ffile_t *stream;
+ *      xt_ff_t *stream;
  *      char    *filename;
  *      int     fd;
  *      
@@ -261,10 +261,10 @@ xt_ffile_t *xt_ff_open_raw(const char *filename, int flags)
  *  2022-02-14  Jason Bacon Begin
  ***************************************************************************/
 
-xt_ffile_t *xt_ff_dopen(int fd, int flags)
+xt_ff_t *xt_ff_dopen(int fd, int flags)
 
 {
-    xt_ffile_t     *stream;
+    xt_ff_t     *stream;
     
     if ( (stream = xt_malloc(1, sizeof(*stream))) == NULL )
 	return NULL;
@@ -284,25 +284,25 @@ xt_ffile_t *xt_ff_dopen(int fd, int flags)
  *
  *  Description:
  *      .B xt_ff_close_raw()
- *      closes a xt_ffile_t stream opened by xt_ff_open(3).  It writes out any
+ *      closes a xt_ff_t stream opened by xt_ff_open(3).  It writes out any
  *      remaining data in the output buffer, deallocates memory allocated
  *      by xt_ff_open(3), and closes the underlying file descriptor opened by
  *      open(3).
  *
- *      The xt_ffile_t system is simpler than and several times as
+ *      The xt_ff_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
  *  Arguments:
- *      stream  Pointer to an xt_ffile_t object opened by xt_ff_open(3)
+ *      stream  Pointer to an xt_ff_t object opened by xt_ff_open(3)
  *
  *  Returns:
  *      The return status of the underlying close(3) call
  *
  *  Examples:
  *      char    *infilename, *outfilename;
- *      xt_ffile_t *instream, *outstream;
+ *      xt_ff_t *instream, *outstream;
  *      int     ch;
  *
  *      if ( (instream = xt_ff_open(infilename, O_RDONLY)) == NULL )
@@ -328,7 +328,7 @@ xt_ffile_t *xt_ff_dopen(int fd, int flags)
  *  2022-02-14  Jason Bacon Begin
  ***************************************************************************/
 
-int     xt_ff_close_raw(xt_ffile_t *stream)
+int     xt_ff_close_raw(xt_ff_t *stream)
 
 {
     int     status;
@@ -373,7 +373,7 @@ int     xt_ff_close_raw(xt_ffile_t *stream)
  *  2023-09-02  Jason Bacon Begin
  ***************************************************************************/
 
-inline int  xt_ff_fillbuff(xt_ffile_t *stream)
+inline int  xt_ff_fillbuff(xt_ff_t *stream)
 
 {
     if ( (stream->bytes_read = read(stream->fd, stream->start_ptr,
@@ -396,21 +396,21 @@ inline int  xt_ff_fillbuff(xt_ffile_t *stream)
  *
  *  Description:
  *      .B xt_ff_getc()
- *      reads a single character from a xt_ffile_t stream opened by xt_ff_open(3).
+ *      reads a single character from a xt_ff_t stream opened by xt_ff_open(3).
  *
- *      The xt_ffile_t system is simpler than and several times as
+ *      The xt_ff_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
  *  Arguments:
- *      stream  Pointer to an xt_ffile_t object
+ *      stream  Pointer to an xt_ff_t object
  *
  *  Returns:
  *      The character read, or EOF if no more data are available
  *
  *  Examples:
- *      xt_ffile_t *stream;
+ *      xt_ff_t *stream;
  *      int     ch;
  *
  *      if ( (stream = xt_ff_open(filename, O_RDONLY)) == NULL )
@@ -431,7 +431,7 @@ inline int  xt_ff_fillbuff(xt_ffile_t *stream)
  *  2022-02-14  Jason Bacon Begin
  ***************************************************************************/
 
-inline int     xt_ff_getc(xt_ffile_t *stream)
+inline int     xt_ff_getc(xt_ff_t *stream)
 
 {
     // unsigned char   *start_ptr;
@@ -464,23 +464,23 @@ inline int     xt_ff_getc(xt_ffile_t *stream)
  *
  *  Description:
  *      .B xt_ff_putc()
- *      writes a single character to a xt_ffile_t stream opened by xt_ff_open(3).
+ *      writes a single character to a xt_ff_t stream opened by xt_ff_open(3).
  *
- *      The xt_ffile_t system is simpler than and several times as
+ *      The xt_ff_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
  *  Arguments:
  *      ch      Character to write to stream
- *      stream  Pointer to an xt_ffile_t object opened by xt_ff_open(3)
+ *      stream  Pointer to an xt_ff_t object opened by xt_ff_open(3)
  *
  *  Returns:
  *      The character written, or EOF if unable to write
  *
  *  Examples:
  *      char    *infilename, *outfilename;
- *      xt_ffile_t *instream, *outstream;
+ *      xt_ff_t *instream, *outstream;
  *      int     ch;
  *
  *      if ( (instream = xt_ff_open(infilename, O_RDONLY)) == NULL )
@@ -506,7 +506,7 @@ inline int     xt_ff_getc(xt_ffile_t *stream)
  *  2022-02-14  Jason Bacon Begin
  ***************************************************************************/
 
-inline int     xt_ff_putc(int ch, xt_ffile_t *stream)
+inline int     xt_ff_putc(xt_ff_t *stream, int ch)
 
 {
     if ( stream->buff_index == stream->disk_block_size )
@@ -534,21 +534,21 @@ inline int     xt_ff_putc(int ch, xt_ffile_t *stream)
  *      read block plus a maximum of XT_FAST_FILE_UNGETC_MAX characters
  *      from the previously read block may be returned.
  *
- *      The xt_ffile_t system is simpler than and several times as
+ *      The xt_ff_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
  *  Arguments:
  *      ch      Character to return to the input buffer
- *      stream  Pointer to an xt_ffile_t object opened by xt_ff_open(3)
+ *      stream  Pointer to an xt_ff_t object opened by xt_ff_open(3)
  *
  *  Returns:
  *      The character written, or EOF if unable to write
  *
  *  Examples:
  *      char    *infilename;
- *      xt_ffile_t *instream;
+ *      xt_ff_t *instream;
  *      int     ch;
  *
  *      if ( (instream = xt_ff_open(infilename, O_RDONLY)) == NULL )
@@ -568,7 +568,7 @@ inline int     xt_ff_putc(int ch, xt_ffile_t *stream)
  *  2022-02-18  Jason Bacon Begin
  ***************************************************************************/
 
-inline int     xt_ff_ungetc(int ch, xt_ffile_t *stream)
+inline int     xt_ff_ungetc(xt_ff_t *stream, int ch)
 
 {
     if ( stream->buff_index > -(XT_FAST_FILE_UNGETC_MAX + 1) )
@@ -591,11 +591,11 @@ inline int     xt_ff_ungetc(int ch, xt_ffile_t *stream)
  *  Description:
  *      .B xt_ff_stdin()
  *      is a simple wrapper function for connecting file descriptor 0
- *      to an xt_ffile_t object using xt_ff_dopen(3).  This is useful for
+ *      to an xt_ff_t object using xt_ff_dopen(3).  This is useful for
  *      high-performance filter programs, where using the traditional
  *      FILE *stdin would cause a bottleneck.
  *
- *      The xt_ffile_t system is simpler than and several times as
+ *      The xt_ff_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
@@ -604,10 +604,10 @@ inline int     xt_ff_ungetc(int ch, xt_ffile_t *stream)
  *      None
  *
  *  Returns:
- *      Pointer to an xt_ffile_t object if successful, NULL otherwise
+ *      Pointer to an xt_ff_t object if successful, NULL otherwise
  *
  *  Examples:
- *      xt_ffile_t *stream;
+ *      xt_ff_t *stream;
  *
  *      // "-" as a filename argument traditionally indicates stdin
  *      if ( strcmp(argv[arg], "-") == 0 )
@@ -623,7 +623,7 @@ inline int     xt_ff_ungetc(int ch, xt_ffile_t *stream)
  *  2022-02-19  Jason Bacon Begin
  ***************************************************************************/
 
-xt_ffile_t *xt_ff_stdin()
+xt_ff_t *xt_ff_stdin()
 
 {
     return xt_ff_dopen(0, O_RDONLY);
@@ -640,11 +640,11 @@ xt_ffile_t *xt_ff_stdin()
  *  Description:
  *      .B xt_ff_stdout()
  *      is a simple wrapper function for connecting file descriptor 1
- *      to an xt_ffile_t object using xt_ff_dopen(3).  This is useful for
+ *      to an xt_ff_t object using xt_ff_dopen(3).  This is useful for
  *      high-performance filter programs, where using the traditional
  *      FILE *stdout would cause a bottleneck.
  *
- *      The xt_ffile_t system is simpler than and several times as
+ *      The xt_ff_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
@@ -653,10 +653,10 @@ xt_ffile_t *xt_ff_stdin()
  *      None
  *
  *  Returns:
- *      Pointer to an xt_ffile_t object if successful, NULL otherwise
+ *      Pointer to an xt_ff_t object if successful, NULL otherwise
  *
  *  Examples:
- *      xt_ffile_t *stream;
+ *      xt_ff_t *stream;
  *
  *      // "-" as a filename argument traditionally indicates stdout
  *      if ( strcmp(argv[arg], "-") == 0 )
@@ -672,7 +672,7 @@ xt_ffile_t *xt_ff_stdin()
  *  2022-02-19  Jason Bacon Begin
  ***************************************************************************/
 
-xt_ffile_t *xt_ff_stdout()
+xt_ff_t *xt_ff_stdout()
 
 {
     return xt_ff_dopen(1, O_WRONLY|O_APPEND);
@@ -690,7 +690,7 @@ xt_ffile_t *xt_ff_stdout()
  *      .B xt_ff_popen(3)
  *      creates a pipe for interprocess communication, runs the specified
  *      command, connecting the command's standard input or standard
- *      output to the pipe, and returning a pointer to a xt_ffile_t object
+ *      output to the pipe, and returning a pointer to a xt_ff_t object
  *      connected to the other end.
  *
  *      It behaves much like popen(3), except that it returns a fast-file
@@ -706,7 +706,7 @@ xt_ffile_t *xt_ff_stdout()
  *      in order to wait for the child process to complete and return its
  *      exit status.
  *
- *      The xt_ffile_t system is simpler than and several times as
+ *      The xt_ff_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
@@ -719,7 +719,7 @@ xt_ffile_t *xt_ff_stdout()
  *      Pointer to a xt_ff_ile_t object on success, NULL otherwise
  *
  *  Examples:
- *      xt_ffile_t *instream;
+ *      xt_ff_t *instream;
  *
  *      if ( (instream = xt_ff_popen("xzcat file.xz", O_RDONLY)) == NULL )
  *      {
@@ -737,12 +737,12 @@ xt_ffile_t *xt_ff_stdout()
  *  2022-02-19  Jason Bacon Begin
  ***************************************************************************/
 
-xt_ffile_t *xt_ff_popen(const char *cmd, int flags)
+xt_ff_t *xt_ff_popen(const char *cmd, int flags)
 
 {
     pid_t   pid;
     int     fd[2];
-    xt_ffile_t *stream = NULL;
+    xt_ff_t *stream = NULL;
     char    *argv[XT_FAST_FILE_MAX_ARGS];
     
     if ( pipe(fd) == 0 )
@@ -809,7 +809,7 @@ xt_ffile_t *xt_ff_popen(const char *cmd, int flags)
 		    return NULL;
 	    }
     
-	    // Set pid in xt_ffile_t stream for waitpid() in xt_ff_pclose()
+	    // Set pid in xt_ff_t stream for waitpid() in xt_ff_pclose()
 	    stream->child_pid = pid;
 	    return stream;
 	}
@@ -831,19 +831,19 @@ xt_ffile_t *xt_ff_popen(const char *cmd, int flags)
  *      waits for the child process to complete and returns its
  *      exit status.
  *
- *      The xt_ffile_t system is simpler than and several times as
+ *      The xt_ff_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
  *  Arguments:
- *      stream  xt_ffile_t stream opened by xt_ff_popen(3)
+ *      stream  xt_ff_t stream opened by xt_ff_popen(3)
  *
  *  Returns:
  *      Exit status of the child process spawned by xt_ff_popen(3), or -1 on error
  *
  *  Examples:
- *      xt_ffile_t *instream;
+ *      xt_ff_t *instream;
  *
  *      if ( (instream = xt_ff_popen("xzcat file.xz", O_RDONLY)) == NULL )
  *      {
@@ -861,7 +861,7 @@ xt_ffile_t *xt_ff_popen(const char *cmd, int flags)
  *  2022-02-19  Jason Bacon Begin
  ***************************************************************************/
 
-int     xt_ff_pclose(xt_ffile_t *stream)
+int     xt_ff_pclose(xt_ff_t *stream)
 
 {
     int     status = 0;
@@ -891,17 +891,17 @@ int     xt_ff_pclose(xt_ffile_t *stream)
  *
  *  Description:
  *      .B xt_ff_close(3)
- *      closes a xt_ffile_t stream with xt_ff_close() or xt_ff_pclose() as appropriate.
+ *      closes a xt_ff_t stream with xt_ff_close() or xt_ff_pclose() as appropriate.
  *      Automatically determines the proper close function to call using
  *      S_ISFIFO on the stream stat structure.
  *
- *      The xt_ffile_t system is simpler than and several times as
+ *      The xt_ff_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *
  *  Arguments:
- *      stream: Pointer to the xt_ffile_t structure to be closed
+ *      stream: Pointer to the xt_ff_t structure to be closed
  *
  *  Returns:
  *      The value returned by xt_ff_close() or xt_ff_pclose()
@@ -914,7 +914,7 @@ int     xt_ff_pclose(xt_ffile_t *stream)
  *  2021-04-10  Jason Bacon Begin
  ***************************************************************************/
 
-int     xt_ff_close(xt_ffile_t *stream)
+int     xt_ff_close(xt_ff_t *stream)
 
 {
     struct stat stat;
@@ -936,7 +936,7 @@ int     xt_ff_close(xt_ffile_t *stream)
  *
  *  Description:
  *      .B xt_ff_printf(3)
- *      writes formatted data to a xt_ffile_t stream the same was as
+ *      writes formatted data to a xt_ff_t stream the same was as
  *      fprintf(3) writes to a FILE stream.
  *
  *      The xt_ff_ile_t system is simpler than and several times as
@@ -945,7 +945,7 @@ int     xt_ff_close(xt_ffile_t *stream)
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
  *  Arguments:
- *      stream  Pointer to an xt_ffile_t object opened by xt_ff_open(3)
+ *      stream  Pointer to an xt_ff_t object opened by xt_ff_open(3)
  *      format  Format string indicating how remaining arguments are printed
  *
  *  Returns:
@@ -971,7 +971,7 @@ int     xt_ff_close(xt_ffile_t *stream)
  *  2022-02-19  Jason Bacon Begin
  ***************************************************************************/
 
-int     xt_ff_printf(xt_ffile_t *stream, const char *format, ...)
+int     xt_ff_printf(xt_ff_t *stream, const char *format, ...)
 
 {
     va_list ap;
@@ -981,7 +981,7 @@ int     xt_ff_printf(xt_ffile_t *stream, const char *format, ...)
     va_start(ap, format);
     chars_printed = vasprintf(&buff, format, ap);
     for (c = 0; buff[c] != '\0'; ++c)
-	xt_ff_putc(buff[c], stream);
+	xt_ff_putc(stream, buff[c]);
     free(buff);
     return chars_printed;
 }
@@ -995,18 +995,18 @@ int     xt_ff_printf(xt_ffile_t *stream, const char *format, ...)
  *      -lxtend
  *
  *  Description:
- *      xt_ff_puts() writes a null-terminated string to the given xt_ffile_t
+ *      xt_ff_puts() writes a null-terminated string to the given xt_ff_t
  *      stream.  It is fnuctionally equivalent to fputs() with FILE.
  *  
  *  Arguments:
  *      string      A null-terminated string
- *      stream      Pointer to an xt_ffile_t structure opened with xt_ff_open()
+ *      stream      Pointer to an xt_ff_t structure opened with xt_ff_open()
  *
  *  Returns:
  *      A non-negative integer on success, EOF on failure
  *
  *  Examples:
- *      xt_ffile_t *outstream;
+ *      xt_ff_t *outstream;
  *      char    *buff;
  *
  *      if ( (outstream = xt_ff_open(outfilename, O_WRONLY|O_CREAT|O_TRUNC)) == NULL )
@@ -1025,14 +1025,14 @@ int     xt_ff_printf(xt_ffile_t *stream, const char *format, ...)
  *  2022-07-29  Jason Bacon Begin
  ***************************************************************************/
 
-int     xt_ff_puts(const char *string, xt_ffile_t *stream)
+int     xt_ff_puts(xt_ff_t *stream, const char *string)
 
 {
     size_t  c;
     int     status = 0;
     
     for (c = 0; (status >= 0) && (string[c] != '\0'); ++c)
-	status = xt_ff_putc(string[c], stream);
+	status = xt_ff_putc(stream, string[c]);
     return status;
 }
 
@@ -1045,7 +1045,7 @@ int     xt_ff_puts(const char *string, xt_ffile_t *stream)
  *      -lxtend
  *
  *  Description:
- *      xt_ff_gets() writes a line of text from the given xt_ffile_t
+ *      xt_ff_gets() writes a line of text from the given xt_ff_t
  *      stream.  It is fnuctionally equivalent to fgets() with FILE.
  *      The maximum number of characters read is size - 1, to allow
  *      for a null-terminator byte.
@@ -1053,13 +1053,13 @@ int     xt_ff_puts(const char *string, xt_ffile_t *stream)
  *  Arguments:
  *      string      A character array into which the line is read
  *      size        Size of the character array
- *      stream      Pointer to an xt_ffile_t structure opened with xt_ff_open()
+ *      stream      Pointer to an xt_ff_t structure opened with xt_ff_open()
  *
  *  Returns:
  *      A non-negative integer on success, EOF on failure
  *
  *  Examples:
- *      xt_ffile_t *instream;
+ *      xt_ff_t *instream;
  *      char    buff[BUFF_SIZE];
  *
  *      if ( (instream = xt_ff_open(outfilename, O_RDONLY)) == NULL )
@@ -1078,7 +1078,7 @@ int     xt_ff_puts(const char *string, xt_ffile_t *stream)
  *  2022-07-29  Jason Bacon Begin
  ***************************************************************************/
 
-char    *xt_ff_gets(char *string, size_t size, xt_ffile_t *stream)
+char    *xt_ff_gets(xt_ff_t *stream, char *string, size_t size)
 
 {
     size_t  c;
@@ -1108,7 +1108,7 @@ char    *xt_ff_gets(char *string, size_t size, xt_ffile_t *stream)
  *      needed.
  *  
  *  Arguments:
- *      stream:     xt_ffile_t stream from which field is read
+ *      stream:     xt_ff_t stream from which field is read
  *      buff:       Character buffer into which field is copied
  *      buff_size:  Size of the array passed to buff
  *      len:        Pointer to a variable which will receive the field length
@@ -1117,7 +1117,7 @@ char    *xt_ff_gets(char *string, size_t size, xt_ffile_t *stream)
  *      Delimiter ending the read: either newline or EOF
  *
  *  Examples:
- *      xt_ffile_t *stream;
+ *      xt_ff_t *stream;
  *      char    *buff;
  *      size_t  buff_len, len;
  *
@@ -1133,7 +1133,7 @@ char    *xt_ff_gets(char *string, size_t size, xt_ffile_t *stream)
  *  2022-02-20  Jason Bacon Begin
  ***************************************************************************/
 
-int     xt_ff_read_line_malloc(xt_ffile_t *stream, char **buff, size_t *buff_size,
+int     xt_ff_read_line_malloc(xt_ff_t *stream, char **buff, size_t *buff_size,
 			   size_t *len)
 
 {
@@ -1198,7 +1198,7 @@ int     xt_ff_read_line_malloc(xt_ffile_t *stream, char **buff, size_t *buff_siz
  *  2023-09-02  Jason Bacon Begin
  ***************************************************************************/
 
-xt_ffile_t *xt_ff_tmpfile(void)
+xt_ff_t *xt_ff_tmpfile(void)
 
 {
     // FIXME: See tmpfile() man page and replicate behavior
@@ -1238,7 +1238,7 @@ xt_ffile_t *xt_ff_tmpfile(void)
  *  2023-09-02  Jason Bacon Begin
  ***************************************************************************/
 
-size_t  xt_ff_read(xt_ffile_t *stream, void * restrict ptr,
+size_t  xt_ff_read(xt_ff_t *stream, void * restrict ptr,
 		   size_t size, size_t nmemb)
 
 {
@@ -1282,7 +1282,7 @@ size_t  xt_ff_read(xt_ffile_t *stream, void * restrict ptr,
  *  2023-09-02  Jason Bacon Begin
  ***************************************************************************/
 
-int     xt_ff_seeko(xt_ffile_t *stream, off_t offset, int whence)
+int     xt_ff_seeko(xt_ff_t *stream, off_t offset, int whence)
 
 {
     int     ch;
@@ -1295,7 +1295,7 @@ int     xt_ff_seeko(xt_ffile_t *stream, off_t offset, int whence)
     if ( lseek(xt_ffile_get_fd(stream), offset, whence) == offset )
     {
 	ch = xt_ff_fillbuff(stream);
-	xt_ff_ungetc(ch, stream);
+	xt_ff_ungetc(stream, ch);
 	return 0;   // Success
     }
     else
@@ -1329,7 +1329,7 @@ int     xt_ff_seeko(xt_ffile_t *stream, off_t offset, int whence)
  *  2023-09-02  Jason Bacon Begin
  ***************************************************************************/
 
-void    xt_ff_rewind(xt_ffile_t *stream)
+void    xt_ff_rewind(xt_ff_t *stream)
 
 {
     xt_ff_seeko(stream, 0, SEEK_SET);

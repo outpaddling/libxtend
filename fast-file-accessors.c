@@ -20,8 +20,8 @@
  *      -lxtend
  *
  *  Description:
- *      Accessor for buff member in a xt_ffile_t structure.
- *      Use this function to get buff in a xt_ffile_t object
+ *      Accessor for buff member in a xt_ff_t structure.
+ *      Use this function to get buff in a xt_ff_t object
  *      from non-member functions.
  *
  *  Arguments:
@@ -31,7 +31,7 @@
  *      Value of the structure member buff.
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      unsigned char * buff;
  *
  *      buff = xt_ffile_get_buff(&xt_ffile);
@@ -41,7 +41,7 @@
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-unsigned char *    xt_ffile_get_buff(xt_ffile_t *xt_ffile_ptr)
+unsigned char *    xt_ffile_get_buff(xt_ff_t *xt_ffile_ptr)
 
 {
     return xt_ffile_ptr->buff;
@@ -54,9 +54,9 @@ unsigned char *    xt_ffile_get_buff(xt_ffile_t *xt_ffile_ptr)
  *      -lxtend
  *
  *  Description:
- *      Accessor for an array element of buff member in a xt_ffile_t
+ *      Accessor for an array element of buff member in a xt_ff_t
  *      structure. Use this function to get xt_ffile_ptr->buff[c]
- *      in a xt_ffile_t object from non-member functions.
+ *      in a xt_ff_t object from non-member functions.
  *
  *  Arguments:
  *      xt_ffile_ptr    Pointer to the structure to get
@@ -66,7 +66,7 @@ unsigned char *    xt_ffile_get_buff(xt_ffile_t *xt_ffile_ptr)
  *      Value of one element of structure member buff.
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      size_t          c;
  *      unsigned char * buff_element;
  *
@@ -77,7 +77,7 @@ unsigned char *    xt_ffile_get_buff(xt_ffile_t *xt_ffile_ptr)
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-unsigned char  xt_ffile_get_buff_ae(xt_ffile_t *xt_ffile_ptr, size_t c)
+unsigned char  xt_ffile_get_buff_ae(xt_ff_t *xt_ffile_ptr, size_t c)
 
 {
     return xt_ffile_ptr->buff[c];
@@ -90,8 +90,8 @@ unsigned char  xt_ffile_get_buff_ae(xt_ffile_t *xt_ffile_ptr, size_t c)
  *      -lxtend
  *
  *  Description:
- *      Accessor for start_ptr member in a xt_ffile_t structure.
- *      Use this function to get start_ptr in a xt_ffile_t object
+ *      Accessor for start_ptr member in a xt_ff_t structure.
+ *      Use this function to get start_ptr in a xt_ff_t object
  *      from non-member functions.
  *
  *  Arguments:
@@ -101,7 +101,7 @@ unsigned char  xt_ffile_get_buff_ae(xt_ffile_t *xt_ffile_ptr, size_t c)
  *      Value of the structure member start_ptr.
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      unsigned char * start_ptr;
  *
  *      start_ptr = xt_ffile_get_start_ptr(&xt_ffile);
@@ -111,7 +111,7 @@ unsigned char  xt_ffile_get_buff_ae(xt_ffile_t *xt_ffile_ptr, size_t c)
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-unsigned char *    xt_ffile_get_start_ptr(xt_ffile_t *xt_ffile_ptr)
+unsigned char *    xt_ffile_get_start_ptr(xt_ff_t *xt_ffile_ptr)
 
 {
     return xt_ffile_ptr->start_ptr;
@@ -124,9 +124,9 @@ unsigned char *    xt_ffile_get_start_ptr(xt_ffile_t *xt_ffile_ptr)
  *      -lxtend
  *
  *  Description:
- *      Accessor for an array element of start_ptr member in a xt_ffile_t
+ *      Accessor for an array element of start_ptr member in a xt_ff_t
  *      structure. Use this function to get xt_ffile_ptr->start_ptr[c]
- *      in a xt_ffile_t object from non-member functions.
+ *      in a xt_ff_t object from non-member functions.
  *
  *  Arguments:
  *      xt_ffile_ptr    Pointer to the structure to get
@@ -136,7 +136,7 @@ unsigned char *    xt_ffile_get_start_ptr(xt_ffile_t *xt_ffile_ptr)
  *      Value of one element of structure member start_ptr.
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      size_t          c;
  *      unsigned char * start_ptr_element;
  *
@@ -147,7 +147,7 @@ unsigned char *    xt_ffile_get_start_ptr(xt_ffile_t *xt_ffile_ptr)
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-unsigned char  xt_ffile_get_start_ptr_ae(xt_ffile_t *xt_ffile_ptr, size_t c)
+unsigned char  xt_ffile_get_start_ptr_ae(xt_ff_t *xt_ffile_ptr, size_t c)
 
 {
     return xt_ffile_ptr->start_ptr[c];
@@ -160,8 +160,8 @@ unsigned char  xt_ffile_get_start_ptr_ae(xt_ffile_t *xt_ffile_ptr, size_t c)
  *      -lxtend
  *
  *  Description:
- *      Accessor for bytes_read member in a xt_ffile_t structure.
- *      Use this function to get bytes_read in a xt_ffile_t object
+ *      Accessor for bytes_read member in a xt_ff_t structure.
+ *      Use this function to get bytes_read in a xt_ff_t object
  *      from non-member functions.
  *
  *  Arguments:
@@ -171,7 +171,7 @@ unsigned char  xt_ffile_get_start_ptr_ae(xt_ffile_t *xt_ffile_ptr, size_t c)
  *      Value of the structure member bytes_read.
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      ssize_t         bytes_read;
  *
  *      bytes_read = xt_ffile_get_bytes_read(&xt_ffile);
@@ -181,7 +181,7 @@ unsigned char  xt_ffile_get_start_ptr_ae(xt_ffile_t *xt_ffile_ptr, size_t c)
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-ssize_t    xt_ffile_get_bytes_read(xt_ffile_t *xt_ffile_ptr)
+ssize_t    xt_ffile_get_bytes_read(xt_ff_t *xt_ffile_ptr)
 
 {
     return xt_ffile_ptr->bytes_read;
@@ -194,8 +194,8 @@ ssize_t    xt_ffile_get_bytes_read(xt_ffile_t *xt_ffile_ptr)
  *      -lxtend
  *
  *  Description:
- *      Accessor for buff_index member in a xt_ffile_t structure.
- *      Use this function to get buff_index in a xt_ffile_t object
+ *      Accessor for buff_index member in a xt_ff_t structure.
+ *      Use this function to get buff_index in a xt_ff_t object
  *      from non-member functions.
  *
  *  Arguments:
@@ -205,7 +205,7 @@ ssize_t    xt_ffile_get_bytes_read(xt_ffile_t *xt_ffile_ptr)
  *      Value of the structure member buff_index.
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      ssize_t         buff_index;
  *
  *      buff_index = xt_ffile_get_buff_index(&xt_ffile);
@@ -215,7 +215,7 @@ ssize_t    xt_ffile_get_bytes_read(xt_ffile_t *xt_ffile_ptr)
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-ssize_t    xt_ffile_get_buff_index(xt_ffile_t *xt_ffile_ptr)
+ssize_t    xt_ffile_get_buff_index(xt_ff_t *xt_ffile_ptr)
 
 {
     return xt_ffile_ptr->buff_index;
@@ -228,8 +228,8 @@ ssize_t    xt_ffile_get_buff_index(xt_ffile_t *xt_ffile_ptr)
  *      -lxtend
  *
  *  Description:
- *      Accessor for disk_block_size member in a xt_ffile_t structure.
- *      Use this function to get disk_block_size in a xt_ffile_t object
+ *      Accessor for disk_block_size member in a xt_ff_t structure.
+ *      Use this function to get disk_block_size in a xt_ff_t object
  *      from non-member functions.
  *
  *  Arguments:
@@ -239,7 +239,7 @@ ssize_t    xt_ffile_get_buff_index(xt_ffile_t *xt_ffile_ptr)
  *      Value of the structure member disk_block_size.
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      ssize_t         disk_block_size;
  *
  *      disk_block_size = xt_ffile_get_disk_block_size(&xt_ffile);
@@ -249,7 +249,7 @@ ssize_t    xt_ffile_get_buff_index(xt_ffile_t *xt_ffile_ptr)
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-ssize_t    xt_ffile_get_disk_block_size(xt_ffile_t *xt_ffile_ptr)
+ssize_t    xt_ffile_get_disk_block_size(xt_ff_t *xt_ffile_ptr)
 
 {
     return xt_ffile_ptr->disk_block_size;
@@ -262,8 +262,8 @@ ssize_t    xt_ffile_get_disk_block_size(xt_ffile_t *xt_ffile_ptr)
  *      -lxtend
  *
  *  Description:
- *      Accessor for buff_size member in a xt_ffile_t structure.
- *      Use this function to get buff_size in a xt_ffile_t object
+ *      Accessor for buff_size member in a xt_ff_t structure.
+ *      Use this function to get buff_size in a xt_ff_t object
  *      from non-member functions.
  *
  *  Arguments:
@@ -273,7 +273,7 @@ ssize_t    xt_ffile_get_disk_block_size(xt_ffile_t *xt_ffile_ptr)
  *      Value of the structure member buff_size.
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      ssize_t         buff_size;
  *
  *      buff_size = xt_ffile_get_buff_size(&xt_ffile);
@@ -283,7 +283,7 @@ ssize_t    xt_ffile_get_disk_block_size(xt_ffile_t *xt_ffile_ptr)
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-ssize_t    xt_ffile_get_buff_size(xt_ffile_t *xt_ffile_ptr)
+ssize_t    xt_ffile_get_buff_size(xt_ff_t *xt_ffile_ptr)
 
 {
     return xt_ffile_ptr->buff_size;
@@ -296,8 +296,8 @@ ssize_t    xt_ffile_get_buff_size(xt_ffile_t *xt_ffile_ptr)
  *      -lxtend
  *
  *  Description:
- *      Accessor for fd member in a xt_ffile_t structure.
- *      Use this function to get fd in a xt_ffile_t object
+ *      Accessor for fd member in a xt_ff_t structure.
+ *      Use this function to get fd in a xt_ff_t object
  *      from non-member functions.
  *
  *  Arguments:
@@ -307,7 +307,7 @@ ssize_t    xt_ffile_get_buff_size(xt_ffile_t *xt_ffile_ptr)
  *      Value of the structure member fd.
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      int             fd;
  *
  *      fd = xt_ffile_get_fd(&xt_ffile);
@@ -317,7 +317,7 @@ ssize_t    xt_ffile_get_buff_size(xt_ffile_t *xt_ffile_ptr)
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int    xt_ffile_get_fd(xt_ffile_t *xt_ffile_ptr)
+int    xt_ffile_get_fd(xt_ff_t *xt_ffile_ptr)
 
 {
     return xt_ffile_ptr->fd;
@@ -330,8 +330,8 @@ int    xt_ffile_get_fd(xt_ffile_t *xt_ffile_ptr)
  *      -lxtend
  *
  *  Description:
- *      Accessor for flags member in a xt_ffile_t structure.
- *      Use this function to get flags in a xt_ffile_t object
+ *      Accessor for flags member in a xt_ff_t structure.
+ *      Use this function to get flags in a xt_ff_t object
  *      from non-member functions.
  *
  *  Arguments:
@@ -341,7 +341,7 @@ int    xt_ffile_get_fd(xt_ffile_t *xt_ffile_ptr)
  *      Value of the structure member flags.
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      int             flags;
  *
  *      flags = xt_ffile_get_flags(&xt_ffile);
@@ -351,7 +351,7 @@ int    xt_ffile_get_fd(xt_ffile_t *xt_ffile_ptr)
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int    xt_ffile_get_flags(xt_ffile_t *xt_ffile_ptr)
+int    xt_ffile_get_flags(xt_ff_t *xt_ffile_ptr)
 
 {
     return xt_ffile_ptr->flags;
@@ -364,8 +364,8 @@ int    xt_ffile_get_flags(xt_ffile_t *xt_ffile_ptr)
  *      -lxtend
  *
  *  Description:
- *      Accessor for child_pid member in a xt_ffile_t structure.
- *      Use this function to get child_pid in a xt_ffile_t object
+ *      Accessor for child_pid member in a xt_ff_t structure.
+ *      Use this function to get child_pid in a xt_ff_t object
  *      from non-member functions.
  *
  *  Arguments:
@@ -375,7 +375,7 @@ int    xt_ffile_get_flags(xt_ffile_t *xt_ffile_ptr)
  *      Value of the structure member child_pid.
  *
  *  Examples:
- *      xt_ffile_t      xt_ffile;
+ *      xt_ff_t      xt_ffile;
  *      pid_t           child_pid;
  *
  *      child_pid = xt_ffile_get_child_pid(&xt_ffile);
@@ -385,7 +385,7 @@ int    xt_ffile_get_flags(xt_ffile_t *xt_ffile_ptr)
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-pid_t    xt_ffile_get_child_pid(xt_ffile_t *xt_ffile_ptr)
+pid_t    xt_ffile_get_child_pid(xt_ff_t *xt_ffile_ptr)
 
 {
     return xt_ffile_ptr->child_pid;

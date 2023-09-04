@@ -16,7 +16,7 @@
 .PP
 .nf
 .na
-int     xt_ff_puts(const char *string, xt_ffile_t *stream)
+int     xt_ff_puts(xt_ff_t *stream, const char *string)
 .ad
 .fi
 
@@ -24,13 +24,13 @@ int     xt_ff_puts(const char *string, xt_ffile_t *stream)
 .nf
 .na
 string      A null-terminated string
-stream      Pointer to an xt_ffile_t structure opened with xt_ff_open()
+stream      Pointer to an xt_ff_t structure opened with xt_ff_open()
 .ad
 .fi
 
 .SH DESCRIPTION
 
-xt_ff_puts() writes a null-terminated string to the given xt_ffile_t
+xt_ff_puts() writes a null-terminated string to the given xt_ff_t
 stream.  It is fnuctionally equivalent to fputs() with FILE.
 
 .SH RETURN VALUES
@@ -41,7 +41,7 @@ A non-negative integer on success, EOF on failure
 .nf
 .na
 
-xt_ffile_t *outstream;
+xt_ff_t *outstream;
 char    *buff;
 
 if ( (outstream = xt_ff_open(outfilename, O_WRONLY|O_CREAT|O_TRUNC)) == NULL )

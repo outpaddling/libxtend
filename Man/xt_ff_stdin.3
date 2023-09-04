@@ -16,7 +16,7 @@
 .PP
 .nf
 .na
-xt_ffile_t *xt_ff_stdin()
+xt_ff_t *xt_ff_stdin()
 .ad
 .fi
 
@@ -31,24 +31,24 @@ None
 
 .B xt_ff_stdin()
 is a simple wrapper function for connecting file descriptor 0
-to an xt_ffile_t object using xt_ff_dopen(3).  This is useful for
+to an xt_ff_t object using xt_ff_dopen(3).  This is useful for
 high-performance filter programs, where using the traditional
 FILE *stdin would cause a bottleneck.
 
-The xt_ffile_t system is simpler than and several times as
+The xt_ff_t system is simpler than and several times as
 fast as FILE on typical systems.  It is intended for processing
 large files character-by-character, where low-level block I/O
 is not convenient, but FILE I/O causes a bottleneck.
 
 .SH RETURN VALUES
 
-Pointer to an xt_ffile_t object if successful, NULL otherwise
+Pointer to an xt_ff_t object if successful, NULL otherwise
 
 .SH EXAMPLES
 .nf
 .na
 
-xt_ffile_t *stream;
+xt_ff_t *stream;
 
 // "-" as a filename argument traditionally indicates stdin
 if ( strcmp(argv[arg], "-") == 0 )

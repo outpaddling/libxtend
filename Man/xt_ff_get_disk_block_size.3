@@ -16,7 +16,7 @@
 .PP
 .nf
 .na
-ssize_t    xt_ffile_get_disk_block_size(xt_ffile_t *xt_ffile_ptr)
+ssize_t    xt_ffile_get_disk_block_size(xt_ff_t *xt_ffile_ptr)
 .ad
 .fi
 
@@ -29,8 +29,8 @@ xt_ffile_ptr    Pointer to the structure to set
 
 .SH DESCRIPTION
 
-Accessor for disk_block_size member in a xt_ffile_t structure.
-Use this function to get disk_block_size in a xt_ffile_t object
+Accessor for disk_block_size member in a xt_ff_t structure.
+Use this function to get disk_block_size in a xt_ff_t object
 from non-member functions.
 
 .SH RETURN VALUES
@@ -41,7 +41,7 @@ Value of the structure member disk_block_size.
 .nf
 .na
 
-xt_ffile_t      xt_ffile;
+xt_ff_t      xt_ffile;
 ssize_t         disk_block_size;
 
 disk_block_size = xt_ffile_get_disk_block_size(&xt_ffile);

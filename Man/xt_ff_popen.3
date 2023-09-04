@@ -16,7 +16,7 @@
 .PP
 .nf
 .na
-xt_ffile_t *xt_ff_popen(const char *cmd, int flags)
+xt_ff_t *xt_ff_popen(const char *cmd, int flags)
 .ad
 .fi
 
@@ -33,7 +33,7 @@ flags   Open mode flags passed to open(3)
 .B xt_ff_popen(3)
 creates a pipe for interprocess communication, runs the specified
 command, connecting the command's standard input or standard
-output to the pipe, and returning a pointer to a xt_ffile_t object
+output to the pipe, and returning a pointer to a xt_ff_t object
 connected to the other end.
 
 It behaves much like popen(3), except that it returns a fast-file
@@ -49,7 +49,7 @@ The stream should be closed with xt_ff_pclose(3) rather than xt_ff_close(3)
 in order to wait for the child process to complete and return its
 exit status.
 
-The xt_ffile_t system is simpler than and several times as
+The xt_ff_t system is simpler than and several times as
 fast as FILE on typical systems.  It is intended for processing
 large files character-by-character, where low-level block I/O
 is not convenient, but FILE I/O causes a bottleneck.
@@ -62,7 +62,7 @@ Pointer to a xt_ff_ile_t object on success, NULL otherwise
 .nf
 .na
 
-xt_ffile_t *instream;
+xt_ff_t *instream;
 
 if ( (instream = xt_ff_popen("xzcat file.xz", O_RDONLY)) == NULL )
 {

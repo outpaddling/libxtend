@@ -25,14 +25,14 @@ char    *xt_ff_gets(xt_ff_t *stream, char *string, size_t size)
 .na
 string      A character array into which the line is read
 size        Size of the character array
-stream      Pointer to an xt_ff_t structure opened with xt_ff_open()
+stream      Pointer to an xt_ff_t structure opened with xt_ff_open(3)
 .ad
 .fi
 
 .SH DESCRIPTION
 
-xt_ff_gets() writes a line of text from the given xt_ff_t
-stream.  It is fnuctionally equivalent to fgets() with FILE.
+xt_ff_gets(3) writes a line of text from the given xt_ff_t
+stream.  It is fnuctionally equivalent to fgets(3) with FILE.
 The maximum number of characters read is size - 1, to allow
 for a null-terminator byte.
 

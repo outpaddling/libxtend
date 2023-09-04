@@ -31,14 +31,14 @@ flags       Bit flags passed to open(3)
 
 .SH DESCRIPTION
 
-.B xt_ff_open_raw()
-initializes a xt_ff_t stream, much as fopen() does for a FILE
-stream.  Unlike fopen(), xt_ff_open_raw() takes the same bit mask
-argument as open() to determine the open mode.
+.B xt_ff_open_raw(3)
+initializes a xt_ff_t stream, much as fopen(3) does for a FILE
+stream.  Unlike fopen(3), xt_ff_open_raw(3) takes the same bit mask
+argument as open(2) to determine the open mode.
 See open(3) for details.
 
 An optimally sized buffer for the underlying filesystem is allocated,
-along with additional space for limited xt_ff_ungetc() operations.
+along with additional space for limited xt_ff_ungetc(3) operations.
 
 The xt_ff_t system is simpler than and several times as
 fast as FILE on typical systems.  It is intended for processing

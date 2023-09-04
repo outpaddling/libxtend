@@ -29,10 +29,10 @@ None.
 
 .SH DESCRIPTION
 
-.B xt_ff_tmpfile()
+.B xt_ff_tmpfile(3)
 opens a temporary file using mkstemp(3), returning a
 xt_ff_t pointer tied to the file descriptor created by
-mkstemp().  The file is opened for both reading and writing.
+mkstemp(3).  The file is opened for both reading and writing.
 This function is analogous to tmpfile(3).
 
 .SH RETURN VALUES
@@ -43,7 +43,7 @@ Pointer to a xt_ff_t structure on success, NULL on failure.
 .nf
 .na
 
-xt_ff_t *fp = xt_ff_tmpfile();
+xt_ff_t *fp = xt_ff_tmpfile(3);
 .ad
 .fi
 

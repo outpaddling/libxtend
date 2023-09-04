@@ -15,8 +15,8 @@
 #include "common.h"
 
 /*
- *  Non-API function for completing stream initialization for xt_ff_open()
- *  and xt_ff_dopen()
+ *  Non-API function for completing stream initialization for xt_ff_open(3)
+ *  and xt_ff_dopen(3)
  */
 
 xt_ff_t *xt_ff_init_stream(xt_ff_t *stream)
@@ -55,10 +55,11 @@ xt_ff_t *xt_ff_init_stream(xt_ff_t *stream)
  *
  *  Description:
  *      .B xt_ff_open(3)
- *      opens a raw data file using xt_ff_open() or a gzipped, bzipped, or
- *      xzipped file using xt_ff_popen(), returning a pointer to a xt_ff_t
+ *      opens a raw data file using xt_ff_open_raw(3)
+ *      or a gzipped, bzipped, or
+ *      xzipped file using xt_ff_popen(3), returning a pointer to a xt_ff_t
  *      stream.  Must be used in conjunction with
- *      xt_ff_close() to ensure that xt_ff_close() or xt_ff_pclose() is called where
+ *      xt_ff_close(3) to ensure that xt_ff_close(3) or xt_ff_pclose(3) is called where
  *      appropriate.
  *
  *      The xt_ff_t system is simpler than and several times as
@@ -68,7 +69,7 @@ xt_ff_t *xt_ff_init_stream(xt_ff_t *stream)
  *
  *  Arguments:
  *      filename:   Name of the file to be opened
- *      mode:       Bit mask as used by open()
+ *      mode:       Bit mask as used by open(2)
  *
  *  Returns:
  *      A pointer to the FILE structure or NULL if open failed
@@ -150,14 +151,14 @@ xt_ff_t *xt_ff_open(const char *filename, int flags)
  *      -lxtend
  *
  *  Description:
- *      .B xt_ff_open_raw()
- *      initializes a xt_ff_t stream, much as fopen() does for a FILE
- *      stream.  Unlike fopen(), xt_ff_open_raw() takes the same bit mask
- *      argument as open() to determine the open mode.
+ *      .B xt_ff_open_raw(3)
+ *      initializes a xt_ff_t stream, much as fopen(3) does for a FILE
+ *      stream.  Unlike fopen(3), xt_ff_open_raw(3) takes the same bit mask
+ *      argument as open(2) to determine the open mode.
  *      See open(3) for details.
  *
  *      An optimally sized buffer for the underlying filesystem is allocated,
- *      along with additional space for limited xt_ff_ungetc() operations.
+ *      along with additional space for limited xt_ff_ungetc(3) operations.
  *
  *      The xt_ff_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
@@ -224,14 +225,14 @@ xt_ff_t *xt_ff_open_raw(const char *filename, int flags)
  *      -lxtend
  *
  *  Description:
- *      .B xt_ff_dopen()
- *      initializes a xt_ff_t stream, much as fdopen() does for a FILE
- *      stream.  Unlike fdopen(), xt_ff_dopen() takes the same bit mask
- *      argument as open() to determine the open mode.
+ *      .B xt_ff_dopen(3)
+ *      initializes a xt_ff_t stream, much as fdopen(3) does for a FILE
+ *      stream.  Unlike fdopen(3), xt_ff_dopen(3) takes the same bit mask
+ *      argument as open(2) to determine the open mode.
  *      See open(3) for details.
  *
  *      An optimally sized buffer for the underlying filesystem is allocated,
- *      along with additional space for limited xt_ff_ungetc() operations.
+ *      along with additional space for limited xt_ff_ungetc(3) operations.
  *
  *      The xt_ff_t system is simpler than and several times as
  *      fast as FILE on typical systems.  It is intended for processing
@@ -283,7 +284,7 @@ xt_ff_t *xt_ff_dopen(int fd, int flags)
  *      -lxtend
  *
  *  Description:
- *      .B xt_ff_close_raw()
+ *      .B xt_ff_close_raw(3)
  *      closes a xt_ff_t stream opened by xt_ff_open(3).  It writes out any
  *      remaining data in the output buffer, deallocates memory allocated
  *      by xt_ff_open(3), and closes the underlying file descriptor opened by
@@ -335,7 +336,7 @@ int     xt_ff_close_raw(xt_ff_t *stream)
     
     if ( stream->flags & O_WRONLY )
     {
-	//fprintf(stderr, "xt_ff_close() flushing output...\n");
+	//fprintf(stderr, "xt_ff_close(3) flushing output...\n");
 	//stream->start_ptr[stream->buff_index] = '\0';
 	//fputs((char *)stream->start_ptr, stderr);
 	write(stream->fd, stream->start_ptr, stream->buff_index);
@@ -355,7 +356,7 @@ int     xt_ff_close_raw(xt_ff_t *stream)
  *      -lxtend
  *
  *  Description:
- *      xt_ff_fillbuff()
+ *      xt_ff_fillbuff(3)
  *      issues a read(2) call to refill the buffer of an xt_ff_t
  *      structure.  It is meant to be called by xt_ff_getc(3),
  *      and should not be used directly.
@@ -396,7 +397,7 @@ inline int  xt_ff_fillbuff(xt_ff_t *stream)
  *      -lxtend
  *
  *  Description:
- *      .B xt_ff_getc()
+ *      .B xt_ff_getc(3)
  *      reads a single character from a xt_ff_t stream opened by xt_ff_open(3).
  *
  *      The xt_ff_t system is simpler than and several times as
@@ -440,7 +441,7 @@ inline int     xt_ff_getc(xt_ff_t *stream)
     if ( stream->buff_index == stream->bytes_read )
     {
 	/*
-	 *  Move last part of buffer to xt_ff_ungetc() region.  Only the last
+	 *  Move last part of buffer to xt_ff_ungetc(3) region.  Only the last
 	 *  block read should be < disk_block_size chars, and it will never
 	 *  be moved here.
 	 */
@@ -464,7 +465,7 @@ inline int     xt_ff_getc(xt_ff_t *stream)
  *      -lxtend
  *
  *  Description:
- *      .B xt_ff_putc()
+ *      .B xt_ff_putc(3)
  *      writes a single character to a xt_ff_t stream opened by xt_ff_open(3).
  *
  *      The xt_ff_t system is simpler than and several times as
@@ -529,7 +530,7 @@ inline int     xt_ff_putc(xt_ff_t *stream, int ch)
  *      -lxtend
  *
  *  Description:
- *      .B xt_ff_ungetc()
+ *      .B xt_ff_ungetc(3)
  *      returns a single character read by xt_ff_getc(3) to the input buffer of
  *      a stream opened by xt_ff_open(3).  All characters from the most recently
  *      read block plus a maximum of XT_FAST_FILE_UNGETC_MAX characters
@@ -590,7 +591,7 @@ inline int     xt_ff_ungetc(xt_ff_t *stream, int ch)
  *      -lxtend
  *
  *  Description:
- *      .B xt_ff_stdin()
+ *      .B xt_ff_stdin(3)
  *      is a simple wrapper function for connecting file descriptor 0
  *      to an xt_ff_t object using xt_ff_dopen(3).  This is useful for
  *      high-performance filter programs, where using the traditional
@@ -612,7 +613,7 @@ inline int     xt_ff_ungetc(xt_ff_t *stream, int ch)
  *
  *      // "-" as a filename argument traditionally indicates stdin
  *      if ( strcmp(argv[arg], "-") == 0 )
- *          stream = xt_ff_stdin();
+ *          stream = xt_ff_stdin(3);
  *      else
  *          stream = xt_ff_open(argv[arg], O_RDONLY);
  *
@@ -624,7 +625,7 @@ inline int     xt_ff_ungetc(xt_ff_t *stream, int ch)
  *  2022-02-19  Jason Bacon Begin
  ***************************************************************************/
 
-xt_ff_t *xt_ff_stdin()
+xt_ff_t *xt_ff_stdin(void)
 
 {
     return xt_ff_dopen(0, O_RDONLY);
@@ -639,7 +640,7 @@ xt_ff_t *xt_ff_stdin()
  *      -lxtend
  *
  *  Description:
- *      .B xt_ff_stdout()
+ *      .B xt_ff_stdout(3)
  *      is a simple wrapper function for connecting file descriptor 1
  *      to an xt_ff_t object using xt_ff_dopen(3).  This is useful for
  *      high-performance filter programs, where using the traditional
@@ -673,7 +674,7 @@ xt_ff_t *xt_ff_stdin()
  *  2022-02-19  Jason Bacon Begin
  ***************************************************************************/
 
-xt_ff_t *xt_ff_stdout()
+xt_ff_t *xt_ff_stdout(void)
 
 {
     return xt_ff_dopen(1, O_WRONLY|O_APPEND);
@@ -810,7 +811,7 @@ xt_ff_t *xt_ff_popen(const char *cmd, int flags)
 		    return NULL;
 	    }
     
-	    // Set pid in xt_ff_t stream for waitpid() in xt_ff_pclose()
+	    // Set pid in xt_ff_t stream for waitpid(2) in xt_ff_pclose(3)
 	    stream->child_pid = pid;
 	    return stream;
 	}
@@ -892,7 +893,7 @@ int     xt_ff_pclose(xt_ff_t *stream)
  *
  *  Description:
  *      .B xt_ff_close(3)
- *      closes a xt_ff_t stream with xt_ff_close() or xt_ff_pclose() as appropriate.
+ *      closes a xt_ff_t stream with xt_ff_close(3) or xt_ff_pclose(3) as appropriate.
  *      Automatically determines the proper close function to call using
  *      S_ISFIFO on the stream stat structure.
  *
@@ -905,7 +906,7 @@ int     xt_ff_pclose(xt_ff_t *stream)
  *      stream: Pointer to the xt_ff_t structure to be closed
  *
  *  Returns:
- *      The value returned by xt_ff_close() or xt_ff_pclose()
+ *      The value returned by xt_ff_close(3) or xt_ff_pclose(3)
  *
  *  See also:
  *      xt_ff_popen(3), xt_ff_open(3), gzip(1), bzip2(1), xz(1)
@@ -996,12 +997,12 @@ int     xt_ff_printf(xt_ff_t *stream, const char *format, ...)
  *      -lxtend
  *
  *  Description:
- *      xt_ff_puts() writes a null-terminated string to the given xt_ff_t
- *      stream.  It is fnuctionally equivalent to fputs() with FILE.
+ *      xt_ff_puts(3) writes a null-terminated string to the given xt_ff_t
+ *      stream.  It is fnuctionally equivalent to fputs(3) with FILE.
  *  
  *  Arguments:
  *      string      A null-terminated string
- *      stream      Pointer to an xt_ff_t structure opened with xt_ff_open()
+ *      stream      Pointer to an xt_ff_t structure opened with xt_ff_open(3)
  *
  *  Returns:
  *      A non-negative integer on success, EOF on failure
@@ -1046,15 +1047,15 @@ int     xt_ff_puts(xt_ff_t *stream, const char *string)
  *      -lxtend
  *
  *  Description:
- *      xt_ff_gets() writes a line of text from the given xt_ff_t
- *      stream.  It is fnuctionally equivalent to fgets() with FILE.
+ *      xt_ff_gets(3) writes a line of text from the given xt_ff_t
+ *      stream.  It is fnuctionally equivalent to fgets(3) with FILE.
  *      The maximum number of characters read is size - 1, to allow
  *      for a null-terminator byte.
  *  
  *  Arguments:
  *      string      A character array into which the line is read
  *      size        Size of the character array
- *      stream      Pointer to an xt_ff_t structure opened with xt_ff_open()
+ *      stream      Pointer to an xt_ff_t structure opened with xt_ff_open(3)
  *
  *  Returns:
  *      A non-negative integer on success, EOF on failure
@@ -1103,7 +1104,7 @@ char    *xt_ff_gets(xt_ff_t *stream, char *string, size_t size)
  *      -lxtend
  *
  *  Description:
- *      .B xt_ff_read_line_malloc()
+ *      .B xt_ff_read_line_malloc(3)
  *      reads a single line of text (up to the next newline or EOF)
  *      from stream, allocating and/or extending the provided buffer if
  *      needed.
@@ -1181,10 +1182,10 @@ int     xt_ff_read_line_malloc(xt_ff_t *stream, char **buff, size_t *buff_size,
  *      -lxtend
  *
  *  Description:
- *      .B xt_ff_tmpfile()
+ *      .B xt_ff_tmpfile(3)
  *      opens a temporary file using mkstemp(3), returning a
  *      xt_ff_t pointer tied to the file descriptor created by
- *      mkstemp().  The file is opened for both reading and writing.
+ *      mkstemp(3).  The file is opened for both reading and writing.
  *      This function is analogous to tmpfile(3).
  *  
  *  Arguments:
@@ -1194,7 +1195,7 @@ int     xt_ff_read_line_malloc(xt_ff_t *stream, char **buff, size_t *buff_size,
  *      Pointer to a xt_ff_t structure on success, NULL on failure.
  *
  *  Examples:
- *      xt_ff_t *fp = xt_ff_tmpfile();
+ *      xt_ff_t *fp = xt_ff_tmpfile(3);
  *      
  *  See also:
  *      tmpfile(3), mkstemp(3).
@@ -1226,7 +1227,7 @@ xt_ff_t *xt_ff_tmpfile(void)
  *      -lxtend
  *
  *  Description:
- *      .B xt_ff_read()
+ *      .B xt_ff_read(3)
  *      reads a fixed number of bytes (size * nmemb) from stream,
  *      storing them at address ptr, which should point to an object
  *      (if nmemb == 1) or array of "nmemb" objects of size "size".
@@ -1281,7 +1282,7 @@ size_t  xt_ff_read(xt_ff_t *stream, void * restrict ptr,
  *      -lxtend
  *
  *  Description:
- *      .B xt_ff_seeko()
+ *      .B xt_ff_seeko(3)
  *      repositions the file descriptor underlying stream to any
  *      position within the file, using lseek(2).  It is analogous
  *      to fseeko(3).  The stream must refer to a regular file, as

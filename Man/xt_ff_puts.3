@@ -24,14 +24,14 @@ int     xt_ff_puts(xt_ff_t *stream, const char *string)
 .nf
 .na
 string      A null-terminated string
-stream      Pointer to an xt_ff_t structure opened with xt_ff_open()
+stream      Pointer to an xt_ff_t structure opened with xt_ff_open(3)
 .ad
 .fi
 
 .SH DESCRIPTION
 
-xt_ff_puts() writes a null-terminated string to the given xt_ff_t
-stream.  It is fnuctionally equivalent to fputs() with FILE.
+xt_ff_puts(3) writes a null-terminated string to the given xt_ff_t
+stream.  It is fnuctionally equivalent to fputs(3) with FILE.
 
 .SH RETURN VALUES
 

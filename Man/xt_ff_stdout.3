@@ -16,7 +16,7 @@
 .PP
 .nf
 .na
-xt_ff_t *xt_ff_stdout()
+xt_ff_t *xt_ff_stdout(void)
 .ad
 .fi
 
@@ -29,7 +29,7 @@ None
 
 .SH DESCRIPTION
 
-.B xt_ff_stdout()
+.B xt_ff_stdout(3)
 is a simple wrapper function for connecting file descriptor 1
 to an xt_ff_t object using xt_ff_dopen(3).  This is useful for
 high-performance filter programs, where using the traditional

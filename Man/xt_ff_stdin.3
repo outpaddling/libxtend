@@ -16,7 +16,7 @@
 .PP
 .nf
 .na
-xt_ff_t *xt_ff_stdin()
+xt_ff_t *xt_ff_stdin(void)
 .ad
 .fi
 
@@ -29,7 +29,7 @@ None
 
 .SH DESCRIPTION
 
-.B xt_ff_stdin()
+.B xt_ff_stdin(3)
 is a simple wrapper function for connecting file descriptor 0
 to an xt_ff_t object using xt_ff_dopen(3).  This is useful for
 high-performance filter programs, where using the traditional
@@ -52,7 +52,7 @@ xt_ff_t *stream;
 
 // "-" as a filename argument traditionally indicates stdin
 if ( strcmp(argv[arg], "-") == 0 )
-    stream = xt_ff_stdin();
+    stream = xt_ff_stdin(3);
 else
     stream = xt_ff_open(argv[arg], O_RDONLY);
 .ad

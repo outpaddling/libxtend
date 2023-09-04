@@ -30,7 +30,7 @@ stream  Pointer to an xt_ff_t object opened by xt_ff_open(3)
 
 .SH DESCRIPTION
 
-.B xt_ff_ungetc()
+.B xt_ff_ungetc(3)
 returns a single character read by xt_ff_getc(3) to the input buffer of
 a stream opened by xt_ff_open(3).  All characters from the most recently
 read block plus a maximum of XT_FAST_FILE_UNGETC_MAX characters

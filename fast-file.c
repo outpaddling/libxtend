@@ -351,29 +351,30 @@ int     xt_ff_close_raw(xt_ff_t *stream)
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Library:
- *      #include <>
- *      -l
+ *      #include <xtend/file.h>
+ *      -lxtend
  *
  *  Description:
+ *      xt_ff_fillbuff()
+ *      issues a read(2) call to refill the buffer of an xt_ff_t
+ *      structure.  It is meant to be called by xt_ff_getc(3),
+ *      and should not be used directly.
  *  
  *  Arguments:
+ *      stream  Pointer to xt_ff_t structure in need of a refill
  *
  *  Returns:
- *
- *  Examples:
- *
- *  Files:
- *
- *  Environment
+ *      First character in the newly read buffer
  *
  *  See also:
+ *      xt_ff_getc(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2023-09-02  Jason Bacon Begin
  ***************************************************************************/
 
-inline int  xt_ff_fillbuff(xt_ff_t *stream)
+static inline int  xt_ff_fillbuff(xt_ff_t *stream)
 
 {
     if ( (stream->bytes_read = read(stream->fd, stream->start_ptr,
@@ -1176,22 +1177,27 @@ int     xt_ff_read_line_malloc(xt_ff_t *stream, char **buff, size_t *buff_size,
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Library:
- *      #include <>
- *      -l
+ *      #include <xtend/file.h>
+ *      -lxtend
  *
  *  Description:
+ *      .B xt_ff_tmpfile()
+ *      opens a temporary file using mkstemp(3), returning a
+ *      xt_ff_t pointer tied to the file descriptor created by
+ *      mkstemp().  The file is opened for both reading and writing.
+ *      This function is analogous to tmpfile(3).
  *  
  *  Arguments:
+ *      None.
  *
  *  Returns:
+ *      Pointer to a xt_ff_t structure on success, NULL on failure.
  *
  *  Examples:
- *
- *  Files:
- *
- *  Environment
- *
+ *      xt_ff_t *fp = xt_ff_tmpfile();
+ *      
  *  See also:
+ *      tmpfile(3), mkstemp(3).
  *
  *  History: 
  *  Date        Name        Modification
@@ -1216,22 +1222,33 @@ xt_ff_t *xt_ff_tmpfile(void)
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Library:
- *      #include <>
- *      -l
+ *      #include <xtend/file.h>
+ *      -lxtend
  *
  *  Description:
+ *      .B xt_ff_read()
+ *      reads a fixed number of bytes (size * nmemb) from stream,
+ *      storing them at address ptr, which should point to an object
+ *      (if nmemb == 1) or array of "nmemb" objects of size "size".
  *  
  *  Arguments:
+ *      stream  Pointer to an xt_ff_t structure
+ *      ptr     Memory location where data read from stream will be stored
+ *      size    Size of one object being read
+ *      nmemb   Number of objects to read
  *
  *  Returns:
+ *      The number of objects (not bytes) successfully read
  *
  *  Examples:
+ *      my_type_t   list[NUM_OBJECTS];
+ *      xt_ff_t     *stream;
  *
- *  Files:
- *
- *  Environment
+ *      stream = xt_ff_open("myfile", O_RDONLY);
+ *      xt_ff_read(stream, list, sizeof(my_type_t), NUM_OBJECTS);
  *
  *  See also:
+ *      read(2), xt_ff_open(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -1260,22 +1277,32 @@ size_t  xt_ff_read(xt_ff_t *stream, void * restrict ptr,
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Library:
- *      #include <>
- *      -l
+ *      #include <xtend/file.h>
+ *      -lxtend
  *
  *  Description:
+ *      .B xt_ff_seeko()
+ *      repositions the file descriptor underlying stream to any
+ *      position within the file, using lseek(2).  It is analogous
+ *      to fseeko(3).  The stream must refer to a regular file, as
+ *      pipes are not generally seekable.
  *  
  *  Arguments:
+ *      stream  Pointer to a xt_ff_t structure
+ *      offset  New position in bytes forward or backward from whence
+ *              (positive or negative)
+ *      whence  SEEK_SET (beginning of file), SEEK_CUR (current position),
+ *              or SEEK_END (end of file)
  *
  *  Returns:
+ *      0 on success, -1 on failure (errno set)
  *
  *  Examples:
- *
- *  Files:
- *
- *  Environment
+ *      // Reposition so that 10th byte in the file is the next one read
+ *      xt_ff_seeko(stream, 10, SEEK_SET);
  *
  *  See also:
+ *      fseek(3), lseek(2)
  *
  *  History: 
  *  Date        Name        Modification
@@ -1307,30 +1334,30 @@ int     xt_ff_seeko(xt_ff_t *stream, off_t offset, int whence)
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Library:
- *      #include <>
- *      -l
+ *      #include <xtend/fast-file.h>
+ *      -lxtend
  *
  *  Description:
+ *      .B xt_ff_rewind(stream)
+ *      repositions the underlying file descriptor to the beginning
+ *      of the file.  It is equivalent to xt_ff_seeko(stream, 0, SEEK_SET).
  *  
  *  Arguments:
+ *      stream  xt_ff_t pointer referring to the file
  *
  *  Returns:
- *
- *  Examples:
- *
- *  Files:
- *
- *  Environment
+ *      0 on success, -1 on failure (errno set)
  *
  *  See also:
+ *      xt_ff_seeko(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2023-09-02  Jason Bacon Begin
  ***************************************************************************/
 
-void    xt_ff_rewind(xt_ff_t *stream)
+int     xt_ff_rewind(xt_ff_t *stream)
 
 {
-    xt_ff_seeko(stream, 0, SEEK_SET);
+    return xt_ff_seeko(stream, 0, SEEK_SET);
 }

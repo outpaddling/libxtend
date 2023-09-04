@@ -29,6 +29,7 @@ typedef struct xt_fast_file xt_ff_t;
 xt_ff_t *xt_ff_init_stream(xt_ff_t *stream);
 xt_ff_t *xt_ff_open_raw(const char *filename, int flags);
 xt_ff_t *xt_ff_dopen(int fd, int flags);
+int xt_ff_fillbuff(xt_ff_t *stream);
 int xt_ff_getc(xt_ff_t *stream);
 int xt_ff_putc(xt_ff_t *stream, int ch);
 int xt_ff_close_raw(xt_ff_t *stream);

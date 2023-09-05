@@ -7,6 +7,9 @@
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      romantoi() - Convert Roman numeral string to int
+ *
  *  Library:
  *      #include <xtend/stdlib.h>
  *      -lxtend

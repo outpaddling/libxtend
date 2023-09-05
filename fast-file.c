@@ -49,6 +49,9 @@ xt_ff_t *xt_ff_init_stream(xt_ff_t *stream)
 
 
 /***************************************************************************
+ *  Name:
+ *      xt_ff_open() - Open a fast file stream for a raw or compressed file
+ *
  *  Library:
  *      #include <xtend/file.h>
  *      -lxtend
@@ -145,6 +148,9 @@ xt_ff_t *xt_ff_open(const char *filename, int flags)
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      xt_ff_open_raw() - Open a fast file stream for a raw file
+ *
  *  Library:
  *      #include <fcntl.h>
  *      #include <xtend/fast-file.h>
@@ -219,6 +225,9 @@ xt_ff_t *xt_ff_open_raw(const char *filename, int flags)
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      xt_ff_dopen() - Create a fast file stream from a file descriptor
+ *
  *  Library:
  *      #include <fcntl.h>
  *      #include <xtend/fast-file.h>
@@ -278,6 +287,9 @@ xt_ff_t *xt_ff_dopen(int fd, int flags)
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      xt_ff_close_raw() - Close a stream created by xt_ff_open_raw()
  *
  *  Library:
  *      #include <xtend/fast-file.h>
@@ -351,12 +363,15 @@ int     xt_ff_close_raw(xt_ff_t *stream)
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      _xt_ff_fillbuff() - Read next block for a fast file stream
+ *
  *  Library:
  *      #include <xtend/file.h>
  *      -lxtend
  *
  *  Description:
- *      xt_ff_fillbuff(3)
+ *      _xt_ff_fillbuff(3)
  *      issues a read(2) call to refill the buffer of an xt_ff_t
  *      structure.  It is meant to be called by xt_ff_getc(3),
  *      and should not be used directly.
@@ -375,7 +390,7 @@ int     xt_ff_close_raw(xt_ff_t *stream)
  *  2023-09-02  Jason Bacon Begin
  ***************************************************************************/
 
-inline int  xt_ff_fillbuff(xt_ff_t *stream)
+inline int  _xt_ff_fillbuff(xt_ff_t *stream)
 
 {
     if ( (stream->bytes_read = read(stream->fd, stream->start_ptr,
@@ -391,6 +406,9 @@ inline int  xt_ff_fillbuff(xt_ff_t *stream)
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      xt_ff_getc() - Read next character from a fast file stream
  *
  *  Library:
  *      #include <xtend/fast-file.h>
@@ -450,7 +468,7 @@ inline int     xt_ff_getc(xt_ff_t *stream)
 	// start_ptr = stream->start_ptr + stream->disk_block_size - XT_FAST_FILE_UNGETC_MAX;
 	// memcpy(stream->buff, start_ptr, XT_FAST_FILE_UNGETC_MAX);
 	
-	return xt_ff_fillbuff(stream);
+	return _xt_ff_fillbuff(stream);
     }
     else
 	return stream->start_ptr[stream->buff_index++];
@@ -459,6 +477,9 @@ inline int     xt_ff_getc(xt_ff_t *stream)
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      xt_ff_putc() - Write a character to a fast file stream
  *
  *  Library:
  *      #include <xtend/fast-file.h>
@@ -525,6 +546,9 @@ inline int     xt_ff_putc(xt_ff_t *stream, int ch)
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      xt_ff_ungetc() - Put a character back into a fast file stream read buffer
+ *
  *  Library:
  *      #include <xtend/fast-file.h>
  *      -lxtend
@@ -586,6 +610,9 @@ inline int     xt_ff_ungetc(xt_ff_t *stream, int ch)
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      xt_ff_stdin() - Create a fast file stream attached to descriptor 0
+ *
  *  Library:
  *      #include <xtend/fast-file.h>
  *      -lxtend
@@ -635,6 +662,9 @@ xt_ff_t *xt_ff_stdin(void)
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      xt_ff_stdout() - Create a fast file stream connected to descriptor 1
+ *
  *  Library:
  *      #include <xtend/fast-file.h>
  *      -lxtend
@@ -683,6 +713,9 @@ xt_ff_t *xt_ff_stdout(void)
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      xt_ff_popen() - Create a fast file stream connected to a process
  *
  *  Library:
  *      #include <xtend/fast-file.h>
@@ -823,6 +856,9 @@ xt_ff_t *xt_ff_popen(const char *cmd, int flags)
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      xt_ff_pclose() - Close a stream created by xt_ff_popen(3)
+ *
  *  Library:
  *      #include <xtend/fast-file.h>
  *      -lxtend
@@ -887,6 +923,9 @@ int     xt_ff_pclose(xt_ff_t *stream)
 
 
 /***************************************************************************
+ *  Name:
+ *      xt_ff_close() - Close a string created by xt_ff_open()
+ *
  *  Library:
  *      #include <xtend/file.h>
  *      -lxtend
@@ -931,6 +970,9 @@ int     xt_ff_close(xt_ff_t *stream)
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      xt_ff_printf() - Print formatted data to a fast file stream
  *
  *  Library:
  *      #include <xtend/fast-file.h>
@@ -992,6 +1034,9 @@ int     xt_ff_printf(xt_ff_t *stream, const char *format, ...)
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      xt_ff_puts() - Print a string to a fast file stream
+ *
  *  Library:
  *      #include <xtend/fast-file.h>
  *      -lxtend
@@ -1042,15 +1087,16 @@ int     xt_ff_puts(xt_ff_t *stream, const char *string)
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      xt_ff_gets() - Read a line from a fast file stream
+ *
  *  Library:
  *      #include <xtend/fast-file.h>
  *      -lxtend
  *
  *  Description:
  *      xt_ff_gets(3) writes a line of text from the given xt_ff_t
- *      stream.  It is fnuctionally equivalent to fgets(3) with FILE.
- *      The maximum number of characters read is size - 1, to allow
- *      for a null-terminator byte.
+ *      stream.  It is functionally equivalent to fgets(3) with FILE.
  *  
  *  Arguments:
  *      string      A character array into which the line is read
@@ -1098,6 +1144,10 @@ char    *xt_ff_gets(xt_ff_t *stream, char *string, size_t size)
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      xt_ff_read_line_malloc() - Read a line from a fast file stream,
+ *                                 allocating memory as needed
  *
  *  Library:
  *      #include <xtend/fast-file.h>
@@ -1177,6 +1227,9 @@ int     xt_ff_read_line_malloc(xt_ff_t *stream, char **buff, size_t *buff_size,
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      xt_ff_tmpfile() - Create a fast file stream connected to a temporary file
+ *
  *  Library:
  *      #include <xtend/file.h>
  *      -lxtend
@@ -1221,6 +1274,9 @@ xt_ff_t *xt_ff_tmpfile(void)
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      xt_ff_read() - Read a fixed number of bytes from a fast file stream
  *
  *  Library:
  *      #include <xtend/file.h>
@@ -1277,6 +1333,9 @@ size_t  xt_ff_read(xt_ff_t *stream, void * restrict ptr,
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      xt_ff_seeko() - Reposition file descriptor under a fast file stream
+ *
  *  Library:
  *      #include <xtend/file.h>
  *      -lxtend
@@ -1320,9 +1379,9 @@ int     xt_ff_seeko(xt_ff_t *stream, off_t offset, int whence)
     // efficient designs.  In particular, don't purge the input buffer
     // if the seek is within buffered data.
     
-    if ( lseek(xt_ffile_get_fd(stream), offset, whence) == offset )
+    if ( lseek(xt_ff_get_fd(stream), offset, whence) == offset )
     {
-	ch = xt_ff_fillbuff(stream);
+	ch = _xt_ff_fillbuff(stream);
 	xt_ff_ungetc(stream, ch);
 	return 0;   // Success
     }
@@ -1333,6 +1392,9 @@ int     xt_ff_seeko(xt_ff_t *stream, off_t offset, int whence)
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      xt_ff_rewind() - Reposition file descriptor to beginning of file
  *
  *  Library:
  *      #include <xtend/fast-file.h>

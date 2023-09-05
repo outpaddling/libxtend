@@ -1,6 +1,9 @@
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      mv() - Library function equivalent of mv(1)
+ *
  *  Library:
  *      #include <xtend/file.h>
  *      -lxtend

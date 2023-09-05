@@ -1,12 +1,15 @@
 #include "time.h"
 
 /***************************************************************************
+ *  Name:
+ *      xt_difftimeofday() - Compute difference between struct timeval values
+ *
  *  Library:
  *      #include <xtend/time.h>
- *      -lextend
+ *      -lxtend
  *
  *  Description:
- *      difftimeofday() returns the difference, in microseconds, between two 
+ *      xt_difftimeofday() returns the difference, in microseconds, between two 
  *      time values returned by gettimeofday(3).  This function can be used
  *      to get a good estimate of the real time elapsed in a process between
  *      any two points (where calls to gettimeofday(3) are strategically
@@ -39,6 +42,9 @@ time_t  xt_difftimeofday(struct timeval *later, struct timeval *earlier)
 
 
 /***************************************************************************
+ *  Name:
+ *      xt_tic() - Record current high-resolution clock time
+ *
  *  Library:
  *      #include <xtend/time.h>
  *      -lxtend
@@ -72,7 +78,7 @@ time_t  xt_difftimeofday(struct timeval *later, struct timeval *earlier)
  *      xt_toc(stderr, "Elapsed time for loop:\n", &start_time, &start_usage);
  *
  *  See also:
- *      xt_toc(3), difftimeofday(3), gettimeofday(2)
+ *      xt_toc(3), xt_difftimeofday(3), gettimeofday(2)
  *
  *  History: 
  *  Date        Name        Modification
@@ -88,6 +94,9 @@ int     xt_tic(struct timeval *start_time, struct rusage *start_usage)
 
 
 /***************************************************************************
+ *  Name:
+ *      xt_toc() - Report time since last xt_tic()
+ *
  *  Library:
  *      #include <xtend/time.h>
  *      -lxtend
@@ -125,7 +134,7 @@ int     xt_tic(struct timeval *start_time, struct rusage *start_usage)
  *      xt_toc(stderr, "Elapsed time for loop:\n", &start_time, &start_usage);
  *
  *  See also:
- *      xt_tic(3), difftimeofday(3), gettimeofday(2)
+ *      xt_tic(3), xt_difftimeofday(3), gettimeofday(2)
  *
  *  History: 
  *  Date        Name        Modification

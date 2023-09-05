@@ -6,6 +6,9 @@
 #include "string.h"
 
 /***************************************************************************
+ *  Name:
+ *      xt_get_home_dir() - Get process owner's home directory
+ *
  *  Library:
  *      #include <xtend/proc.h>
  *      -lxtend

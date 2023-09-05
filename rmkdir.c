@@ -5,6 +5,9 @@
 #include "file.h"
 
 /***************************************************************************
+ *  Name:
+ *      rmkdir() - Recursively create directories
+ *
  *  Library:
  *      #include <xtend/file.h>
  *      -lxtend

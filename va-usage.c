@@ -5,6 +5,9 @@
 #include "proc.h"
 
 /***************************************************************************
+ *  Name:
+ *      xt_va_usage() - Print usage message and terminate process
+ *
  *  Library:
  *      #include <xtend/proc.h>
  *      -lxtend

@@ -10,14 +10,14 @@
  */
 
 /* temp-fast-file-accessors.c */
-unsigned char *xt_ffile_get_buff(xt_ff_t *xt_ffile_ptr);
-unsigned char xt_ffile_get_buff_ae(xt_ff_t *xt_ffile_ptr, size_t c);
-unsigned char *xt_ffile_get_start_ptr(xt_ff_t *xt_ffile_ptr);
-unsigned char xt_ffile_get_start_ptr_ae(xt_ff_t *xt_ffile_ptr, size_t c);
-ssize_t xt_ffile_get_bytes_read(xt_ff_t *xt_ffile_ptr);
-ssize_t xt_ffile_get_buff_index(xt_ff_t *xt_ffile_ptr);
-ssize_t xt_ffile_get_disk_block_size(xt_ff_t *xt_ffile_ptr);
-ssize_t xt_ffile_get_buff_size(xt_ff_t *xt_ffile_ptr);
-int xt_ffile_get_fd(xt_ff_t *xt_ffile_ptr);
-int xt_ffile_get_flags(xt_ff_t *xt_ffile_ptr);
-pid_t xt_ffile_get_child_pid(xt_ff_t *xt_ffile_ptr);
+unsigned char *xt_ff_get_buff(xt_ff_t *xt_ff_ptr);
+unsigned char xt_ff_get_buff_ae(xt_ff_t *xt_ff_ptr, size_t c);
+unsigned char *xt_ff_get_start_ptr(xt_ff_t *xt_ff_ptr);
+unsigned char xt_ff_get_start_ptr_ae(xt_ff_t *xt_ff_ptr, size_t c);
+ssize_t xt_ff_get_bytes_read(xt_ff_t *xt_ff_ptr);
+ssize_t xt_ff_get_buff_index(xt_ff_t *xt_ff_ptr);
+ssize_t xt_ff_get_disk_block_size(xt_ff_t *xt_ff_ptr);
+ssize_t xt_ff_get_buff_size(xt_ff_t *xt_ff_ptr);
+int xt_ff_get_fd(xt_ff_t *xt_ff_ptr);
+int xt_ff_get_flags(xt_ff_t *xt_ff_ptr);
+pid_t xt_ff_get_child_pid(xt_ff_t *xt_ff_ptr);

@@ -8,6 +8,9 @@
 #include "common.h"
 
 /***************************************************************************
+ *  Name:
+ *      dsv_read_field() - Read next field from tabular input
+ *
  *  Library:
  *      #include <xtend/dsv.h>
  *      -lbiolibc
@@ -100,6 +103,10 @@ int     dsv_read_field(FILE *stream, char buff[], size_t buff_size,
 
 
 /***************************************************************************
+ *  Name:
+ *      dsv_read_field_malloc() - Read next field from tabular input,
+ *                                allocating memory as needed
+ *
  *  Library:
  *      #include <xtend/dsv.h>
  *      -lbiolibc
@@ -185,6 +192,9 @@ int     dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
 
 
 /***************************************************************************
+ *  Name:
+ *      dsv_skip_field() - Read and discard next field from tabular input
+ *
  *  Library:
  *      #include <xtend/dsv.h>
  *      -lbiolibc
@@ -225,6 +235,9 @@ int     dsv_skip_field(FILE *stream, const char *delims, size_t *len)
 
 
 /***************************************************************************
+ *  Name:
+ *      dsv_skip_rest_of_line() - Read and discard rest of input line
+ *
  *  Library:
  *      #include <xtend/dsv.h>
  *      -lbiolibc
@@ -260,6 +273,9 @@ int     dsv_skip_rest_of_line(FILE *stream)
 
 
 /***************************************************************************
+ *  Name:
+ *      dsv_line_read() - Read a line of generic tabular data
+ *
  *  Library:
  *      #include <xtend/dsv.h>
  *      -lbiolibc
@@ -372,6 +388,9 @@ int     dsv_line_read(dsv_line_t *dsv_line, FILE *stream, const char *delims)
 
 
 /***************************************************************************
+ *  Name:
+ *      dsv_line_write() - Write a line of generic tabular data
+ *
  *  Library:
  *      #include <xtend/dsv.h>
  *      -lbiolibc
@@ -428,6 +447,9 @@ int     dsv_line_write(dsv_line_t *dsv_line, FILE *stream)
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      dsv_line_init() - Initialize generic tabular data object
+ *
  *  Library:
  *      #include <xtend/dsv.h>
  *      -lxtend
@@ -481,6 +503,9 @@ void    dsv_line_init(dsv_line_t *dsv_line)
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      dsv_line_new() - Create a new generic tabular data object
  *
  *  Library:
  *      #include <xtend/dsv.h>
@@ -538,6 +563,9 @@ dsv_line_t  *dsv_line_new(void)
 
 
 /***************************************************************************
+ *  Name:
+ *      dsv_line_copy() - Copy a generica tabular data object
+ *
  *  Library:
  *      #include <xtend/dsv.h>
  *      -lbiolibc
@@ -596,6 +624,9 @@ int     dsv_line_copy(dsv_line_t *dest, dsv_line_t *src)
 
 
 /***************************************************************************
+ *  Name:
+ *      dsv_line_free() - Destroy a generic tabular data object
+ *
  *  Library:
  *      #include <xtend/dsv.h>
  *      -lbiolibc
@@ -656,6 +687,9 @@ int     dsv_line_free(dsv_line_t *dsv_line)
 
 
 /***************************************************************************
+ *  Name:
+ *      tsv_read_field() - Read next tab-separated field
+ *
  *  Library:
  *      #include <xtend/dsv.h>
  *      -lbiolibc
@@ -682,6 +716,10 @@ int     tsv_read_field(FILE *stream, char buff[], size_t buff_size,
 
 
 /***************************************************************************
+ *  Name:
+ *      tsv_read_field_malloc() - Read next tab-separated field, allocating
+ *                                memory as needed
+ *
  *  Library:
  *      #include <xtend/dsv.h>
  *      -lbiolibc
@@ -708,6 +746,9 @@ int     tsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
 
 
 /***************************************************************************
+ *  Name:
+ *      tsv_skip_field() - Read and discard next tab-separated field
+ *
  *  Library:
  *      #include <xtend/dsv.h>
  *      -lbiolibc
@@ -731,6 +772,9 @@ int     tsv_skip_field(FILE *stream, size_t *len)
 
 
 /***************************************************************************
+ *  Name:
+ *      tsv_skip_rest_of_line() - Read and discard rest of input line
+ *
  *  Library:
  *      #include <xtend/dsv.h>
  *      -lbiolibc
@@ -753,6 +797,9 @@ int     tsv_skip_rest_of_line(FILE *stream)
 
 
 /***************************************************************************
+ *  Name:
+ *      csv_read_field() - Read next comma-separated field
+ *
  *  Library:
  *      #include <xtend/dsv.h>
  *      -lbiolibc
@@ -779,6 +826,10 @@ int     csv_read_field(FILE *stream, char buff[], size_t buff_size,
 
 
 /***************************************************************************
+ *  Name:
+ *      csv_read_field_malloc() - Read next comma-separated field, allocating
+ *                                memory as needed
+ *
  *  Library:
  *      #include <xtend/dsv.h>
  *      -lbiolibc
@@ -805,6 +856,9 @@ int     csv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
 
 
 /***************************************************************************
+ *  Name:
+ *      csv_skip_field() - Read and discard next comma-separated field
+ *
  *  Library:
  *      #include <xtend/dsv.h>
  *      -lbiolibc
@@ -828,6 +882,9 @@ int     csv_skip_field(FILE *stream, size_t *len)
 
 
 /***************************************************************************
+ *  Name:
+ *      csv_skip_rest_of_line() - Read and discard rest of input line
+ *
  *  Library:
  *      #include <xtend/dsv.h>
  *      -lbiolibc

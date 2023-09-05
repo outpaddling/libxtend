@@ -3,6 +3,9 @@
 #include "proc.h"
 
 /***************************************************************************
+ *  Name:
+ *      xt_spawnlp() - Fork and exec a process from a variable argument list
+ *
  *  Library:
  *      #include <xtend/proc.h>
  *      -lxtend

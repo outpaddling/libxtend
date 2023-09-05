@@ -1,6 +1,9 @@
 #include "math.h"
 
 /***************************************************************************
+ *  Name:
+ *      gcd() - Greatest common divisor
+ *
  *  Library:
  *      #include <xtend/math.h>
  *      -lxtend
@@ -36,6 +39,9 @@ unsigned long   gcd(unsigned long a, unsigned long b)
 
 
 /***************************************************************************
+ *  Name:
+ *      lcm() - Least common multiple
+ *
  *  Library:
  *      #include <xtend/math.h>
  *      -lxtend

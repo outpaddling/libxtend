@@ -1,6 +1,9 @@
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      xt_n_choose_k() - Compute binomial coefficient N choose K
+ *
  *  Library:
  *      #include <xtend/math.h>
  *      -lxtend
@@ -60,6 +63,9 @@ unsigned long   xt_n_choose_k(unsigned long n, unsigned long k)
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      xt_factorial() - Fast factorial function
  *
  *  Library:
  *      #include <inttypes.h>

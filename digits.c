@@ -1,6 +1,9 @@
 #include "math.h"
 
 /***************************************************************************
+ *  Name:
+ *      digits() - Compute the number of digits in an integer in any base
+ *
  *  Library:
  *      #include <xtend/math.h>
  *      -lxtend

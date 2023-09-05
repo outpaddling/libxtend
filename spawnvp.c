@@ -10,6 +10,9 @@
 #include "proc.h"
 
 /***************************************************************************
+ *  Name:
+ *      xt_spawnvp() - Fork and exec a new process from an argv-style array
+ *
  *  Library:
  *      #include <xtend/proc.h>
  *      -lxtend

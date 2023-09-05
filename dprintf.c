@@ -11,14 +11,17 @@
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      xt_dprintf() - Print formatted output to a low-level file descriptor
+ *
  *  Library:
  *      #include <xtend/file.h>
  *      -lxtend
  *
  *  Description:
- *      The xt_dprintf() function, which takes a file descriptor rather
+ *      The dprintf() function, which takes a file descriptor rather
  *      than a FILE stream pointer, is provided by many systems including
- *      BSDs and Linux, but not by all.  Use of xt_xt_dprintf() from
+ *      BSDs and Linux, but not by all.  Use of xt_dprintf() from
  *      libxtend will ensure portability of code.
  *  
  *  Arguments:

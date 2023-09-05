@@ -9,6 +9,9 @@
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      xt-daemonize - Detach process from terminal
+ *
  *  Library:
  *      #include <xtend/proc.h>
  *      -lxtend

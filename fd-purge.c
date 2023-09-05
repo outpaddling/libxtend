@@ -3,12 +3,15 @@
 #include "file.h"
 
 /***************************************************************************
+ *  Name:
+ *      xt_fd_purge() - Discard unread input from input FILE buffer
+ *
  *  Library:
  *      #include <xtend/file.h>
  *      -lxtend
  *
  *  Description:
- *      fd_purge() reads and discards unwanted input data (such as leftover
+ *      xt_fd_purge() reads and discards unwanted input data (such as leftover
  *      input from a keyboard or mouse) from the input file descriptor fd.
  *  
  *  Arguments:

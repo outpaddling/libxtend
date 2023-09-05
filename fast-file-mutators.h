@@ -14,16 +14,16 @@
  */
 
 /* temp-fast-file-mutators.c */
-int xt_ffile_set_buff(xt_ff_t *xt_ffile_ptr, unsigned char *new_buff);
-int xt_ffile_set_buff_ae(xt_ff_t *xt_ffile_ptr, size_t c, unsigned char new_buff_element);
-int xt_ffile_set_buff_cpy(xt_ff_t *xt_ffile_ptr, unsigned char *new_buff, size_t array_size);
-int xt_ffile_set_start_ptr(xt_ff_t *xt_ffile_ptr, unsigned char *new_start_ptr);
-int xt_ffile_set_start_ptr_ae(xt_ff_t *xt_ffile_ptr, size_t c, unsigned char new_start_ptr_element);
-int xt_ffile_set_start_ptr_cpy(xt_ff_t *xt_ffile_ptr, unsigned char *new_start_ptr, size_t array_size);
-int xt_ffile_set_bytes_read(xt_ff_t *xt_ffile_ptr, ssize_t new_bytes_read);
-int xt_ffile_set_buff_index(xt_ff_t *xt_ffile_ptr, ssize_t new_buff_index);
-int xt_ffile_set_disk_block_size(xt_ff_t *xt_ffile_ptr, ssize_t new_disk_block_size);
-int xt_ffile_set_buff_size(xt_ff_t *xt_ffile_ptr, ssize_t new_buff_size);
-int xt_ffile_set_fd(xt_ff_t *xt_ffile_ptr, int new_fd);
-int xt_ffile_set_flags(xt_ff_t *xt_ffile_ptr, int new_flags);
-int xt_ffile_set_child_pid(xt_ff_t *xt_ffile_ptr, pid_t new_child_pid);
+int xt_ff_set_buff(xt_ff_t *xt_ff_ptr, unsigned char *new_buff);
+int xt_ff_set_buff_ae(xt_ff_t *xt_ff_ptr, size_t c, unsigned char new_buff_element);
+int xt_ff_set_buff_cpy(xt_ff_t *xt_ff_ptr, unsigned char *new_buff, size_t array_size);
+int xt_ff_set_start_ptr(xt_ff_t *xt_ff_ptr, unsigned char *new_start_ptr);
+int xt_ff_set_start_ptr_ae(xt_ff_t *xt_ff_ptr, size_t c, unsigned char new_start_ptr_element);
+int xt_ff_set_start_ptr_cpy(xt_ff_t *xt_ff_ptr, unsigned char *new_start_ptr, size_t array_size);
+int xt_ff_set_bytes_read(xt_ff_t *xt_ff_ptr, ssize_t new_bytes_read);
+int xt_ff_set_buff_index(xt_ff_t *xt_ff_ptr, ssize_t new_buff_index);
+int xt_ff_set_disk_block_size(xt_ff_t *xt_ff_ptr, ssize_t new_disk_block_size);
+int xt_ff_set_buff_size(xt_ff_t *xt_ff_ptr, ssize_t new_buff_size);
+int xt_ff_set_fd(xt_ff_t *xt_ff_ptr, int new_fd);
+int xt_ff_set_flags(xt_ff_t *xt_ff_ptr, int new_flags);
+int xt_ff_set_child_pid(xt_ff_t *xt_ff_ptr, pid_t new_child_pid);

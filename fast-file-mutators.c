@@ -29,7 +29,7 @@
  *      leaks.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *      new_buff        The new value for buff
  *
  *  Returns:
@@ -40,7 +40,7 @@
  *      xt_ff_t      xt_ffile;
  *      unsigned char * new_buff;
  *
- *      if ( xt_ffile_set_buff(&xt_ffile, new_buff)
+ *      if ( xt_ff_set_buff(&xt_ffile, new_buff)
  *              == EXTEND_DATA_OK )
  *      {
  *      }
@@ -53,14 +53,14 @@
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_buff(xt_ff_t *xt_ffile_ptr, unsigned char * new_buff)
+int     xt_ff_set_buff(xt_ff_t *xt_ff_ptr, unsigned char * new_buff)
 
 {
     if ( new_buff == NULL )
 	return EXTEND_DATA_OUT_OF_RANGE;
     else
     {
-	xt_ffile_ptr->buff = new_buff;
+	xt_ff_ptr->buff = new_buff;
 	return EXTEND_DATA_OK;
     }
 }
@@ -73,11 +73,11 @@ int     xt_ffile_set_buff(xt_ff_t *xt_ffile_ptr, unsigned char * new_buff)
  *
  *  Description:
  *      Mutator for an array element of buff member in a xt_ff_t
- *      structure. Use this function to set xt_ffile_ptr->buff[c]
+ *      structure. Use this function to set xt_ff_ptr->buff[c]
  *      in a xt_ff_t object from non-member functions.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *      c               Subscript to the buff array
  *      new_buff_element The new value for buff[c]
  *
@@ -90,7 +90,7 @@ int     xt_ffile_set_buff(xt_ff_t *xt_ffile_ptr, unsigned char * new_buff)
  *      size_t          c;
  *      unsigned char * new_buff_element;
  *
- *      if ( xt_ffile_set_buff_ae(&xt_ffile, c, new_buff_element)
+ *      if ( xt_ff_set_buff_ae(&xt_ffile, c, new_buff_element)
  *              == EXTEND_DATA_OK )
  *      {
  *      }
@@ -103,14 +103,14 @@ int     xt_ffile_set_buff(xt_ff_t *xt_ffile_ptr, unsigned char * new_buff)
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_buff_ae(xt_ff_t *xt_ffile_ptr, size_t c, unsigned char  new_buff_element)
+int     xt_ff_set_buff_ae(xt_ff_t *xt_ff_ptr, size_t c, unsigned char  new_buff_element)
 
 {
     if ( false )
 	return EXTEND_DATA_OUT_OF_RANGE;
     else
     {
-	xt_ffile_ptr->buff[c] = new_buff_element;
+	xt_ff_ptr->buff[c] = new_buff_element;
 	return EXTEND_DATA_OK;
     }
 }
@@ -125,10 +125,10 @@ int     xt_ffile_set_buff_ae(xt_ff_t *xt_ffile_ptr, size_t c, unsigned char  new
  *      Mutator for buff member in a xt_ff_t structure.
  *      Use this function to set buff in a xt_ff_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_buff to xt_ffile_ptr->buff.
+ *      by new_buff to xt_ff_ptr->buff.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *      new_buff        The new value for buff
  *      array_size      Size of the buff array.
  *
@@ -141,7 +141,7 @@ int     xt_ffile_set_buff_ae(xt_ff_t *xt_ffile_ptr, size_t c, unsigned char  new
  *      unsigned char * new_buff;
  *      size_t          array_size;
  *
- *      if ( xt_ffile_set_buff_cpy(&xt_ffile, new_buff, array_size)
+ *      if ( xt_ff_set_buff_cpy(&xt_ffile, new_buff, array_size)
  *              == EXTEND_DATA_OK )
  *      {
  *      }
@@ -154,7 +154,7 @@ int     xt_ffile_set_buff_ae(xt_ff_t *xt_ffile_ptr, size_t c, unsigned char  new
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_buff_cpy(xt_ff_t *xt_ffile_ptr, unsigned char * new_buff, size_t array_size)
+int     xt_ff_set_buff_cpy(xt_ff_t *xt_ff_ptr, unsigned char * new_buff, size_t array_size)
 
 {
     if ( new_buff == NULL )
@@ -165,7 +165,7 @@ int     xt_ffile_set_buff_cpy(xt_ff_t *xt_ffile_ptr, unsigned char * new_buff, s
 	
 	// FIXME: Assuming all elements should be copied
 	for (c = 0; c < array_size; ++c)
-	    xt_ffile_ptr->buff[c] = new_buff[c];
+	    xt_ff_ptr->buff[c] = new_buff[c];
 	return EXTEND_DATA_OK;
     }
 }
@@ -186,7 +186,7 @@ int     xt_ffile_set_buff_cpy(xt_ff_t *xt_ffile_ptr, unsigned char * new_buff, s
  *      leaks.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *      new_start_ptr   The new value for start_ptr
  *
  *  Returns:
@@ -197,7 +197,7 @@ int     xt_ffile_set_buff_cpy(xt_ff_t *xt_ffile_ptr, unsigned char * new_buff, s
  *      xt_ff_t      xt_ffile;
  *      unsigned char * new_start_ptr;
  *
- *      if ( xt_ffile_set_start_ptr(&xt_ffile, new_start_ptr)
+ *      if ( xt_ff_set_start_ptr(&xt_ffile, new_start_ptr)
  *              == EXTEND_DATA_OK )
  *      {
  *      }
@@ -210,14 +210,14 @@ int     xt_ffile_set_buff_cpy(xt_ff_t *xt_ffile_ptr, unsigned char * new_buff, s
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_start_ptr(xt_ff_t *xt_ffile_ptr, unsigned char * new_start_ptr)
+int     xt_ff_set_start_ptr(xt_ff_t *xt_ff_ptr, unsigned char * new_start_ptr)
 
 {
     if ( new_start_ptr == NULL )
 	return EXTEND_DATA_OUT_OF_RANGE;
     else
     {
-	xt_ffile_ptr->start_ptr = new_start_ptr;
+	xt_ff_ptr->start_ptr = new_start_ptr;
 	return EXTEND_DATA_OK;
     }
 }
@@ -230,11 +230,11 @@ int     xt_ffile_set_start_ptr(xt_ff_t *xt_ffile_ptr, unsigned char * new_start_
  *
  *  Description:
  *      Mutator for an array element of start_ptr member in a xt_ff_t
- *      structure. Use this function to set xt_ffile_ptr->start_ptr[c]
+ *      structure. Use this function to set xt_ff_ptr->start_ptr[c]
  *      in a xt_ff_t object from non-member functions.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *      c               Subscript to the start_ptr array
  *      new_start_ptr_element The new value for start_ptr[c]
  *
@@ -247,7 +247,7 @@ int     xt_ffile_set_start_ptr(xt_ff_t *xt_ffile_ptr, unsigned char * new_start_
  *      size_t          c;
  *      unsigned char * new_start_ptr_element;
  *
- *      if ( xt_ffile_set_start_ptr_ae(&xt_ffile, c, new_start_ptr_element)
+ *      if ( xt_ff_set_start_ptr_ae(&xt_ffile, c, new_start_ptr_element)
  *              == EXTEND_DATA_OK )
  *      {
  *      }
@@ -260,14 +260,14 @@ int     xt_ffile_set_start_ptr(xt_ff_t *xt_ffile_ptr, unsigned char * new_start_
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_start_ptr_ae(xt_ff_t *xt_ffile_ptr, size_t c, unsigned char  new_start_ptr_element)
+int     xt_ff_set_start_ptr_ae(xt_ff_t *xt_ff_ptr, size_t c, unsigned char  new_start_ptr_element)
 
 {
     if ( false )
 	return EXTEND_DATA_OUT_OF_RANGE;
     else
     {
-	xt_ffile_ptr->start_ptr[c] = new_start_ptr_element;
+	xt_ff_ptr->start_ptr[c] = new_start_ptr_element;
 	return EXTEND_DATA_OK;
     }
 }
@@ -282,10 +282,10 @@ int     xt_ffile_set_start_ptr_ae(xt_ff_t *xt_ffile_ptr, size_t c, unsigned char
  *      Mutator for start_ptr member in a xt_ff_t structure.
  *      Use this function to set start_ptr in a xt_ff_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_start_ptr to xt_ffile_ptr->start_ptr.
+ *      by new_start_ptr to xt_ff_ptr->start_ptr.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *      new_start_ptr   The new value for start_ptr
  *      array_size      Size of the start_ptr array.
  *
@@ -298,7 +298,7 @@ int     xt_ffile_set_start_ptr_ae(xt_ff_t *xt_ffile_ptr, size_t c, unsigned char
  *      unsigned char * new_start_ptr;
  *      size_t          array_size;
  *
- *      if ( xt_ffile_set_start_ptr_cpy(&xt_ffile, new_start_ptr, array_size)
+ *      if ( xt_ff_set_start_ptr_cpy(&xt_ffile, new_start_ptr, array_size)
  *              == EXTEND_DATA_OK )
  *      {
  *      }
@@ -311,7 +311,7 @@ int     xt_ffile_set_start_ptr_ae(xt_ff_t *xt_ffile_ptr, size_t c, unsigned char
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_start_ptr_cpy(xt_ff_t *xt_ffile_ptr, unsigned char * new_start_ptr, size_t array_size)
+int     xt_ff_set_start_ptr_cpy(xt_ff_t *xt_ff_ptr, unsigned char * new_start_ptr, size_t array_size)
 
 {
     if ( new_start_ptr == NULL )
@@ -322,7 +322,7 @@ int     xt_ffile_set_start_ptr_cpy(xt_ff_t *xt_ffile_ptr, unsigned char * new_st
 	
 	// FIXME: Assuming all elements should be copied
 	for (c = 0; c < array_size; ++c)
-	    xt_ffile_ptr->start_ptr[c] = new_start_ptr[c];
+	    xt_ff_ptr->start_ptr[c] = new_start_ptr[c];
 	return EXTEND_DATA_OK;
     }
 }
@@ -343,7 +343,7 @@ int     xt_ffile_set_start_ptr_cpy(xt_ff_t *xt_ffile_ptr, unsigned char * new_st
  *      leaks.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *      new_bytes_read  The new value for bytes_read
  *
  *  Returns:
@@ -354,7 +354,7 @@ int     xt_ffile_set_start_ptr_cpy(xt_ff_t *xt_ffile_ptr, unsigned char * new_st
  *      xt_ff_t      xt_ffile;
  *      ssize_t         new_bytes_read;
  *
- *      if ( xt_ffile_set_bytes_read(&xt_ffile, new_bytes_read)
+ *      if ( xt_ff_set_bytes_read(&xt_ffile, new_bytes_read)
  *              == EXTEND_DATA_OK )
  *      {
  *      }
@@ -367,14 +367,14 @@ int     xt_ffile_set_start_ptr_cpy(xt_ff_t *xt_ffile_ptr, unsigned char * new_st
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_bytes_read(xt_ff_t *xt_ffile_ptr, ssize_t new_bytes_read)
+int     xt_ff_set_bytes_read(xt_ff_t *xt_ff_ptr, ssize_t new_bytes_read)
 
 {
     if ( false )
 	return EXTEND_DATA_OUT_OF_RANGE;
     else
     {
-	xt_ffile_ptr->bytes_read = new_bytes_read;
+	xt_ff_ptr->bytes_read = new_bytes_read;
 	return EXTEND_DATA_OK;
     }
 }
@@ -395,7 +395,7 @@ int     xt_ffile_set_bytes_read(xt_ff_t *xt_ffile_ptr, ssize_t new_bytes_read)
  *      leaks.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *      new_buff_index  The new value for buff_index
  *
  *  Returns:
@@ -406,7 +406,7 @@ int     xt_ffile_set_bytes_read(xt_ff_t *xt_ffile_ptr, ssize_t new_bytes_read)
  *      xt_ff_t      xt_ffile;
  *      ssize_t         new_buff_index;
  *
- *      if ( xt_ffile_set_buff_index(&xt_ffile, new_buff_index)
+ *      if ( xt_ff_set_buff_index(&xt_ffile, new_buff_index)
  *              == EXTEND_DATA_OK )
  *      {
  *      }
@@ -419,14 +419,14 @@ int     xt_ffile_set_bytes_read(xt_ff_t *xt_ffile_ptr, ssize_t new_bytes_read)
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_buff_index(xt_ff_t *xt_ffile_ptr, ssize_t new_buff_index)
+int     xt_ff_set_buff_index(xt_ff_t *xt_ff_ptr, ssize_t new_buff_index)
 
 {
     if ( false )
 	return EXTEND_DATA_OUT_OF_RANGE;
     else
     {
-	xt_ffile_ptr->buff_index = new_buff_index;
+	xt_ff_ptr->buff_index = new_buff_index;
 	return EXTEND_DATA_OK;
     }
 }
@@ -447,7 +447,7 @@ int     xt_ffile_set_buff_index(xt_ff_t *xt_ffile_ptr, ssize_t new_buff_index)
  *      leaks.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *      new_disk_block_size The new value for disk_block_size
  *
  *  Returns:
@@ -458,7 +458,7 @@ int     xt_ffile_set_buff_index(xt_ff_t *xt_ffile_ptr, ssize_t new_buff_index)
  *      xt_ff_t      xt_ffile;
  *      ssize_t         new_disk_block_size;
  *
- *      if ( xt_ffile_set_disk_block_size(&xt_ffile, new_disk_block_size)
+ *      if ( xt_ff_set_disk_block_size(&xt_ffile, new_disk_block_size)
  *              == EXTEND_DATA_OK )
  *      {
  *      }
@@ -471,14 +471,14 @@ int     xt_ffile_set_buff_index(xt_ff_t *xt_ffile_ptr, ssize_t new_buff_index)
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_disk_block_size(xt_ff_t *xt_ffile_ptr, ssize_t new_disk_block_size)
+int     xt_ff_set_disk_block_size(xt_ff_t *xt_ff_ptr, ssize_t new_disk_block_size)
 
 {
     if ( false )
 	return EXTEND_DATA_OUT_OF_RANGE;
     else
     {
-	xt_ffile_ptr->disk_block_size = new_disk_block_size;
+	xt_ff_ptr->disk_block_size = new_disk_block_size;
 	return EXTEND_DATA_OK;
     }
 }
@@ -499,7 +499,7 @@ int     xt_ffile_set_disk_block_size(xt_ff_t *xt_ffile_ptr, ssize_t new_disk_blo
  *      leaks.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *      new_buff_size   The new value for buff_size
  *
  *  Returns:
@@ -510,7 +510,7 @@ int     xt_ffile_set_disk_block_size(xt_ff_t *xt_ffile_ptr, ssize_t new_disk_blo
  *      xt_ff_t      xt_ffile;
  *      ssize_t         new_buff_size;
  *
- *      if ( xt_ffile_set_buff_size(&xt_ffile, new_buff_size)
+ *      if ( xt_ff_set_buff_size(&xt_ffile, new_buff_size)
  *              == EXTEND_DATA_OK )
  *      {
  *      }
@@ -523,14 +523,14 @@ int     xt_ffile_set_disk_block_size(xt_ff_t *xt_ffile_ptr, ssize_t new_disk_blo
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_buff_size(xt_ff_t *xt_ffile_ptr, ssize_t new_buff_size)
+int     xt_ff_set_buff_size(xt_ff_t *xt_ff_ptr, ssize_t new_buff_size)
 
 {
     if ( false )
 	return EXTEND_DATA_OUT_OF_RANGE;
     else
     {
-	xt_ffile_ptr->buff_size = new_buff_size;
+	xt_ff_ptr->buff_size = new_buff_size;
 	return EXTEND_DATA_OK;
     }
 }
@@ -551,7 +551,7 @@ int     xt_ffile_set_buff_size(xt_ff_t *xt_ffile_ptr, ssize_t new_buff_size)
  *      leaks.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *      new_fd          The new value for fd
  *
  *  Returns:
@@ -562,7 +562,7 @@ int     xt_ffile_set_buff_size(xt_ff_t *xt_ffile_ptr, ssize_t new_buff_size)
  *      xt_ff_t      xt_ffile;
  *      int             new_fd;
  *
- *      if ( xt_ffile_set_fd(&xt_ffile, new_fd)
+ *      if ( xt_ff_set_fd(&xt_ffile, new_fd)
  *              == EXTEND_DATA_OK )
  *      {
  *      }
@@ -575,14 +575,14 @@ int     xt_ffile_set_buff_size(xt_ff_t *xt_ffile_ptr, ssize_t new_buff_size)
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_fd(xt_ff_t *xt_ffile_ptr, int new_fd)
+int     xt_ff_set_fd(xt_ff_t *xt_ff_ptr, int new_fd)
 
 {
     if ( false )
 	return EXTEND_DATA_OUT_OF_RANGE;
     else
     {
-	xt_ffile_ptr->fd = new_fd;
+	xt_ff_ptr->fd = new_fd;
 	return EXTEND_DATA_OK;
     }
 }
@@ -603,7 +603,7 @@ int     xt_ffile_set_fd(xt_ff_t *xt_ffile_ptr, int new_fd)
  *      leaks.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *      new_flags       The new value for flags
  *
  *  Returns:
@@ -614,7 +614,7 @@ int     xt_ffile_set_fd(xt_ff_t *xt_ffile_ptr, int new_fd)
  *      xt_ff_t      xt_ffile;
  *      int             new_flags;
  *
- *      if ( xt_ffile_set_flags(&xt_ffile, new_flags)
+ *      if ( xt_ff_set_flags(&xt_ffile, new_flags)
  *              == EXTEND_DATA_OK )
  *      {
  *      }
@@ -627,14 +627,14 @@ int     xt_ffile_set_fd(xt_ff_t *xt_ffile_ptr, int new_fd)
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_flags(xt_ff_t *xt_ffile_ptr, int new_flags)
+int     xt_ff_set_flags(xt_ff_t *xt_ff_ptr, int new_flags)
 
 {
     if ( false )
 	return EXTEND_DATA_OUT_OF_RANGE;
     else
     {
-	xt_ffile_ptr->flags = new_flags;
+	xt_ff_ptr->flags = new_flags;
 	return EXTEND_DATA_OK;
     }
 }
@@ -655,7 +655,7 @@ int     xt_ffile_set_flags(xt_ff_t *xt_ffile_ptr, int new_flags)
  *      leaks.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *      new_child_pid   The new value for child_pid
  *
  *  Returns:
@@ -666,7 +666,7 @@ int     xt_ffile_set_flags(xt_ff_t *xt_ffile_ptr, int new_flags)
  *      xt_ff_t      xt_ffile;
  *      pid_t           new_child_pid;
  *
- *      if ( xt_ffile_set_child_pid(&xt_ffile, new_child_pid)
+ *      if ( xt_ff_set_child_pid(&xt_ffile, new_child_pid)
  *              == EXTEND_DATA_OK )
  *      {
  *      }
@@ -679,14 +679,14 @@ int     xt_ffile_set_flags(xt_ff_t *xt_ffile_ptr, int new_flags)
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int     xt_ffile_set_child_pid(xt_ff_t *xt_ffile_ptr, pid_t new_child_pid)
+int     xt_ff_set_child_pid(xt_ff_t *xt_ff_ptr, pid_t new_child_pid)
 
 {
     if ( false )
 	return EXTEND_DATA_OUT_OF_RANGE;
     else
     {
-	xt_ffile_ptr->child_pid = new_child_pid;
+	xt_ff_ptr->child_pid = new_child_pid;
 	return EXTEND_DATA_OK;
     }
 }

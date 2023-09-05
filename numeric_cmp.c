@@ -1,6 +1,9 @@
 #include "math.h"
 
 /***************************************************************************
+ *  Name:
+ *      double_cmp() - Compare two doubles for sort(3), bsearch(3), etc.
+ *
  *  Library:
  *      #include <xtend/math.h>
  *      -lxtend
@@ -53,6 +56,9 @@ int     double_cmp(const double *n1, const double *n2)
 
 
 /***************************************************************************
+ *  Name:
+ *      float_cmp() - Compare two floats for sort(3), bsearch(3), etc.
+ *
  *  Library:
  *      #include <xtend/math.h>
  *      -lxtend
@@ -105,6 +111,9 @@ int     float_cmp(const float *n1, const float *n2)
 
 
 /***************************************************************************
+ *  Name:
+ *      long_long_cmp() - Compare two long longs for sort(3), bsearch(3), etc.
+ *
  *  Library:
  *      #include <xtend/math.h>
  *      -lxtend
@@ -157,6 +166,9 @@ int     long_long_cmp(const long long *n1, const long long *n2)
 
 
 /***************************************************************************
+ *  Name:
+ *      long_cmp() - Compare two longs for sort(3), bsearch(3), etc.
+ *
  *  Library:
  *      #include <xtend/math.h>
  *      -lxtend
@@ -209,6 +221,9 @@ int     long_cmp(const long *n1, const long *n2)
 
 
 /***************************************************************************
+ *  Name:
+ *      int_cmp() - Compare two ints for sort(3), bsearch(3), etc.
+ *
  *  Library:
  *      #include <xtend/math.h>
  *      -lxtend
@@ -251,6 +266,9 @@ int     int_cmp(const int *n1, const int *n2)
 
 
 /***************************************************************************
+ *  Name:
+ *      short_cmp() - Compare two shorts for sort(3), bsearch(3), etc.
+ *
  *  Library:
  *      #include <xtend/math.h>
  *      -lxtend

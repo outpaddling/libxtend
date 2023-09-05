@@ -5,13 +5,16 @@
 #include "mem.h"
 
 /***************************************************************************
+ *  Name:
+ *      xt_fopen() - Open a raw or compressed file
+ *
  *  Library:
  *      #include <xtend/file.h>
  *      -lxtend
  *
  *  Description:
- *      Open a raw data file using fopen() or a gzipped, bzipped, or
- *      xzipped file using popen().  Must be used in conjunction with
+ *      Open a raw data file using fopen() or a compressed
+ *      file using popen().  Must be used in conjunction with
  *      xt_fclose() to ensure that fclose() or pclose() is called where
  *      appropriate.
  *
@@ -125,6 +128,9 @@ FILE    *xt_fopen(const char *filename, const char *mode)
 
 
 /***************************************************************************
+ *  Name:
+ *      xt_fclose() - Close a FILE stream opened by xt_fopen()
+ *
  *  Library:
  *      #include <xtend/file.h>
  *      -lxtend
@@ -163,6 +169,9 @@ int     xt_fclose(FILE *stream)
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      xt_inhale_strings() - Read list of strings into array
  *
  *  Library:
  *      #include <xtend/file.h>
@@ -243,6 +252,9 @@ ssize_t xt_inhale_strings(FILE *stream, char ***list)
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      xt_read_line_malloc() - Read a line and allocate memory for it
  *
  *  Library:
  *      #include <xtend/file.h>

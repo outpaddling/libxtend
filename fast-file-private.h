@@ -45,7 +45,7 @@ struct xt_fast_file
 
 #define XT_FF_GETC(stream) \
     ((stream)->buff_index == (stream)->bytes_read \
-	? xt_ff_fillbuff(stream) \
+	? _xt_ff_fillbuff(stream) \
 	: (stream)->start_ptr[(stream)->buff_index++])
 
 #define XT_FF_PUTC(stream, ch) \

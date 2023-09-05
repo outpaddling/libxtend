@@ -7,6 +7,9 @@
 #include "math.h"       // lcm(), XT_MIN()
 
 /***************************************************************************
+ *  Name:
+ *      fast_cp() - Copy a file using optimal block size
+ *
  *  Library:
  *      #include <xtend/file.h>
  *      -lxtend

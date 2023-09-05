@@ -6,6 +6,9 @@
 #include "string.h" // Linux strlcpy()
 
 /***************************************************************************
+ *  Name:
+ *      xt_get_user_name() - Get username of process owner
+ *
  *  Library:
  *      #include <xtend/proc.h>
  *      -lxtend

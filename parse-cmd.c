@@ -6,6 +6,9 @@
 #include "string.h" // strshellcpy()
 
 /***************************************************************************
+ *  Name:
+ *      xt_parse_cmd() - Convert a command string to an argv-style array
+ *
  *  Library:
  *      #include <xtend/proc.h>
  *      -lxtend

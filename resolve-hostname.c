@@ -8,6 +8,9 @@
 #include "net.h"
 
 /***************************************************************************
+ *  Name:
+ *      resolve_hostname() - Convert hostname to IP address
+ *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend

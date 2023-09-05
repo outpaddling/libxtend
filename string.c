@@ -11,6 +11,9 @@
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      strlupper() - Copy string and convert lower case to uppper
+ *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
@@ -62,6 +65,9 @@ size_t  strlupper(char *dest, const char *src, size_t dest_size)
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      strupper() - Covert all lower case characters to upper
+ *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
@@ -108,6 +114,9 @@ size_t  strupper(char *str)
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      strllower() - Copy string and convert upper case to lower
  *
  *  Library:
  *      #include <xtend/string.h>
@@ -160,6 +169,9 @@ size_t  strllower(char *dest, const char *src, size_t dest_size)
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      strlower() - Convert all upper case characters to lower
+ *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
@@ -205,6 +217,9 @@ size_t  strlower(char *str)
 
 
 /***************************************************************************
+ *  Name:
+ *      str_argv_cat() - Append argv-style list to a string
+ *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
@@ -260,6 +275,9 @@ size_t  str_argv_cat(char *string, char *argv[], size_t first_arg,
 
 
 /***************************************************************************
+ *  Name:
+ *      strblank() - Return true is a string is empty or only whitespace
+ *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
@@ -298,6 +316,9 @@ int     strblank(const char *string)
 
 
 /***************************************************************************
+ *  Name:
+ *      strisint() - Return true if string represents an integer value
+ *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
@@ -332,6 +353,9 @@ int     strisint(const char *string, int base)
 
 
 /***************************************************************************
+ *  Name:
+ *      strisreal() - Return true if string represents a valid real value
+ *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
@@ -413,6 +437,9 @@ char   *strlbasecpy(char *dest, const char *dest_base, const char *src,
 
 
 /***************************************************************************
+ *  Name:
+ *      strptrcmp() - Compare two strings through char ** pointers
+ *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
@@ -445,6 +472,10 @@ int     strptrcmp(const char **p1, const char **p2)
 
 
 /***************************************************************************
+ *  Name:
+ *      strptrcasecmp() - Compare two strings through char ** pointers
+ *                        without regard for upper/lower case
+ *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
@@ -478,6 +509,9 @@ int     strptrcasecmp(const char **p1, const char **p2)
 
 
 /***************************************************************************
+ *  Name:
+ *      strshellcpy() - Expand a string containing shell metacharacters
+ *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
@@ -558,6 +592,9 @@ int     strshellcpy(char *dest, const char *src, size_t dest_len)
 
 
 /***************************************************************************
+ *  Name:
+ *      strsqueeze() - Squeeze a string by replacing middle with ...
+ *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
@@ -612,6 +649,9 @@ size_t  strsqueeze(char *dest, const char *src, size_t dstsize)
 
 
 /***************************************************************************
+ *  Name:
+ *      strtr() - Library function equivalent of tr(1)
+ *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
@@ -661,6 +701,9 @@ void    strtr(char *string, const char *from, const char *to, int flags)
 
 
 /***************************************************************************
+ *  Name:
+ *      strtrim() - Trim junk from both ends of a string
+ *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
@@ -707,6 +750,9 @@ void    strtrim(char *string, const char *fat)
 
 
 /***************************************************************************
+ *  Name:
+ *      strviscpy() - Copy a string, converting invisible characters
+ *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
@@ -764,6 +810,9 @@ char    *strviscpy(unsigned char *dest, const unsigned char *src,
 
 
 /***************************************************************************
+ *  Name:
+ *      ltostrn() - Convert a long to a string in any base from 2 to 36
+ *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
@@ -832,6 +881,9 @@ char    *ltostrn(char string[], long val, unsigned base, size_t maxlen)
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      str2u64() - Hash a string of up to 8 characters to a 64-bit integer
+ *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
@@ -893,6 +945,9 @@ uint64_t    str2u64(const char *str)
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      strsplit() - Split a string into tokens
  *
  *  Library:
  *      #include <xtend/string.h>

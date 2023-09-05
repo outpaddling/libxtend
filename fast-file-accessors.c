@@ -25,7 +25,7 @@
  *      from non-member functions.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *
  *  Returns:
  *      Value of the structure member buff.
@@ -34,17 +34,17 @@
  *      xt_ff_t      xt_ffile;
  *      unsigned char * buff;
  *
- *      buff = xt_ffile_get_buff(&xt_ffile);
+ *      buff = xt_ff_get_buff(&xt_ffile);
  *
  *  History: 
  *  Date        Name        Modification
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-unsigned char *    xt_ffile_get_buff(xt_ff_t *xt_ffile_ptr)
+unsigned char *    xt_ff_get_buff(xt_ff_t *xt_ff_ptr)
 
 {
-    return xt_ffile_ptr->buff;
+    return xt_ff_ptr->buff;
 }
 
 
@@ -55,11 +55,11 @@ unsigned char *    xt_ffile_get_buff(xt_ff_t *xt_ffile_ptr)
  *
  *  Description:
  *      Accessor for an array element of buff member in a xt_ff_t
- *      structure. Use this function to get xt_ffile_ptr->buff[c]
+ *      structure. Use this function to get xt_ff_ptr->buff[c]
  *      in a xt_ff_t object from non-member functions.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to get
+ *      xt_ff_ptr    Pointer to the structure to get
  *      c               Subscript to the buff array
  *
  *  Returns:
@@ -70,17 +70,17 @@ unsigned char *    xt_ffile_get_buff(xt_ff_t *xt_ffile_ptr)
  *      size_t          c;
  *      unsigned char * buff_element;
  *
- *      buff_element = xt_ffile_get_buff_ae(&xt_ffile, c);
+ *      buff_element = xt_ff_get_buff_ae(&xt_ffile, c);
  *
  *  History: 
  *  Date        Name        Modification
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-unsigned char  xt_ffile_get_buff_ae(xt_ff_t *xt_ffile_ptr, size_t c)
+unsigned char  xt_ff_get_buff_ae(xt_ff_t *xt_ff_ptr, size_t c)
 
 {
-    return xt_ffile_ptr->buff[c];
+    return xt_ff_ptr->buff[c];
 }
 
 
@@ -95,7 +95,7 @@ unsigned char  xt_ffile_get_buff_ae(xt_ff_t *xt_ffile_ptr, size_t c)
  *      from non-member functions.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *
  *  Returns:
  *      Value of the structure member start_ptr.
@@ -104,17 +104,17 @@ unsigned char  xt_ffile_get_buff_ae(xt_ff_t *xt_ffile_ptr, size_t c)
  *      xt_ff_t      xt_ffile;
  *      unsigned char * start_ptr;
  *
- *      start_ptr = xt_ffile_get_start_ptr(&xt_ffile);
+ *      start_ptr = xt_ff_get_start_ptr(&xt_ffile);
  *
  *  History: 
  *  Date        Name        Modification
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-unsigned char *    xt_ffile_get_start_ptr(xt_ff_t *xt_ffile_ptr)
+unsigned char *    xt_ff_get_start_ptr(xt_ff_t *xt_ff_ptr)
 
 {
-    return xt_ffile_ptr->start_ptr;
+    return xt_ff_ptr->start_ptr;
 }
 
 
@@ -125,11 +125,11 @@ unsigned char *    xt_ffile_get_start_ptr(xt_ff_t *xt_ffile_ptr)
  *
  *  Description:
  *      Accessor for an array element of start_ptr member in a xt_ff_t
- *      structure. Use this function to get xt_ffile_ptr->start_ptr[c]
+ *      structure. Use this function to get xt_ff_ptr->start_ptr[c]
  *      in a xt_ff_t object from non-member functions.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to get
+ *      xt_ff_ptr    Pointer to the structure to get
  *      c               Subscript to the start_ptr array
  *
  *  Returns:
@@ -140,17 +140,17 @@ unsigned char *    xt_ffile_get_start_ptr(xt_ff_t *xt_ffile_ptr)
  *      size_t          c;
  *      unsigned char * start_ptr_element;
  *
- *      start_ptr_element = xt_ffile_get_start_ptr_ae(&xt_ffile, c);
+ *      start_ptr_element = xt_ff_get_start_ptr_ae(&xt_ffile, c);
  *
  *  History: 
  *  Date        Name        Modification
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-unsigned char  xt_ffile_get_start_ptr_ae(xt_ff_t *xt_ffile_ptr, size_t c)
+unsigned char  xt_ff_get_start_ptr_ae(xt_ff_t *xt_ff_ptr, size_t c)
 
 {
-    return xt_ffile_ptr->start_ptr[c];
+    return xt_ff_ptr->start_ptr[c];
 }
 
 
@@ -165,7 +165,7 @@ unsigned char  xt_ffile_get_start_ptr_ae(xt_ff_t *xt_ffile_ptr, size_t c)
  *      from non-member functions.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *
  *  Returns:
  *      Value of the structure member bytes_read.
@@ -174,17 +174,17 @@ unsigned char  xt_ffile_get_start_ptr_ae(xt_ff_t *xt_ffile_ptr, size_t c)
  *      xt_ff_t      xt_ffile;
  *      ssize_t         bytes_read;
  *
- *      bytes_read = xt_ffile_get_bytes_read(&xt_ffile);
+ *      bytes_read = xt_ff_get_bytes_read(&xt_ffile);
  *
  *  History: 
  *  Date        Name        Modification
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-ssize_t    xt_ffile_get_bytes_read(xt_ff_t *xt_ffile_ptr)
+ssize_t    xt_ff_get_bytes_read(xt_ff_t *xt_ff_ptr)
 
 {
-    return xt_ffile_ptr->bytes_read;
+    return xt_ff_ptr->bytes_read;
 }
 
 
@@ -199,7 +199,7 @@ ssize_t    xt_ffile_get_bytes_read(xt_ff_t *xt_ffile_ptr)
  *      from non-member functions.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *
  *  Returns:
  *      Value of the structure member buff_index.
@@ -208,17 +208,17 @@ ssize_t    xt_ffile_get_bytes_read(xt_ff_t *xt_ffile_ptr)
  *      xt_ff_t      xt_ffile;
  *      ssize_t         buff_index;
  *
- *      buff_index = xt_ffile_get_buff_index(&xt_ffile);
+ *      buff_index = xt_ff_get_buff_index(&xt_ffile);
  *
  *  History: 
  *  Date        Name        Modification
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-ssize_t    xt_ffile_get_buff_index(xt_ff_t *xt_ffile_ptr)
+ssize_t    xt_ff_get_buff_index(xt_ff_t *xt_ff_ptr)
 
 {
-    return xt_ffile_ptr->buff_index;
+    return xt_ff_ptr->buff_index;
 }
 
 
@@ -233,7 +233,7 @@ ssize_t    xt_ffile_get_buff_index(xt_ff_t *xt_ffile_ptr)
  *      from non-member functions.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *
  *  Returns:
  *      Value of the structure member disk_block_size.
@@ -242,17 +242,17 @@ ssize_t    xt_ffile_get_buff_index(xt_ff_t *xt_ffile_ptr)
  *      xt_ff_t      xt_ffile;
  *      ssize_t         disk_block_size;
  *
- *      disk_block_size = xt_ffile_get_disk_block_size(&xt_ffile);
+ *      disk_block_size = xt_ff_get_disk_block_size(&xt_ffile);
  *
  *  History: 
  *  Date        Name        Modification
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-ssize_t    xt_ffile_get_disk_block_size(xt_ff_t *xt_ffile_ptr)
+ssize_t    xt_ff_get_disk_block_size(xt_ff_t *xt_ff_ptr)
 
 {
-    return xt_ffile_ptr->disk_block_size;
+    return xt_ff_ptr->disk_block_size;
 }
 
 
@@ -267,7 +267,7 @@ ssize_t    xt_ffile_get_disk_block_size(xt_ff_t *xt_ffile_ptr)
  *      from non-member functions.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *
  *  Returns:
  *      Value of the structure member buff_size.
@@ -276,17 +276,17 @@ ssize_t    xt_ffile_get_disk_block_size(xt_ff_t *xt_ffile_ptr)
  *      xt_ff_t      xt_ffile;
  *      ssize_t         buff_size;
  *
- *      buff_size = xt_ffile_get_buff_size(&xt_ffile);
+ *      buff_size = xt_ff_get_buff_size(&xt_ffile);
  *
  *  History: 
  *  Date        Name        Modification
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-ssize_t    xt_ffile_get_buff_size(xt_ff_t *xt_ffile_ptr)
+ssize_t    xt_ff_get_buff_size(xt_ff_t *xt_ff_ptr)
 
 {
-    return xt_ffile_ptr->buff_size;
+    return xt_ff_ptr->buff_size;
 }
 
 
@@ -301,7 +301,7 @@ ssize_t    xt_ffile_get_buff_size(xt_ff_t *xt_ffile_ptr)
  *      from non-member functions.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *
  *  Returns:
  *      Value of the structure member fd.
@@ -310,17 +310,17 @@ ssize_t    xt_ffile_get_buff_size(xt_ff_t *xt_ffile_ptr)
  *      xt_ff_t      xt_ffile;
  *      int             fd;
  *
- *      fd = xt_ffile_get_fd(&xt_ffile);
+ *      fd = xt_ff_get_fd(&xt_ffile);
  *
  *  History: 
  *  Date        Name        Modification
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int    xt_ffile_get_fd(xt_ff_t *xt_ffile_ptr)
+int    xt_ff_get_fd(xt_ff_t *xt_ff_ptr)
 
 {
-    return xt_ffile_ptr->fd;
+    return xt_ff_ptr->fd;
 }
 
 
@@ -335,7 +335,7 @@ int    xt_ffile_get_fd(xt_ff_t *xt_ffile_ptr)
  *      from non-member functions.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *
  *  Returns:
  *      Value of the structure member flags.
@@ -344,17 +344,17 @@ int    xt_ffile_get_fd(xt_ff_t *xt_ffile_ptr)
  *      xt_ff_t      xt_ffile;
  *      int             flags;
  *
- *      flags = xt_ffile_get_flags(&xt_ffile);
+ *      flags = xt_ff_get_flags(&xt_ffile);
  *
  *  History: 
  *  Date        Name        Modification
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-int    xt_ffile_get_flags(xt_ff_t *xt_ffile_ptr)
+int    xt_ff_get_flags(xt_ff_t *xt_ff_ptr)
 
 {
-    return xt_ffile_ptr->flags;
+    return xt_ff_ptr->flags;
 }
 
 
@@ -369,7 +369,7 @@ int    xt_ffile_get_flags(xt_ff_t *xt_ffile_ptr)
  *      from non-member functions.
  *
  *  Arguments:
- *      xt_ffile_ptr    Pointer to the structure to set
+ *      xt_ff_ptr    Pointer to the structure to set
  *
  *  Returns:
  *      Value of the structure member child_pid.
@@ -378,15 +378,15 @@ int    xt_ffile_get_flags(xt_ff_t *xt_ffile_ptr)
  *      xt_ff_t      xt_ffile;
  *      pid_t           child_pid;
  *
- *      child_pid = xt_ffile_get_child_pid(&xt_ffile);
+ *      child_pid = xt_ff_get_child_pid(&xt_ffile);
  *
  *  History: 
  *  Date        Name        Modification
  *  2023-08-29  gen-get-set Auto-generated from fast-file-private.h
  ***************************************************************************/
 
-pid_t    xt_ffile_get_child_pid(xt_ff_t *xt_ffile_ptr)
+pid_t    xt_ff_get_child_pid(xt_ff_t *xt_ff_ptr)
 
 {
-    return xt_ffile_ptr->child_pid;
+    return xt_ff_ptr->child_pid;
 }

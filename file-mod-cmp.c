@@ -3,6 +3,9 @@
 #include "file.h"
 
 /***************************************************************************
+ *  Name:
+ *      xt_file_mod_cmp() - Compare time stamps on two files
+ *
  *  Library:
  *      #include <xtend/file.h>
  *      -lxtend

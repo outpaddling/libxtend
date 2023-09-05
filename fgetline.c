@@ -2,12 +2,15 @@
 #include "file.h"
 
 /***************************************************************************
+ *  Name:
+ *      xt_fgetline() - Read a line from a FILE stream, discarding newline
+ *
  *  Library:
  *      #include <xtend/file.h>
  *      -lxtend
  *
  *  Description:
- *      fgetline() reads a line of text from a FILE stream.  Input is
+ *      xt_fgetline() reads a line of text from a FILE stream.  Input is
  *      terminated when a newline or end of file is encountered,
  *      or when maxlen characters have been read.  Note that up to maxlen
  *      characters may be stored, NOT INCLUDING THE NULL TERMINATOR BYTE,

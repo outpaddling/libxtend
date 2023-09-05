@@ -56,6 +56,13 @@ Better late than never.  Libxtend is here now, growing, fully documented, and
 free to use for any purpose.  If you have any ideas or better yet,
 functions to contribute, please let us know by opening an issue.
 
+## Summary list of functions
+
+This [summary man page](./functions.html) lists available functions.
+It is also available via "man libxtend" when libxtend is properly installed
+via a package manager.  Each function listed has its own man page with
+a more detailed description.
+
 ## Design and Implementation
 
 The code is organized following basic object-oriented design principals, but

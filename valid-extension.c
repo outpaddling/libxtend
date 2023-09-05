@@ -6,7 +6,7 @@
 
 /***************************************************************************
  *  Name:
- *      xt_valid_extension - Determine whether filename extention is usable
+ *      xt_valid_extension() - Determine whether filename extention is usable
  *
  *  Library:
  *      #include <xtend/file.h>

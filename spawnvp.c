@@ -119,7 +119,7 @@ int     xt_spawnvp(int parent_action, int echo, char *argv[],
 
 /*************************************************************************
  * Name:
- *  Redirect stdin, stdout and stderr if corresponding argument isn't NULL
+ *  xt_redirect() - Redirect stdin, stdout and stderr if corresponding argument isn't NULL
  *
  * Description: 
  *  This function redirects the stdin, stdout, and stderr of the current

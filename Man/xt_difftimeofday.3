@@ -2,8 +2,7 @@
 .TH xt_difftimeofday 3
 
 .SH NAME
-
-difftimeofday() - Compute difference between struct timeval values
+xt_difftimeofday() - Compute difference between struct timeval values
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
@@ -32,7 +31,7 @@ later, earlier: timeval structures populated by gettimeofday(3)
 
 .SH DESCRIPTION
 
-difftimeofday() returns the difference, in microseconds, between two
+xt_difftimeofday() returns the difference, in microseconds, between two
 time values returned by gettimeofday(3).  This function can be used
 to get a good estimate of the real time elapsed in a process between
 any two points (where calls to gettimeofday(3) are strategically

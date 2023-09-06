@@ -58,107 +58,10 @@ functions to contribute, please let us know by opening an issue.
 
 ## Summary list of functions
 
-This summary lists available functions.
+This [function summary](./functions.md) lists currently available functions.
 It is also available via "man libxtend" when libxtend is properly installed
 via a package manager.  Each function listed has its own man page with
 a more detailed description.
-
-| Function | Purpose |
-|-|-|
-| _xt_ff_fillbuff(3)  |  Read next block for a fast file stream |
-| csv_read_field(3)  |  Read next comma |
-| csv_read_field_malloc(3)  |  Read next comma |
-| csv_skip_field(3)  |  Read and discard next comma |
-| csv_skip_rest_of_line(3)  |  Read and discard rest of input line |
-| digits(3)  |  Compute the number of digits in an integer in any base |
-| double_cmp(3)  |  Compare two doubles for sort(3), bsearch(3), etc. |
-| dsv_line_copy(3)  |  Copy a generica tabular data object |
-| dsv_line_free(3)  |  Destroy a generic tabular data object |
-| dsv_line_init(3)  |  Initialize generic tabular data object |
-| dsv_line_new(3)  |  Create a new generic tabular data object |
-| dsv_line_read(3)  |  Read a line of generic tabular data |
-| dsv_line_write(3)  |  Write a line of generic tabular data |
-| dsv_read_field(3)  |  Read next field from tabular input |
-| dsv_read_field_malloc(3)  |  Read next field from tabular input, |
-| dsv_skip_field(3)  |  Read and discard next field from tabular input |
-| dsv_skip_rest_of_line(3)  |  Read and discard rest of input line |
-| float_cmp(3)  |  Compare two floats for sort(3), bsearch(3), etc. |
-| gcd(3)  |  Greatest common divisor |
-| int_cmp(3)  |  Compare two ints for sort(3), bsearch(3), etc. |
-| lcm(3)  |  Least common multiple |
-| long_cmp(3)  |  Compare two longs for sort(3), bsearch(3), etc. |
-| long_long_cmp(3)  |  Compare two long longs for sort(3), bsearch(3), etc. |
-| ltostrn(3)  |  Convert a long to a string in any base from 2 to 36 |
-| mv(3)  |  Library function equivalent of mv(1) |
-| resolve_hostname(3)  |  Convert hostname to IP address |
-| short_cmp(3)  |  Compare two shorts for sort(3), bsearch(3), etc. |
-| str2u64(3)  |  Hash a string of up to 8 characters to a 64 |
-| str_argv_cat(3)  |  Append argv |
-| strblank(3)  |  Return true is a string is empty or only whitespace |
-| strisint(3)  |  Return true if string represents an integer value |
-| strisreal(3)  |  Return true if string represents a valid real value |
-| strllower(3)  |  Copy string and convert upper case to lower |
-| strlower(3)  |  Convert all upper case characters to lower |
-| xt_redirect(3)  |  Redirect stdin, stdout and stderr if corresponding argument isn't NULL |
-| strlupper(3)  |  Copy string and convert lower case to uppper |
-| strptrcasecmp(3)  |  Compare two strings through char ** pointers without regard for upper/lower case |
-| strptrcmp(3)  |  Compare two strings through char ** pointers |
-| strshellcpy(3)  |  Expand a string containing shell metacharacters |
-| strsplit(3)  |  Split a string into tokens |
-| strsqueeze(3)  |  Squeeze a string by replacing middle with ... |
-| strtr(3)  |  Library function equivalent of tr(1) |
-| strtrim(3)  |  Trim junk from both ends of a string |
-| strupper(3)  |  Covert all lower case characters to upper |
-| strviscpy(3)  |  Copy a string, converting invisible characters |
-| tsv_read_field(3)  |  Read next tab |
-| tsv_read_field_malloc(3)  |  Read next tab |
-| tsv_skip_field(3)  |  Read and discard next tab |
-| tsv_skip_rest_of_line(3)  |  Read and discard rest of input line |
-| xt | daemonize(3)  |
-| xt_difftimeofday(3)  |  Compute difference between struct timeval values |
-| xt_dprintf(3)  |  Print formatted output to a low |
-| xt_factorial(3)  |  Fast factorial function |
-| fast_cp(3)  |  Copy a file using optimal block size |
-| xt_fclose(3)  |  Close a FILE stream opened by xt_fopen(3) |
-| xt_fd_purge(3)  |  Discard unread input from input FILE buffer |
-| xt_ff_close(3)  |  Close a string created by xt_ff_open(3) |
-| xt_ff_close_raw(3)  |  Close a stream created by xt_ff_open_raw(3) |
-| xt_ff_dopen(3)  |  Create a fast file stream from a file descriptor |
-| xt_ff_getc(3)  |  Read next character from a fast file stream |
-| xt_ff_gets(3)  |  Read a line from a fast file stream |
-| xt_ff_open(3)  |  Open a fast file stream for a raw or compressed file |
-| xt_ff_open_raw(3)  |  Open a fast file stream for a raw file |
-| xt_ff_pclose(3)  |  Close a stream created by xt_ff_popen(3) |
-| xt_ff_popen(3)  |  Create a fast file stream connected to a process |
-| xt_ff_printf(3)  |  Print formatted data to a fast file stream |
-| xt_ff_putc(3)  |  Write a character to a fast file stream |
-| xt_ff_puts(3)  |  Print a string to a fast file stream |
-| xt_ff_read(3)  |  Read a fixed number of bytes from a fast file stream |
-| xt_ff_read_line_malloc(3)  |  Read a line from a fast file stream, |
-| xt_ff_rewind(3)  |  Reposition file descriptor to beginning of file |
-| xt_ff_seeko(3)  |  Reposition file descriptor under a fast file stream |
-| xt_ff_stdin(3)  |  Create a fast file stream attached to descriptor 0 |
-| xt_ff_stdout(3)  |  Create a fast file stream connected to descriptor 1 |
-| xt_ff_t  |  Fast file stream class library |
-| xt_ff_tmpfile(3)  |  Create a fast file stream connected to a temporary file |
-| xt_ff_ungetc(3)  |  Put a character back into a fast file stream read buffer |
-| xt_fgetline(3)  |  Read a line from a FILE stream, discarding newline |
-| xt_file_mod_cmp(3)  |  Compare time stamps on two files |
-| xt_fopen(3)  |  Open a raw or compressed file |
-| xt_get_home_dir(3)  |  Get process owner's home directory |
-| xt_get_user_name(3)  |  Get username of process owner |
-| xt_inhale_strings(3)  |  Read list of strings into array |
-| xt_n_choose_k(3)  |  Compute binomial coefficient N choose K |
-| xt_parse_cmd(3)  |  Convert a command string to an argv |
-| xt_read_line_malloc(3)  |  Read a line and allocate memory for it |
-| rmkdir(3)  |  Recursively create directories |
-| romantoi(3)  |  Convert Roman numeral string to int |
-| xt_spawnlp(3)  |  Fork and exec a process from a variable argument list |
-| xt_spawnvp(3)  |  Fork and exec a new process from an argv |
-| xt_tic(3)  |  Record current high |
-| xt_toc(3)  |  Report time since last xt_tic(3) |
-| xt_va_usage(3)  |  Print usage message and terminate process |
-| xt_valid_extension(3)  |  Determine whether filename extention is usable |
 
 ## Design and Implementation
 

@@ -473,8 +473,7 @@ int     strptrcmp(const char **p1, const char **p2)
 
 /***************************************************************************
  *  Name:
- *      strptrcasecmp() - Compare two strings through char ** pointers
- *                        without regard for upper/lower case
+ *      strptrcasecmp() - Compare two strings through char ** pointers, case insensitive
  *
  *  Library:
  *      #include <xtend/string.h>

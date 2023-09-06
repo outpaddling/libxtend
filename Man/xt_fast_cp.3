@@ -2,7 +2,7 @@
 .TH xt_fast_cp 3
 
 .SH NAME
-fast_cp() - Copy a file using optimal block size
+xt_fast_cp() - Copy a file using optimal block size
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
@@ -31,7 +31,7 @@ source, dest: File names of source and destination
 
 .SH DESCRIPTION
 
-fast_cp() copies a file using low-level I/O with an optimal
+xt_fast_cp() copies a file using low-level I/O with an optimal
 buffer size (the least common multiple of block sizes) for both
 source and destination filesystems.
 

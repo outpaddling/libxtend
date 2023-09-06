@@ -9,7 +9,7 @@
 
 /***************************************************************************
  *  Name:
- *      resolve_hostname() - Convert hostname to IP address
+ *      xt_resolve_hostname() - Convert hostname to IP address
  *
  *  Library:
  *      #include <xtend/string.h>
@@ -32,7 +32,7 @@
  *      char    *hostname = "my.site.edu",
  *              ip[IP_MAX_CHARS + 1];
  *
- *      if ( resolve_hostname(hostname, ip, IP_MAX_CHARS + 1) == XT_OK )
+ *      if ( xt_resolve_hostname(hostname, ip, IP_MAX_CHARS + 1) == XT_OK )
  *      {
  *      }
  *
@@ -44,7 +44,7 @@
  *  2021-09-28  Jason Bacon Begin
  ***************************************************************************/
 
-int     resolve_hostname(const char *hostname, char *ip, size_t ip_buff_len)
+int     xt_resolve_hostname(const char *hostname, char *ip, size_t ip_buff_len)
 
 {
     struct hostent  *ent;
@@ -57,7 +57,7 @@ int     resolve_hostname(const char *hostname, char *ip, size_t ip_buff_len)
     
     if ( (ent = gethostbyname(hostname)) == NULL )
     {
-	herror("resolve_hostname(): gethostbyname() failed");
+	herror("xt_resolve_hostname(): gethostbyname() failed");
 	fprintf(stderr, "hostname = %s\n", hostname);
 	fputs("Check /etc/hosts and /etc/resolv.conf.\n", stderr);
 	return XT_FAIL;

@@ -12,14 +12,14 @@
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Name:
- *      strlupper() - Copy string and convert lower case to uppper
+ *      xt_strlupper() - Copy string and convert lower case to uppper
  *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
  *
  *  Description:
- *      strlupper(3) copies a string from src to dest, up to a maximum of
+ *      xt_strlupper(3) copies a string from src to dest, up to a maximum of
  *      dest_size - 1 characters.
  *      It behaves exactly like strlcpy(3), except that any lower
  *      case characters in the string are converted to upper case.
@@ -37,18 +37,18 @@
  *      char    src[] = "Some text",
  *      dest    [DEST_SIZE + 1];
  *
- *      if ( strlupper(dest, src, DEST_SIZE + 1) != DEST_SIZE + 1 )
+ *      if ( xt_strlupper(dest, src, DEST_SIZE + 1) != DEST_SIZE + 1 )
  *          fputs("Warning: String truncated.\n", stderr);
  *
  *  See also:
- *      strllower(3), strlcpy(3), strlcat(3)
+ *      xt_strllower(3), strlcpy(3), strlcat(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-01-04  Jason Bacon Begin
  ***************************************************************************/
 
-size_t  strlupper(char *dest, const char *src, size_t dest_size)
+size_t  xt_strlupper(char *dest, const char *src, size_t dest_size)
 
 {
     size_t  c;
@@ -66,17 +66,17 @@ size_t  strlupper(char *dest, const char *src, size_t dest_size)
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Name:
- *      strupper() - Covert all lower case characters to upper
+ *      xt_strupper() - Covert all lower case characters to upper
  *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
  *
  *  Description:
- *      strupper(3) converts lower case characters in a string to upper
+ *      xt_strupper(3) converts lower case characters in a string to upper
  *      case, overwriting the original.  It is functionally equivalent to
- *      strlupper(str, str, strlen(str)).  It is implemented separately for
- *      efficiency, since using strlupper(3) for this purpose requires
+ *      xt_strlupper(str, str, strlen(str)).  It is implemented separately for
+ *      efficiency, since using xt_strlupper(3) for this purpose requires
  *      knowing or computing the length of the string and passing three
  *      arguments instead of one.
  *  
@@ -90,18 +90,18 @@ size_t  strlupper(char *dest, const char *src, size_t dest_size)
  *      char    src[] = "Some text",
  *      dest    [DEST_SIZE + 1];
  *
- *      if ( strlupper(dest, src, DEST_SIZE + 1) != DEST_SIZE + 1 )
+ *      if ( xt_strlupper(dest, src, DEST_SIZE + 1) != DEST_SIZE + 1 )
  *          fputs("Warning: String truncated.\n", stderr);
  *
  *  See also:
- *      strllower(3), strlcpy(3), strlcat(3)
+ *      xt_strllower(3), strlcpy(3), strlcat(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-01-04  Jason Bacon Begin
  ***************************************************************************/
 
-size_t  strupper(char *str)
+size_t  xt_strupper(char *str)
 
 {
     size_t  c;
@@ -116,14 +116,14 @@ size_t  strupper(char *str)
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Name:
- *      strllower() - Copy string and convert upper case to lower
+ *      xt_strllower() - Copy string and convert upper case to lower
  *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
  *
  *  Description:
- *      strllower(3) copies a string from src to dest, up to a maximum of
+ *      xt_strllower(3) copies a string from src to dest, up to a maximum of
  *      dest_size - 1 characters.
  *      It behaves exactly like strlcpy(3), except that any upper
  *      case characters in the string are converted to lower case.
@@ -141,18 +141,18 @@ size_t  strupper(char *str)
  *      char    src[] = "Some text",
  *      dest    [DEST_SIZE + 1];
  *
- *      if ( strllower(dest, src, DEST_SIZE + 1) != DEST_SIZE + 1 )
+ *      if ( xt_strllower(dest, src, DEST_SIZE + 1) != DEST_SIZE + 1 )
  *          fputs("Warning: String truncated.\n", stderr);
  *
  *  See also:
- *      strllower(3), strlcpy(3), strlcat(3)
+ *      xt_strllower(3), strlcpy(3), strlcat(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-01-04  Jason Bacon Begin
  ***************************************************************************/
 
-size_t  strllower(char *dest, const char *src, size_t dest_size)
+size_t  xt_strllower(char *dest, const char *src, size_t dest_size)
 
 {
     size_t  c;
@@ -170,17 +170,17 @@ size_t  strllower(char *dest, const char *src, size_t dest_size)
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Name:
- *      strlower() - Convert all upper case characters to lower
+ *      xt_strlower() - Convert all upper case characters to lower
  *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
  *
  *  Description:
- *      strlower(3) converts upper case characters in a string to lower
+ *      xt_strlower(3) converts upper case characters in a string to lower
  *      case, overwriting the original.  It is functionally equivalent to
- *      strllower(str, str, strlen(str)).  It is implemented separately for
- *      efficiency, since using strllower(3) for this purpose requires
+ *      xt_strllower(str, str, strlen(str)).  It is implemented separately for
+ *      efficiency, since using xt_strllower(3) for this purpose requires
  *      knowing or computing the length of the string and passing three
  *      arguments instead of one.
  *  
@@ -194,18 +194,18 @@ size_t  strllower(char *dest, const char *src, size_t dest_size)
  *      char    src[] = "Some text",
  *      dest    [DEST_SIZE + 1];
  *
- *      if ( strllower(dest, src, DEST_SIZE + 1) != DEST_SIZE + 1 )
+ *      if ( xt_strllower(dest, src, DEST_SIZE + 1) != DEST_SIZE + 1 )
  *          fputs("Warning: String truncated.\n", stderr);
  *
  *  See also:
- *      strllower(3), strlcpy(3), strlcat(3)
+ *      xt_strllower(3), strlcpy(3), strlcat(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-01-04  Jason Bacon Begin
  ***************************************************************************/
 
-size_t  strlower(char *str)
+size_t  xt_strlower(char *str)
 
 {
     size_t  c;
@@ -218,7 +218,7 @@ size_t  strlower(char *str)
 
 /***************************************************************************
  *  Name:
- *      str_argv_cat() - Append argv-style list to a string
+ *      xt_str_argv_cat() - Append argv-style list to a string
  *
  *  Library:
  *      #include <xtend/string.h>
@@ -243,7 +243,7 @@ size_t  strlower(char *str)
  *      char    cmd[CMD_MAX + 1] = "ls",
  *              *argv[] = { "-l", NULL };
  *
- *      if ( str_argv_cat(cmd, argv, 0, CMD_MAX + 1) > CMD_MAX + 1 )
+ *      if ( xt_str_argv_cat(cmd, argv, 0, CMD_MAX + 1) > CMD_MAX + 1 )
  *          fputs("string is truncated.\n", stderr);
  *      else
  *          system(cmd);
@@ -256,7 +256,7 @@ size_t  strlower(char *str)
  *  2021-09-30  Jason Bacon Begin
  ***************************************************************************/
 
-size_t  str_argv_cat(char *string, char *argv[], size_t first_arg,
+size_t  xt_str_argv_cat(char *string, char *argv[], size_t first_arg,
 		     size_t string_buff_size)
 
 {
@@ -276,14 +276,14 @@ size_t  str_argv_cat(char *string, char *argv[], size_t first_arg,
 
 /***************************************************************************
  *  Name:
- *      strblank() - Return true is a string is empty or only whitespace
+ *      xt_strblank() - Return true is a string is empty or only whitespace
  *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
  *
  *  Description:
- *      strblank() returns true if the null-terminated string contains only
+ *      xt_strblank() returns true if the null-terminated string contains only
  *      whitespace or nothing at all.  It is the null-terminated string
  *      equivalent of isblank(3), which tests a single character.
  *  
@@ -302,7 +302,7 @@ size_t  str_argv_cat(char *string, char *argv[], size_t first_arg,
  *  Circa 1990  Jason Bacon Begin
  ***************************************************************************/
 
-int     strblank(const char *string)
+int     xt_strblank(const char *string)
 
 {
     while ( *string != '\0' )
@@ -317,7 +317,7 @@ int     strblank(const char *string)
 
 /***************************************************************************
  *  Name:
- *      strisint() - Return true if string represents an integer value
+ *      xt_strisint() - Return true if string represents an integer value
  *
  *  Library:
  *      #include <xtend/string.h>
@@ -342,7 +342,7 @@ int     strblank(const char *string)
  *  2021-04-24  Jason Bacon Begin
  ***************************************************************************/
 
-int     strisint(const char *string, int base)
+int     xt_strisint(const char *string, int base)
 
 {
     char    *end;
@@ -354,7 +354,7 @@ int     strisint(const char *string, int base)
 
 /***************************************************************************
  *  Name:
- *      strisreal() - Return true if string represents a valid real value
+ *      xt_strisreal() - Return true if string represents a valid real value
  *
  *  Library:
  *      #include <xtend/string.h>
@@ -378,7 +378,7 @@ int     strisint(const char *string, int base)
  *  2021-04-24  Jason Bacon Begin
  ***************************************************************************/
 
-int     strisreal(const char *string)
+int     xt_strisreal(const char *string)
 
 {
     char    *end;
@@ -394,11 +394,11 @@ int     strisreal(const char *string)
  *      -lxtend
  *
  *  Description:
- *      strlbasecpy() is a convenience for copying a string to a non-zero
+ *      xt_strlbasecpy() is a convenience for copying a string to a non-zero
  *      starting position in another string.  The caller provides the address
  *      of the destination to which string should be copied, the base address
  *      of the array containing the destination, and the TOTAL length of the
- *      destination array.  strlbasecpy() then computes the distance from
+ *      destination array.  xt_strlbasecpy() then computes the distance from
  *      the destination address to the end of the array and like strlcpy(),
  *      prevents overrun from occurring.
  *  
@@ -419,7 +419,7 @@ int     strisreal(const char *string)
  *  Circa 1990  Jason Bacon Begin
  ***************************************************************************/
 
-char   *strlbasecpy(char *dest, const char *dest_base, const char *src,
+char   *xt_strlbasecpy(char *dest, const char *dest_base, const char *src,
 		    size_t dstsize)
 
 {
@@ -438,7 +438,7 @@ char   *strlbasecpy(char *dest, const char *dest_base, const char *src,
 
 /***************************************************************************
  *  Name:
- *      strptrcmp() - Compare two strings through char ** pointers
+ *      xt_strptrcmp() - Compare two strings through char ** pointers
  *
  *  Library:
  *      #include <xtend/string.h>
@@ -464,7 +464,7 @@ char   *strlbasecpy(char *dest, const char *dest_base, const char *src,
  *  2021-05-04  Jason Bacon Begin
  ***************************************************************************/
 
-int     strptrcmp(const char **p1, const char **p2)
+int     xt_strptrcmp(const char **p1, const char **p2)
 
 {
     return strcmp(*p1, *p2);
@@ -473,7 +473,7 @@ int     strptrcmp(const char **p1, const char **p2)
 
 /***************************************************************************
  *  Name:
- *      strptrcasecmp() - Compare two strings through char ** pointers, case insensitive
+ *      xt_strptrcasecmp() - Compare two strings through char ** pointers, case insensitive
  *
  *  Library:
  *      #include <xtend/string.h>
@@ -500,7 +500,7 @@ int     strptrcmp(const char **p1, const char **p2)
  *  2021-05-04  Jason Bacon Begin
  ***************************************************************************/
 
-int     strptrcasecmp(const char **p1, const char **p2)
+int     xt_strptrcasecmp(const char **p1, const char **p2)
 
 {
     return strcasecmp(*p1, *p2);
@@ -509,14 +509,14 @@ int     strptrcasecmp(const char **p1, const char **p2)
 
 /***************************************************************************
  *  Name:
- *      strshellcpy() - Expand a string containing shell metacharacters
+ *      xt_strshellcpy() - Expand a string containing shell metacharacters
  *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
  *
  *  Description:
- *      strshellcpy() expands a string containing shell meta-characters,
+ *      xt_strshellcpy() expands a string containing shell meta-characters,
  *      usually a shell command, as a Unix shell would do before execution.
  *      This is useful if you want to avoid spawning an unnecessary shell
  *      process, such as when using fork(2) and exec(3) directly instead
@@ -542,7 +542,7 @@ int     strptrcasecmp(const char **p1, const char **p2)
  *  Circa 1990  Jason Bacon Begin
  ***************************************************************************/
 
-int     strshellcpy(char *dest, const char *src, size_t dest_len)
+int     xt_strshellcpy(char *dest, const char *src, size_t dest_len)
 
 {
     char    home[PATH_MAX + 1],*p,*val,var[PATH_MAX + 1];
@@ -592,7 +592,7 @@ int     strshellcpy(char *dest, const char *src, size_t dest_len)
 
 /***************************************************************************
  *  Name:
- *      strsqueeze() - Squeeze a string by replacing middle with ...
+ *      xt_strsqueeze() - Squeeze a string by replacing middle with ...
  *
  *  Library:
  *      #include <xtend/string.h>
@@ -616,7 +616,7 @@ int     strshellcpy(char *dest, const char *src, size_t dest_len)
  *      char    limited_str[MAXLEN + 1],
  *              original_str[SOME_OTHER_LEN + 1];
  *      
- *      strsqueeze(limited_str, original_str, MAXLEN + 1);
+ *      xt_strsqueeze(limited_str, original_str, MAXLEN + 1);
  *
  *  See also:
  *      strlcpy(3), strlcat(3)
@@ -626,7 +626,7 @@ int     strshellcpy(char *dest, const char *src, size_t dest_len)
  *  2021-05-29  Jason Bacon Begin
  ***************************************************************************/
 
-size_t  strsqueeze(char *dest, const char *src, size_t dstsize)
+size_t  xt_strsqueeze(char *dest, const char *src, size_t dstsize)
 
 {
     size_t  len = strlen(src),
@@ -649,7 +649,7 @@ size_t  strsqueeze(char *dest, const char *src, size_t dstsize)
 
 /***************************************************************************
  *  Name:
- *      strtr() - Library function equivalent of tr(1)
+ *      xt_strtr() - Library function equivalent of tr(1)
  *
  *  Library:
  *      #include <xtend/string.h>
@@ -673,14 +673,14 @@ size_t  strsqueeze(char *dest, const char *src, size_t dstsize)
  *      char    string[] = "Hello";
  *
  *      // Convert string to "HELLO"
- *      strtr(string, "elo", "ELO", 0);
+ *      xt_strtr(string, "elo", "ELO", 0);
  *
  *  History: 
  *  Date        Name        Modification
  *  2021-08-10  Jason Bacon Begin
  ***************************************************************************/
 
-void    strtr(char *string, const char *from, const char *to, int flags)
+void    xt_strtr(char *string, const char *from, const char *to, int flags)
 
 {
     char    *p,
@@ -701,7 +701,7 @@ void    strtr(char *string, const char *from, const char *to, int flags)
 
 /***************************************************************************
  *  Name:
- *      strtrim() - Trim junk from both ends of a string
+ *      xt_strtrim() - Trim junk from both ends of a string
  *
  *  Library:
  *      #include <xtend/string.h>
@@ -721,7 +721,7 @@ void    strtr(char *string, const char *from, const char *to, int flags)
  *  Examples:
  *      char    string[] = "  Alfred E. Neumann."
  *
- *      strtrim(string, " .");
+ *      xt_strtrim(string, " .");
  *      puts(string);
  *
  *      Output is "Aldred E. Neumann"
@@ -731,7 +731,7 @@ void    strtr(char *string, const char *from, const char *to, int flags)
  *  2021-09-24  Jason Bacon Begin
  ***************************************************************************/
 
-void    strtrim(char *string, const char *fat)
+void    xt_strtrim(char *string, const char *fat)
 
 {
     char    *start, *end;
@@ -750,14 +750,14 @@ void    strtrim(char *string, const char *fat)
 
 /***************************************************************************
  *  Name:
- *      strviscpy() - Copy a string, converting invisible characters
+ *      xt_strviscpy() - Copy a string, converting invisible characters
  *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
  *
  *  Description:
- *      strviscpy() copies a string from src to dest, converting invisible
+ *      xt_strviscpy() copies a string from src to dest, converting invisible
  *      characters to a visible format much like the vis command or cat -v.
  *  
  *  Arguments:
@@ -776,7 +776,7 @@ void    strtrim(char *string, const char *fat)
  *  Circa 1990  Jason Bacon Begin
  ***************************************************************************/
 
-char    *strviscpy(unsigned char *dest, const unsigned char *src,
+char    *xt_strviscpy(unsigned char *dest, const unsigned char *src,
 		size_t maxlen)
 
 {
@@ -810,14 +810,14 @@ char    *strviscpy(unsigned char *dest, const unsigned char *src,
 
 /***************************************************************************
  *  Name:
- *      ltostrn() - Convert a long to a string in any base from 2 to 36
+ *      xt_ltostrn() - Convert a long to a string in any base from 2 to 36
  *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
  *
  *  Description:
- *      ltostrn() is a small, fast integer to string converter that can
+ *      xt_ltostrn() is a small, fast integer to string converter that can
  *      convert using any base from 2 to 36.  It is the converse of strtol(3).
  *      The size of the char buffer passed should be 1 more than maxlen to
  *      allow for a null byte.
@@ -830,7 +830,7 @@ char    *strviscpy(unsigned char *dest, const unsigned char *src,
  *
  *  Returns:
  *      A pointer to the converted string, or NULL if the string buffer was
- *      not big enough for all the digits
+ *      not big enough for all the xt_digits
  *
  *  See also:
  *      strtol(3)
@@ -840,7 +840,7 @@ char    *strviscpy(unsigned char *dest, const unsigned char *src,
  *  Circa 1990  Jason Bacon Begin
  ***************************************************************************/
 
-char    *ltostrn(char string[], long val, unsigned base, size_t maxlen)
+char    *xt_ltostrn(char string[], long val, unsigned base, size_t maxlen)
 
 {
     char    temp[maxlen+1], *p, *s = string;
@@ -856,7 +856,7 @@ char    *ltostrn(char string[], long val, unsigned base, size_t maxlen)
 	val = -val;
     }
     
-    /* Convert val to ascii digits (in reverse order) */
+    /* Convert val to ascii xt_digits (in reverse order) */
     for (p=temp; (val > 0) && (maxlen > 0); val /= base, --maxlen)
     {
 	digit = val % base;
@@ -866,7 +866,7 @@ char    *ltostrn(char string[], long val, unsigned base, size_t maxlen)
 	    *p++ = digit-10+'a';
     }
     
-    /* Reverse digits */
+    /* Reverse xt_digits */
     while ( p > temp )
 	*s++ = *(--p);
     *s = '\0';
@@ -881,14 +881,14 @@ char    *ltostrn(char string[], long val, unsigned base, size_t maxlen)
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Name:
- *      str2u64() - Hash a string of up to 8 characters to a 64-bit integer
+ *      xt_str2u64() - Hash a string of up to 8 characters to a 64-bit integer
  *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
  *
  *  Description:
- *      .B str2u64()
+ *      .B xt_str2u64()
  *      is a super-fast hash function that converts a string of 8 or fewer
  *      characters to a 64-bit integer.  Strings of more than 8 characters may
  *      also be hashed, though collisions will occur (same hash value for more
@@ -916,8 +916,8 @@ char    *ltostrn(char string[], long val, unsigned base, size_t maxlen)
  *      char        *s1 = "hello!", s2 = "Hello!";
  *      uint64_t    v1, v2;
  *      
- *      v1 = str2u64(s1);
- *      v2 = str2u64(s2);
+ *      v1 = xt_str2u64(s1);
+ *      v2 = xt_str2u64(s2);
  *      if ( v1 != v2 )
  *          printf("%s and %s are different.\n", (char *)&v1, (char *)&v2);
  *
@@ -929,7 +929,7 @@ char    *ltostrn(char string[], long val, unsigned base, size_t maxlen)
  *  2022-02-02  Jason Bacon Begin
  ***************************************************************************/
 
-uint64_t    str2u64(const char *str)
+uint64_t    xt_str2u64(const char *str)
 
 {
     size_t      c;
@@ -946,32 +946,32 @@ uint64_t    str2u64(const char *str)
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Name:
- *      strsplit() - Split a string into tokens
+ *      xt_strsplit() - Split a string into tokens
  *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
  *
  *  Description:
- *      .B strsplit()
+ *      .B xt_strsplit()
  *      splits a string into tokens separated by any character
  *      in the string argument sep.
  *      The function interface is similar to split() in awk, except that
  *      sep is a simple list of characters rather than a regular expression.
  *
  *      The array argument should be the address of a char ** variable.
- *      strsplit() allocates memory for the pointers as needed and
+ *      xt_strsplit() allocates memory for the pointers as needed and
  *      assigns one token to each pointer.
  *
- *      strsplit() should only be used when an array of strings
+ *      xt_strsplit() should only be used when an array of strings
  *      representing the tokens is actually needed.  In cases where each
  *      token can be immediately processed and forgotten, use a loop with
  *      strsep().  Introducing arrays into a program unnecessarily should
  *      avoided as a habit to maximize speed and minimize memory use.
  *
- *      Caution: strsplit() is destructive: It replaces the separators
+ *      Caution: xt_strsplit() is destructive: It replaces the separators
  *      in string with null bytes.  To preserve the original string,
- *      duplicate it with strdup() first and pass the copy to strsplit().
+ *      duplicate it with strdup() first and pass the copy to xt_strsplit().
  *  
  *  Arguments:
  *      string  String to be parsed for tokens
@@ -987,7 +987,7 @@ uint64_t    str2u64(const char *str)
  *      size_t  c, tokens;
  *
  *      copy = strdup(string);
- *      tokens = strsplit(copy, &array, ",");
+ *      tokens = xt_strsplit(copy, &array, ",");
  *      for (int c = 0; c < tokens; ++c)
  *          puts(array[c]);
  *
@@ -999,7 +999,7 @@ uint64_t    str2u64(const char *str)
  *  2022-02-12  Jason Bacon Begin
  ***************************************************************************/
 
-int     strsplit(char *string, char ***array, const char *sep)
+int     xt_strsplit(char *string, char ***array, const char *sep)
 
 {
     size_t  c,
@@ -1007,7 +1007,7 @@ int     strsplit(char *string, char ***array, const char *sep)
 
     if ((*array = xt_malloc(array_size, sizeof(*array))) == NULL )
     {
-	fprintf(stderr, "strsplit(): malloc() failed.\n");
+	fprintf(stderr, "xt_strsplit(): malloc() failed.\n");
 	return 0;
     }
     
@@ -1018,7 +1018,7 @@ int     strsplit(char *string, char ***array, const char *sep)
 	    *array = xt_realloc(*array, array_size *= 2, sizeof(*array));
 	    if ( *array == NULL )
 	    {
-		fprintf(stderr, "strsplit(): malloc() failed.\n");
+		fprintf(stderr, "xt_strsplit(): malloc() failed.\n");
 		return 0;
 	    }
 	}

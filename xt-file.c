@@ -296,7 +296,7 @@ ssize_t xt_inhale_strings(FILE *stream, char ***list)
  *      }
  *
  *  See also:
- *      dsv_read_field_malloc(3), ffgetc(3)
+ *      xt_dsv_read_field_malloc(3), ffgetc(3)
  *
  *  History: 
  *  Date        Name        Modification

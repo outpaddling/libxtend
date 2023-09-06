@@ -35,7 +35,7 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2023-06-03  Jason Bacon Adapt from xt_xt_get_user_name()
+ *  2023-06-03  Jason Bacon Adapt from xt_get_user_name()
  ***************************************************************************/
 
 char   *xt_get_user_name(char *user_name, size_t maxlen)

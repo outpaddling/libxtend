@@ -8,6 +8,9 @@ which you might find in libc or libm.
 They provide some convenient functionality lacking in standard library
 functions as well some more esoteric features.
 
+Libxtend also provides portable alternatives to functions that are
+not well-standardized across platforms and compilers.
+
 ## C programming at a higher level
 
 You may have heard people grumbling that C is too "low-level" to work with

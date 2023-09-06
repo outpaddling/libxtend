@@ -27,7 +27,7 @@ char    *xt_parse_cmd(char *argv[], int max_args, const char *cmd)
 .na
 argv:   Pointer array to be filled with command tokens
 cmd:    Raw command string with limited meta-character support
-from strshellcpy(3)
+from xt_strshellcpy(3)
 .ad
 .fi
 
@@ -35,7 +35,7 @@ from strshellcpy(3)
 
 Breaks a shell command into an argv[] style array suitable
 for xt_spawnvp() or execv*().  A copy of cmd is created using
-strshellcpy(), which expands certain shell features such as
+xt_strshellcpy(), which expands certain shell features such as
 variables and paths starting with '~'.  The copy is then
 modified by replacing separators with '0' and the argv[] array
 is populated with pointers to each token in the copy.

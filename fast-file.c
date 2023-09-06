@@ -1178,7 +1178,7 @@ char    *xt_ff_gets(xt_ff_t *stream, char *string, size_t size)
  *      }
  *
  *  See also:
- *      dsv_read_field_malloc(3), xt_ff_getc(3)
+ *      xt_dsv_read_field_malloc(3), xt_ff_getc(3)
  *
  *  History: 
  *  Date        Name        Modification

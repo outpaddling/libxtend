@@ -8,7 +8,7 @@
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Name:
- *      romantoi() - Convert Roman numeral string to int
+ *      xt_romantoi() - Convert Roman numeral string to int
  *
  *  Library:
  *      #include <xtend/stdlib.h>
@@ -16,7 +16,7 @@
  *
  *  Description:
  *      The 
- *      .B romantoi() function converts a string containing a valid
+ *      .B xt_romantoi() function converts a string containing a valid
  *      Roman numeral to an integer, much like strtol().  It rejects
  *      non-normalized values, such as IIIII, XXXXX, or CCCCC, which
  *      should be written as V, L, and D, respectively.  IIII, XXXX, and
@@ -39,7 +39,7 @@
  *      char    string[] = "XIV", *end;
  *      int     n;
  *
- *      n = romantoi(string, &end);
+ *      n = xt_romantoi(string, &end);
  *      if ( *end == '\0' )
  *          printf("%d\n", n);
  *      else
@@ -60,21 +60,21 @@ int     xt_romantoi(const char *string, char **endptr)
     const char    *p;
     
     // Array of values using subscripts from 'C' to 'X'
-    const static int  digits[] = 
+    const static int  xt_digits[] = 
     {
 	// I = 1, V = 5, X = 10, L = 50, C = 100, D = 500, M = 1000
 	100, 500, 0, 0, 0, 0, 1, 0, 0, 50, 1000, 0, 0, 0, 0, 0,
 	0, 0, 0, 5, 0, 10
     };
 
-    // FIXME: Check for more than 3 consecutive identical digits
+    // FIXME: Check for more than 3 consecutive identical xt_digits
     val = 0;
     previous_digit = 0;
     consecutive = 0;
     p = string;
     while ( isalpha((int)*p) )
     {
-	digit = digits[toupper((int)*p) - 'C'];
+	digit = xt_digits[toupper((int)*p) - 'C'];
 	// fprintf(stderr, "digit = %d\n", digit);
 	
 	// Can't have more than 3 I's in a row
@@ -87,7 +87,7 @@ int     xt_romantoi(const char *string, char **endptr)
 		 ((consecutive > 1) &&
 		  ((digit == 5) || (digit == 50) || (digit == 500))) )
 	    {
-		fprintf(stderr, "romantoi(): Invalid Roman numeral: %s.\n",
+		fprintf(stderr, "xt_romantoi(): Invalid Roman numeral: %s.\n",
 			string);
 		return 0;
 	    }
@@ -100,14 +100,14 @@ int     xt_romantoi(const char *string, char **endptr)
 	    if ( ! isalpha((int)p[1]) )
 		next_digit = 0;
 	    else
-		next_digit = digits[toupper((int)*(p + 1)) - 'C'];
+		next_digit = xt_digits[toupper((int)*(p + 1)) - 'C'];
 	    if ( next_digit > digit )
 	    {
 		// Only 1 lesser digit allowed before a greater one.
 		// E.g. IV is valid, IIV is not.
 		if ( consecutive > 1 )
 		{
-		    fprintf(stderr, "romantoi(): Invalid Roman numeral: %s.\n",
+		    fprintf(stderr, "xt_romantoi(): Invalid Roman numeral: %s.\n",
 			    string);
 		    return 0;
 		}

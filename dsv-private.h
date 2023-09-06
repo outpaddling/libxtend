@@ -6,7 +6,7 @@
 extern "C" {
 #endif
 
-struct dsv_line
+struct xt_dsv_line
 {
     size_t      num_fields_array_size,
 		num_fields;

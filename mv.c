@@ -2,7 +2,7 @@
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Name:
- *      mv() - Library function equivalent of mv(1)
+ *      xt_mv() - Library function equivalent of xt_mv(1)
  *
  *  Library:
  *      #include <xtend/file.h>
@@ -12,7 +12,7 @@
  *      Move file from pathname src to pathname dest. First attempt to
  *      rename using rename(3).  This will fail if src and dest are
  *      in different filesystems.  Then attempt to copy the file using
- *      fast_cp(3), an optimized cross-filesystem file copy routine.
+ *      xt_fast_cp(3), an optimized cross-filesystem file copy routine.
  *  
  *  Arguments:
  *      src     Original filename
@@ -24,14 +24,14 @@
  *  Examples:
  *      char    *old_name, char *new_name;
  *
- *      if ( mv(old_name, new_name) != 0 )
+ *      if ( xt_mv(old_name, new_name) != 0 )
  *      {
  *          fprintf(stderr, "Failed to move %s to %s.\n", old_name, new_name);
  *          ...
  *      }
  *
  *  See also:
- *      fast_cp(3)
+ *      xt_fast_cp(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -41,7 +41,7 @@
 #include <unistd.h>
 #include "file.h"
 
-int     mv(const char *src, const char *dest)
+int     xt_mv(const char *src, const char *dest)
 
 {
     int     status = 0;

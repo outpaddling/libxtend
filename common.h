@@ -9,7 +9,7 @@ extern "C" {
 #define XT_CMD_MAX_CHARS    4096
 
 #define XT_OK                   0
-// FIXME: Return this instead of EOF in dsv_read*()
+// FIXME: Return this instead of EOF in xt_dsv_read*()
 // Don't trust that EOF is -1 on all platforms
 #define XT_READ_EOF             -1
 #define XT_READ_BUFF_OVERFLOW   -2

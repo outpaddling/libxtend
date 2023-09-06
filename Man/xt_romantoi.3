@@ -2,7 +2,7 @@
 .TH xt_romantoi 3
 
 .SH NAME
-romantoi() - Convert Roman numeral string to int
+xt_romantoi() - Convert Roman numeral string to int
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
@@ -33,7 +33,7 @@ endptr: Address of a pointer variable to receive the end of the string
 .SH DESCRIPTION
 
 The
-.B romantoi() function converts a string containing a valid
+.B xt_romantoi() function converts a string containing a valid
 Roman numeral to an integer, much like strtol().  It rejects
 non-normalized values, such as IIIII, XXXXX, or CCCCC, which
 should be written as V, L, and D, respectively.  IIII, XXXX, and
@@ -56,7 +56,7 @@ an invalid numeral is detected.
 char    string[] = "XIV", *end;
 int     n;
 
-n = romantoi(string, &end);
+n = xt_romantoi(string, &end);
 if ( *end == '0' )
     printf("%dn", n);
 else

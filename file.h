@@ -24,7 +24,8 @@ extern "C" {
 // For use in application usage messages
 #define XT_COMPRESSION_EXTENSIONS   "[.gz|.bz2|.xz|.lz4|.zst]"
 
-// Added 2022-02-03
+// Example of how to deprecate functions
+// Use this strictly starting with v1.0
 #define fgetline(fp, buff, maxlen) \
 	    _Pragma("message(\"fgetline() is deprecated.  Use xt_fgetline().\")") \
 	    xt_fgetline(fp, buff, maxlen)

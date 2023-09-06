@@ -50,7 +50,7 @@ int     fd;
 
 if ( (fd = open(filename, O_WRONLY|O_CREAT)) != -1 )
 {
-    xt_xt_dprintf(fd, "fd = %dn", fd);
+    xt_dprintf(fd, "fd = %dn", fd);
     ...
     close(fd);
 }

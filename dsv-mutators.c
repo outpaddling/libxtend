@@ -20,8 +20,8 @@
  *      -lxtend
  *
  *  Description:
- *      Mutator for array_size member in a dsv_line_t structure.
- *      Use this function to set array_size in a dsv_line_t object
+ *      Mutator for array_size member in a xt_dsv_line_t structure.
+ *      Use this function to set array_size in a xt_dsv_line_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      array_size is a pointer, data previously pointed to should
@@ -29,7 +29,7 @@
  *      leaks.
  *
  *  Arguments:
- *      dsv_line_ptr    Pointer to the structure to set
+ *      xt_dsv_line_ptr    Pointer to the structure to set
  *      new_array_size  The new value for array_size
  *
  *  Returns:
@@ -37,10 +37,10 @@
  *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
- *      dsv_line_t      dsv_line;
+ *      xt_dsv_line_t      xt_dsv_line;
  *      size_t          new_array_size;
  *
- *      if ( dsv_line_set_array_size(&dsv_line, new_array_size)
+ *      if ( xt_dsv_line_set_array_size(&xt_dsv_line, new_array_size)
  *              == DSV_DATA_OK )
  *      {
  *      }
@@ -53,14 +53,14 @@
  *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
-int     dsv_line_set_num_fields_array_size(dsv_line_t *dsv_line_ptr, size_t new_array_size)
+int     xt_dsv_line_set_num_fields_array_size(xt_dsv_line_t *xt_dsv_line_ptr, size_t new_array_size)
 
 {
     if ( false )
 	return DSV_DATA_OUT_OF_RANGE;
     else
     {
-	dsv_line_ptr->num_fields_array_size = new_array_size;
+	xt_dsv_line_ptr->num_fields_array_size = new_array_size;
 	return DSV_DATA_OK;
     }
 }
@@ -72,8 +72,8 @@ int     dsv_line_set_num_fields_array_size(dsv_line_t *dsv_line_ptr, size_t new_
  *      -lxtend
  *
  *  Description:
- *      Mutator for num_fields member in a dsv_line_t structure.
- *      Use this function to set num_fields in a dsv_line_t object
+ *      Mutator for num_fields member in a xt_dsv_line_t structure.
+ *      Use this function to set num_fields in a xt_dsv_line_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      num_fields is a pointer, data previously pointed to should
@@ -81,7 +81,7 @@ int     dsv_line_set_num_fields_array_size(dsv_line_t *dsv_line_ptr, size_t new_
  *      leaks.
  *
  *  Arguments:
- *      dsv_line_ptr    Pointer to the structure to set
+ *      xt_dsv_line_ptr    Pointer to the structure to set
  *      new_num_fields  The new value for num_fields
  *
  *  Returns:
@@ -89,10 +89,10 @@ int     dsv_line_set_num_fields_array_size(dsv_line_t *dsv_line_ptr, size_t new_
  *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
- *      dsv_line_t      dsv_line;
+ *      xt_dsv_line_t      xt_dsv_line;
  *      size_t          new_num_fields;
  *
- *      if ( dsv_line_set_num_fields(&dsv_line, new_num_fields)
+ *      if ( xt_dsv_line_set_num_fields(&xt_dsv_line, new_num_fields)
  *              == DSV_DATA_OK )
  *      {
  *      }
@@ -105,14 +105,14 @@ int     dsv_line_set_num_fields_array_size(dsv_line_t *dsv_line_ptr, size_t new_
  *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
-int     dsv_line_set_num_fields(dsv_line_t *dsv_line_ptr, size_t new_num_fields)
+int     xt_dsv_line_set_num_fields(xt_dsv_line_t *xt_dsv_line_ptr, size_t new_num_fields)
 
 {
     if ( false )
 	return DSV_DATA_OUT_OF_RANGE;
     else
     {
-	dsv_line_ptr->num_fields = new_num_fields;
+	xt_dsv_line_ptr->num_fields = new_num_fields;
 	return DSV_DATA_OK;
     }
 }
@@ -124,8 +124,8 @@ int     dsv_line_set_num_fields(dsv_line_t *dsv_line_ptr, size_t new_num_fields)
  *      -lxtend
  *
  *  Description:
- *      Mutator for fields member in a dsv_line_t structure.
- *      Use this function to set fields in a dsv_line_t object
+ *      Mutator for fields member in a xt_dsv_line_t structure.
+ *      Use this function to set fields in a xt_dsv_line_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      fields is a pointer, data previously pointed to should
@@ -133,7 +133,7 @@ int     dsv_line_set_num_fields(dsv_line_t *dsv_line_ptr, size_t new_num_fields)
  *      leaks.
  *
  *  Arguments:
- *      dsv_line_ptr    Pointer to the structure to set
+ *      xt_dsv_line_ptr    Pointer to the structure to set
  *      new_fields      The new value for fields
  *
  *  Returns:
@@ -141,10 +141,10 @@ int     dsv_line_set_num_fields(dsv_line_t *dsv_line_ptr, size_t new_num_fields)
  *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
- *      dsv_line_t      dsv_line;
+ *      xt_dsv_line_t      xt_dsv_line;
  *      char **         new_fields;
  *
- *      if ( dsv_line_set_fields(&dsv_line, new_fields)
+ *      if ( xt_dsv_line_set_fields(&xt_dsv_line, new_fields)
  *              == DSV_DATA_OK )
  *      {
  *      }
@@ -157,14 +157,14 @@ int     dsv_line_set_num_fields(dsv_line_t *dsv_line_ptr, size_t new_num_fields)
  *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
-int     dsv_line_set_fields(dsv_line_t *dsv_line_ptr, char ** new_fields)
+int     xt_dsv_line_set_fields(xt_dsv_line_t *xt_dsv_line_ptr, char ** new_fields)
 
 {
     if ( new_fields == NULL )
 	return DSV_DATA_OUT_OF_RANGE;
     else
     {
-	dsv_line_ptr->fields = new_fields;
+	xt_dsv_line_ptr->fields = new_fields;
 	return DSV_DATA_OK;
     }
 }
@@ -176,12 +176,12 @@ int     dsv_line_set_fields(dsv_line_t *dsv_line_ptr, char ** new_fields)
  *      -lxtend
  *
  *  Description:
- *      Mutator for an array element of fields member in a dsv_line_t
- *      structure. Use this function to set dsv_line_ptr->fields[c]
- *      in a dsv_line_t object from non-member functions.
+ *      Mutator for an array element of fields member in a xt_dsv_line_t
+ *      structure. Use this function to set xt_dsv_line_ptr->fields[c]
+ *      in a xt_dsv_line_t object from non-member functions.
  *
  *  Arguments:
- *      dsv_line_ptr    Pointer to the structure to set
+ *      xt_dsv_line_ptr    Pointer to the structure to set
  *      c               Subscript to the fields array
  *      new_fields_element The new value for fields[c]
  *
@@ -190,11 +190,11 @@ int     dsv_line_set_fields(dsv_line_t *dsv_line_ptr, char ** new_fields)
  *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
- *      dsv_line_t      dsv_line;
+ *      xt_dsv_line_t      xt_dsv_line;
  *      size_t          c;
  *      char **         new_fields_element;
  *
- *      if ( dsv_line_set_fields_ae(&dsv_line, c, new_fields_element)
+ *      if ( xt_dsv_line_set_fields_ae(&xt_dsv_line, c, new_fields_element)
  *              == DSV_DATA_OK )
  *      {
  *      }
@@ -207,14 +207,14 @@ int     dsv_line_set_fields(dsv_line_t *dsv_line_ptr, char ** new_fields)
  *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
-int     dsv_line_set_fields_ae(dsv_line_t *dsv_line_ptr, size_t c, char * new_fields_element)
+int     xt_dsv_line_set_fields_ae(xt_dsv_line_t *xt_dsv_line_ptr, size_t c, char * new_fields_element)
 
 {
     if ( new_fields_element == NULL )
 	return DSV_DATA_OUT_OF_RANGE;
     else
     {
-	dsv_line_ptr->fields[c] = new_fields_element;
+	xt_dsv_line_ptr->fields[c] = new_fields_element;
 	return DSV_DATA_OK;
     }
 }
@@ -226,13 +226,13 @@ int     dsv_line_set_fields_ae(dsv_line_t *dsv_line_ptr, size_t c, char * new_fi
  *      -lxtend
  *
  *  Description:
- *      Mutator for fields member in a dsv_line_t structure.
- *      Use this function to set fields in a dsv_line_t object
+ *      Mutator for fields member in a xt_dsv_line_t structure.
+ *      Use this function to set fields in a xt_dsv_line_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_fields to dsv_line_ptr->fields.
+ *      by new_fields to xt_dsv_line_ptr->fields.
  *
  *  Arguments:
- *      dsv_line_ptr    Pointer to the structure to set
+ *      xt_dsv_line_ptr    Pointer to the structure to set
  *      new_fields      The new value for fields
  *      array_size      Size of the fields array.
  *
@@ -241,11 +241,11 @@ int     dsv_line_set_fields_ae(dsv_line_t *dsv_line_ptr, size_t c, char * new_fi
  *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
- *      dsv_line_t      dsv_line;
+ *      xt_dsv_line_t      xt_dsv_line;
  *      char **         new_fields;
  *      size_t          array_size;
  *
- *      if ( dsv_line_set_fields_cpy(&dsv_line, new_fields, array_size)
+ *      if ( xt_dsv_line_set_fields_cpy(&xt_dsv_line, new_fields, array_size)
  *              == DSV_DATA_OK )
  *      {
  *      }
@@ -258,7 +258,7 @@ int     dsv_line_set_fields_ae(dsv_line_t *dsv_line_ptr, size_t c, char * new_fi
  *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
-int     dsv_line_set_fields_cpy(dsv_line_t *dsv_line_ptr, char ** new_fields, size_t array_size)
+int     xt_dsv_line_set_fields_cpy(xt_dsv_line_t *xt_dsv_line_ptr, char ** new_fields, size_t array_size)
 
 {
     if ( new_fields == NULL )
@@ -269,7 +269,7 @@ int     dsv_line_set_fields_cpy(dsv_line_t *dsv_line_ptr, char ** new_fields, si
 	
 	// FIXME: Assuming all elements should be copied
 	for (c = 0; c < array_size; ++c)
-	    dsv_line_ptr->fields[c] = new_fields[c];
+	    xt_dsv_line_ptr->fields[c] = new_fields[c];
 	return DSV_DATA_OK;
     }
 }
@@ -281,8 +281,8 @@ int     dsv_line_set_fields_cpy(dsv_line_t *dsv_line_ptr, char ** new_fields, si
  *      -lxtend
  *
  *  Description:
- *      Mutator for delims member in a dsv_line_t structure.
- *      Use this function to set delims in a dsv_line_t object
+ *      Mutator for delims member in a xt_dsv_line_t structure.
+ *      Use this function to set delims in a xt_dsv_line_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      delims is a pointer, data previously pointed to should
@@ -290,7 +290,7 @@ int     dsv_line_set_fields_cpy(dsv_line_t *dsv_line_ptr, char ** new_fields, si
  *      leaks.
  *
  *  Arguments:
- *      dsv_line_ptr    Pointer to the structure to set
+ *      xt_dsv_line_ptr    Pointer to the structure to set
  *      new_delims      The new value for delims
  *
  *  Returns:
@@ -298,10 +298,10 @@ int     dsv_line_set_fields_cpy(dsv_line_t *dsv_line_ptr, char ** new_fields, si
  *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
- *      dsv_line_t      dsv_line;
+ *      xt_dsv_line_t      xt_dsv_line;
  *      char *          new_delims;
  *
- *      if ( dsv_line_set_delims(&dsv_line, new_delims)
+ *      if ( xt_dsv_line_set_delims(&xt_dsv_line, new_delims)
  *              == DSV_DATA_OK )
  *      {
  *      }
@@ -314,14 +314,14 @@ int     dsv_line_set_fields_cpy(dsv_line_t *dsv_line_ptr, char ** new_fields, si
  *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
-int     dsv_line_set_delims(dsv_line_t *dsv_line_ptr, char * new_delims)
+int     xt_dsv_line_set_delims(xt_dsv_line_t *xt_dsv_line_ptr, char * new_delims)
 
 {
     if ( new_delims == NULL )
 	return DSV_DATA_OUT_OF_RANGE;
     else
     {
-	dsv_line_ptr->delims = new_delims;
+	xt_dsv_line_ptr->delims = new_delims;
 	return DSV_DATA_OK;
     }
 }
@@ -333,12 +333,12 @@ int     dsv_line_set_delims(dsv_line_t *dsv_line_ptr, char * new_delims)
  *      -lxtend
  *
  *  Description:
- *      Mutator for an array element of delims member in a dsv_line_t
- *      structure. Use this function to set dsv_line_ptr->delims[c]
- *      in a dsv_line_t object from non-member functions.
+ *      Mutator for an array element of delims member in a xt_dsv_line_t
+ *      structure. Use this function to set xt_dsv_line_ptr->delims[c]
+ *      in a xt_dsv_line_t object from non-member functions.
  *
  *  Arguments:
- *      dsv_line_ptr    Pointer to the structure to set
+ *      xt_dsv_line_ptr    Pointer to the structure to set
  *      c               Subscript to the delims array
  *      new_delims_element The new value for delims[c]
  *
@@ -347,11 +347,11 @@ int     dsv_line_set_delims(dsv_line_t *dsv_line_ptr, char * new_delims)
  *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
- *      dsv_line_t      dsv_line;
+ *      xt_dsv_line_t      xt_dsv_line;
  *      size_t          c;
  *      char *          new_delims_element;
  *
- *      if ( dsv_line_set_delims_ae(&dsv_line, c, new_delims_element)
+ *      if ( xt_dsv_line_set_delims_ae(&xt_dsv_line, c, new_delims_element)
  *              == DSV_DATA_OK )
  *      {
  *      }
@@ -364,14 +364,14 @@ int     dsv_line_set_delims(dsv_line_t *dsv_line_ptr, char * new_delims)
  *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
-int     dsv_line_set_delims_ae(dsv_line_t *dsv_line_ptr, size_t c, char  new_delims_element)
+int     xt_dsv_line_set_delims_ae(xt_dsv_line_t *xt_dsv_line_ptr, size_t c, char  new_delims_element)
 
 {
     if ( false )
 	return DSV_DATA_OUT_OF_RANGE;
     else
     {
-	dsv_line_ptr->delims[c] = new_delims_element;
+	xt_dsv_line_ptr->delims[c] = new_delims_element;
 	return DSV_DATA_OK;
     }
 }
@@ -383,13 +383,13 @@ int     dsv_line_set_delims_ae(dsv_line_t *dsv_line_ptr, size_t c, char  new_del
  *      -lxtend
  *
  *  Description:
- *      Mutator for delims member in a dsv_line_t structure.
- *      Use this function to set delims in a dsv_line_t object
+ *      Mutator for delims member in a xt_dsv_line_t structure.
+ *      Use this function to set delims in a xt_dsv_line_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_delims to dsv_line_ptr->delims.
+ *      by new_delims to xt_dsv_line_ptr->delims.
  *
  *  Arguments:
- *      dsv_line_ptr    Pointer to the structure to set
+ *      xt_dsv_line_ptr    Pointer to the structure to set
  *      new_delims      The new value for delims
  *      array_size      Size of the delims array.
  *
@@ -398,11 +398,11 @@ int     dsv_line_set_delims_ae(dsv_line_t *dsv_line_ptr, size_t c, char  new_del
  *      DSV_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
- *      dsv_line_t      dsv_line;
+ *      xt_dsv_line_t      xt_dsv_line;
  *      char *          new_delims;
  *      size_t          array_size;
  *
- *      if ( dsv_line_set_delims_cpy(&dsv_line, new_delims, array_size)
+ *      if ( xt_dsv_line_set_delims_cpy(&xt_dsv_line, new_delims, array_size)
  *              == DSV_DATA_OK )
  *      {
  *      }
@@ -415,7 +415,7 @@ int     dsv_line_set_delims_ae(dsv_line_t *dsv_line_ptr, size_t c, char  new_del
  *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
-int     dsv_line_set_delims_cpy(dsv_line_t *dsv_line_ptr, char * new_delims, size_t array_size)
+int     xt_dsv_line_set_delims_cpy(xt_dsv_line_t *xt_dsv_line_ptr, char * new_delims, size_t array_size)
 
 {
     if ( new_delims == NULL )
@@ -423,7 +423,7 @@ int     dsv_line_set_delims_cpy(dsv_line_t *dsv_line_ptr, char * new_delims, siz
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
-	strlcpy(dsv_line_ptr->delims, new_delims, array_size);
+	strlcpy(xt_dsv_line_ptr->delims, new_delims, array_size);
 	return DSV_DATA_OK;
     }
 }

@@ -4,18 +4,18 @@
 #include <sys/stat.h>
 #include <sysexits.h>
 #include "file.h"
-#include "math.h"       // lcm(), XT_MIN()
+#include "math.h"       // xt_lcm(), XT_MIN()
 
 /***************************************************************************
  *  Name:
- *      fast_cp() - Copy a file using optimal block size
+ *      xt_fast_cp() - Copy a file using optimal block size
  *
  *  Library:
  *      #include <xtend/file.h>
  *      -lxtend
  *
  *  Description:
- *      fast_cp() copies a file using low-level I/O with an optimal
+ *      xt_fast_cp() copies a file using low-level I/O with an optimal
  *      buffer size (the least common multiple of block sizes) for both
  *      source and destination filesystems.
  *  
@@ -55,12 +55,12 @@ int     xt_fast_cp(const char *source, const char *dest)
        st_blksize */
     fstat(infile,&infile_stats);
     fstat(outfile,&outfile_stats);
-    x = lcm(infile_stats.st_blksize,outfile_stats.st_blksize);
+    x = xt_lcm(infile_stats.st_blksize,outfile_stats.st_blksize);
     buff_size = XT_MIN(x,256*1024);
 
     if ( (buff = (char *)malloc(buff_size)) == NULL )
     {
-	fputs("fast_cp(): malloc() failed.\n", stderr);
+	fputs("xt_fast_cp(): malloc() failed.\n", stderr);
 	close(infile);
 	close(outfile);
 	return -1;

@@ -17,7 +17,7 @@ extern "C" {
 #define DSV_FIELD_MAX_CHARS     32767
 
 // Before including generated headers
-typedef struct dsv_line dsv_line_t;
+typedef struct xt_dsv_line xt_dsv_line_t;
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
@@ -27,14 +27,14 @@ typedef struct dsv_line dsv_line_t;
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      .B dsv_line_t
+ *      .B xt_dsv_line_t
  *      is a generic structure for holding a line of data from a delimiter
  *      separated file such as CSV or TSV.
  *  
  *  Examples:
  *
  *  See also:
- *      dsv_line_read(3), dsv_line_write(3), dsv_line_copy(3), dsv_line_free(3)
+ *      xt_dsv_line_read(3), xt_dsv_line_write(3), xt_dsv_line_copy(3), xt_dsv_line_free(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -46,24 +46,24 @@ typedef struct dsv_line dsv_line_t;
 #include "dsv-mutators.h"
 
 /* dsv.c */
-int dsv_read_field(FILE *stream, char buff[], size_t buff_size, const char *delims, size_t *len);
-int dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size, const char *delims, size_t *len);
-int dsv_skip_field(FILE *stream, const char *delims, size_t *len);
-int dsv_skip_rest_of_line(FILE *stream);
-dsv_line_t *dsv_line_new(void);
-void dsv_line_init(dsv_line_t *dsv_line);
-int dsv_line_read(dsv_line_t *dsv_line, FILE *stream, const char *delims);
-int dsv_line_write(dsv_line_t *dsv_line, FILE *stream);
-int dsv_line_copy(dsv_line_t *dest, dsv_line_t *src);
-int dsv_line_free(dsv_line_t *dsv_line);
-int tsv_read_field(FILE *stream, char buff[], size_t buff_size, size_t *len);
-int tsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size, size_t *len);
-int tsv_skip_field(FILE *stream, size_t *len);
-int tsv_skip_rest_of_line(FILE *stream);
-int csv_read_field(FILE *stream, char buff[], size_t buff_size, size_t *len);
-int csv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size, size_t *len);
-int csv_skip_field(FILE *stream, size_t *len);
-int csv_skip_rest_of_line(FILE *stream);
+int xt_dsv_read_field(FILE *stream, char buff[], size_t buff_size, const char *delims, size_t *len);
+int xt_dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size, const char *delims, size_t *len);
+int xt_dsv_skip_field(FILE *stream, const char *delims, size_t *len);
+int xt_dsv_skip_rest_of_line(FILE *stream);
+xt_dsv_line_t *xt_dsv_line_new(void);
+void xt_dsv_line_init(xt_dsv_line_t *xt_dsv_line);
+int xt_dsv_line_read(xt_dsv_line_t *xt_dsv_line, FILE *stream, const char *delims);
+int xt_dsv_line_write(xt_dsv_line_t *xt_dsv_line, FILE *stream);
+int xt_dsv_line_copy(xt_dsv_line_t *dest, xt_dsv_line_t *src);
+int xt_dsv_line_free(xt_dsv_line_t *xt_dsv_line);
+int xt_tsv_read_field(FILE *stream, char buff[], size_t buff_size, size_t *len);
+int xt_tsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size, size_t *len);
+int xt_tsv_skip_field(FILE *stream, size_t *len);
+int xt_tsv_skip_rest_of_line(FILE *stream);
+int xt_csv_read_field(FILE *stream, char buff[], size_t buff_size, size_t *len);
+int xt_csv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size, size_t *len);
+int xt_csv_skip_field(FILE *stream, size_t *len);
+int xt_csv_skip_rest_of_line(FILE *stream);
 
 #ifdef __cplusplus
 }

@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-int resolve_hostname(const char *hostname, char *ip, size_t ip_buff_len);
+int xt_resolve_hostname(const char *hostname, char *ip, size_t ip_buff_len);
 
 #ifndef _XTEND_COMMON_H_
 #include "common.h"

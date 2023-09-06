@@ -2,7 +2,7 @@
 
 /***************************************************************************
  *  Name:
- *      double_cmp() - Compare two doubles for sort(3), bsearch(3), etc.
+ *      xt_double_cmp() - Compare two doubles for sort(3), bsearch(3), etc.
  *
  *  Library:
  *      #include <xtend/math.h>
@@ -11,7 +11,7 @@
  *  Description:
  *      This is a function that compares two doubles as a service to
  *      polymorphic functions such as qsort(3), bsearch(3), etc.  The
- *      address of double_cmp() is passed as an argument to perform the
+ *      address of xt_double_cmp() is passed as an argument to perform the
  *      data type specific comparison on behalf of the sort of search function.
  *  
  *  Arguments:
@@ -28,7 +28,7 @@
  *      // sizeof(*list) will continue to work if we change the data type
  *      // We'll still need to change the cmp function, though
  *      qsort(list, LIST_SIZE, sizeof(*list),
- *            (int (*)(const void *, const void *))double_cmp);
+ *            (int (*)(const void *, const void *))xt_double_cmp);
  *      
  *  See also:
  *      qsort(3), heapsort(3), mergesort(3), bsearch(3)
@@ -38,7 +38,7 @@
  *  2021-10-07  Jason Bacon Begin
  ***************************************************************************/
 
-int     double_cmp(const double *n1, const double *n2)
+int     xt_double_cmp(const double *n1, const double *n2)
 
 {
     /*
@@ -57,7 +57,7 @@ int     double_cmp(const double *n1, const double *n2)
 
 /***************************************************************************
  *  Name:
- *      float_cmp() - Compare two floats for sort(3), bsearch(3), etc.
+ *      xt_float_cmp() - Compare two floats for sort(3), bsearch(3), etc.
  *
  *  Library:
  *      #include <xtend/math.h>
@@ -66,7 +66,7 @@ int     double_cmp(const double *n1, const double *n2)
  *  Description:
  *      This is a function that compares two floats as a service to
  *      polymorphic functions such as qsort(3), bsearch(3), etc.  The
- *      address of float_cmp() is passed as an argument to perform the
+ *      address of xt_float_cmp() is passed as an argument to perform the
  *      data type specific comparison on behalf of the sort of search function.
  *  
  *  Arguments:
@@ -83,7 +83,7 @@ int     double_cmp(const double *n1, const double *n2)
  *      // sizeof(*list) will continue to work if we change the data type
  *      // We'll still need to change the cmp function, though
  *      qsort(list, LIST_SIZE, sizeof(*list),
- *            (int (*)(const void *, const void *))float_cmp);
+ *            (int (*)(const void *, const void *))xt_float_cmp);
  *      
  *  See also:
  *      qsort(3), heapsort(3), mergesort(3), bsearch(3)
@@ -93,7 +93,7 @@ int     double_cmp(const double *n1, const double *n2)
  *  2021-10-07  Jason Bacon Begin
  ***************************************************************************/
 
-int     float_cmp(const float *n1, const float *n2)
+int     xt_float_cmp(const float *n1, const float *n2)
 
 {
     /*
@@ -112,7 +112,7 @@ int     float_cmp(const float *n1, const float *n2)
 
 /***************************************************************************
  *  Name:
- *      long_long_cmp() - Compare two long longs for sort(3), bsearch(3), etc.
+ *      xt_long_long_cmp() - Compare two long longs for sort(3), bsearch(3), etc.
  *
  *  Library:
  *      #include <xtend/math.h>
@@ -121,7 +121,7 @@ int     float_cmp(const float *n1, const float *n2)
  *  Description:
  *      This is a function that compares two long longs as a service to
  *      polymorphic functions such as qsort(3), bsearch(3), etc.  The
- *      address of long_long_cmp() is passed as an argument to perform the
+ *      address of xt_long_long_cmp() is passed as an argument to perform the
  *      data type specific comparison on behalf of the sort of search function.
  *  
  *  Arguments:
@@ -138,7 +138,7 @@ int     float_cmp(const float *n1, const float *n2)
  *      // sizeof(*list) will continue to work if we change the data type
  *      // We'll still need to change the cmp function, though
  *      qsort(list, LIST_SIZE, sizeof(*list),
- *            (int (*)(const void *, const void *))long_long_cmp);
+ *            (int (*)(const void *, const void *))xt_long_long_cmp);
  *      
  *  See also:
  *      qsort(3), heapsort(3), mergesort(3), bsearch(3)
@@ -148,7 +148,7 @@ int     float_cmp(const float *n1, const float *n2)
  *  2021-10-07  Jason Bacon Begin
  ***************************************************************************/
 
-int     long_long_cmp(const long long *n1, const long long *n2)
+int     xt_long_long_cmp(const long long *n1, const long long *n2)
 
 {
     /*
@@ -167,7 +167,7 @@ int     long_long_cmp(const long long *n1, const long long *n2)
 
 /***************************************************************************
  *  Name:
- *      long_cmp() - Compare two longs for sort(3), bsearch(3), etc.
+ *      xt_long_cmp() - Compare two longs for sort(3), bsearch(3), etc.
  *
  *  Library:
  *      #include <xtend/math.h>
@@ -176,7 +176,7 @@ int     long_long_cmp(const long long *n1, const long long *n2)
  *  Description:
  *      This is a function that compares two longs as a service to
  *      polymorphic functions such as qsort(3), bsearch(3), etc.  The
- *      address of long_cmp() is passed as an argument to perform the
+ *      address of xt_long_cmp() is passed as an argument to perform the
  *      data type specific comparison on behalf of the sort of search function.
  *  
  *  Arguments:
@@ -193,7 +193,7 @@ int     long_long_cmp(const long long *n1, const long long *n2)
  *      // sizeof(*list) will continue to work if we change the data type
  *      // We'll still need to change the cmp function, though
  *      qsort(list, LIST_SIZE, sizeof(*list),
- *            (int (*)(const void *, const void *))long_cmp);
+ *            (int (*)(const void *, const void *))xt_long_cmp);
  *      
  *  See also:
  *      qsort(3), heapsort(3), mergesort(3), bsearch(3)
@@ -203,7 +203,7 @@ int     long_long_cmp(const long long *n1, const long long *n2)
  *  2021-10-07  Jason Bacon Begin
  ***************************************************************************/
 
-int     long_cmp(const long *n1, const long *n2)
+int     xt_long_cmp(const long *n1, const long *n2)
 
 {
     /*
@@ -222,7 +222,7 @@ int     long_cmp(const long *n1, const long *n2)
 
 /***************************************************************************
  *  Name:
- *      int_cmp() - Compare two ints for sort(3), bsearch(3), etc.
+ *      xt_int_cmp() - Compare two ints for sort(3), bsearch(3), etc.
  *
  *  Library:
  *      #include <xtend/math.h>
@@ -231,7 +231,7 @@ int     long_cmp(const long *n1, const long *n2)
  *  Description:
  *      This is a function that compares two ints as a service to
  *      polymorphic functions such as qsort(3), bsearch(3), etc.  The
- *      address of int_cmp() is passed as an argument to perform the
+ *      address of xt_int_cmp() is passed as an argument to perform the
  *      data type specific comparison on behalf of the sort of search function.
  *  
  *  Arguments:
@@ -248,7 +248,7 @@ int     long_cmp(const long *n1, const long *n2)
  *      // sizeof(*list) will continue to work if we change the data type
  *      // We'll still need to change the cmp function, though
  *      qsort(list, LIST_SIZE, sizeof(*list),
- *            (int (*)(const void *, const void *))int_cmp);
+ *            (int (*)(const void *, const void *))xt_int_cmp);
  *      
  *  See also:
  *      qsort(3), heapsort(3), mergesort(3), bsearch(3)
@@ -258,7 +258,7 @@ int     long_cmp(const long *n1, const long *n2)
  *  2021-10-07  Jason Bacon Begin
  ***************************************************************************/
 
-int     int_cmp(const int *n1, const int *n2)
+int     xt_int_cmp(const int *n1, const int *n2)
 
 {
     return *n1 - *n2;
@@ -267,7 +267,7 @@ int     int_cmp(const int *n1, const int *n2)
 
 /***************************************************************************
  *  Name:
- *      short_cmp() - Compare two shorts for sort(3), bsearch(3), etc.
+ *      xt_short_cmp() - Compare two shorts for sort(3), bsearch(3), etc.
  *
  *  Library:
  *      #include <xtend/math.h>
@@ -276,7 +276,7 @@ int     int_cmp(const int *n1, const int *n2)
  *  Description:
  *      This is a function that compares two shorts as a service to
  *      polymorphic functions such as qsort(3), bsearch(3), etc.  The
- *      address of short_cmp() is passed as an argument to perform the
+ *      address of xt_short_cmp() is passed as an argument to perform the
  *      data type specific comparison on behalf of the sort of search function.
  *  
  *  Arguments:
@@ -293,7 +293,7 @@ int     int_cmp(const int *n1, const int *n2)
  *      // sizeof(*list) will continue to work if we change the data type
  *      // We'll still need to change the cmp function, though
  *      qsort(list, LIST_SIZE, sizeof(*list),
- *            (int (*)(const void *, const void *))short_cmp);
+ *            (int (*)(const void *, const void *))xt_short_cmp);
  *      
  *  See also:
  *      qsort(3), heapsort(3), mergesort(3), bsearch(3)
@@ -303,7 +303,7 @@ int     int_cmp(const int *n1, const int *n2)
  *  2021-10-07  Jason Bacon Begin
  ***************************************************************************/
 
-int     short_cmp(const short *n1, const short *n2)
+int     xt_short_cmp(const short *n1, const short *n2)
 
 {
     return *n1 - *n2;

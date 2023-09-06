@@ -2,7 +2,7 @@
 
 /***************************************************************************
  *  Name:
- *      gcd() - Greatest common divisor
+ *      xt_gcd() - Greatest common divisor
  *
  *  Library:
  *      #include <xtend/math.h>
@@ -19,28 +19,28 @@
  *      The greatest common divisor of a and b.
  *
  *  See also:
- *      lcm(3)
+ *      xt_lcm(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  Circa 1990  Jason Bacon Begin
  ***************************************************************************/
 
-unsigned long   gcd(unsigned long a, unsigned long b)
+unsigned long   xt_gcd(unsigned long a, unsigned long b)
 
 {
     if ( a == 0 ) return b;
     if ( b == 0 ) return a;
     if ( a < b )
-	return gcd(b,a);
+	return xt_gcd(b,a);
     else
-	return gcd(b, a % b);
+	return xt_gcd(b, a % b);
 }
 
 
 /***************************************************************************
  *  Name:
- *      lcm() - Least common multiple
+ *      xt_lcm() - Least common multiple
  *
  *  Library:
  *      #include <xtend/math.h>
@@ -59,15 +59,15 @@ unsigned long   gcd(unsigned long a, unsigned long b)
  *      The least common multiple of a and b.
  *
  *  See also:
- *      gcd(3)
+ *      xt_gcd(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  Circa 1990  Jason Bacon Begin
  ***************************************************************************/
 
-unsigned long   lcm(unsigned long a,unsigned long b)
+unsigned long   xt_lcm(unsigned long a,unsigned long b)
 
 {
-    return a * b / gcd(a,b);
+    return a * b / xt_gcd(a,b);
 }

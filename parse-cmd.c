@@ -3,7 +3,7 @@
 #include <limits.h>
 #include <sysexits.h>
 #include "proc.h"
-#include "string.h" // strshellcpy()
+#include "string.h" // xt_strshellcpy()
 
 /***************************************************************************
  *  Name:
@@ -16,7 +16,7 @@
  *  Description:
  *      Breaks a shell command into an argv[] style array suitable
  *      for xt_spawnvp() or execv*().  A copy of cmd is created using
- *      strshellcpy(), which expands certain shell features such as
+ *      xt_strshellcpy(), which expands certain shell features such as
  *      variables and paths starting with '~'.  The copy is then
  *      modified by replacing separators with '\0' and the argv[] array
  *      is populated with pointers to each token in the copy.
@@ -24,7 +24,7 @@
  *  Arguments:
  *      argv:   Pointer array to be filled with command tokens
  *      cmd:    Raw command string with limited meta-character support
- *              from strshellcpy(3)
+ *              from xt_strshellcpy(3)
  *
  *  Returns:
  *      Pointer to strdup() copy of cmd, which should be freed as soon
@@ -59,8 +59,8 @@ char    *xt_parse_cmd(char *argv[], int max_args, const char *cmd)
     }
     
     /* Expand shell meta-characters */
-    // FIXME: Make sure strshellcpy() stops 1 short of max and remove -1
-    strshellcpy(cmd_copy, cmd, XT_CMD_MAX_CHARS - 1);
+    // FIXME: Make sure xt_strshellcpy() stops 1 short of max and remove -1
+    xt_strshellcpy(cmd_copy, cmd, XT_CMD_MAX_CHARS - 1);
     
     /* Break command into tokens for argv[] */
     // FIXME: Replace deprecated strtok() with strsep()

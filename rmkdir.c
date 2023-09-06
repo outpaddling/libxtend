@@ -6,14 +6,14 @@
 
 /***************************************************************************
  *  Name:
- *      rmkdir() - Recursively create directories
+ *      xt_rmkdir() - Recursively create directories
  *
  *  Library:
  *      #include <xtend/file.h>
  *      -lxtend
  *
  *  Description:
- *      rmkdir() recursively creates a directory from within a compiled
+ *      xt_rmkdir() recursively creates a directory from within a compiled
  *      program in the same way as "mkdir -r" from shell.
  *  
  *  Arguments:

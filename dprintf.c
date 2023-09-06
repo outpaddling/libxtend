@@ -37,7 +37,7 @@
  *
  *      if ( (fd = open(filename, O_WRONLY|O_CREAT)) != -1 )
  *      {
- *          xt_xt_dprintf(fd, "fd = %d\n", fd);
+ *          xt_dprintf(fd, "fd = %d\n", fd);
  *          ...
  *          close(fd);
  *      }

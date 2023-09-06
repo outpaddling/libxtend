@@ -20,31 +20,31 @@
  *      -lxtend
  *
  *  Description:
- *      Accessor for array_size member in a dsv_line_t structure.
- *      Use this function to get array_size in a dsv_line_t object
+ *      Accessor for array_size member in a xt_dsv_line_t structure.
+ *      Use this function to get array_size in a xt_dsv_line_t object
  *      from non-member functions.
  *
  *  Arguments:
- *      dsv_line_ptr    Pointer to the structure to set
+ *      xt_dsv_line_ptr    Pointer to the structure to set
  *
  *  Returns:
  *      Value of the structure member array_size.
  *
  *  Examples:
- *      dsv_line_t      dsv_line;
+ *      xt_dsv_line_t      xt_dsv_line;
  *      size_t          array_size;
  *
- *      array_size = dsv_line_get_array_size(&dsv_line);
+ *      array_size = xt_dsv_line_get_array_size(&xt_dsv_line);
  *
  *  History: 
  *  Date        Name        Modification
  *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
-size_t    dsv_line_get_num_fields_array_size(dsv_line_t *dsv_line_ptr)
+size_t    xt_dsv_line_get_num_fields_array_size(xt_dsv_line_t *xt_dsv_line_ptr)
 
 {
-    return dsv_line_ptr->num_fields_array_size;
+    return xt_dsv_line_ptr->num_fields_array_size;
 }
 
 
@@ -54,31 +54,31 @@ size_t    dsv_line_get_num_fields_array_size(dsv_line_t *dsv_line_ptr)
  *      -lxtend
  *
  *  Description:
- *      Accessor for num_fields member in a dsv_line_t structure.
- *      Use this function to get num_fields in a dsv_line_t object
+ *      Accessor for num_fields member in a xt_dsv_line_t structure.
+ *      Use this function to get num_fields in a xt_dsv_line_t object
  *      from non-member functions.
  *
  *  Arguments:
- *      dsv_line_ptr    Pointer to the structure to set
+ *      xt_dsv_line_ptr    Pointer to the structure to set
  *
  *  Returns:
  *      Value of the structure member num_fields.
  *
  *  Examples:
- *      dsv_line_t      dsv_line;
+ *      xt_dsv_line_t      xt_dsv_line;
  *      size_t          num_fields;
  *
- *      num_fields = dsv_line_get_num_fields(&dsv_line);
+ *      num_fields = xt_dsv_line_get_num_fields(&xt_dsv_line);
  *
  *  History: 
  *  Date        Name        Modification
  *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
-size_t    dsv_line_get_num_fields(dsv_line_t *dsv_line_ptr)
+size_t    xt_dsv_line_get_num_fields(xt_dsv_line_t *xt_dsv_line_ptr)
 
 {
-    return dsv_line_ptr->num_fields;
+    return xt_dsv_line_ptr->num_fields;
 }
 
 
@@ -88,31 +88,31 @@ size_t    dsv_line_get_num_fields(dsv_line_t *dsv_line_ptr)
  *      -lxtend
  *
  *  Description:
- *      Accessor for fields member in a dsv_line_t structure.
- *      Use this function to get fields in a dsv_line_t object
+ *      Accessor for fields member in a xt_dsv_line_t structure.
+ *      Use this function to get fields in a xt_dsv_line_t object
  *      from non-member functions.
  *
  *  Arguments:
- *      dsv_line_ptr    Pointer to the structure to set
+ *      xt_dsv_line_ptr    Pointer to the structure to set
  *
  *  Returns:
  *      Value of the structure member fields.
  *
  *  Examples:
- *      dsv_line_t      dsv_line;
+ *      xt_dsv_line_t      xt_dsv_line;
  *      char **         fields;
  *
- *      fields = dsv_line_get_fields(&dsv_line);
+ *      fields = xt_dsv_line_get_fields(&xt_dsv_line);
  *
  *  History: 
  *  Date        Name        Modification
  *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
-char **    dsv_line_get_fields(dsv_line_t *dsv_line_ptr)
+char **    xt_dsv_line_get_fields(xt_dsv_line_t *xt_dsv_line_ptr)
 
 {
-    return dsv_line_ptr->fields;
+    return xt_dsv_line_ptr->fields;
 }
 
 
@@ -122,33 +122,33 @@ char **    dsv_line_get_fields(dsv_line_t *dsv_line_ptr)
  *      -lxtend
  *
  *  Description:
- *      Accessor for an array element of fields member in a dsv_line_t
- *      structure. Use this function to get dsv_line_ptr->fields[c]
- *      in a dsv_line_t object from non-member functions.
+ *      Accessor for an array element of fields member in a xt_dsv_line_t
+ *      structure. Use this function to get xt_dsv_line_ptr->fields[c]
+ *      in a xt_dsv_line_t object from non-member functions.
  *
  *  Arguments:
- *      dsv_line_ptr    Pointer to the structure to get
+ *      xt_dsv_line_ptr    Pointer to the structure to get
  *      c               Subscript to the fields array
  *
  *  Returns:
  *      Value of one element of structure member fields.
  *
  *  Examples:
- *      dsv_line_t      dsv_line;
+ *      xt_dsv_line_t      xt_dsv_line;
  *      size_t          c;
  *      char **         fields_element;
  *
- *      fields_element = dsv_line_get_fields_ae(&dsv_line, c);
+ *      fields_element = xt_dsv_line_get_fields_ae(&xt_dsv_line, c);
  *
  *  History: 
  *  Date        Name        Modification
  *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
-char * dsv_line_get_fields_ae(dsv_line_t *dsv_line_ptr, size_t c)
+char * xt_dsv_line_get_fields_ae(xt_dsv_line_t *xt_dsv_line_ptr, size_t c)
 
 {
-    return dsv_line_ptr->fields[c];
+    return xt_dsv_line_ptr->fields[c];
 }
 
 
@@ -158,31 +158,31 @@ char * dsv_line_get_fields_ae(dsv_line_t *dsv_line_ptr, size_t c)
  *      -lxtend
  *
  *  Description:
- *      Accessor for delims member in a dsv_line_t structure.
- *      Use this function to get delims in a dsv_line_t object
+ *      Accessor for delims member in a xt_dsv_line_t structure.
+ *      Use this function to get delims in a xt_dsv_line_t object
  *      from non-member functions.
  *
  *  Arguments:
- *      dsv_line_ptr    Pointer to the structure to set
+ *      xt_dsv_line_ptr    Pointer to the structure to set
  *
  *  Returns:
  *      Value of the structure member delims.
  *
  *  Examples:
- *      dsv_line_t      dsv_line;
+ *      xt_dsv_line_t      xt_dsv_line;
  *      char *          delims;
  *
- *      delims = dsv_line_get_delims(&dsv_line);
+ *      delims = xt_dsv_line_get_delims(&xt_dsv_line);
  *
  *  History: 
  *  Date        Name        Modification
  *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
-char *    dsv_line_get_delims(dsv_line_t *dsv_line_ptr)
+char *    xt_dsv_line_get_delims(xt_dsv_line_t *xt_dsv_line_ptr)
 
 {
-    return dsv_line_ptr->delims;
+    return xt_dsv_line_ptr->delims;
 }
 
 
@@ -192,31 +192,31 @@ char *    dsv_line_get_delims(dsv_line_t *dsv_line_ptr)
  *      -lxtend
  *
  *  Description:
- *      Accessor for an array element of delims member in a dsv_line_t
- *      structure. Use this function to get dsv_line_ptr->delims[c]
- *      in a dsv_line_t object from non-member functions.
+ *      Accessor for an array element of delims member in a xt_dsv_line_t
+ *      structure. Use this function to get xt_dsv_line_ptr->delims[c]
+ *      in a xt_dsv_line_t object from non-member functions.
  *
  *  Arguments:
- *      dsv_line_ptr    Pointer to the structure to get
+ *      xt_dsv_line_ptr    Pointer to the structure to get
  *      c               Subscript to the delims array
  *
  *  Returns:
  *      Value of one element of structure member delims.
  *
  *  Examples:
- *      dsv_line_t      dsv_line;
+ *      xt_dsv_line_t      xt_dsv_line;
  *      size_t          c;
  *      char *          delims_element;
  *
- *      delims_element = dsv_line_get_delims_ae(&dsv_line, c);
+ *      delims_element = xt_dsv_line_get_delims_ae(&xt_dsv_line, c);
  *
  *  History: 
  *  Date        Name        Modification
  *  2023-05-27  gen-get-set Auto-generated from dsv-private.h
  ***************************************************************************/
 
-char  dsv_line_get_delims_ae(dsv_line_t *dsv_line_ptr, size_t c)
+char  xt_dsv_line_get_delims_ae(xt_dsv_line_t *xt_dsv_line_ptr, size_t c)
 
 {
-    return dsv_line_ptr->delims[c];
+    return xt_dsv_line_ptr->delims[c];
 }

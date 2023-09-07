@@ -61,7 +61,8 @@ functions to contribute, please let us know by opening an issue.
 
 ## Summary list of functions
 
-This [function summary](./functions.md) lists currently available functions.
+This [function summary](./functions.md) lists currently available API
+functions.
 It is also available via "man libxtend" when libxtend is properly installed
 via a package manager.  Each function listed has its own man page with
 a more detailed description.

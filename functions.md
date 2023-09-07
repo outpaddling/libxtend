@@ -4,6 +4,11 @@ Each function below is documented by a man page.  To view the documentation,
 install libxtend using your chosen package manager and run `man function`
 (e.g. `man dsv_read_field`).
 
+This list does not include the numerous accessor and mutator functions
+and macros available for classes (xt_dsv_t, xt_ff_t).  See
+<prefix>/include/biolibc/*-accessors.h and
+<prefix>/include/biolibc/*-mutators.h for a current list.
+
 | Function | Purpose |
 |----------|---------|
 | _xt_ff_fillbuff(3)  |  Read next block for a fast file stream |

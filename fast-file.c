@@ -361,30 +361,11 @@ int     xt_ff_close_raw(xt_ff_t *stream)
 
 
 /***************************************************************************
- *  Use auto-c2man to generate a man page from this comment
- *
- *  Name:
- *      _xt_ff_fillbuff() - Read next block for a fast file stream
- *
- *  Library:
- *      #include <xtend/file.h>
- *      -lxtend
- *
- *  Description:
- *      _xt_ff_fillbuff(3)
- *      issues a read(2) call to refill the buffer of an xt_ff_t
- *      structure.  It is meant to be called by xt_ff_getc(3),
- *      and should not be used directly.
+ *  _xt_ff_fillbuff(3)
+ *  issues a read(2) call to refill the buffer of an xt_ff_t
+ *  structure.  It is meant to be called by xt_ff_getc(3),
+ *  and should not be used directly.
  *  
- *  Arguments:
- *      stream  Pointer to xt_ff_t structure in need of a refill
- *
- *  Returns:
- *      First character in the newly read buffer
- *
- *  See also:
- *      xt_ff_getc(3)
- *
  *  History: 
  *  Date        Name        Modification
  *  2023-09-02  Jason Bacon Begin

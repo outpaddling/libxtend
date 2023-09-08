@@ -179,3 +179,11 @@ Packages for libxtend are known to exist in the following package managers.
 These are maintained by third parties and not directly supported here.
 
 [BioArchLinux](https://github.com/BioArchLinux/Packages)
+
+## Instructions for packagers
+
+If you would like to add this project to another package manager
+rather than use FreeBSD ports or pkgsrc, basic manual build instructions
+for package can be found
+[here](https://github.com/outpaddling/Coding-Standards/blob/main/package.md).
+Your contribution is greatly appreciated!

@@ -26,18 +26,18 @@ typedef struct xt_fast_file xt_ff_t;
 #include "fast-file-mutators.h"
 
 /* fast-file.c */
-xt_ff_t *xt_ff_init_stream(xt_ff_t *stream);
-xt_ff_t *xt_ff_open_raw(const char *filename, int flags);
+xt_ff_t *_xt_ff_init_stream(xt_ff_t *stream);
+xt_ff_t *_xt_ff_raw_open(const char *filename, int flags);
 xt_ff_t *xt_ff_dopen(int fd, int flags);
 int xt_ff_fillbuff(xt_ff_t *stream);
 int xt_ff_getc(xt_ff_t *stream);
 int xt_ff_putc(xt_ff_t *stream, int ch);
-int xt_ff_close_raw(xt_ff_t *stream);
+int _xt_ff_raw_close(xt_ff_t *stream);
 int xt_ff_ungetc(xt_ff_t *stream, int ch);
 xt_ff_t *xt_ff_stdin(void);
 xt_ff_t *xt_ff_stdout(void);
 xt_ff_t *xt_ff_popen(const char *cmd, int flags);
-int xt_ff_pclose(xt_ff_t *stream);
+int _xt_ff_pclose(xt_ff_t *stream);
 xt_ff_t *xt_ff_open(const char *filename, int flags);
 int xt_ff_close(xt_ff_t *stream);
 int xt_ff_printf(xt_ff_t *stream, const char *format, ...);

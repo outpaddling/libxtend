@@ -347,6 +347,7 @@ int     xt_strisint(const char *string, int base)
 {
     char    *end;
     
+    // FIXME: Use a more efficient design.  No need to actually convert.
     strtoll(string, &end, base);
     return *end == '\0';
 }
@@ -383,6 +384,7 @@ int     xt_strisreal(const char *string)
 {
     char    *end;
     
+    // FIXME: Use a more efficient design.  No need to actually convert.
     strtod(string, &end);
     return *end == '\0';
 }

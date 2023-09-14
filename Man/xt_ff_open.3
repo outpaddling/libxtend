@@ -33,15 +33,13 @@ mode:       Bit mask as used by open(2)
 .SH DESCRIPTION
 
 .B xt_ff_open(3)
-opens a raw data file using xt_ff_open_raw(3)
+opens a raw data file using _xt_ff_raw_open(3)
 or a gzipped, bzipped, or
 xzipped file using xt_ff_popen(3), returning a pointer to a xt_ff_t
-stream.  Must be used in conjunction with
-xt_ff_close(3) to ensure that xt_ff_close(3) or xt_ff_pclose(3) is called where
-appropriate.
+stream.  Must be used in conjunction with xt_ff_close(3).
 
-The xt_ff_t system is simpler than and several times as
-fast as FILE on typical systems.  It is intended for processing
+The xt_ff_t system is simpler than and much faster than
+traditional FILE on typical systems.  It is intended for processing
 large files character-by-character, where low-level block I/O
 is not convenient, but FILE I/O causes a bottleneck.
 

@@ -124,4 +124,3 @@ int     xt_romantoi(const char *string, char **endptr)
     *endptr = (char *)p;
     return val;
 }
-

@@ -47,12 +47,13 @@ This allows the calling program to spawn a child process
 and read its standard output or write to its standard input as
 easily as reading or writing a file.
 
-The stream should be closed with xt_ff_pclose(3) rather than xt_ff_close(3)
-in order to wait for the child process to complete and return its
-exit status.
+Note that the stream may be closed with xt_ff_close(3).  Unlike
+popen(3), which must be used with pclose(3), it is not necessary
+to call _xt_ff_pclose(3) directly.  The xt_ff_close(3) function
+automatically determines whether the stream is attached to a pipe.
 
-The xt_ff_t system is simpler than and several times as
-fast as FILE on typical systems.  It is intended for processing
+The xt_ff_t system is simpler than and much faster than
+traditional FILE on typical systems.  It is intended for processing
 large files character-by-character, where low-level block I/O
 is not convenient, but FILE I/O causes a bottleneck.
 
@@ -72,11 +73,11 @@ if ( (instream = xt_ff_popen("xzcat file.xz", O_RDONLY)) == NULL )
     exit(EX_NOINPUT);
 }
 
-xt_ff_pclose(instream);
+xt_ff_close(instream);
 .ad
 .fi
 
 .SH SEE ALSO
 
-xt_ff_open(3), xt_ff_pclose(3), popen(3), open(3)
+xt_ff_open(3), xt_ff_close(3), popen(3), open(3)
 

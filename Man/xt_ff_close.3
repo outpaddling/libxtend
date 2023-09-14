@@ -2,7 +2,7 @@
 .TH xt_ff_close 3
 
 .SH NAME
-xt_ff_close() - Close a string created by xt_ff_open()
+xt_ff_close() - Close a stream created by xt_ff_open()
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
@@ -32,18 +32,19 @@ stream: Pointer to the xt_ff_t structure to be closed
 .SH DESCRIPTION
 
 .B xt_ff_close(3)
-closes a xt_ff_t stream with xt_ff_close(3) or xt_ff_pclose(3) as appropriate.
+closes a xt_ff_t stream by calling
+_xt_ff_raw_close(3) or _xt_ff_pclose(3) as appropriate.
 Automatically determines the proper close function to call using
-S_ISFIFO on the stream stat structure.
+S_ISFIFO() on the stream stat structure.
 
-The xt_ff_t system is simpler than and several times as
-fast as FILE on typical systems.  It is intended for processing
+The xt_ff_t system is simpler than and much faster than
+traditional FILE on typical systems.  It is intended for processing
 large files character-by-character, where low-level block I/O
 is not convenient, but FILE I/O causes a bottleneck.
 
 .SH RETURN VALUES
 
-The value returned by xt_ff_close(3) or xt_ff_pclose(3)
+The value returned by _xt_ff_raw_close(3) or _xt_ff_pclose(3)
 
 .SH SEE ALSO
 

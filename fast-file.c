@@ -19,7 +19,7 @@
  *  and xt_ff_dopen(3)
  */
 
-xt_ff_t *xt_ff_init_stream(xt_ff_t *stream)
+xt_ff_t *_xt_ff_init_stream(xt_ff_t *stream)
 
 {
     struct stat st;
@@ -28,7 +28,7 @@ xt_ff_t *xt_ff_init_stream(xt_ff_t *stream)
     if ( fstat(stream->fd, &st) != 0 )
     {
 	free(stream);
-	fprintf(stderr, "xt_ff_init_stream(): Could not stat fd %d.\n", stream->fd);
+	fprintf(stderr, "_xt_ff_init_stream(): Could not stat fd %d.\n", stream->fd);
 	return NULL;
     }
     stream->disk_block_size = st.st_blksize;
@@ -37,7 +37,7 @@ xt_ff_t *xt_ff_init_stream(xt_ff_t *stream)
     stream->buff_size = XT_FAST_FILE_UNGETC_MAX + stream->disk_block_size + 1;
     if ( (stream->buff = xt_malloc(1, stream->buff_size)) == NULL )
     {
-	fputs("xt_ff_init_stream(): Could not allocate buffer.\n", stderr);
+	fputs("_xt_ff_init_stream(): Could not allocate buffer.\n", stderr);
 	free(stream);
 	return NULL;
     }
@@ -58,15 +58,13 @@ xt_ff_t *xt_ff_init_stream(xt_ff_t *stream)
  *
  *  Description:
  *      .B xt_ff_open(3)
- *      opens a raw data file using xt_ff_open_raw(3)
+ *      opens a raw data file using _xt_ff_raw_open(3)
  *      or a gzipped, bzipped, or
  *      xzipped file using xt_ff_popen(3), returning a pointer to a xt_ff_t
- *      stream.  Must be used in conjunction with
- *      xt_ff_close(3) to ensure that xt_ff_close(3) or xt_ff_pclose(3) is called where
- *      appropriate.
+ *      stream.  Must be used in conjunction with xt_ff_close(3).
  *
- *      The xt_ff_t system is simpler than and several times as
- *      fast as FILE on typical systems.  It is intended for processing
+ *      The xt_ff_t system is simpler than and much faster than
+ *      traditional FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *
@@ -119,7 +117,7 @@ xt_ff_t *xt_ff_open(const char *filename, int flags)
 	    return xt_ff_popen(cmd, flags);
 	}
 	else
-	    return xt_ff_open_raw(filename, flags);
+	    return _xt_ff_raw_open(filename, flags);
     }
     else    // O_WRONLY
     {
@@ -140,7 +138,7 @@ xt_ff_t *xt_ff_open(const char *filename, int flags)
 	    return xt_ff_popen(cmd, flags);
 	}
 	else
-	    return xt_ff_open_raw(filename, flags);
+	    return _xt_ff_raw_open(filename, flags);
     }
 }
 
@@ -149,7 +147,7 @@ xt_ff_t *xt_ff_open(const char *filename, int flags)
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Name:
- *      xt_ff_open_raw() - Open a fast file stream for a raw file
+ *      _xt_ff_raw_open() - Open a fast file stream for a raw file
  *
  *  Library:
  *      #include <fcntl.h>
@@ -157,17 +155,17 @@ xt_ff_t *xt_ff_open(const char *filename, int flags)
  *      -lxtend
  *
  *  Description:
- *      .B xt_ff_open_raw(3)
+ *      .B _xt_ff_raw_open(3)
  *      initializes a xt_ff_t stream, much as fopen(3) does for a FILE
- *      stream.  Unlike fopen(3), xt_ff_open_raw(3) takes the same bit mask
+ *      stream.  Unlike fopen(3), _xt_ff_raw_open(3) takes the same bit mask
  *      argument as open(2) to determine the open mode.
  *      See open(3) for details.
  *
  *      An optimally sized buffer for the underlying filesystem is allocated,
  *      along with additional space for limited xt_ff_ungetc(3) operations.
  *
- *      The xt_ff_t system is simpler than and several times as
- *      fast as FILE on typical systems.  It is intended for processing
+ *      The xt_ff_t system is simpler than and much faster than
+ *      traditional FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
@@ -183,13 +181,13 @@ xt_ff_t *xt_ff_open(const char *filename, int flags)
  *      char    *filename;
  *      
  *      // Read only
- *      stream = xt_ff_open_raw(filename, O_RDONLY);
+ *      stream = _xt_ff_raw_open(filename, O_RDONLY);
  *
  *      // Overwrite
- *      stream = xt_ff_open_raw(filename, O_WRONLY|O_CREAT|O_TRUNC);
+ *      stream = _xt_ff_raw_open(filename, O_WRONLY|O_CREAT|O_TRUNC);
  *
  *      // Append
- *      stream = xt_ff_open_raw(filename, O_WRONLY|O_APPEND);
+ *      stream = _xt_ff_raw_open(filename, O_WRONLY|O_APPEND);
  *
  *  See also:
  *      open(3), xt_ff_getc(3), xt_ff_putc(3), xt_ff_ungetc(3), xt_ff_close(3)
@@ -199,7 +197,7 @@ xt_ff_t *xt_ff_open(const char *filename, int flags)
  *  2022-02-14  Jason Bacon Begin
  ***************************************************************************/
 
-xt_ff_t *xt_ff_open_raw(const char *filename, int flags)
+xt_ff_t *_xt_ff_raw_open(const char *filename, int flags)
 
 {
     xt_ff_t     *stream;
@@ -218,7 +216,7 @@ xt_ff_t *xt_ff_open_raw(const char *filename, int flags)
     }
     stream->flags = flags;
 
-    return xt_ff_init_stream(stream);
+    return _xt_ff_init_stream(stream);
 }
 
 
@@ -243,8 +241,8 @@ xt_ff_t *xt_ff_open_raw(const char *filename, int flags)
  *      An optimally sized buffer for the underlying filesystem is allocated,
  *      along with additional space for limited xt_ff_ungetc(3) operations.
  *
- *      The xt_ff_t system is simpler than and several times as
- *      fast as FILE on typical systems.  It is intended for processing
+ *      The xt_ff_t system is simpler than and much faster than
+ *      traditional FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
@@ -281,7 +279,7 @@ xt_ff_t *xt_ff_dopen(int fd, int flags)
     stream->fd = fd;
     stream->flags = flags;
 
-    return xt_ff_init_stream(stream);
+    return _xt_ff_init_stream(stream);
 }
 
 
@@ -289,21 +287,22 @@ xt_ff_t *xt_ff_dopen(int fd, int flags)
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Name:
- *      xt_ff_close_raw() - Close a stream created by xt_ff_open_raw()
+ *      _xt_ff_raw_close() - Close a stream created by _xt_ff_raw_open()
  *
  *  Library:
  *      #include <xtend/fast-file.h>
  *      -lxtend
  *
  *  Description:
- *      .B xt_ff_close_raw(3)
- *      closes a xt_ff_t stream opened by xt_ff_open(3).  It writes out any
+ *      .B _xt_ff_raw_close(3)
+ *      closes a xt_ff_t stream opened by _xt_ff_raw_open(3).
+ *      It writes out any
  *      remaining data in the output buffer, deallocates memory allocated
  *      by xt_ff_open(3), and closes the underlying file descriptor opened by
  *      open(3).
  *
- *      The xt_ff_t system is simpler than and several times as
- *      fast as FILE on typical systems.  It is intended for processing
+ *      The xt_ff_t system is simpler than and much faster than
+ *      traditional FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
@@ -330,8 +329,8 @@ xt_ff_t *xt_ff_dopen(int fd, int flags)
  *      }
  *      while ( (ch = xt_ff_getc(stream)) != EOF )
  *          xt_ff_putc(ch, outstream);
- *      xt_ff_close_raw(instream);
- *      xt_ff_close_raw(outstream);
+ *      xt_ff_close(instream);
+ *      xt_ff_close(outstream);
  *
  *  See also:
  *      xt_ff_open(3), xt_ff_getc(3), xt_ff_putc(3)
@@ -341,7 +340,7 @@ xt_ff_t *xt_ff_dopen(int fd, int flags)
  *  2022-02-14  Jason Bacon Begin
  ***************************************************************************/
 
-int     xt_ff_close_raw(xt_ff_t *stream)
+int     _xt_ff_raw_close(xt_ff_t *stream)
 
 {
     int     status;
@@ -399,8 +398,8 @@ inline int  _xt_ff_fillbuff(xt_ff_t *stream)
  *      .B xt_ff_getc(3)
  *      reads a single character from a xt_ff_t stream opened by xt_ff_open(3).
  *
- *      The xt_ff_t system is simpler than and several times as
- *      fast as FILE on typical systems.  It is intended for processing
+ *      The xt_ff_t system is simpler than and much faster than
+ *      traditional FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
@@ -470,8 +469,8 @@ inline int     xt_ff_getc(xt_ff_t *stream)
  *      .B xt_ff_putc(3)
  *      writes a single character to a xt_ff_t stream opened by xt_ff_open(3).
  *
- *      The xt_ff_t system is simpler than and several times as
- *      fast as FILE on typical systems.  It is intended for processing
+ *      The xt_ff_t system is simpler than and much faster than
+ *      traditional FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
@@ -541,8 +540,8 @@ inline int     xt_ff_putc(xt_ff_t *stream, int ch)
  *      read block plus a maximum of XT_FAST_FILE_UNGETC_MAX characters
  *      from the previously read block may be returned.
  *
- *      The xt_ff_t system is simpler than and several times as
- *      fast as FILE on typical systems.  It is intended for processing
+ *      The xt_ff_t system is simpler than and much faster than
+ *      traditional FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
@@ -605,8 +604,8 @@ inline int     xt_ff_ungetc(xt_ff_t *stream, int ch)
  *      high-performance filter programs, where using the traditional
  *      FILE *stdin would cause a bottleneck.
  *
- *      The xt_ff_t system is simpler than and several times as
- *      fast as FILE on typical systems.  It is intended for processing
+ *      The xt_ff_t system is simpler than and much faster than
+ *      traditional FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
@@ -657,8 +656,8 @@ xt_ff_t *xt_ff_stdin(void)
  *      high-performance filter programs, where using the traditional
  *      FILE *stdout would cause a bottleneck.
  *
- *      The xt_ff_t system is simpler than and several times as
- *      fast as FILE on typical systems.  It is intended for processing
+ *      The xt_ff_t system is simpler than and much faster than
+ *      traditional FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
@@ -718,12 +717,13 @@ xt_ff_t *xt_ff_stdout(void)
  *      and read its standard output or write to its standard input as
  *      easily as reading or writing a file.
  *
- *      The stream should be closed with xt_ff_pclose(3) rather than xt_ff_close(3)
- *      in order to wait for the child process to complete and return its
- *      exit status.
+ *      Note that the stream may be closed with xt_ff_close(3).  Unlike
+ *      popen(3), which must be used with pclose(3), it is not necessary
+ *      to call _xt_ff_pclose(3) directly.  The xt_ff_close(3) function
+ *      automatically determines whether the stream is attached to a pipe.
  *
- *      The xt_ff_t system is simpler than and several times as
- *      fast as FILE on typical systems.  It is intended for processing
+ *      The xt_ff_t system is simpler than and much faster than
+ *      traditional FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
@@ -743,10 +743,10 @@ xt_ff_t *xt_ff_stdout(void)
  *          exit(EX_NOINPUT);
  *      }
  *
- *      xt_ff_pclose(instream);
+ *      xt_ff_close(instream);
  *
  *  See also:
- *      xt_ff_open(3), xt_ff_pclose(3), popen(3), open(3)
+ *      xt_ff_open(3), xt_ff_close(3), popen(3), open(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -825,7 +825,7 @@ xt_ff_t *xt_ff_popen(const char *cmd, int flags)
 		    return NULL;
 	    }
     
-	    // Set pid in xt_ff_t stream for waitpid(2) in xt_ff_pclose(3)
+	    // Set pid in xt_ff_t stream for waitpid(2) in _xt_ff_pclose(3)
 	    stream->child_pid = pid;
 	    return stream;
 	}
@@ -838,20 +838,20 @@ xt_ff_t *xt_ff_popen(const char *cmd, int flags)
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Name:
- *      xt_ff_pclose() - Close a stream created by xt_ff_popen(3)
+ *      _xt_ff_pclose() - Close a stream created by xt_ff_popen(3)
  *
  *  Library:
  *      #include <xtend/fast-file.h>
  *      -lxtend
  *
  *  Description:
- *      .B xt_ff_pclose(3)
+ *      .B _xt_ff_pclose(3)
  *      closes a stream opened by xt_ff_popen(3), and
  *      waits for the child process to complete and returns its
  *      exit status.
  *
- *      The xt_ff_t system is simpler than and several times as
- *      fast as FILE on typical systems.  It is intended for processing
+ *      The xt_ff_t system is simpler than and much faster than
+ *      traditional FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  
@@ -870,17 +870,17 @@ xt_ff_t *xt_ff_popen(const char *cmd, int flags)
  *          exit(EX_NOINPUT);
  *      }
  *
- *      xt_ff_pclose(instream);
+ *      _xt_ff_pclose(instream);
  *
  *  See also:
- *      xt_ff_open(3), xt_ff_pclose(3), popen(3), open(3)
+ *      xt_ff_open(3), _xt_ff_pclose(3), popen(3), open(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-02-19  Jason Bacon Begin
  ***************************************************************************/
 
-int     xt_ff_pclose(xt_ff_t *stream)
+int     _xt_ff_pclose(xt_ff_t *stream)
 
 {
     int     status = 0;
@@ -905,7 +905,7 @@ int     xt_ff_pclose(xt_ff_t *stream)
 
 /***************************************************************************
  *  Name:
- *      xt_ff_close() - Close a string created by xt_ff_open()
+ *      xt_ff_close() - Close a stream created by xt_ff_open()
  *
  *  Library:
  *      #include <xtend/file.h>
@@ -913,12 +913,13 @@ int     xt_ff_pclose(xt_ff_t *stream)
  *
  *  Description:
  *      .B xt_ff_close(3)
- *      closes a xt_ff_t stream with xt_ff_close(3) or xt_ff_pclose(3) as appropriate.
+ *      closes a xt_ff_t stream by calling
+ *      _xt_ff_raw_close(3) or _xt_ff_pclose(3) as appropriate.
  *      Automatically determines the proper close function to call using
- *      S_ISFIFO on the stream stat structure.
+ *      S_ISFIFO() on the stream stat structure.
  *
- *      The xt_ff_t system is simpler than and several times as
- *      fast as FILE on typical systems.  It is intended for processing
+ *      The xt_ff_t system is simpler than and much faster than
+ *      traditional FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *
@@ -926,7 +927,7 @@ int     xt_ff_pclose(xt_ff_t *stream)
  *      stream: Pointer to the xt_ff_t structure to be closed
  *
  *  Returns:
- *      The value returned by xt_ff_close(3) or xt_ff_pclose(3)
+ *      The value returned by _xt_ff_raw_close(3) or _xt_ff_pclose(3)
  *
  *  See also:
  *      xt_ff_popen(3), xt_ff_open(3), gzip(1), bzip2(1), xz(1)
@@ -943,9 +944,9 @@ int     xt_ff_close(xt_ff_t *stream)
     
     fstat(stream->fd, &stat);
     if ( S_ISFIFO(stat.st_mode) )
-	return xt_ff_pclose(stream);
+	return _xt_ff_pclose(stream);
     else
-	return xt_ff_close_raw(stream);
+	return _xt_ff_raw_close(stream);
 }
 
 
@@ -964,8 +965,8 @@ int     xt_ff_close(xt_ff_t *stream)
  *      writes formatted data to a xt_ff_t stream the same was as
  *      fprintf(3) writes to a FILE stream.
  *
- *      The xt_ff_ile_t system is simpler than and several times as
- *      fast as FILE on typical systems.  It is intended for processing
+ *      The xt_ff_ile_t system is simpler than and much faster than
+ *      traditional FILE on typical systems.  It is intended for processing
  *      large files character-by-character, where low-level block I/O
  *      is not convenient, but FILE I/O causes a bottleneck.
  *  

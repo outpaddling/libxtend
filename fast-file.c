@@ -370,7 +370,7 @@ int     _xt_ff_raw_close(xt_ff_t *stream)
  *  2023-09-02  Jason Bacon Begin
  ***************************************************************************/
 
-inline int  _xt_ff_fillbuff(xt_ff_t *stream)
+int  _xt_ff_fillbuff(xt_ff_t *stream)
 
 {
     if ( (stream->bytes_read = read(stream->fd, stream->start_ptr,

@@ -164,11 +164,13 @@ unsigned long xt_toc(FILE *stream, const char *message,
     }
     putc('\n', stream);
     getrusage(RUSAGE_SELF, &end_usage);
+    // Cast from long long to unsigned long for OpenBSD
+    // Anything beyond the range of unsigned long is not humanly observable anyway
     fprintf(stream, "User time        = %10lu microseconds\n",
-	    end_usage.ru_utime.tv_sec * 1000000 + end_usage.ru_utime.tv_usec -
-	    (start_usage->ru_utime.tv_sec * 1000000 + start_usage->ru_utime.tv_usec));
+	    (unsigned long)(end_usage.ru_utime.tv_sec * 1000000 + end_usage.ru_utime.tv_usec -
+	    (start_usage->ru_utime.tv_sec * 1000000 + start_usage->ru_utime.tv_usec)));
     fprintf(stream, "Sys time         = %10lu microseconds\n",
-	    end_usage.ru_stime.tv_sec * 1000000 + end_usage.ru_stime.tv_usec -
-	    (start_usage->ru_stime.tv_sec * 1000000 + start_usage->ru_stime.tv_usec));
+	    (unsigned long)(end_usage.ru_stime.tv_sec * 1000000 + end_usage.ru_stime.tv_usec -
+	    (start_usage->ru_stime.tv_sec * 1000000 + start_usage->ru_stime.tv_usec)));
     return diff;
 }

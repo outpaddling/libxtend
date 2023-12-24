@@ -10,3 +10,6 @@ xt_str_multi_cmp(string, "string1|string2|...");
 
 xt_strdup_delim(const char *string, const char *delim)
     Duplicate string up to any char in delim
+
+Add portable byte swap functions
+    This is a common source of platform-specific hacks

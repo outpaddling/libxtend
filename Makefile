@@ -45,6 +45,7 @@
 
 LIB     = xtend
 SLIB    = lib${LIB}.a
+MAN     = Man/libxtend.3
 
 # Dynamic/shared library
 # Increment when the API changes
@@ -149,7 +150,11 @@ CHMOD   ?= chmod
 .PHONY: all apple depend clean realclean
 .PHONY: common-install install install-strip apple-install test help
 
-all:    ${SLIB} ${DLIB}
+all:    ${SLIB} ${DLIB} ${MAN}
+
+${MAN}: Man/xt_*
+	# Also updates functios.md.  No separate rule needed.
+	./function-list.sh
 
 apple:  ${SLIB} ${DYLIB}
 

@@ -11,6 +11,9 @@ $PREFIX/include/libxtend/\*-mutators.h for a current list.
 
 | Function | Purpose |
 |----------|---------|
+| _xt_ff_pclose(3)  |  Close a stream created by xt_ff_popen(3) |
+| _xt_ff_raw_close(3)  |  Close a stream created by _xt_ff_raw_open(3) |
+| _xt_ff_raw_open(3)  |  Open a fast file stream for a raw file |
 | xt_csv_read_field(3)  |  Read next comma |
 | xt_csv_read_field_malloc(3)  |  Read next comma |
 | xt_csv_skip_field(3)  |  Read and discard next comma |
@@ -34,14 +37,11 @@ $PREFIX/include/libxtend/\*-mutators.h for a current list.
 | xt_fast_cp(3)  |  Copy a file using optimal block size |
 | xt_fclose(3)  |  Close a FILE stream opened by xt_fopen(3) |
 | xt_fd_purge(3)  |  Discard unread input from input FILE buffer |
-| xt_ff_close(3)  |  Close a string created by xt_ff_open(3) |
-| xt_ff_close_raw(3)  |  Close a stream created by xt_ff_open_raw(3) |
+| xt_ff_close(3)  |  Close a stream created by xt_ff_open(3) |
 | xt_ff_dopen(3)  |  Create a fast file stream from a file descriptor |
 | xt_ff_getc(3)  |  Read next character from a fast file stream |
 | xt_ff_gets(3)  |  Read a line from a fast file stream |
 | xt_ff_open(3)  |  Open a fast file stream for a raw or compressed file |
-| xt_ff_open_raw(3)  |  Open a fast file stream for a raw file |
-| xt_ff_pclose(3)  |  Close a stream created by xt_ff_popen(3) |
 | xt_ff_popen(3)  |  Create a fast file stream connected to a process |
 | xt_ff_printf(3)  |  Print formatted data to a fast file stream |
 | xt_ff_putc(3)  |  Write a character to a fast file stream |

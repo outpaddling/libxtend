@@ -789,7 +789,7 @@ char    *xt_strviscpy(unsigned char *dest, const unsigned char *src,
     
     while ( (*src != '\0') && (maxlen > 0) )
     {
-	if ( ((unsigned char)*src < 128) && isprint(*src) )
+	if ( (((unsigned char)*src < 128) && isprint(*src)) || (*src == '\n') )
 	{
 	    *d++ = *src++;
 	    --maxlen;

@@ -35,6 +35,9 @@ char *xt_get_home_dir(char *dir, size_t maxlen);
 /* xt-get-user-name.c */
 char *xt_get_user_name(char *user_name, size_t maxlen);
 
+/* xt-get-primary-group-name.c */
+char *xt_get_primary_group_name(char *primary_group_name, size_t maxlen);
+
 /* parse-cmd.c */
 char *xt_parse_cmd(char *argv[], int max_args, const char *cmd);
 

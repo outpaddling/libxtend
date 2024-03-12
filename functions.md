@@ -60,6 +60,7 @@ $PREFIX/include/libxtend/\*-mutators.h for a current list.
 | xt_fopen(3)  |  Open a raw or compressed file |
 | xt_gcd(3)  |  Greatest common divisor |
 | xt_get_home_dir(3)  |  Get process owner's home directory |
+| xt_get_primary_group_name(3)  |  Get primary groupname of process owner |
 | xt_get_user_name(3)  |  Get username of process owner |
 | xt_inhale_strings(3)  |  Read list of strings into array |
 | xt_int_cmp(3)  |  Compare two ints for sort(3), bsearch(3), etc. |

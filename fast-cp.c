@@ -68,7 +68,8 @@ int     xt_fast_cp(const char *source, const char *dest)
     
     /* Copy file */
     while ( (nbytes = read(infile,buff,buff_size)) > 0 )
-	write(outfile,buff,nbytes);
+	if ( write(outfile,buff,nbytes) < 0 )
+	    return -1;  // FIXME: Define error constants?
     close(infile);
     close(outfile);
     free(buff);

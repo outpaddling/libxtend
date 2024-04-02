@@ -59,7 +59,8 @@ int     xt_dprintf(int fd, const char * restrict format, ...)
     
     va_start(ap, format);
     count = vasprintf(&buff, format, ap);
-    write(fd, buff, strlen(buff));
+    if ( write(fd, buff, strlen(buff)) < 0 )
+	return -1;  // FIXME: Define error constants?
     free(buff);
     va_end(ap);
     

@@ -27,8 +27,8 @@ xt_ff_t *_xt_ff_init_stream(xt_ff_t *stream)
     // Get optimal block size for the underlying filesystem
     if ( fstat(stream->fd, &st) != 0 )
     {
-	free(stream);
 	fprintf(stderr, "_xt_ff_init_stream(): Could not stat fd %d.\n", stream->fd);
+	free(stream);
 	return NULL;
     }
     stream->disk_block_size = st.st_blksize;
@@ -350,7 +350,8 @@ int     _xt_ff_raw_close(xt_ff_t *stream)
 	//fprintf(stderr, "xt_ff_close(3) flushing output...\n");
 	//stream->start_ptr[stream->buff_index] = '\0';
 	//fputs((char *)stream->start_ptr, stderr);
-	write(stream->fd, stream->start_ptr, stream->buff_index);
+	if ( write(stream->fd, stream->start_ptr, stream->buff_index) < 0 )
+	    return -1;  // FIXME: Define error constants
     }
     status = close(stream->fd);
     free(stream->buff);

@@ -111,10 +111,12 @@ int     xt_daemonize(int nochdir, int noclose)
 
     /*
      *  Set CWD to / unless told not to
+     *  This should never fail, but modern GCC warns about ignoring RV
      */
     
     if ( ! nochdir )
-	chdir("/");
+	if ( chdir("/") != 0 )
+	    return -1;
     
     /*
      *  Redirect standard streams to /dev/null unless told not to

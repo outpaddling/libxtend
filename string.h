@@ -6,8 +6,8 @@ extern "C" {
 #endif
 
 #ifdef __linux__
-#define strlcpy(dest,src,len)   strcpy(dest,src)
-#define strlcat(dest,src,len)   strcat(dest,src)
+#define strlcpy(dest,src,len)   xt_strlcpy(dest,src,len)
+#define strlcat(dest,src,len)   xt_strlcat(dest,src,len)
 #endif
 
 #ifndef _STDIO_H_

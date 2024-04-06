@@ -78,6 +78,12 @@ spawnvp.o: spawnvp.c proc.h common.h
 string.o: string.c string.h proc.h common.h ctype.h mem.h
 	${CC} -c ${CFLAGS} string.c
 
+strlcat.o: strlcat.c string.h
+	${CC} -c ${CFLAGS} strlcat.c
+
+strlcpy.o: strlcpy.c string.h
+	${CC} -c ${CFLAGS} strlcpy.c
+
 time.o: time.c time.h
 	${CC} -c ${CFLAGS} time.c
 

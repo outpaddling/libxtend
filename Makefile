@@ -80,7 +80,8 @@ OBJS    = valid-extension.o xt-file.o string.o time.o mv.o \
 	  xt-malloc.o dsv.o dsv-accessors.o dsv-mutators.o \
 	  resolve-hostname.o numeric_cmp.o combinatorics.o \
 	  fast-file.o fast-file-accessors.o fast-file-mutators.o \
-	  dprintf.o xt-shuffle.o roman.o xt-daemonize.o
+	  dprintf.o xt-shuffle.o roman.o xt-daemonize.o \
+	  strlcpy.o strlcat.o
 
 ############################################################################
 # Compile, link, and install options

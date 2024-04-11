@@ -164,7 +164,7 @@ Then, assuming you selected current packages and the default prefix
 
 ```
 source ~/Pkgsrc/pkg/etc/pkgsrc.sh   # Or pkgsrc.csh for csh or tcsh
-cd ~/Pkgsrc/devel/libxtend
+cd ~/Pkgsrc/pkgsrc/devel/libxtend
 sbmake install clean clean-depends
 ```
 

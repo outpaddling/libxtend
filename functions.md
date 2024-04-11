@@ -83,6 +83,8 @@ $PREFIX/include/libxtend/\*-mutators.h for a current list.
 | xt_strblank(3)  |  Return true is a string is empty or only whitespace |
 | xt_strisint(3)  |  Return true if string represents an integer value |
 | xt_strisreal(3)  |  Return true if string represents a valid real value |
+| xt_strcat(3)  |  Concatenate strings without risk of buffer overflow |
+| xt_strcpy(3)  |  Copy a string without risk of buffer overflow |
 | xt_strllower(3)  |  Copy string and convert upper case to lower |
 | xt_strlower(3)  |  Convert all upper case characters to lower |
 | xt_redirect(3)  |  Redirect stdin, stdout and stderr if corresponding argument isn't NULL |

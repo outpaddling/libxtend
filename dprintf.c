@@ -30,7 +30,7 @@
  *      ...     Additional arguments depending on format
  *
  *  Returns:
- *      The number of items written
+ *      The number of characters written
  *
  *  Examples:
  *      int     fd;

@@ -45,6 +45,12 @@ If the delimiter ending a field is a space, then subsequence spaces
 are discarded, so that multiple space characters serve as a single
 delimiter.
 
+*buff_size indicates the size of the existing array, if one
+is already allocated.  If *buff does not point to an allocated
+array, this should be 0, i.e. pass the address of a variable
+containing 0, not NULL.  *buff_size will be updated if the
+array needs to be expanded to accommodate the new input.
+
 .SH RETURN VALUES
 
 Delimiter ending the field (either a member of delim or newline)

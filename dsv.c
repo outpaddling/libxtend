@@ -13,7 +13,7 @@
  *
  *  Library:
  *      #include <xtend/dsv.h>
- *      -lbiolibc
+ *      -lxtend
  *
  *  Description:
  *      Read next delimiter-separated field from stream. The fields may be
@@ -109,7 +109,14 @@ int     xt_dsv_read_field(FILE *stream, char buff[], size_t buff_size,
  *
  *  Library:
  *      #include <xtend/dsv.h>
- *      -lbiolibc
+ *      -lxtend
+ *
+ *  Arguments:
+ *      stream      FILE stream from which field is read
+ *      buff        Character buffer into which field is copied
+ *      buff_size   Size of the array passed to buff
+ *      delims      Array of characters that may serve as delimiters
+ *      len         Pointer to a variable which will receive the field length
  *
  *  Description:
  *      Read next delimiter-separated field from stream, allocating a
@@ -120,12 +127,11 @@ int     xt_dsv_read_field(FILE *stream, char buff[], size_t buff_size,
  *      are discarded, so that multiple space characters serve as a single
  *      delimiter.
  *
- *  Arguments:
- *      stream      FILE stream from which field is read
- *      buff        Character buffer into which field is copied
- *      buff_size   Size of the array passed to buff
- *      delims      Array of characters that may serve as delimiters
- *      len         Pointer to a variable which will receive the field length
+ *      *buff_size indicates the size of the existing array, if one
+ *      is already allocated.  If *buff does not point to an allocated
+ *      array, this should be 0, i.e. pass the address of a variable
+ *      containing 0, not NULL.  *buff_size will be updated if the
+ *      array needs to be expanded to accommodate the new input.
  *
  *  Returns:
  *      Delimiter ending the field (either a member of delim or newline)
@@ -197,7 +203,7 @@ int     xt_dsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
  *
  *  Library:
  *      #include <xtend/dsv.h>
- *      -lbiolibc
+ *      -lxtend
  *
  *  Description:
  *      Read and discard next delimiter-separated field from stream. The
@@ -240,7 +246,7 @@ int     xt_dsv_skip_field(FILE *stream, const char *delims, size_t *len)
  *
  *  Library:
  *      #include <xtend/dsv.h>
- *      -lbiolibc
+ *      -lxtend
  *
  *  Description:
  *      Read and discard all remaining fields in a line from stream.
@@ -278,7 +284,7 @@ int     xt_dsv_skip_rest_of_line(FILE *stream)
  *
  *  Library:
  *      #include <xtend/dsv.h>
- *      -lbiolibc
+ *      -lxtend
  *
  *  Description:
  *      Read a line of an arbitrary DSV file into a xt_dsv_line_t object.
@@ -393,7 +399,7 @@ int     xt_dsv_line_read(xt_dsv_line_t *xt_dsv_line, FILE *stream, const char *d
  *
  *  Library:
  *      #include <xtend/dsv.h>
- *      -lbiolibc
+ *      -lxtend
  *
  *  Description:
  *      Write an arbitrary DSV line to the specified stream.
@@ -568,7 +574,7 @@ xt_dsv_line_t  *xt_dsv_line_new(void)
  *
  *  Library:
  *      #include <xtend/dsv.h>
- *      -lbiolibc
+ *      -lxtend
  *
  *  Description:
  *      Duplicate an arbitrary xt_dsv_line_t object, allocating space for
@@ -629,7 +635,7 @@ int     xt_dsv_line_copy(xt_dsv_line_t *dest, xt_dsv_line_t *src)
  *
  *  Library:
  *      #include <xtend/dsv.h>
- *      -lbiolibc
+ *      -lxtend
  *
  *  Description:
  *      Free allocated memory for a DSV object.
@@ -692,7 +698,7 @@ int     xt_dsv_line_free(xt_dsv_line_t *xt_dsv_line)
  *
  *  Library:
  *      #include <xtend/dsv.h>
- *      -lbiolibc
+ *      -lxtend
  *
  *  Description:
  *      Equivalent to xt_dsv_read_field(stream, buff, buff_size, '\\\\\t', len)
@@ -722,7 +728,7 @@ int     xt_tsv_read_field(FILE *stream, char buff[], size_t buff_size,
  *
  *  Library:
  *      #include <xtend/dsv.h>
- *      -lbiolibc
+ *      -lxtend
  *
  *  Description:
  *      Equivalent to xt_dsv_read_field_malloc(stream, *buff, *buff_size, '\\\\\t', len)
@@ -751,7 +757,7 @@ int     xt_tsv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
  *
  *  Library:
  *      #include <xtend/dsv.h>
- *      -lbiolibc
+ *      -lxtend
  *
  *  Description:
  *      Equivalent to xt_dsv_skip_field(stream, '\\\\\t')
@@ -777,7 +783,7 @@ int     xt_tsv_skip_field(FILE *stream, size_t *len)
  *
  *  Library:
  *      #include <xtend/dsv.h>
- *      -lbiolibc
+ *      -lxtend
  *
  *  Description:
  *      Equivalent to xt_dsv_skip_rest_of_line(stream)
@@ -802,7 +808,7 @@ int     xt_tsv_skip_rest_of_line(FILE *stream)
  *
  *  Library:
  *      #include <xtend/dsv.h>
- *      -lbiolibc
+ *      -lxtend
  *
  *  Description:
  *      Equivalent to xt_dsv_read_field(stream, buff, buff_size, ',', len)
@@ -832,7 +838,7 @@ int     xt_csv_read_field(FILE *stream, char buff[], size_t buff_size,
  *
  *  Library:
  *      #include <xtend/dsv.h>
- *      -lbiolibc
+ *      -lxtend
  *
  *  Description:
  *      Equivalent to xt_dsv_read_field_malloc(stream, *buff, *buff_size, ',', len)
@@ -861,7 +867,7 @@ int     xt_csv_read_field_malloc(FILE *stream, char **buff, size_t *buff_size,
  *
  *  Library:
  *      #include <xtend/dsv.h>
- *      -lbiolibc
+ *      -lxtend
  *
  *  Description:
  *      Equivalent to xt_dsv_skip_field(stream, ',')
@@ -887,7 +893,7 @@ int     xt_csv_skip_field(FILE *stream, size_t *len)
  *
  *  Library:
  *      #include <xtend/dsv.h>
- *      -lbiolibc
+ *      -lxtend
  *
  *  Description:
  *      Equivalent to xt_dsv_skip_rest_of_line(stream)

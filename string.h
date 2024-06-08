@@ -43,6 +43,10 @@ int xt_strsplit(char *string, char ***array, const char *sep);
 size_t  xt_strlcpy(char * restrict dest, const char * restrict src,
 		   size_t dstsize);
 
+/* strlcat.c */
+size_t  xt_strlcat(char * restrict dest, const char * restrict src,
+		   size_t dstsize);
+
 #ifdef __cplusplus
 }
 #endif

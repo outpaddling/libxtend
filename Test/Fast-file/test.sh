@@ -1,12 +1,12 @@
 #!/bin/sh -e
 
-cd ..
+cd ../..
 ./cave-man-install.sh
-cd Fast-file
+cd Test/Fast-file
 file=~/Save/FreeBSD-13.0-RELEASE-amd64-disc1.iso
 for prog in iotest-ffile iotest-low iotest-stdio; do
     # The need for -Wno-implicit-function-declaration is bizarre
-    cc -I.. -O2 -Wno-implicit-function-declaration -o $prog $prog.c -L.. -lxtend
+    cc -I../.. -O2 -Wno-implicit-function-declaration -o $prog $prog.c -L../.. -lxtend
 done
 
 printf "Testing xt_ffopen() compression...\n"

@@ -8,9 +8,6 @@ cd Test
 cc $CFLAGS -o main-test main-test.c -L.. -lxtend
 ./main-test
 
-# FILE
-cc $CFLAGS -o file file.c -L.. -lxtend
-
 # ffile_t
 cc $CFLAGS -o ffile ffile.c -L.. -lxtend
 

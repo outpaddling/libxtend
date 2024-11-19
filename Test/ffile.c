@@ -1,6 +1,6 @@
 /***************************************************************************
  *  Description:
- *      xt_ffile_t test
+ *      xt_ff_t test
  *
  *      Edit only as ffile.c.  file.c is auto-generated.
  *
@@ -13,7 +13,7 @@
 #include <string.h>
 #include <sysexits.h>
 #include <stdlib.h>
-#include "../fast-file-private.h"
+#include "../fast-file.h"
 
 #define BUFF_SIZE   1024
 
@@ -23,14 +23,14 @@ int     main(int argc,char *argv[])
 
 {
     size_t  c, len;
-    xt_ffile_t *fp;
+    xt_ff_t *fp;
     char    buff[BUFF_SIZE],
 	    string[] = "Hello, world!\n";
 
     if ( argc != 2 )
 	usage(argv);
     
-    puts("\nxt_ffile_t xt_ff_getc() / xt_ff_putc()");
+    puts("\nxt_ff_t xt_ff_getc() / xt_ff_putc()");
     
     /*
      *  Write file

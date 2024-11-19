@@ -58,13 +58,13 @@ int     main(int argc,char *argv[])
 	printf("%s = %d, *endptr = %d\n", rn[c], n, *endptr);
     }
     
-    strtrim(string, " .");
+    xt_strtrim(string, " .");
     puts("\nstrtrim: Should be 'Alfred E. Neumann'");
     printf("'%s'\n", string);
     
     puts("\nstrtrim: Should be ''");
     strlcpy(string, "       ", 100);
-    strtrim(string, " .");
+    xt_strtrim(string, " .");
     printf("'%s'\n", string);
 
     puts("\nn choose k: Should be 6 45 0");
@@ -77,8 +77,8 @@ int     main(int argc,char *argv[])
     
     puts("\nstrsplit(): Should be 1 2 3 4 5");
     strlcpy(string, "1,2,3,4,5", 100);
-    if ( strsplit(string, &array, ",") != 5 )
-	fprintf(stderr, "strsplit() did not return 5.\n");
+    if ( xt_strsplit(string, &array, ",") != 5 )
+	fprintf(stderr, "xt_strsplit() did not return 5.\n");
     else
     {
 	for (c = 0; c < 5; ++c)
@@ -89,7 +89,7 @@ int     main(int argc,char *argv[])
     puts("\ncsv_read()...");
     puts("Should be \"Builder, Bob\" | Builder | 40 | Male");
     fp = fopen("test.csv", "r");
-    while ( csv_read_field(fp, field, BUFF_SIZE, &len) != '\n' )
+    while ( xt_csv_read_field(fp, field, BUFF_SIZE, &len) != '\n' )
 	puts(field);
     fclose(fp);
     

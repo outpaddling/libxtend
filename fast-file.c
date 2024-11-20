@@ -95,7 +95,7 @@ xt_ff_t *_xt_ff_init_stream(xt_ff_t *stream)
  *  2022-02-14  Jason Bacon Begin
  ***************************************************************************/
 
-inline int     xt_ff_getc(xt_ff_t *stream)
+int     xt_ff_getc(xt_ff_t *stream)
 
 {
     // unsigned char   *start_ptr;
@@ -173,7 +173,7 @@ inline int     xt_ff_getc(xt_ff_t *stream)
  *  2022-02-14  Jason Bacon Begin
  ***************************************************************************/
 
-inline int     xt_ff_putc(xt_ff_t *stream, int ch)
+int     xt_ff_putc(xt_ff_t *stream, int ch)
 
 {
     if ( stream->buff_index == stream->disk_block_size )
@@ -575,7 +575,7 @@ int  _xt_ff_fillbuff(xt_ff_t *stream)
  *  2022-02-18  Jason Bacon Begin
  ***************************************************************************/
 
-inline int     xt_ff_ungetc(xt_ff_t *stream, int ch)
+int     xt_ff_ungetc(xt_ff_t *stream, int ch)
 
 {
     if ( stream->buff_index > -(XT_FAST_FILE_UNGETC_MAX + 1) )

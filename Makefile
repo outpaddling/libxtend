@@ -77,7 +77,7 @@ OBJS    = valid-extension.o xt-file.o string.o time.o mv.o \
 	  get-home-dir.o xt-get-user-name.o \
 	  digits.o parse-cmd.o rmkdir.o \
 	  spawnlp.o spawnvp.o va-usage.o \
-	  xt-malloc.o dsv.o dsv-accessors.o dsv-mutators.o \
+	  xt-malloc.o dsv.o ff-dsv.o dsv-accessors.o dsv-mutators.o \
 	  resolve-hostname.o numeric_cmp.o combinatorics.o \
 	  fast-file.o fast-file-accessors.o fast-file-mutators.o \
 	  dprintf.o xt-shuffle.o roman.o xt-daemonize.o \
@@ -186,6 +186,52 @@ ${DYLIB}: ${OBJS}
 # If Makefile.depend does not exist, "touch" it before running "make depend"
 include Makefile.depend
 
+ff-dsv.c: dsv.c ff-dsv.h ff-dsv-private.h
+	sed -e 's|xt_dsv_|xt_ff_dsv_|g' \
+	    -e 's|xt_tsv_|xt_ff_tsv_|g' \
+	    -e 's|xt_csv_|xt_ff_csv_|g' \
+	    -e 's|FILE \*|xt_ff_t \*|g' \
+	    -e 's|getc|xt_ff_getc|g' \
+	    -e 's|dsv.h|ff-dsv.h|g' \
+	    -e 's|dsv-private.h|ff-dsv-private.h|g' \
+	    -e 's|fprintf(stream|xt_ff_printf(stream|g' \
+	    -e 's|unxt_ff_getc(ch, stream)|xt_ff_ungetc(stream, ch)|g' \
+	    -e 's|unxt_ff_getc(ch2, stream)|xt_ff_ungetc(stream, ch2)|g' \
+	    dsv.c > ff-dsv.c
+
+ff-dsv-private.h: dsv-private.h
+	sed -e 's|xt_dsv_|xt_ff_dsv_|g' \
+	    -e 's|dsv.h|ff-dsv.h|g' \
+	    dsv-private.h > ff-dsv-private.h
+
+ff-dsv.h: dsv.h ff-dsv-accessors.h ff-dsv-mutators.h ff-dsv-rvs.h
+	sed -e 's|xt_dsv_|xt_ff_dsv_|g' \
+	    -e 's|xt_csv_|xt_ff_csv_|g' \
+	    -e 's|xt_tsv_|xt_ff_tsv_|g' \
+	    -e 's|FILE \*|xt_ff_t \*|g' \
+	    -e 's|dsv-accessors.h|ff-dsv-accessors.h|g' \
+	    -e 's|dsv-mutators.h|ff-dsv-mutators.h|g' \
+	    -e 's|dsv-rvs.h|ff-dsv-rvs.h|g' \
+	    dsv.h > ff-dsv.h
+
+ff-dsv-rvs.h: dsv-rvs.h
+	sed -e 's|xt_dsv_|xt_ff_dsv_|g' \
+	    -e 's|xt_csv_|xt_ff_csv_|g' \
+	    -e 's|xt_tsv_|xt_ff_tsv_|g' \
+	    dsv-rvs.h > ff-dsv-rvs.h
+
+ff-dsv-accessors.h: dsv-accessors.h
+	sed -e 's|xt_dsv_|xt_ff_dsv_|g' \
+	    -e 's|xt_csv_|xt_ff_csv_|g' \
+	    -e 's|xt_tsv_|xt_ff_tsv_|g' \
+	    dsv-accessors.h > ff-dsv-accessors.h
+
+ff-dsv-mutators.h: dsv-mutators.h
+	sed -e 's|xt_dsv_|xt_ff_dsv_|g' \
+	    -e 's|xt_csv_|xt_ff_csv_|g' \
+	    -e 's|xt_tsv_|xt_ff_tsv_|g' \
+	    dsv-mutators.h > ff-dsv-mutators.h
+
 ############################################################################
 # Self-generate dependencies the old-fashioned way
 
@@ -200,7 +246,8 @@ depend:
 # Remove generated files (objs and nroff output from man pages)
 
 clean:
-	rm -f ${OBJS} ${SLIB} lib*.so.* lib*.dylib *.nr xt-daemonize
+	rm -f ${OBJS} ${SLIB} lib*.so.* lib*.dylib *.nr xt-daemonize \
+	    ff-dsv*          
 
 # Keep backup files during normal clean, but provide an option to remove them
 realclean: clean

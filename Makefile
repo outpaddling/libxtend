@@ -246,8 +246,7 @@ depend:
 # Remove generated files (objs and nroff output from man pages)
 
 clean:
-	rm -f ${OBJS} ${SLIB} lib*.so.* lib*.dylib *.nr xt-daemonize \
-	    ff-dsv*          
+	rm -f ${OBJS} ${SLIB} lib*.so.* lib*.dylib *.nr xt-daemonize
 
 # Keep backup files during normal clean, but provide an option to remove them
 realclean: clean

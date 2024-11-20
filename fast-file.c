@@ -234,7 +234,7 @@ xt_ff_t *xt_ff_open(const char *filename, int flags)
     //fprintf(stderr, "flags = %x\n", flags);
     if ( flags == O_RDONLY )    // O_RDONLY = 0x0, no bits set
     {
-	//fprintf(stderr, "Reading from %s...\n", filename);
+	// fprintf(stderr, "Reading from %s...\n", filename);
 	if ( strcmp(ext, ".gz") == 0 )
 	{
 // Big Sur zcat requires a .Z extension and CentOS 7 lacks gzcat
@@ -260,7 +260,7 @@ xt_ff_t *xt_ff_open(const char *filename, int flags)
     }
     else    // O_WRONLY
     {
-	//fprintf(stderr, "Writing to %s...\n", filename);
+	// fprintf(stderr, "Writing to %s...\n", filename);
 	if ( strcmp(ext, ".gz") == 0 )
 	{
 	    snprintf(cmd, XT_CMD_MAX_CHARS, "gzip -c > %s", filename);
@@ -894,7 +894,7 @@ int     _xt_ff_pclose(xt_ff_t *stream)
 	return -1;
     }
     
-    xt_ff_close(stream);
+    _xt_ff_raw_close(stream);
     
     // Compatibility with pclose()
     waitpid(pid, &status, 0);

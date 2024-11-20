@@ -54,9 +54,9 @@ int     main(int argc,char *argv[])
     xt_ff_close(outfile);
     xt_ff_close(infile);
     
-    outfile = xt_ff_open("xt_ff_printf-test.txt", O_WRONLY|O_CREAT|O_TRUNC);
-    xt_ff_printf(outfile, "%s%d\n", "xt_ff_printf test #", 1);
-    xt_ff_close(outfile);
+    //outfile = xt_ff_open("xt_ff_printf-test.txt", O_WRONLY|O_CREAT|O_TRUNC);
+    //xt_ff_printf(outfile, "%s%d\n", "xt_ff_printf test #", 1);
+    //xt_ff_close(outfile);
     return EX_OK;
 }
 

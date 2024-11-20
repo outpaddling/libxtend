@@ -8,8 +8,8 @@ extern "C" {
 #ifndef LIBXTEND_LIBRARY_BUILD
 #pragma message("Most programs should not include fast-file-private.h.  " \
 		"Please use the official API in fast-file.h unless you really \n" \
-		"need the added performance of XT_FF_GETC() or XT_FF_PUTC() " \
-		"over xt_ff_getc() / xt_ff_putc().")
+		"need the added performance of the macros XT_FF_GETC() and \
+		XT_FF_PUTC() over functions xt_ff_getc() / xt_ff_putc().")
 #endif
 
 #ifndef _FCNTL_H_

@@ -18,6 +18,32 @@ line()
     return 0
 }
 
+
+##########################################################################
+#   Function description:
+#       
+#   Arguments:
+#       
+#   Returns:
+#       
+#   History:
+#   Date        Name        Modification
+#   2024-11-20  Jason Bacon Begin
+##########################################################################
+
+check_results()
+{
+    if cmp $file copy.iso; then
+	printf "Source and target files match, test succeeded.\n"
+	rm copy.iso
+    else
+	printf "Error copying file!\n"
+	exit 1
+    fi
+    return 0
+}
+
+
 cd ../..
 ./cave-man-install.sh
 cd Test/Fast-file
@@ -52,11 +78,11 @@ if [ -z "$fetch" ]; then
     exit 1
 fi
 if [ $fetch = curl ]; then
-    fetch='curl -O'
+    fetch='curl -Ok'
 fi
 if [ ! -e $file ]; then
     if [ ! -e $file.xz ]; then
-	fetch $site/$file
+	$fetch $site/$file.xz
     fi
     printf 'Uncompressing...\n'
     unxz $file.xz
@@ -73,21 +99,16 @@ EOM
 cp $file copy.iso
 rm copy.iso
 
-line
-printf "Testing xt_ff_stdin() and xt_ff_stdout()...\n"
-/usr/bin/time ./iotest-ffile - - < $file > copy.iso
-cmp $file copy.iso
-rm copy.iso
-
-for prog in iotest-ffile iotest-low iotest-stdio; do
+for prog in iotest-low iotest-ffile iotest-stdio; do
     line
     printf "Copying with './$prog $file copy.iso'...\n"
     /usr/bin/time ./$prog $file copy.iso
-    if cmp $file copy.iso; then
-	printf "Source and target files match, test succeeded.\n"
-	rm copy.iso
-    else
-	printf "Error copying file!\n"
-	exit 1
+    check_results
+    
+    if [ $prog = iotest-ffile ]; then
+	line
+	printf "Copying with './$prog - - < $file > copy.iso'...\n"
+	/usr/bin/time ./iotest-ffile - - < $file > copy.iso
+	check_results
     fi
 done

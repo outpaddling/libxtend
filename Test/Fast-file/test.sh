@@ -44,6 +44,38 @@ check_results()
 }
 
 
+##########################################################################
+#   Function description:
+#       Pause until user presses return
+##########################################################################
+
+pause()
+{
+    local junk
+    
+    printf "Press return to continue..."
+    read junk
+}
+
+
+##########################################################################
+#   Main
+##########################################################################
+
+if [ $# != 0 ]; then
+    usage
+fi
+
+cat << EOM
+
+Your system should be completely idle while running these tests.
+Otherwise the wall times will be meaningless.
+
+Run this script multiple times to ensure that results are consistent.
+
+EOM
+pause
+
 cd ../..
 ./cave-man-install.sh
 cd Test/Fast-file

@@ -36,6 +36,7 @@ check_results()
     if cmp $file copy.iso; then
 	printf "Source and target files match, test succeeded.\n"
 	rm copy.iso
+	sync
     else
 	printf "Error copying file!\n"
 	exit 1
@@ -130,6 +131,7 @@ Otherwise, the 2nd and subsequent tests will have an advantage.
 EOM
 cp $file copy.iso
 rm copy.iso
+sync
 
 for prog in iotest-low iotest-ffile iotest-stdio; do
     line

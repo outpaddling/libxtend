@@ -883,14 +883,14 @@ char    *xt_ltostrn(char string[], long val, unsigned base, size_t maxlen)
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Name:
- *      xt_str2u64() - Hash a string of up to 8 characters to a 64-bit integer
+ *      xt_str2u64_hash() - Hash a string of up to 8 characters to a 64-bit integer
  *
  *  Library:
  *      #include <xtend/string.h>
  *      -lxtend
  *
  *  Description:
- *      .B xt_str2u64()
+ *      .B xt_str2u64_hash()
  *      is a super-fast hash function that converts a string of 8 or fewer
  *      characters to a 64-bit integer.  Strings of more than 8 characters may
  *      also be hashed, though collisions will occur (same hash value for more
@@ -918,8 +918,8 @@ char    *xt_ltostrn(char string[], long val, unsigned base, size_t maxlen)
  *      char        *s1 = "hello!", s2 = "Hello!";
  *      uint64_t    v1, v2;
  *      
- *      v1 = xt_str2u64(s1);
- *      v2 = xt_str2u64(s2);
+ *      v1 = xt_str2u64_hash(s1);
+ *      v2 = xt_str2u64_hash(s2);
  *      if ( v1 != v2 )
  *          printf("%s and %s are different.\n", (char *)&v1, (char *)&v2);
  *
@@ -931,7 +931,7 @@ char    *xt_ltostrn(char string[], long val, unsigned base, size_t maxlen)
  *  2022-02-02  Jason Bacon Begin
  ***************************************************************************/
 
-uint64_t    xt_str2u64(const char *str)
+uint64_t    xt_str2u64_hash(const char *str)
 
 {
     size_t      c;

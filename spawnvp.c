@@ -143,13 +143,15 @@ void    xt_redirect(
     {
 	close(0);
 	if ( open(infile, O_RDONLY) == -1 )
-	    fprintf(stderr,"xt_redirect(): Cannot open infile: %s.\n",infile);
+	    fprintf(stderr,"%s(): Cannot open infile %s: %s.\n",
+		    __FUNCTION__, infile, strerror(errno));
     }
     if (outfile != NULL)
     {
 	close(1);
 	if ( open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0600) == -1 )
-	    fprintf(stderr,"xt_redirect(): Cannot open outfile: %s.\n",outfile);
+	    fprintf(stderr,"%s(): Cannot open outfile %s: %s.\n",
+		    __FUNCTION__, outfile, strerror(errno));
     }
     if (errfile != NULL)
     {
@@ -157,12 +159,14 @@ void    xt_redirect(
 	if ( strcmp(errfile,outfile) == 0 )
 	{
 	    if ( dup(1) == -1 )
-		fprintf(stderr,"xt_redirect(): Cannot open errfile: %s.\n",errfile);
+		fprintf(stderr,"%s(): Cannot open errfile %s: %s.\n",
+			__FUNCTION__, errfile, strerror(errno));
 	}
 	else
 	{
 	    if ( open(errfile, O_WRONLY | O_CREAT | O_TRUNC, 0600) == -1 )
-		fprintf(stderr,"xt_redirect(): Cannot open errfile: %s.\n",errfile);
+		fprintf(stderr,"%s(): Cannot open errfile %s: %s.\n",
+			__FUNCTION__, errfile, strerror(errno));
 	}
     }
 }

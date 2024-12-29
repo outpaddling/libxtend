@@ -79,7 +79,8 @@ xt_ff_t *_xt_ff_init_stream(xt_ff_t *stream)
  *
  *      if ( (stream = xt_ff_open(filename, O_RDONLY)) == NULL )
  *      {
- *          fprintf(stderr, "Cannot open %s for reading.\n", filename);
+ *          fprintf(stderr, "Cannot open %s for reading: %s.\n",
+ *                  filename, strerror(errno));
  *          exit(EX_NOINPUT);
  *      }
  *      while ( (ch = xt_ff_getc(stream)) != EOF )
@@ -152,12 +153,14 @@ int     xt_ff_getc(xt_ff_t *stream)
  *
  *      if ( (instream = xt_ff_open(infilename, O_RDONLY)) == NULL )
  *      {
- *          fprintf(stderr, "Cannot open %s for reading.\n", infilename);
+ *          fprintf(stderr, "Cannot open %s for reading: %s.\n",
+ *                  infilename, strerror(errno));
  *          exit(EX_NOINPUT);
  *      }
  *      if ( (outstream = xt_ff_open(outfilename, O_WRONLY|O_CREAT|O_TRUNC)) == NULL )
  *      {
- *          fprintf(stderr, "Cannot open %s for writing.\n", outfilename);
+ *          fprintf(stderr, "Cannot open %s for writing: %s.\n",
+ *                  outfilename, strerror(errno));
  *          exit(EX_NOINPUT);
  *      }
  *      while ( (ch = xt_ff_getc(stream)) != EOF )
@@ -458,12 +461,14 @@ xt_ff_t *xt_ff_dopen(int fd, int flags)
  *
  *      if ( (instream = xt_ff_open(infilename, O_RDONLY)) == NULL )
  *      {
- *          fprintf(stderr, "Cannot open %s for reading.\n", infilename);
+ *          fprintf(stderr, "Cannot open %s for reading: %s.\n",
+ *                  infilename, strerror(errno));
  *          exit(EX_NOINPUT);
  *      }
  *      if ( (outstream = xt_ff_open(outfilename, O_WRONLY|O_CREAT|O_TRUNC)) == NULL )
  *      {
- *          fprintf(stderr, "Cannot open %s for writing.\n", outfilename);
+ *          fprintf(stderr, "Cannot open %s for writing: %s.\n",
+ *                  outfilename, strerror(errno));
  *          exit(EX_NOINPUT);
  *      }
  *      while ( (ch = xt_ff_getc(stream)) != EOF )
@@ -560,7 +565,8 @@ int  _xt_ff_fillbuff(xt_ff_t *stream)
  *
  *      if ( (instream = xt_ff_open(infilename, O_RDONLY)) == NULL )
  *      {
- *          fprintf(stderr, "Cannot open %s for reading.\n", infilename);
+ *          fprintf(stderr, "Cannot open %s for reading: %s.\n",
+ *                  infilename, strerror(errno));
  *          exit(EX_NOINPUT);
  *      }
  *      if ( (ch = xt_ff_getc(instream)) != MY_FAVORITE_CHAR )
@@ -1041,7 +1047,8 @@ int     xt_ff_printf(xt_ff_t *stream, const char *format, ...)
  *
  *      if ( (outstream = xt_ff_open(outfilename, O_WRONLY|O_CREAT|O_TRUNC)) == NULL )
  *      {
- *          fprintf(stderr, "Cannot open %s for writing.\n", outfilename);
+ *          fprintf(stderr, "Cannot open %s for writing: %s.\n",
+ *                  outfilename, strerror(errno));
  *          exit(EX_NOINPUT);
  *      }
  *      xt_ff_puts("Hello, world!\n", outstream);
@@ -1095,7 +1102,8 @@ int     xt_ff_puts(xt_ff_t *stream, const char *string)
  *
  *      if ( (instream = xt_ff_open(outfilename, O_RDONLY)) == NULL )
  *      {
- *          fprintf(stderr, "Cannot open %s for writing.\n", outfilename);
+ *          fprintf(stderr, "Cannot open %s for writing: %s.\n",
+ *                  outfilename,strerror(errno));
  *          exit(EX_NOINPUT);
  *      }
  *      xt_ff_gets(buff, BUFF_SIZE, instream);

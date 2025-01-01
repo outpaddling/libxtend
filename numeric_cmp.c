@@ -2,7 +2,7 @@
 
 /***************************************************************************
  *  Name:
- *      xt_double_cmp() - Compare two doubles for sort(3), bsearch(3), etc.
+ *      xt_double_cmp() - Compare two doubles for qsort(3), bsearch(3), etc.
  *
  *  Library:
  *      #include <xtend/math.h>
@@ -57,7 +57,7 @@ int     xt_double_cmp(const double *n1, const double *n2)
 
 /***************************************************************************
  *  Name:
- *      xt_float_cmp() - Compare two floats for sort(3), bsearch(3), etc.
+ *      xt_float_cmp() - Compare two floats for qsort(3), bsearch(3), etc.
  *
  *  Library:
  *      #include <xtend/math.h>
@@ -112,7 +112,7 @@ int     xt_float_cmp(const float *n1, const float *n2)
 
 /***************************************************************************
  *  Name:
- *      xt_long_long_cmp() - Compare two long longs for sort(3), bsearch(3), etc.
+ *      xt_long_long_cmp() - Compare two long longs for qsort(3), bsearch(3), etc.
  *
  *  Library:
  *      #include <xtend/math.h>
@@ -167,7 +167,7 @@ int     xt_long_long_cmp(const long long *n1, const long long *n2)
 
 /***************************************************************************
  *  Name:
- *      xt_long_cmp() - Compare two longs for sort(3), bsearch(3), etc.
+ *      xt_long_cmp() - Compare two longs for qsort(3), bsearch(3), etc.
  *
  *  Library:
  *      #include <xtend/math.h>
@@ -222,7 +222,7 @@ int     xt_long_cmp(const long *n1, const long *n2)
 
 /***************************************************************************
  *  Name:
- *      xt_int_cmp() - Compare two ints for sort(3), bsearch(3), etc.
+ *      xt_int_cmp() - Compare two ints for qsort(3), bsearch(3), etc.
  *
  *  Library:
  *      #include <xtend/math.h>
@@ -267,7 +267,7 @@ int     xt_int_cmp(const int *n1, const int *n2)
 
 /***************************************************************************
  *  Name:
- *      xt_short_cmp() - Compare two shorts for sort(3), bsearch(3), etc.
+ *      xt_short_cmp() - Compare two shorts for qsort(3), bsearch(3), etc.
  *
  *  Library:
  *      #include <xtend/math.h>

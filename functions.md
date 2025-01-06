@@ -21,7 +21,7 @@ $PREFIX/include/libxtend/\*-mutators.h for a current list.
 | xt_daemonize(3)  |  Detach process from terminal |
 | xt_difftimeofday(3)  |  Compute difference between struct timeval values |
 | xt_digits(3)  |  Compute the number of xt_digits in an integer in any base |
-| xt_double_cmp(3)  |  Compare two doubles for sort(3), bsearch(3), etc. |
+| xt_double_cmp(3)  |  Compare two doubles for qsort(3), bsearch(3), etc. |
 | xt_dprintf(3)  |  Print formatted output to a low |
 | xt_dsv_line_copy(3)  |  Copy a generica tabular data object |
 | xt_dsv_line_free(3)  |  Destroy a generic tabular data object |
@@ -66,17 +66,17 @@ $PREFIX/include/libxtend/\*-mutators.h for a current list.
 | xt_ff_ungetc(3)  |  Put a character back into a fast file stream read buffer |
 | xt_fgetline(3)  |  Read a line from a FILE stream, discarding newline |
 | xt_file_mod_cmp(3)  |  Compare time stamps on two files |
-| xt_float_cmp(3)  |  Compare two floats for sort(3), bsearch(3), etc. |
+| xt_float_cmp(3)  |  Compare two floats for qsort(3), bsearch(3), etc. |
 | xt_fopen(3)  |  Open a raw or compressed file |
 | xt_gcd(3)  |  Greatest common divisor |
 | xt_get_home_dir(3)  |  Get process owner's home directory |
 | xt_get_primary_group_name(3)  |  Get primary groupname of process owner |
 | xt_get_user_name(3)  |  Get username of process owner |
 | xt_inhale_strings(3)  |  Read list of strings into array |
-| xt_int_cmp(3)  |  Compare two ints for sort(3), bsearch(3), etc. |
+| xt_int_cmp(3)  |  Compare two ints for qsort(3), bsearch(3), etc. |
 | xt_lcm(3)  |  Least common multiple |
-| xt_long_cmp(3)  |  Compare two longs for sort(3), bsearch(3), etc. |
-| xt_long_long_cmp(3)  |  Compare two long longs for sort(3), bsearch(3), etc. |
+| xt_long_cmp(3)  |  Compare two longs for qsort(3), bsearch(3), etc. |
+| xt_long_long_cmp(3)  |  Compare two long longs for qsort(3), bsearch(3), etc. |
 | xt_ltostrn(3)  |  Convert a long to a string in any base from 2 to 36 |
 | xt_mv(3)  |  Library function equivalent of xt_mv(1) |
 | xt_n_choose_k(3)  |  Compute binomial coefficient N choose K |
@@ -85,10 +85,10 @@ $PREFIX/include/libxtend/\*-mutators.h for a current list.
 | xt_resolve_hostname(3)  |  Convert hostname to IP address |
 | xt_rmkdir(3)  |  Recursively create directories |
 | xt_romantoi(3)  |  Convert Roman numeral string to int |
-| xt_short_cmp(3)  |  Compare two shorts for sort(3), bsearch(3), etc. |
+| xt_short_cmp(3)  |  Compare two shorts for qsort(3), bsearch(3), etc. |
 | xt_spawnlp(3)  |  Fork and exec a process from a variable argument list |
 | xt_spawnvp(3)  |  Fork and exec a new process from an argv |
-| xt_str2u64(3)  |  Hash a string of up to 8 characters to a 64 |
+| xt_str2u64_hash(3)  |  Hash a string of up to 8 characters to a 64 |
 | xt_str_argv_cat(3)  |  Append argv |
 | xt_strblank(3)  |  Return true is a string is empty or only whitespace |
 | xt_strisint(3)  |  Return true if string represents an integer value |

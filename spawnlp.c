@@ -36,6 +36,10 @@
  *      infile:         File to which stdin of child is redirected or NULL
  *      outfile:        File to which stdout of child is redirected or NULL
  *      errfile:        File to which stderr of child is redirected or NULL
+ *      arg0:           The name of the program to run
+ *      arg1, ...       Command-line arguments
+ *
+ *      IMPORTANT:      The last argument must be NULL
  *
  *  Returns:
  *      The exit status of the child process if P_WAIT is passed

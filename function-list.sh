@@ -60,8 +60,8 @@ EOM
 # man Man/libxtend.3
 
 # For github
-auto-man2man Man/* | awk -F - '$1 !~ "libxtend" { printf("| %s | %s |\n", $1, $2); }' \
-    >> functions.md
+#auto-man2man Man/* | awk -F - '$1 !~ "libxtend" { printf("| %s | %s |\n", $1, $2); }' \
+#    >> functions.md
 
 # Debug
 # grip --export functions.md

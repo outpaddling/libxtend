@@ -41,6 +41,7 @@ libc, libm, and other standard libraries.
 .na
 EOM
 
+# auto-man2man is available in wip/auto-dev (FreeBSD ports and pkgsrc)
 auto-man2man Man/xt_* >> Man/libxtend.3
 
 cat << EOM >> Man/libxtend.3

@@ -792,7 +792,7 @@ xt_ff_t *xt_ff_popen(const char *cmd, int flags)
 		    return NULL;
 		}
 		execvp("/bin/sh", argv);
-		return NULL;    // Should not be reached
+		exit(EX_OSERR);    // Should not be reached
 	    }
 	    else
 	    {
@@ -808,7 +808,7 @@ xt_ff_t *xt_ff_popen(const char *cmd, int flags)
 		    return NULL;
 		}
 		execvp("/bin/sh", argv);
-		return NULL;    // Should not be reached
+		exit(EX_OSERR);    // Should not be reached
 	    }
 	}
 	else
@@ -855,7 +855,11 @@ xt_ff_t *xt_ff_popen(const char *cmd, int flags)
  *      .B _xt_ff_pclose(3)
  *      closes a stream opened by xt_ff_popen(3), and
  *      waits for the child process to complete and returns its
- *      exit status.
+ *      exit status.  Unlike the FILE stream functions popen(3) and
+ *      pclose(3), it is not necessary to match xt_ff_popen(3) and
+ *      _xt_ff_pclose(3).  The xt_ff_close(3) function automatically
+ *      senses whether stream if a pipe (FIFO), and calls
+ *      _xt_ff_pclose(3) or _xt_ff_raw_close(3) as needed.
  *
  *      The xt_ff_t system is simpler than and much faster than
  *      traditional FILE on typical systems.  It is intended for processing
@@ -877,7 +881,7 @@ xt_ff_t *xt_ff_popen(const char *cmd, int flags)
  *          exit(EX_NOINPUT);
  *      }
  *
- *      _xt_ff_pclose(instream);
+ *      xt_ff_close(instream);
  *
  *  See also:
  *      xt_ff_open(3), _xt_ff_pclose(3), popen(3), open(3)

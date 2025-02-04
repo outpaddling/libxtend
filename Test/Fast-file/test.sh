@@ -150,3 +150,9 @@ done
 # FIXME: Now test higher level functions
 printf "Testing higher level functions...\n"
 ./hl-test
+
+printf "Clean? [y]/n "
+read clean
+if [ 0"$clean" != 0n ]; then
+    ./clean.sh
+fi

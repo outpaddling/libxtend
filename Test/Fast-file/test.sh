@@ -80,7 +80,7 @@ pause
 cd ../..
 ./cave-man-install.sh
 cd Test/Fast-file
-for prog in iotest-ffile iotest-low iotest-stdio; do
+for prog in iotest-ffile iotest-low iotest-stdio hl-test; do
     # The need for -Wno-implicit-function-declaration is bizarre
     cc -I../.. -O2 -Wno-implicit-function-declaration -o $prog $prog.c -L../.. -lxtend
 done
@@ -96,7 +96,7 @@ if diff temp.sh test.sh; then
     rm -f temp*
 fi
 
-file=FreeBSD-14.1-RELEASE-amd64-disc1.iso
+file=FreeBSD-14.1-RELEASE-amd64-bootonly.iso
 site=https://download.freebsd.org/releases/ISO-IMAGES/14.1
 line
 printf "Downloading large file $file to test throughput...\n"
@@ -146,3 +146,7 @@ for prog in iotest-low iotest-ffile iotest-stdio; do
 	check_results
     fi
 done
+
+# FIXME: Now test higher level functions
+printf "Testing higher level functions...\n"
+./hl-test

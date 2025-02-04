@@ -33,8 +33,8 @@ int     main(int argc,char *argv[])
     infile = fopen(argv[1], "r");
     outfile = fopen(argv[2], "w");
     
-    while ( (ch = fgetc(infile)) != EOF )
-	fputc(ch, outfile);
+    while ( (ch = getc(infile)) != EOF )
+	putc(ch, outfile);
     
     fclose(outfile);
     fclose(infile);

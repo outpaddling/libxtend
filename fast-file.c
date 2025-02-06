@@ -717,7 +717,7 @@ xt_ff_t *xt_ff_stdout(void)
  *      connected to the other end.
  *
  *      It behaves much like popen(3), except that it returns a fast-file
- *      xt_fffile_t pointer rather than a standard I/O FILE pointer, and
+ *      xt_ff_t pointer rather than a standard I/O FILE pointer, and
  *      accepts a full set of open(3) flags rather than the fopen(3)
  *      type strings "r", "w", etc.
  *

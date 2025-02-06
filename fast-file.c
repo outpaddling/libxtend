@@ -1142,7 +1142,7 @@ char    *xt_ff_gets(xt_ff_t *stream, char *string, size_t size)
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Name:
- *      xt_ff_read_line_malloc() - Read a line from a fast file stream,
+ *      xt_ff_gets_malloc() - Read a line from a fast file stream,
  *                                 allocating memory as needed
  *
  *  Library:
@@ -1150,7 +1150,7 @@ char    *xt_ff_gets(xt_ff_t *stream, char *string, size_t size)
  *      -lxtend
  *
  *  Description:
- *      .B xt_ff_read_line_malloc(3)
+ *      .B xt_ff_gets_malloc(3)
  *      reads a single line of text (up to the next newline or EOF)
  *      from stream, allocating and/or extending the provided buffer if
  *      needed.
@@ -1181,7 +1181,7 @@ char    *xt_ff_gets(xt_ff_t *stream, char *string, size_t size)
  *  2022-02-20  Jason Bacon Begin
  ***************************************************************************/
 
-int     xt_ff_read_line_malloc(xt_ff_t *stream, char **buff, size_t *buff_size,
+int     xt_ff_gets_malloc(xt_ff_t *stream, char **buff, size_t *buff_size,
 			   size_t *len)
 
 {
@@ -1301,7 +1301,7 @@ xt_ff_t *xt_ff_tmpfile(void)
  *      xt_ff_read(stream, list, sizeof(my_type_t), NUM_OBJECTS);
  *
  *  See also:
- *      read(2), xt_ff_open(3)
+ *      xf_ff_write(3), xt_ff_open(3), read(2)
  *
  *  History: 
  *  Date        Name        Modification
@@ -1316,13 +1316,71 @@ size_t  xt_ff_read(xt_ff_t *stream, void * restrict ptr,
     // to ensure initial correctness.  Think about potentially more
     // efficient designs.
     int     ch;
-    size_t  bytes_desired = size * nmemb,
-	    c = 0;
+    char    *ch_ptr;
+    size_t  bytes_desired = size * nmemb, c;
     
-    while ( (c < bytes_desired) && ((ch = XT_FF_GETC(stream)) != EOF) )
-	*(char *)ptr++ = ch, ++c;
+    for (c = 0, ch_ptr = ptr;
+	 (c < bytes_desired) && ((ch = XT_FF_GETC(stream)) != EOF); ++c)
+	*ch_ptr++ = ch;
     
     return c / size;    // Return number of objects read
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      xt_ff_write() - Write a fixed number of bytes to a fast file stream
+ *
+ *  Library:
+ *      #include <xtend/file.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      .B xt_ff_write(3)
+ *      writes a fixed number of bytes (size * nmemb) to stream
+ *      from address ptr, which should point to an object
+ *      (if nmemb == 1) or array of "nmemb" objects of size "size".
+ *  
+ *  Arguments:
+ *      stream  Pointer to an xt_ff_t structure
+ *      ptr     Memory location from which data are written
+ *      size    Size of one object being read
+ *      nmemb   Number of objects to read
+ *
+ *  Returns:
+ *      The number of objects (not bytes) successfully written
+ *
+ *  Examples:
+ *      my_type_t   list[NUM_OBJECTS];
+ *      xt_ff_t     *stream;
+ *
+ *      stream = xt_ff_open("myfile", O_RDONLY);
+ *      xt_ff_write(stream, list, sizeof(my_type_t), NUM_OBJECTS);
+ *
+ *  See also:
+ *      xt_ff_read(2), xt_ff_open(3), write(2)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2025-02-06  Jason Bacon Begin
+ ***************************************************************************/
+
+size_t  xt_ff_write(xt_ff_t *stream, void * ptr,
+		   size_t size, size_t nmemb)
+
+{
+    // FIXME: This is a naive design chosen for simplicity
+    // to ensure initial correctness.  Think about potentially more
+    // efficient designs.
+    char    *ch_ptr;
+    size_t  bytes_desired = size * nmemb, c;
+    
+    for (c = 0, ch_ptr = ptr; c < bytes_desired; ++c)
+	XT_FF_PUTC(stream, *ch_ptr++);
+    
+    return c / size;    // Return number of objects completely written
 }
 
 

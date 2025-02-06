@@ -137,12 +137,14 @@ for prog in iotest-low iotest-ffile iotest-stdio; do
     line
     printf "Copying with './$prog $file copy.iso'...\n"
     /usr/bin/time ./$prog $file copy.iso
+    sync
     check_results
     
     if [ $prog = iotest-ffile ]; then
 	line
 	printf "Copying with './$prog - - < $file > copy.iso'...\n"
 	/usr/bin/time ./iotest-ffile - - < $file > copy.iso
+	sync
 	check_results
     fi
 done

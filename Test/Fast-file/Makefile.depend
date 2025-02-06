@@ -1,0 +1,16 @@
+hl-test.o: hl-test.c ../../fast-file.h ../../common.h \
+  ../../fast-file-rvs.h ../../fast-file-accessors.h \
+  ../../fast-file-mutators.h
+	${CC} -c ${CFLAGS} hl-test.c
+
+iotest-ffile.o: iotest-ffile.c ../../fast-file-private.h \
+  ../../fast-file.h ../../common.h ../../fast-file-rvs.h \
+  ../../fast-file-accessors.h ../../fast-file-mutators.h
+	${CC} -c ${CFLAGS} iotest-ffile.c
+
+iotest-low.o: iotest-low.c
+	${CC} -c ${CFLAGS} iotest-low.c
+
+iotest-stdio.o: iotest-stdio.c
+	${CC} -c ${CFLAGS} iotest-stdio.c
+

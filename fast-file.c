@@ -33,7 +33,7 @@ xt_ff_t *_xt_ff_init_stream(xt_ff_t *stream)
 	return NULL;
     }
     stream->disk_block_size = st.st_blksize;
-    //fprintf(stderr, "Block size = %zd\n", stream->disk_block_size);
+    // fprintf(stderr, "%s(): Block size = %zd\n", __FUNCTION__, stream->disk_block_size);
     // Add space for a null byte
     stream->buff_size = XT_FAST_FILE_UNGETC_MAX + stream->disk_block_size + 1;
     if ( (stream->buff = xt_malloc(1, stream->buff_size)) == NULL )
@@ -45,6 +45,7 @@ xt_ff_t *_xt_ff_init_stream(xt_ff_t *stream)
     stream->start_ptr = stream->buff + XT_FAST_FILE_UNGETC_MAX;
     stream->bytes_read = 0;
     stream->buff_index = 0;
+    
     return stream;
 }
 
@@ -419,6 +420,8 @@ xt_ff_t *xt_ff_dopen(int fd, int flags)
     
     if ( (stream = xt_malloc(1, sizeof(*stream))) == NULL )
 	return NULL;
+    
+    // FIXME: Can this happen before init?
     stream->fd = fd;
     stream->flags = flags;
 
@@ -490,11 +493,11 @@ int     _xt_ff_raw_close(xt_ff_t *stream)
 {
     int     status;
     
-    if ( stream->flags & O_WRONLY )
+    if ( stream->flags & (O_WRONLY|O_RDWR|O_APPEND) )
     {
-	//fprintf(stderr, "xt_ff_close(3) flushing output...\n");
+	//fprintf(stderr, "%s(): flushing output...\n", __FUNCTION__);
 	//stream->start_ptr[stream->buff_index] = '\0';
-	//fputs((char *)stream->start_ptr, stderr);
+	///fprintf(stderr, "buff = %s\n", (char *)stream->start_ptr);
 	if ( write(stream->fd, stream->start_ptr, stream->buff_index) < 0 )
 	    return -1;  // FIXME: Define error constants
     }
@@ -1254,16 +1257,16 @@ int     xt_ff_gets_malloc(xt_ff_t *stream, char **buff, size_t *buff_size,
  *  2023-09-02  Jason Bacon Begin
  ***************************************************************************/
 
-xt_ff_t *xt_ff_tmpfile(void)
+xt_ff_t *xt_ff_mkstemp(char template[])
 
 {
     // FIXME: See tmpfile() man page and replicate behavior
     int     fd,
 	    flags = O_RDWR|O_CREAT|O_TRUNC; // See mkstemp(3)
-    
-    if ( (fd = mkstemp("/tmp/temp.XXXXX")) == -1 )
+
+    if ( (fd = mkstemp(template)) == -1 )
 	return NULL;
-	
+    
     return xt_ff_dopen(fd, flags);
 }
 

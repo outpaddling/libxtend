@@ -25,7 +25,8 @@ int     main(int argc,char *argv[])
 {
     xt_ff_t *infile, *outfile;
     int     ch;
-    char    string[STR_LEN_MAX + 1];
+    char    string[STR_LEN_MAX + 1],
+	    template[] = "/tmp/temp.XXXXXX";
     
     // puts/gets
     printf("Testing xt_ff_puts() and xt_ff_gets()...  ");
@@ -68,6 +69,20 @@ int     main(int argc,char *argv[])
     unlink("temp-write-output");
     
     // tmpfile/seeko/rewind
+    printf("\nTesting tmpfile, rewind...  ");
+    outfile = xt_ff_mkstemp(template);
+    puts(template);
+    puts(TEST_STRING);
+    xt_ff_rewind(outfile);
+    xt_ff_gets(outfile, string, STR_LEN_MAX + 1);
+    puts(string);
+    xt_ff_puts(outfile, TEST_STRING "\n");
+    xt_ff_close(outfile);
+    unlink(template);
+    if ( strcmp(string, TEST_STRING) == 0 )
+	puts("Passed.");
+    else
+	return 1;
     
     // read/write
     

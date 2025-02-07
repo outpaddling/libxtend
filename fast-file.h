@@ -48,7 +48,7 @@ int xt_ff_printf(xt_ff_t *stream, const char *format, ...);
 int xt_ff_puts(xt_ff_t *stream, const char *string);
 char *xt_ff_gets(xt_ff_t *stream, char *string, size_t size);
 int xt_ff_gets_malloc(xt_ff_t *stream, char **buff, size_t *buff_size, size_t *len);
-xt_ff_t *xt_ff_tmpfile(void);
+xt_ff_t *xt_ff_mkstemp(char template[]);
 size_t xt_ff_read(xt_ff_t *stream, void *restrict ptr, size_t size, size_t nmemb);
 int xt_ff_seeko(xt_ff_t *stream, off_t offset, int whence);
 int xt_ff_rewind(xt_ff_t *stream);

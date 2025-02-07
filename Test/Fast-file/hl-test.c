@@ -25,7 +25,9 @@ int     main(int argc,char *argv[])
 {
     xt_ff_t *infile, *outfile;
     int     ch;
+    size_t  buff_size, string_len;
     char    string[STR_LEN_MAX + 1],
+	    *string2,
 	    template[] = "/tmp/temp.XXXXXX";
     
     // puts/gets
@@ -34,6 +36,7 @@ int     main(int argc,char *argv[])
     // xt_ff_gets() does not include the NL in the string
     xt_ff_puts(outfile, TEST_STRING "\n");
     xt_ff_close(outfile);
+    
     infile = xt_ff_open("temp-write-output", O_RDONLY);
     xt_ff_gets(infile, string, STR_LEN_MAX + 1);
     xt_ff_close(infile);
@@ -41,8 +44,26 @@ int     main(int argc,char *argv[])
 	puts("Passed.");
     else
 	return 1;
+    fflush(stdout);
     
     // gets_malloc
+    printf("Testing xt_ff_puts() and xt_ff_gets_malloc()...  ");
+    outfile = xt_ff_open("temp-write-output", O_WRONLY|O_CREAT);
+    // xt_ff_gets() does not include the NL in the string
+    xt_ff_puts(outfile, TEST_STRING "\n");
+    xt_ff_close(outfile);
+    getchar();
+    
+    buff_size = 0;
+    infile = xt_ff_open("temp-write-output", O_RDONLY);
+    xt_ff_gets_malloc(infile, &string2, &buff_size, &string_len);
+    xt_ff_close(infile);
+    printf("%zu %zu\n", buff_size, string_len);
+    if ( strcmp(string2, TEST_STRING) == 0 )
+	puts("Passed.");
+    else
+	return 1;
+    free(string2);
     
     // popen
     printf("\nTesting xt_ff_popen() read...  ");

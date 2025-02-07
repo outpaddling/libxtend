@@ -1201,13 +1201,18 @@ char    *xt_ff_gets(xt_ff_t *stream, char *string, size_t size)
  *      .B xt_ff_gets_malloc(3)
  *      reads a single line of text (up to the next newline or EOF)
  *      from stream, allocating and/or extending the provided buffer if
- *      needed.
+ *      needed.  The argument buff_size must be initialized to the
+ *      size of buff before being passed in.  This should be 0 if
+ *      buff does not point to allocated memory.  It is updated to the
+ *      new size if xt_ff_gets_malloc() allocates or extends buff.
+ *      The len argument is set to the length of the string read into
+ *      buff.  Len may be less than or equal to buff_size-1 upon return.
  *  
  *  Arguments:
  *      stream:     xt_ff_t stream from which field is read
  *      buff:       Character buffer into which field is copied
- *      buff_size:  Size of the array passed to buff
- *      len:        Pointer to a variable which will receive the field length
+ *      buff_size:  Size of the array passed to buff (must be initialized!)
+ *      len:        Pointer to a variable which will receive the string length
  *
  *  Returns:
  *      Delimiter ending the read: either newline or EOF
@@ -1238,10 +1243,14 @@ int     xt_ff_gets_malloc(xt_ff_t *stream, char **buff, size_t *buff_size,
     
     if ( *buff_size == 0 )
     {
-	*buff_size = 1024;
+	fprintf(stderr, "%s(): Allocating buffer...\n", __FUNCTION__);
+	*buff_size = 64;
 	*buff = xt_malloc(*buff_size, sizeof(**buff));
 	if ( *buff == NULL )
+	{
+	    *buff_size = *len = 0;
 	    return XT_MALLOC_FAILED;
+	}
     }
     
     for (c = 0; ( ((ch = XT_FF_GETC(stream)) != '\n') && (ch != EOF) ); ++c)
@@ -1251,9 +1260,13 @@ int     xt_ff_gets_malloc(xt_ff_t *stream, char **buff, size_t *buff_size,
 	    *buff_size *= 2;
 	    *buff = xt_realloc(*buff, *buff_size, sizeof(**buff));
 	    if ( *buff == NULL )
+	    {
+		*buff_size = *len = 0;
 		return XT_MALLOC_FAILED;
+	    }
 	}
 	(*buff)[c] = ch;
+	// fprintf(stderr, "c = %zu\n", c);
     }
     (*buff)[c] = '\0';
     *len = c;

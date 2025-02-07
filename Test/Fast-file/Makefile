@@ -82,7 +82,8 @@ MANDIR      ?= ${MANPREFIX}/man
 
 # Defaults that should work with GCC and Clang.
 CC          ?= cc
-CFLAGS      ?= -Wall -g -O
+#CFLAGS      ?= -Wall -g -O
+CFLAGS      = -Wall -g
 
 # Link command:
 # Use ${FC} to link when mixing C and Fortran

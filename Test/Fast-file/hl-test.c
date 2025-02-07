@@ -15,6 +15,7 @@
 #include <sysexits.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 #include "../../fast-file.h"
 
 #define STR_LEN_MAX 128
@@ -33,6 +34,11 @@ int     main(int argc,char *argv[])
     // puts/gets
     printf("Testing xt_ff_puts() and xt_ff_gets()...  ");
     outfile = xt_ff_open("temp-write-output", O_WRONLY|O_CREAT);
+    if ( outfile == NULL )
+    {
+	fprintf(stderr, "Cannot create temp-write-output: %s\n", strerror(errno));
+	return 1;
+    }
     // xt_ff_gets() does not include the NL in the string
     xt_ff_puts(outfile, TEST_STRING "\n");
     xt_ff_close(outfile);
@@ -40,11 +46,11 @@ int     main(int argc,char *argv[])
     infile = xt_ff_open("temp-write-output", O_RDONLY);
     xt_ff_gets(infile, string, STR_LEN_MAX + 1);
     xt_ff_close(infile);
+    //printf("string = '%s'\n", string);
     if ( strcmp(string, TEST_STRING) == 0 )
 	puts("Passed.");
     else
 	return 1;
-    fflush(stdout);
     
     // gets_malloc
     printf("Testing xt_ff_puts() and xt_ff_gets_malloc()...  ");
@@ -52,13 +58,12 @@ int     main(int argc,char *argv[])
     // xt_ff_gets() does not include the NL in the string
     xt_ff_puts(outfile, TEST_STRING "\n");
     xt_ff_close(outfile);
-    getchar();
     
     buff_size = 0;
     infile = xt_ff_open("temp-write-output", O_RDONLY);
     xt_ff_gets_malloc(infile, &string2, &buff_size, &string_len);
     xt_ff_close(infile);
-    printf("%zu %zu\n", buff_size, string_len);
+    //printf("%zu %zu\n", buff_size, string_len);
     if ( strcmp(string2, TEST_STRING) == 0 )
 	puts("Passed.");
     else
@@ -66,7 +71,7 @@ int     main(int argc,char *argv[])
     free(string2);
     
     // popen
-    printf("\nTesting xt_ff_popen() read...  ");
+    printf("Testing xt_ff_popen() read...  ");
     infile = xt_ff_popen("printf '%d + %d = %d\n' 1 2 $((1 + 2))", O_RDONLY);
     outfile = xt_ff_open("temp-read-output", O_WRONLY|O_CREAT);
     while ( (ch = xt_ff_getc(infile)) != EOF )
@@ -79,7 +84,7 @@ int     main(int argc,char *argv[])
 	return 1;
     unlink("temp-read-output");
     
-    printf("\nTesting xt_ff_popen() write...  ");
+    printf("Testing xt_ff_popen() write...  ");
     outfile = xt_ff_popen("sed -e 's|bacon|ham|g' > temp-write-output", O_WRONLY);
     xt_ff_puts(outfile, "Bring home the bacon.\n");
     xt_ff_close(outfile);
@@ -90,7 +95,7 @@ int     main(int argc,char *argv[])
     unlink("temp-write-output");
     
     // tmpfile/seeko/rewind
-    printf("\nTesting xt_ff_mkstemp(), xt_ff_rewind()...  ");
+    printf("Testing xt_ff_mkstemp(), xt_ff_rewind()...  ");
     outfile = xt_ff_mkstemp(template);
     // printf("Writing %s to %s...\n", TEST_STRING, template);
     xt_ff_puts(outfile, TEST_STRING "\n");
@@ -108,7 +113,7 @@ int     main(int argc,char *argv[])
     
     // printf/scanf
     
-    puts("\nMore tests TBD");
+    puts("More tests TBD");
     
     return EX_OK;
 }

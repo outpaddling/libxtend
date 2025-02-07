@@ -1179,6 +1179,7 @@ char    *xt_ff_gets(xt_ff_t *stream, char *string, size_t size)
     c = 0;
     while ( ((ch = XT_FF_GETC(stream)) != '\n') && (ch != EOF) && (c < size - 1) )
 	string[c++] = ch;
+    string[c] = '\0';
     if ( (c == 0) && (ch == EOF) )
 	return NULL;
     else
@@ -1243,7 +1244,6 @@ int     xt_ff_gets_malloc(xt_ff_t *stream, char **buff, size_t *buff_size,
     
     if ( *buff_size == 0 )
     {
-	fprintf(stderr, "%s(): Allocating buffer...\n", __FUNCTION__);
 	*buff_size = 64;
 	*buff = xt_malloc(*buff_size, sizeof(**buff));
 	if ( *buff == NULL )
@@ -1266,7 +1266,6 @@ int     xt_ff_gets_malloc(xt_ff_t *stream, char **buff, size_t *buff_size,
 	    }
 	}
 	(*buff)[c] = ch;
-	// fprintf(stderr, "c = %zu\n", c);
     }
     (*buff)[c] = '\0';
     *len = c;

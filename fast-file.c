@@ -349,7 +349,8 @@ xt_ff_t *_xt_ff_raw_open(const char *filename, int flags)
     if ( (stream = xt_malloc(1, sizeof(*stream))) == NULL )
 	return NULL;
 
-    if ( flags & O_WRONLY )
+    // FIXME: Add other open modes
+    if ( flags & O_CREAT )
 	stream->fd = open(filename, flags, 0666);   // Masked by umask
     else
 	stream->fd = open(filename, flags);
@@ -430,6 +431,50 @@ xt_ff_t *xt_ff_dopen(int fd, int flags)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <xtend/fast-file.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      .B xt_ff_flush(stream)
+ *      writes any buffered output in stream to the underlying file
+ *      descriptor.  This normally happens when the buffer is full,
+ *      the stream is closed using xt_ff_close(stream), or before
+ *      a seek is performed on a stream opened for writing.
+ *  
+ *  Arguments:
+ *      stream  Pointer to an xt_ff_t stream
+ *
+ *  Returns:
+ *      Return code of the underlying write(2) call
+ *      -1 if stream is not open for writing
+ *
+ *  Examples:
+ *      xt_ff_t *stream;
+ *
+ *      stream = xt_ff_open(filename, O_WRONLY|O_CREATE);
+ *      ...
+ *      xt_ff_flush(stream);
+ *
+ *  See also:
+ *      xt_ff_open(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2025-02-07  Jason Bacon Begin
+ ***************************************************************************/
+
+int     xt_ff_flush(xt_ff_t *stream)
+
+{
+    if ( stream->flags & (O_WRONLY|O_RDWR|O_APPEND) )
+	return write(stream->fd, stream->start_ptr, stream->buff_index);
+    else
+	return -1;
+}
+
+
+/***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Name:
@@ -498,7 +543,7 @@ int     _xt_ff_raw_close(xt_ff_t *stream)
 	//fprintf(stderr, "%s(): flushing output...\n", __FUNCTION__);
 	//stream->start_ptr[stream->buff_index] = '\0';
 	///fprintf(stderr, "buff = %s\n", (char *)stream->start_ptr);
-	if ( write(stream->fd, stream->start_ptr, stream->buff_index) < 0 )
+	if ( xt_ff_flush(stream) < 0 )
 	    return -1;  // FIXME: Define error constants
     }
     status = close(stream->fd);
@@ -1435,6 +1480,9 @@ int     xt_ff_seeko(xt_ff_t *stream, off_t offset, int whence)
     // to ensure initial correctness.  Think about potentially more
     // efficient designs.  In particular, don't purge the input buffer
     // if the seek is within buffered data.
+    
+    if ( stream->flags & (O_WRONLY|O_RDWR|O_APPEND) )
+	xt_ff_flush(stream);
     
     if ( lseek(xt_ff_get_fd(stream), offset, whence) == offset )
     {

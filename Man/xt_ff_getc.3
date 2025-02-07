@@ -18,7 +18,7 @@ xt_ff_getc() - Read next character from a fast file stream
 .SH SYNOPSIS
 .nf
 .na
-inline int     xt_ff_getc(xt_ff_t *stream)
+int     xt_ff_getc(xt_ff_t *stream)
 .ad
 .fi
 
@@ -52,7 +52,8 @@ int     ch;
 
 if ( (stream = xt_ff_open(filename, O_RDONLY)) == NULL )
 {
-    fprintf(stderr, "Cannot open %s for reading.n", filename);
+    fprintf(stderr, "Cannot open %s for reading: %s.n",
+            filename, strerror(errno));
     exit(EX_NOINPUT);
 }
 while ( (ch = xt_ff_getc(stream)) != EOF )

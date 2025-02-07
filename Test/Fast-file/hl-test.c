@@ -69,14 +69,13 @@ int     main(int argc,char *argv[])
     unlink("temp-write-output");
     
     // tmpfile/seeko/rewind
-    printf("\nTesting tmpfile, rewind...  ");
+    printf("\nTesting xt_ff_mkstemp(), xt_ff_rewind()...  ");
     outfile = xt_ff_mkstemp(template);
-    puts(template);
-    puts(TEST_STRING);
+    // printf("Writing %s to %s...\n", TEST_STRING, template);
+    xt_ff_puts(outfile, TEST_STRING "\n");
     xt_ff_rewind(outfile);
     xt_ff_gets(outfile, string, STR_LEN_MAX + 1);
-    puts(string);
-    xt_ff_puts(outfile, TEST_STRING "\n");
+    // puts(string);
     xt_ff_close(outfile);
     unlink(template);
     if ( strcmp(string, TEST_STRING) == 0 )

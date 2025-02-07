@@ -49,7 +49,8 @@ char    buff[BUFF_SIZE];
 
 if ( (instream = xt_ff_open(outfilename, O_RDONLY)) == NULL )
 {
-    fprintf(stderr, "Cannot open %s for writing.n", outfilename);
+    fprintf(stderr, "Cannot open %s for writing: %s.n",
+            outfilename,strerror(errno));
     exit(EX_NOINPUT);
 }
 xt_ff_gets(buff, BUFF_SIZE, instream);

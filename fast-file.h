@@ -42,6 +42,7 @@ int _xt_ff_fillbuff(xt_ff_t *stream);
 xt_ff_t *xt_ff_stdin(void);
 xt_ff_t *xt_ff_stdout(void);
 xt_ff_t *xt_ff_popen(const char *cmd, int flags);
+int xt_ff_flush(xt_ff_t *stream);
 int _xt_ff_pclose(xt_ff_t *stream);
 int xt_ff_close(xt_ff_t *stream);
 int xt_ff_printf(xt_ff_t *stream, const char *format, ...);

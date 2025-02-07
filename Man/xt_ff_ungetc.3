@@ -18,7 +18,7 @@ xt_ff_ungetc() - Put a character back into a fast file stream read buffer
 .SH SYNOPSIS
 .nf
 .na
-inline int     xt_ff_ungetc(xt_ff_t *stream, int ch)
+int     xt_ff_ungetc(xt_ff_t *stream, int ch)
 .ad
 .fi
 
@@ -57,7 +57,8 @@ int     ch;
 
 if ( (instream = xt_ff_open(infilename, O_RDONLY)) == NULL )
 {
-    fprintf(stderr, "Cannot open %s for reading.n", infilename);
+    fprintf(stderr, "Cannot open %s for reading: %s.n",
+            infilename, strerror(errno));
     exit(EX_NOINPUT);
 }
 if ( (ch = xt_ff_getc(instream)) != MY_FAVORITE_CHAR )

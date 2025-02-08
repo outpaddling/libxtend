@@ -19,7 +19,9 @@
 #include "../../fast-file.h"
 
 #define STR_LEN_MAX 128
-#define TEST_STRING "Bring home the bacon."
+#define TEST_STRING "The quick brown fox"
+#define TEST_STRING2 "jumped over the lazy dog."
+#define TWO_LINE    TEST_STRING "\n" TEST_STRING2 "\n"
 
 int     main(int argc,char *argv[])
 
@@ -102,14 +104,31 @@ int     main(int argc,char *argv[])
     xt_ff_rewind(outfile);
     xt_ff_gets(outfile, string, STR_LEN_MAX + 1);
     // puts(string);
+    if ( strcmp(string, TEST_STRING) == 0 )
+	printf("Rewind passed. ");
+    else
+	return 1;
+    xt_ff_seeko(outfile, 6, SEEK_SET);
+    xt_ff_gets(outfile, string, STR_LEN_MAX + 1);
+    if ( strcmp(string, &TEST_STRING[6]) == 0 )
+	puts("Seek passed.");
+    else
+	return 1;
     xt_ff_close(outfile);
     unlink(template);
-    if ( strcmp(string, TEST_STRING) == 0 )
+    
+    // read/write
+    printf("Testing xt_ff_read/xt_ff_write...  ");
+    outfile = xt_ff_open("temp-write-output", O_RDWR|O_CREAT|O_TRUNC);
+    xt_ff_write(outfile, TWO_LINE, 1, strlen(TWO_LINE));
+    xt_ff_close(outfile);
+    infile = xt_ff_open("temp-write-output", O_RDONLY);
+    xt_ff_read(infile, string, 1, strlen(TWO_LINE));
+    xt_ff_close(infile);
+    if ( strcmp(string, TWO_LINE) == 0 )
 	puts("Passed.");
     else
 	return 1;
-    
-    // read/write
     
     // printf/scanf
     

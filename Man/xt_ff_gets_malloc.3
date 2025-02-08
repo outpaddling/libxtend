@@ -29,8 +29,8 @@ size_t *len)
 .na
 stream:     xt_ff_t stream from which field is read
 buff:       Character buffer into which field is copied
-buff_size:  Size of the array passed to buff
-len:        Pointer to a variable which will receive the field length
+buff_size:  Size of the array passed to buff (must be initialized!)
+len:        Pointer to a variable which will receive the string length
 .ad
 .fi
 
@@ -39,7 +39,12 @@ len:        Pointer to a variable which will receive the field length
 .B xt_ff_gets_malloc(3)
 reads a single line of text (up to the next newline or EOF)
 from stream, allocating and/or extending the provided buffer if
-needed.
+needed.  The argument buff_size must be initialized to the
+size of buff before being passed in.  This should be 0 if
+buff does not point to allocated memory.  It is updated to the
+new size if xt_ff_gets_malloc() allocates or extends buff.
+The len argument is set to the length of the string read into
+buff.  Len may be less than or equal to buff_size-1 upon return.
 
 .SH RETURN VALUES
 

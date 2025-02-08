@@ -197,7 +197,7 @@ int     xt_ff_putc(xt_ff_t *stream, int ch)
  *      xt_ff_open() - Open a fast file stream for a raw or compressed file
  *
  *  Library:
- *      #include <xtend/file.h>
+ *      #include <xtend/fast-file.h>
  *      -lxtend
  *
  *  Description:
@@ -968,7 +968,7 @@ int     _xt_ff_pclose(xt_ff_t *stream)
  *      xt_ff_close() - Close a stream created by xt_ff_open()
  *
  *  Library:
- *      #include <xtend/file.h>
+ *      #include <xtend/fast-file.h>
  *      -lxtend
  *
  *  Description:
@@ -1287,7 +1287,7 @@ int     xt_ff_gets_malloc(xt_ff_t *stream, char **buff, size_t *buff_size,
  *      xt_ff_tmpfile() - Create a fast file stream connected to a temporary file
  *
  *  Library:
- *      #include <xtend/file.h>
+ *      #include <xtend/fast-file.h>
  *      -lxtend
  *
  *  Description:
@@ -1335,7 +1335,7 @@ xt_ff_t *xt_ff_mkstemp(char template[])
  *      xt_ff_read() - Read a fixed number of bytes from a fast file stream
  *
  *  Library:
- *      #include <xtend/file.h>
+ *      #include <xtend/fast-file.h>
  *      -lxtend
  *
  *  Description:
@@ -1394,7 +1394,7 @@ size_t  xt_ff_read(xt_ff_t *stream, void * restrict ptr,
  *      xt_ff_write() - Write a fixed number of bytes to a fast file stream
  *
  *  Library:
- *      #include <xtend/file.h>
+ *      #include <xtend/fast-file.h>
  *      -lxtend
  *
  *  Description:
@@ -1451,7 +1451,7 @@ size_t  xt_ff_write(xt_ff_t *stream, void * ptr,
  *      xt_ff_seeko() - Reposition file descriptor under a fast file stream
  *
  *  Library:
- *      #include <xtend/file.h>
+ *      #include <xtend/fast-file.h>
  *      -lxtend
  *
  *  Description:

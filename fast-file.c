@@ -1575,7 +1575,7 @@ int     xt_ff_rewind(xt_ff_t *stream)
 int     xf_ff_scanf(xt_ff_t *stream, const char *format, ...)
 
 {
-    int         items = 0;
+    int         items;
     const char  *p;
     va_list     ap;
     
@@ -1585,7 +1585,7 @@ int     xf_ff_scanf(xt_ff_t *stream, const char *format, ...)
     {
 	if ( *p == '%' )
 	{
-	    switch(p[1])
+	    switch(*++p)
 	    {
 		case    '%':
 		    ++p;
@@ -1594,6 +1594,15 @@ int     xf_ff_scanf(xt_ff_t *stream, const char *format, ...)
 		case    'd':
 		    break;
 	    }
+	}
+	else if ( isspace(*p) )
+	{
+	    // Match any amount of whitespace
+	}
+	else if ( XT_FF_GETC(stream) != *p )
+	{
+	    // Match other characters exeactly
+	    return items;
 	}
     }
     

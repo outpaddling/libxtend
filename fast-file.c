@@ -1069,6 +1069,8 @@ int     xt_ff_printf(xt_ff_t *stream, const char *format, ...)
     for (c = 0; buff[c] != '\0'; ++c)
 	xt_ff_putc(stream, buff[c]);
     free(buff);
+    va_end(ap);
+    
     return chars_printed;
 }
 
@@ -1540,4 +1542,61 @@ int     xt_ff_rewind(xt_ff_t *stream)
 
 {
     return xt_ff_seeko(stream, 0, SEEK_SET);
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <xtend/fast-file.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      .B xt_ff_scanf(3)
+ *      is used to read numeric data from an xt_ff_t stream.
+ *  
+ *  Arguments:
+ *      stream  Pointer to an xt_ff_t stream
+ *      format  fscanf-style format string
+ *      other   Arguments to match specifiers in format
+ *
+ *  Returns:
+ *      The number of items successfully read
+ *
+ *  Examples:
+ *
+ *  See also:
+ *      xt_ff_printf(3), fscanf(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2025-02-08  Jason Bacon Begin
+ ***************************************************************************/
+
+int     xf_ff_scanf(xt_ff_t *stream, const char *format, ...)
+
+{
+    int         items = 0;
+    const char  *p;
+    va_list     ap;
+    
+    va_start(ap, format);
+    
+    for (items = 0, p = format; *p != '\0'; ++p)
+    {
+	if ( *p == '%' )
+	{
+	    switch(p[1])
+	    {
+		case    '%':
+		    ++p;
+		    break;
+		
+		case    'd':
+		    break;
+	    }
+	}
+    }
+    
+    va_end(ap);
+    return items;
 }

@@ -46,6 +46,7 @@ int xt_ff_flush(xt_ff_t *stream);
 int _xt_ff_pclose(xt_ff_t *stream);
 int xt_ff_close(xt_ff_t *stream);
 int xt_ff_printf(xt_ff_t *stream, const char *format, ...);
+int xt_ff_scanf(xt_ff_t *stream, const char *format, ...);
 int xt_ff_puts(xt_ff_t *stream, const char *string);
 char *xt_ff_gets(xt_ff_t *stream, char *string, size_t size);
 int xt_ff_gets_malloc(xt_ff_t *stream, char **buff, size_t *buff_size, size_t *len);

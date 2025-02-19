@@ -1596,7 +1596,7 @@ int     xf_ff_scanf(xt_ff_t *stream, const char *format, ...)
 		    break;
 	    }
 	}
-	else if ( isspace(*p) )
+	else if ( isspace((unsigned char)*p) )
 	{
 	    // Match any amount of whitespace
 	}

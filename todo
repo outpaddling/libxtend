@@ -11,5 +11,13 @@ xt_str_multi_cmp(string, "string1|string2|...");
 xt_strdup_delim(const char *string, const char *delim)
     Duplicate string up to any char in delim
 
+xt_strdup_padded(const char *string, size_t buffsize)
+    Duplicate string, allocating buffsize bytes
+    Truncate if buff too small
+    Good for strings that may be overwritten with a larger one later
+
+xt_strdup_realloc()
+    Extend buff size if needed
+
 Add portable byte swap functions
     This is a common source of platform-specific hacks

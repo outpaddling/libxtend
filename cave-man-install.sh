@@ -14,6 +14,8 @@
 # Default to ../local if LOCALBASE is not set
 : ${LOCALBASE:=../local}
 
+mkdir -p ${LOCALBASE}/lib
+
 # OS-dependent tricks
 # Set rpath to avoid picking up libs installed by package managers in
 # /usr/local/lib, etc.

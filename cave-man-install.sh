@@ -12,6 +12,7 @@
 ##########################################################################
 
 # Default to ../local if LOCALBASE is not set
+mkdir -p ../local/lib
 : ${LOCALBASE:=../local}
 
 mkdir -p ${LOCALBASE}/lib

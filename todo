@@ -1,4 +1,6 @@
 
+maxlen -> bufflen for all function args
+
 Unit-test all fast-file functions
     Then convert dsv to use fast-file
     Then convert all dependent projects

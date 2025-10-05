@@ -7,16 +7,19 @@ digits.o: digits.c math.h
 dprintf.o: dprintf.c
 	${CC} -c ${CFLAGS} dprintf.c
 
-dsv-accessors.o: dsv-accessors.c string.h dsv-private.h dsv.h dsv-rvs.h \
-  dsv-accessors.h dsv-mutators.h
+dsv-accessors.o: dsv-accessors.c string.h dsv-private.h dsv.h fast-file.h \
+  common.h fast-file-rvs.h fast-file-accessors.h fast-file-mutators.h \
+  dsv-rvs.h dsv-accessors.h dsv-mutators.h
 	${CC} -c ${CFLAGS} dsv-accessors.c
 
-dsv-mutators.o: dsv-mutators.c string.h dsv-private.h dsv.h dsv-rvs.h \
-  dsv-accessors.h dsv-mutators.h
+dsv-mutators.o: dsv-mutators.c string.h dsv-private.h dsv.h fast-file.h \
+  common.h fast-file-rvs.h fast-file-accessors.h fast-file-mutators.h \
+  dsv-rvs.h dsv-accessors.h dsv-mutators.h
 	${CC} -c ${CFLAGS} dsv-mutators.c
 
-dsv.o: dsv.c dsv-private.h dsv.h dsv-rvs.h dsv-accessors.h dsv-mutators.h \
-  mem.h file.h common.h
+dsv.o: dsv.c dsv-private.h dsv.h fast-file.h common.h fast-file-rvs.h \
+  fast-file-accessors.h fast-file-mutators.h dsv-rvs.h dsv-accessors.h \
+  dsv-mutators.h mem.h file.h
 	${CC} -c ${CFLAGS} dsv.c
 
 fast-cp.o: fast-cp.c file.h common.h math.h
@@ -38,6 +41,11 @@ fast-file.o: fast-file.c mem.h proc.h common.h fast-file-private.h \
 
 fd-purge.o: fd-purge.c file.h common.h
 	${CC} -c ${CFLAGS} fd-purge.c
+
+ff-dsv.o: ff-dsv.c ff-dsv-private.h ff-dsv.h fast-file.h common.h \
+  fast-file-rvs.h fast-file-accessors.h fast-file-mutators.h \
+  ff-dsv-rvs.h ff-dsv-accessors.h ff-dsv-mutators.h mem.h file.h
+	${CC} -c ${CFLAGS} ff-dsv.c
 
 fgetline.o: fgetline.c file.h common.h
 	${CC} -c ${CFLAGS} fgetline.c

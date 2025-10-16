@@ -29,9 +29,9 @@ xt_ff_t *_xt_ff_init_stream(xt_ff_t *stream)
     // Get optimal block size for the underlying filesystem
     if ( fstat(stream->fd, &st) != 0 )
     {
-	fprintf(stderr, "_xt_ff_init_stream(): Could not stat fd %d.\n", stream->fd);
-	free(stream);
-	return NULL;
+        fprintf(stderr, "_xt_ff_init_stream(): Could not stat fd %d.\n", stream->fd);
+        free(stream);
+        return NULL;
     }
     stream->disk_block_size = st.st_blksize;
     // fprintf(stderr, "%s(): Block size = %zd\n", __FUNCTION__, stream->disk_block_size);
@@ -39,9 +39,9 @@ xt_ff_t *_xt_ff_init_stream(xt_ff_t *stream)
     stream->buff_size = XT_FAST_FILE_UNGETC_MAX + stream->disk_block_size + 1;
     if ( (stream->buff = xt_malloc(1, stream->buff_size)) == NULL )
     {
-	fprintf(stderr, "%s(): Could not allocate buffer.\n", __FUNCTION__);
-	free(stream);
-	return NULL;
+        fprintf(stderr, "%s(): Could not allocate buffer.\n", __FUNCTION__);
+        free(stream);
+        return NULL;
     }
     stream->start_ptr = stream->buff + XT_FAST_FILE_UNGETC_MAX;
     stream->bytes_read = 0;
@@ -106,20 +106,20 @@ int     xt_ff_getc(xt_ff_t *stream)
     
     if ( stream->buff_index == stream->bytes_read )
     {
-	/*
-	 *  Move last part of buffer to xt_ff_ungetc(3) region.  Only the last
-	 *  block read should be < disk_block_size chars, and it will never
-	 *  be moved here.
-	 */
-	// FIXME: I think this is old and no longer needed
-	// No recollection of why it was added
-	// start_ptr = stream->start_ptr + stream->disk_block_size - XT_FAST_FILE_UNGETC_MAX;
-	// memcpy(stream->buff, start_ptr, XT_FAST_FILE_UNGETC_MAX);
-	
-	return _xt_ff_fillbuff(stream);
+        /*
+         *  Move last part of buffer to xt_ff_ungetc(3) region.  Only the last
+         *  block read should be < disk_block_size chars, and it will never
+         *  be moved here.
+         */
+        // FIXME: I think this is old and no longer needed
+        // No recollection of why it was added
+        // start_ptr = stream->start_ptr + stream->disk_block_size - XT_FAST_FILE_UNGETC_MAX;
+        // memcpy(stream->buff, start_ptr, XT_FAST_FILE_UNGETC_MAX);
+        
+        return _xt_ff_fillbuff(stream);
     }
     else
-	return stream->start_ptr[stream->buff_index++];
+        return stream->start_ptr[stream->buff_index++];
 }
 
 
@@ -184,9 +184,9 @@ int     xt_ff_putc(xt_ff_t *stream, int ch)
 {
     if ( stream->buff_index == stream->disk_block_size )
     {
-	if ( write(stream->fd, stream->start_ptr, stream->disk_block_size) != stream->disk_block_size )
-	    return EOF;
-	stream->buff_index = 0;
+        if ( write(stream->fd, stream->start_ptr, stream->disk_block_size) != stream->disk_block_size )
+            return EOF;
+        stream->buff_index = 0;
     }
     stream->start_ptr[stream->buff_index++] = ch;
     return ch;
@@ -232,58 +232,58 @@ xt_ff_t *xt_ff_open(const char *filename, int flags)
 
 {
     char    *ext = strrchr(filename, '.'),
-	    cmd[XT_CMD_MAX_CHARS + 1];
+            cmd[XT_CMD_MAX_CHARS + 1];
     
     if ( ext == NULL )
-	ext = "";
+        ext = "";
 
     //fprintf(stderr, "flags = %x\n", flags);
     if ( flags == O_RDONLY )    // O_RDONLY = 0x0, no bits set
     {
-	// fprintf(stderr, "Reading from %s...\n", filename);
-	if ( strcmp(ext, ".gz") == 0 )
-	{
+        // fprintf(stderr, "Reading from %s...\n", filename);
+        if ( strcmp(ext, ".gz") == 0 )
+        {
 // Big Sur zcat requires a .Z extension and CentOS 7 lacks gzcat
 #ifdef __APPLE__
-	    snprintf(cmd, XT_CMD_MAX_CHARS, "gzcat %s", filename);
+            snprintf(cmd, XT_CMD_MAX_CHARS, "gzcat %s", filename);
 #else
-	    snprintf(cmd, XT_CMD_MAX_CHARS, "zcat %s", filename);
+            snprintf(cmd, XT_CMD_MAX_CHARS, "zcat %s", filename);
 #endif
-	    return xt_ff_popen(cmd, flags);
-	}
-	else if ( strcmp(ext, ".bz2") == 0 )
-	{
-	    snprintf(cmd, XT_CMD_MAX_CHARS, "bzcat %s", filename);
-	    return xt_ff_popen(cmd, flags);
-	}
-	else if ( strcmp(ext, ".xz") == 0 )
-	{
-	    snprintf(cmd, XT_CMD_MAX_CHARS, "xzcat %s", filename);
-	    return xt_ff_popen(cmd, flags);
-	}
-	else
-	    return _xt_ff_raw_open(filename, flags);
+            return xt_ff_popen(cmd, flags);
+        }
+        else if ( strcmp(ext, ".bz2") == 0 )
+        {
+            snprintf(cmd, XT_CMD_MAX_CHARS, "bzcat %s", filename);
+            return xt_ff_popen(cmd, flags);
+        }
+        else if ( strcmp(ext, ".xz") == 0 )
+        {
+            snprintf(cmd, XT_CMD_MAX_CHARS, "xzcat %s", filename);
+            return xt_ff_popen(cmd, flags);
+        }
+        else
+            return _xt_ff_raw_open(filename, flags);
     }
     else    // O_WRONLY
     {
-	// fprintf(stderr, "Writing to %s...\n", filename);
-	if ( strcmp(ext, ".gz") == 0 )
-	{
-	    snprintf(cmd, XT_CMD_MAX_CHARS, "gzip -c > %s", filename);
-	    return xt_ff_popen(cmd, flags);
-	}
-	else if ( strcmp(ext, ".bz2") == 0 )
-	{
-	    snprintf(cmd, XT_CMD_MAX_CHARS, "bzip2 -c > %s", filename);
-	    return xt_ff_popen(cmd, flags);
-	}
-	else if ( strcmp(ext, ".xz") == 0 )
-	{
-	    snprintf(cmd, XT_CMD_MAX_CHARS, "xz -c > %s", filename);
-	    return xt_ff_popen(cmd, flags);
-	}
-	else
-	    return _xt_ff_raw_open(filename, flags);
+        // fprintf(stderr, "Writing to %s...\n", filename);
+        if ( strcmp(ext, ".gz") == 0 )
+        {
+            snprintf(cmd, XT_CMD_MAX_CHARS, "gzip -c > %s", filename);
+            return xt_ff_popen(cmd, flags);
+        }
+        else if ( strcmp(ext, ".bz2") == 0 )
+        {
+            snprintf(cmd, XT_CMD_MAX_CHARS, "bzip2 -c > %s", filename);
+            return xt_ff_popen(cmd, flags);
+        }
+        else if ( strcmp(ext, ".xz") == 0 )
+        {
+            snprintf(cmd, XT_CMD_MAX_CHARS, "xz -c > %s", filename);
+            return xt_ff_popen(cmd, flags);
+        }
+        else
+            return _xt_ff_raw_open(filename, flags);
     }
 }
 
@@ -348,17 +348,17 @@ xt_ff_t *_xt_ff_raw_open(const char *filename, int flags)
     xt_ff_t     *stream;
     
     if ( (stream = xt_malloc(1, sizeof(*stream))) == NULL )
-	return NULL;
+        return NULL;
 
     // FIXME: Add other open modes
     if ( flags & O_CREAT )
-	stream->fd = open(filename, flags, 0666);   // Masked by umask
+        stream->fd = open(filename, flags, 0666);   // Masked by umask
     else
-	stream->fd = open(filename, flags);
+        stream->fd = open(filename, flags);
     if ( stream->fd == -1 )
     {
-	free(stream);
-	return NULL;
+        free(stream);
+        return NULL;
     }
     stream->flags = flags;
 
@@ -421,7 +421,7 @@ xt_ff_t *xt_ff_dopen(int fd, int flags)
     xt_ff_t     *stream;
     
     if ( (stream = xt_malloc(1, sizeof(*stream))) == NULL )
-	return NULL;
+        return NULL;
     
     // FIXME: Can this happen before init?
     stream->fd = fd;
@@ -469,9 +469,9 @@ int     xt_ff_flush(xt_ff_t *stream)
 
 {
     if ( stream->flags & (O_WRONLY|O_RDWR|O_APPEND) )
-	return write(stream->fd, stream->start_ptr, stream->buff_index);
+        return write(stream->fd, stream->start_ptr, stream->buff_index);
     else
-	return -1;
+        return -1;
 }
 
 
@@ -541,11 +541,11 @@ int     _xt_ff_raw_close(xt_ff_t *stream)
     
     if ( stream->flags & (O_WRONLY|O_RDWR|O_APPEND) )
     {
-	//fprintf(stderr, "%s(): flushing output...\n", __FUNCTION__);
-	//stream->start_ptr[stream->buff_index] = '\0';
-	///fprintf(stderr, "buff = %s\n", (char *)stream->start_ptr);
-	if ( xt_ff_flush(stream) < 0 )
-	    return -1;  // FIXME: Define error constants
+        //fprintf(stderr, "%s(): flushing output...\n", __FUNCTION__);
+        //stream->start_ptr[stream->buff_index] = '\0';
+        ///fprintf(stderr, "buff = %s\n", (char *)stream->start_ptr);
+        if ( xt_ff_flush(stream) < 0 )
+            return -1;  // FIXME: Define error constants
     }
     status = close(stream->fd);
     free(stream->buff);
@@ -569,12 +569,12 @@ int  _xt_ff_fillbuff(xt_ff_t *stream)
 
 {
     if ( (stream->bytes_read = read(stream->fd, stream->start_ptr,
-				    stream->disk_block_size)) == 0 )
-	return EOF;
+                                    stream->disk_block_size)) == 0 )
+        return EOF;
     else
     {
-	stream->buff_index = 0;
-	return stream->start_ptr[stream->buff_index++];
+        stream->buff_index = 0;
+        return stream->start_ptr[stream->buff_index++];
     }
 }
 
@@ -636,11 +636,11 @@ int     xt_ff_ungetc(xt_ff_t *stream, int ch)
 {
     if ( stream->buff_index > -(XT_FAST_FILE_UNGETC_MAX + 1) )
     {
-	stream->start_ptr[--stream->buff_index] = ch;
-	return ch;
+        stream->start_ptr[--stream->buff_index] = ch;
+        return ch;
     }
     else
-	return EOF;
+        return EOF;
 }
 
 
@@ -820,72 +820,72 @@ xt_ff_t *xt_ff_popen(const char *cmd, int flags)
     
     if ( pipe(fd) == 0 )
     {
-	if ( (pid = fork()) == 0 )  // Child process
-	{
-	    // Use shell to process redirection, etc.
-	    argv[0] = "sh";
-	    argv[1] = "-c";
-	    argv[2] = (char *)cmd;
-	    argv[3] = NULL;
+        if ( (pid = fork()) == 0 )  // Child process
+        {
+            // Use shell to process redirection, etc.
+            argv[0] = "sh";
+            argv[1] = "-c";
+            argv[2] = (char *)cmd;
+            argv[3] = NULL;
 
-	    if ( flags == O_RDONLY )    // O_RDONLY = 0x0, not bits
-	    {
-		// Child runs command and writes standard output to pipe
-		// Readers won't get EOF until last descriptor is closed
-		// so don't leave this lying around
-		close(fd[0]);   // Not used by child
-		close(1);
-		if ( dup(fd[1]) != 1 )
-		{
-		    fprintf(stderr, "%s: dup() failed to return 1.\n",
-			    __FUNCTION__);
-		    return NULL;
-		}
-		execvp("/bin/sh", argv);
-		exit(EX_OSERR);    // Should not be reached
-	    }
-	    else
-	    {
-		// Child runs command and reads standard input from pipe
-		// Readers won't get EOF until last descriptor is closed
-		// so don't leave this lying around
-		close(fd[1]);   // Not used by child
-		close(0);
-		if ( dup(fd[0]) != 0 )
-		{
-		    fprintf(stderr, "%s: dup() failed to return 0.\n",
-			    __FUNCTION__);
-		    return NULL;
-		}
-		execvp("/bin/sh", argv);
-		exit(EX_OSERR);    // Should not be reached
-	    }
-	}
-	else
-	{
-	    if ( flags == O_RDONLY )    // O_RDONLY = 0x0, no bits
-	    {
-		// Parent reads from child via pipe
-		// Readers won't get EOF until last descriptor is closed
-		// so don't leave this lying around
-		close(fd[1]);   // Not used by parent
-		if ( (stream = xt_ff_dopen(fd[0], O_RDONLY)) == NULL )
-		    return NULL;
-	    }
-	    else
-	    {
-		// Parent writes to child via pipe
-		// Readers won't get EOF until last descriptor is closed
-		// so don't leave this lying around
-		close(fd[0]);   // Not used by parent
-		if ( (stream = xt_ff_dopen(fd[1], O_WRONLY)) == NULL )
-		    return NULL;
-	    }
+            if ( flags == O_RDONLY )    // O_RDONLY = 0x0, not bits
+            {
+                // Child runs command and writes standard output to pipe
+                // Readers won't get EOF until last descriptor is closed
+                // so don't leave this lying around
+                close(fd[0]);   // Not used by child
+                close(1);
+                if ( dup(fd[1]) != 1 )
+                {
+                    fprintf(stderr, "%s: dup() failed to return 1.\n",
+                            __FUNCTION__);
+                    return NULL;
+                }
+                execvp("/bin/sh", argv);
+                exit(EX_OSERR);    // Should not be reached
+            }
+            else
+            {
+                // Child runs command and reads standard input from pipe
+                // Readers won't get EOF until last descriptor is closed
+                // so don't leave this lying around
+                close(fd[1]);   // Not used by child
+                close(0);
+                if ( dup(fd[0]) != 0 )
+                {
+                    fprintf(stderr, "%s: dup() failed to return 0.\n",
+                            __FUNCTION__);
+                    return NULL;
+                }
+                execvp("/bin/sh", argv);
+                exit(EX_OSERR);    // Should not be reached
+            }
+        }
+        else
+        {
+            if ( flags == O_RDONLY )    // O_RDONLY = 0x0, no bits
+            {
+                // Parent reads from child via pipe
+                // Readers won't get EOF until last descriptor is closed
+                // so don't leave this lying around
+                close(fd[1]);   // Not used by parent
+                if ( (stream = xt_ff_dopen(fd[0], O_RDONLY)) == NULL )
+                    return NULL;
+            }
+            else
+            {
+                // Parent writes to child via pipe
+                // Readers won't get EOF until last descriptor is closed
+                // so don't leave this lying around
+                close(fd[0]);   // Not used by parent
+                if ( (stream = xt_ff_dopen(fd[1], O_WRONLY)) == NULL )
+                    return NULL;
+            }
     
-	    // Set pid in xt_ff_t stream for waitpid(2) in _xt_ff_pclose(3)
-	    stream->child_pid = pid;
-	    return stream;
-	}
+            // Set pid in xt_ff_t stream for waitpid(2) in _xt_ff_pclose(3)
+            stream->child_pid = pid;
+            return stream;
+        }
     }
     return stream;
 }
@@ -949,9 +949,9 @@ int     _xt_ff_pclose(xt_ff_t *stream)
     
     if ( pid == 0 )
     {
-	fprintf(stderr, "%s(): No child PID available.  Was the stream opened with xt_ff_popen()?\n",
-		__FUNCTION__);
-	return -1;
+        fprintf(stderr, "%s(): No child PID available.  Was the stream opened with xt_ff_popen()?\n",
+                __FUNCTION__);
+        return -1;
     }
     
     _xt_ff_raw_close(stream);
@@ -1005,9 +1005,9 @@ int     xt_ff_close(xt_ff_t *stream)
     
     fstat(stream->fd, &stat);
     if ( S_ISFIFO(stat.st_mode) )
-	return _xt_ff_pclose(stream);
+        return _xt_ff_pclose(stream);
     else
-	return _xt_ff_raw_close(stream);
+        return _xt_ff_raw_close(stream);
 }
 
 
@@ -1068,7 +1068,7 @@ int     xt_ff_printf(xt_ff_t *stream, const char *format, ...)
     va_start(ap, format);
     chars_printed = vasprintf(&buff, format, ap);
     for (c = 0; buff[c] != '\0'; ++c)
-	xt_ff_putc(stream, buff[c]);
+        xt_ff_putc(stream, buff[c]);
     free(buff);
     va_end(ap);
     
@@ -1125,7 +1125,7 @@ int     xt_ff_puts(xt_ff_t *stream, const char *string)
     int     status = 0;
     
     for (c = 0; (status >= 0) && (string[c] != '\0'); ++c)
-	status = xt_ff_putc(stream, string[c]);
+        status = xt_ff_putc(stream, string[c]);
     return status;
 }
 
@@ -1181,12 +1181,12 @@ char    *xt_ff_gets(xt_ff_t *stream, char *string, size_t size)
     
     c = 0;
     while ( ((ch = XT_FF_GETC(stream)) != '\n') && (ch != EOF) && (c < size - 1) )
-	string[c++] = ch;
+        string[c++] = ch;
     string[c] = '\0';
     if ( (c == 0) && (ch == EOF) )
-	return NULL;
+        return NULL;
     else
-	return string;
+        return string;
 }
 
 
@@ -1239,7 +1239,7 @@ char    *xt_ff_gets(xt_ff_t *stream, char *string, size_t size)
  ***************************************************************************/
 
 int     xt_ff_gets_malloc(xt_ff_t *stream, char **buff, size_t *buff_size,
-			   size_t *len)
+                           size_t *len)
 
 {
     size_t  c;
@@ -1247,28 +1247,28 @@ int     xt_ff_gets_malloc(xt_ff_t *stream, char **buff, size_t *buff_size,
     
     if ( *buff_size == 0 )
     {
-	*buff_size = 64;
-	*buff = xt_malloc(*buff_size, sizeof(**buff));
-	if ( *buff == NULL )
-	{
-	    *buff_size = *len = 0;
-	    return XT_MALLOC_FAILED;
-	}
+        *buff_size = 64;
+        *buff = xt_malloc(*buff_size, sizeof(**buff));
+        if ( *buff == NULL )
+        {
+            *buff_size = *len = 0;
+            return XT_MALLOC_FAILED;
+        }
     }
     
     for (c = 0; ( ((ch = XT_FF_GETC(stream)) != '\n') && (ch != EOF) ); ++c)
     {
-	if ( c == *buff_size - 1 )
-	{
-	    *buff_size *= 2;
-	    *buff = xt_realloc(*buff, *buff_size, sizeof(**buff));
-	    if ( *buff == NULL )
-	    {
-		*buff_size = *len = 0;
-		return XT_MALLOC_FAILED;
-	    }
-	}
-	(*buff)[c] = ch;
+        if ( c == *buff_size - 1 )
+        {
+            *buff_size *= 2;
+            *buff = xt_realloc(*buff, *buff_size, sizeof(**buff));
+            if ( *buff == NULL )
+            {
+                *buff_size = *len = 0;
+                return XT_MALLOC_FAILED;
+            }
+        }
+        (*buff)[c] = ch;
     }
     (*buff)[c] = '\0';
     *len = c;
@@ -1276,8 +1276,8 @@ int     xt_ff_gets_malloc(xt_ff_t *stream, char **buff, size_t *buff_size,
     /* Trim array */
     if ( *buff_size != c + 1 )
     {
-	*buff_size = c + 1;
-	*buff = xt_realloc(*buff, *buff_size, sizeof(**buff));
+        *buff_size = c + 1;
+        *buff = xt_realloc(*buff, *buff_size, sizeof(**buff));
     }
     return ch;
 }
@@ -1317,15 +1317,15 @@ int     xt_ff_gets_malloc(xt_ff_t *stream, char **buff, size_t *buff_size,
  *  2023-09-02  Jason Bacon Begin
  ***************************************************************************/
 
-xt_ff_t *xt_ff_mkstemp(char template[])
+xt_ff_t *xt_ff_mkstemp(char filename_template[])
 
 {
     // FIXME: See tmpfile() man page and replicate behavior
     int     fd,
-	    flags = O_RDWR|O_CREAT|O_TRUNC; // See mkstemp(3)
+            flags = O_RDWR|O_CREAT|O_TRUNC; // See mkstemp(3)
 
-    if ( (fd = mkstemp(template)) == -1 )
-	return NULL;
+    if ( (fd = mkstemp(filename_template)) == -1 )
+        return NULL;
     
     return xt_ff_dopen(fd, flags);
 }
@@ -1372,7 +1372,7 @@ xt_ff_t *xt_ff_mkstemp(char template[])
  ***************************************************************************/
 
 size_t  xt_ff_read(xt_ff_t *stream, void * restrict ptr,
-		   size_t size, size_t nmemb)
+                   size_t size, size_t nmemb)
 
 {
     // FIXME: This is a naive design chosen for simplicity
@@ -1383,8 +1383,8 @@ size_t  xt_ff_read(xt_ff_t *stream, void * restrict ptr,
     size_t  bytes_desired = size * nmemb, c;
     
     for (c = 0, ch_ptr = ptr;
-	 (c < bytes_desired) && ((ch = XT_FF_GETC(stream)) != EOF); ++c)
-	*ch_ptr++ = ch;
+         (c < bytes_desired) && ((ch = XT_FF_GETC(stream)) != EOF); ++c)
+        *ch_ptr++ = ch;
     
     return c / size;    // Return number of objects read
 }
@@ -1431,7 +1431,7 @@ size_t  xt_ff_read(xt_ff_t *stream, void * restrict ptr,
  ***************************************************************************/
 
 size_t  xt_ff_write(xt_ff_t *stream, void * ptr,
-		   size_t size, size_t nmemb)
+                   size_t size, size_t nmemb)
 
 {
     // FIXME: This is a naive design chosen for simplicity
@@ -1441,7 +1441,7 @@ size_t  xt_ff_write(xt_ff_t *stream, void * ptr,
     size_t  bytes_desired = size * nmemb, c;
     
     for (c = 0, ch_ptr = ptr; c < bytes_desired; ++c)
-	XT_FF_PUTC(stream, *ch_ptr++);
+        XT_FF_PUTC(stream, *ch_ptr++);
     
     return c / size;    // Return number of objects completely written
 }
@@ -1497,16 +1497,16 @@ int     xt_ff_seeko(xt_ff_t *stream, off_t offset, int whence)
     // if the seek is within buffered data.
     
     if ( stream->flags & (O_WRONLY|O_RDWR|O_APPEND) )
-	xt_ff_flush(stream);
+        xt_ff_flush(stream);
     
     if ( lseek(xt_ff_get_fd(stream), offset, whence) == offset )
     {
-	ch = _xt_ff_fillbuff(stream);
-	xt_ff_ungetc(stream, ch);
-	return 0;   // Success
+        ch = _xt_ff_fillbuff(stream);
+        xt_ff_ungetc(stream, ch);
+        return 0;   // Success
     }
     else
-	return -1;  // lseek() sets errno
+        return -1;  // lseek() sets errno
 }
 
 
@@ -1584,27 +1584,27 @@ int     xf_ff_scanf(xt_ff_t *stream, const char *format, ...)
     
     for (items = 0, p = format; *p != '\0'; ++p)
     {
-	if ( *p == '%' )
-	{
-	    switch(*++p)
-	    {
-		case    '%':
-		    ++p;
-		    break;
-		
-		case    'd':
-		    break;
-	    }
-	}
-	else if ( isspace((unsigned char)*p) )
-	{
-	    // Match any amount of whitespace
-	}
-	else if ( XT_FF_GETC(stream) != *p )
-	{
-	    // Match other characters exeactly
-	    return items;
-	}
+        if ( *p == '%' )
+        {
+            switch(*++p)
+            {
+                case    '%':
+                    ++p;
+                    break;
+                
+                case    'd':
+                    break;
+            }
+        }
+        else if ( isspace((unsigned char)*p) )
+        {
+            // Match any amount of whitespace
+        }
+        else if ( XT_FF_GETC(stream) != *p )
+        {
+            // Match other characters exeactly
+            return items;
+        }
     }
     
     va_end(ap);

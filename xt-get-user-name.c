@@ -18,16 +18,15 @@
  *  Description:
  *      xt_get_user_name() determines the user name of the process owner.
  *      The information is retrieved using a call to
- *      getpwuid(3), and copied to the argument "dir".
+ *      getpwuid(3), and copied to the argument "user_name".
  *   
- *      The name is stored in user_name up to maxlen characters.
- *      Note that up to maxlen characters are stored, not including the 
- *      null terminator, hence the buffer should be at least maxlen+1
- *      bytes long.
+ *      The name is stored in user_name up to buff_size characters.
+ *      Note that up to buff_size characters are stored, including the 
+ *      null terminator.
  *  
  *  Arguments:
  *      user_name:  Character buffer to receive home directory path
- *      maxlen:     Max characters to copy to dir, not including null byte
+ *      buff_size:  Max characters to copy to user_name, including null byte
  *
  *  Returns:
  *      A pointer to user_name, or NULL upon failure.
@@ -40,7 +39,7 @@
  *  2023-06-03  Jason Bacon Adapt from xt_get_user_name()
  ***************************************************************************/
 
-char   *xt_get_user_name(char *user_name, size_t maxlen)
+char   *xt_get_user_name(char *user_name, size_t buff_size)
 
 {
     uid_t           uid;
@@ -51,9 +50,9 @@ char   *xt_get_user_name(char *user_name, size_t maxlen)
 
     /* Get password file entry */
     if ((pwentry = getpwuid(uid)) == NULL)
-	return (NULL);
+        return (NULL);
  
-    strlcpy(user_name, pwentry->pw_name, maxlen);
+    strlcpy(user_name, pwentry->pw_name, buff_size);
     return user_name;
 }
 
@@ -69,16 +68,15 @@ char   *xt_get_user_name(char *user_name, size_t maxlen)
  *  Description:
  *      xt_get_primary_group_name() determines the primary group name of the process owner.
  *      The information is retrieved using a call to
- *      getpwuid(3), and copied to the argument "dir".
+ *      getpwuid(3), and copied to the argument "primary_group_name".
  *   
- *      The name is stored in primary_group_name up to maxlen characters.
- *      Note that up to maxlen characters are stored, not including the 
- *      null terminator, hence the buffer should be at least maxlen+1
- *      bytes long.
+ *      The name is stored in primary_group_name up to buff_size characters.
+ *      Note that up to buff_size characters are stored, including the 
+ *      null terminator.
  *  
  *  Arguments:
- *      primary_group_name:  Character buffer to receive home directory path
- *      maxlen:     Max characters to copy to dir, not including null byte
+ *      primary_group_name: Character buffer to receive home directory path
+ *      buff_size:          Max characters to copy to primary_group_name, including null byte
  *
  *  Returns:
  *      A pointer to primary_group_name, or NULL upon failure.
@@ -91,7 +89,7 @@ char   *xt_get_user_name(char *user_name, size_t maxlen)
  *  2023-06-03  Jason Bacon Adapt from xt_get_primary_group_name()
  ***************************************************************************/
 
-char   *xt_get_primary_group_name(char *primary_group_name, size_t maxlen)
+char   *xt_get_primary_group_name(char *primary_group_name, size_t buff_size)
 
 {
     gid_t           gid;
@@ -102,8 +100,8 @@ char   *xt_get_primary_group_name(char *primary_group_name, size_t maxlen)
 
     /* Get password file entry */
     if ((grentry = getgrgid(gid)) == NULL)
-	return (NULL);
+        return (NULL);
  
-    strlcpy(primary_group_name, grentry->gr_name, maxlen);
+    strlcpy(primary_group_name, grentry->gr_name, buff_size);
     return primary_group_name;
 }

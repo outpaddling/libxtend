@@ -12,7 +12,7 @@
  *      xt_resolve_hostname() - Convert hostname to IP address
  *
  *  Library:
- *      #include <xtend/string.h>
+ *      #include <xtend/net.h>
  *      -lxtend
  *
  *  Description:
@@ -57,10 +57,10 @@ int     xt_resolve_hostname(const char *hostname, char *ip, size_t ip_buff_len)
     
     if ( (ent = gethostbyname(hostname)) == NULL )
     {
-	herror("xt_resolve_hostname(): gethostbyname() failed");
-	fprintf(stderr, "hostname = %s\n", hostname);
-	fputs("Check /etc/hosts and /etc/resolv.conf.\n", stderr);
-	return XT_FAIL;
+        herror("xt_resolve_hostname(): gethostbyname() failed");
+        fprintf(stderr, "hostname = %s\n", hostname);
+        fputs("Check /etc/hosts and /etc/resolv.conf.\n", stderr);
+        return XT_FAIL;
     }
 
     // Just take first address

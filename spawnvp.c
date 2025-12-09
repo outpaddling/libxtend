@@ -62,7 +62,7 @@ typedef void (*sig_t)(int);
 #endif
 
 int     xt_spawnvp(int parent_action, int echo, char *argv[],
-		char *infile, char *outfile, char *errfile)
+                const char *infile, const char *outfile, const char *errfile)
 
 {
     int     stat = 0;
@@ -73,43 +73,43 @@ int     xt_spawnvp(int parent_action, int echo, char *argv[],
     
     switch(echo)
     {
-	case    P_ECHO:     /* Echo command */
-	    for (p = argv; *p != NULL; ++p)
-		printf("%s ",*p);
-	    putchar('\n');
-	    fflush(stdout);
-	case    P_NOECHO:
-	    break;
-	default:
-	    fprintf(stderr,
-		"xt_spawnvp(): Invalid echo flag: must be ECHO or NO_ECHO.\n");
-	    exit(1);
+        case    P_ECHO:     /* Echo command */
+            for (p = argv; *p != NULL; ++p)
+                printf("%s ",*p);
+            putchar('\n');
+            fflush(stdout);
+        case    P_NOECHO:
+            break;
+        default:
+            fprintf(stderr,
+                "xt_spawnvp(): Invalid echo flag: must be ECHO or NO_ECHO.\n");
+            exit(1);
     }
     
     /* If in child process, exec the new program */
     if ((pid = fork()) == 0)
     {
-	xt_redirect(infile,outfile,errfile);
-	signal(SIGINT,SIG_DFL); /* Allow child process to be interrupted */
-	execvp(argv[0], argv);
-	exit(errno|0x80);   /* Return errno - all I could think of */
+        xt_redirect(infile,outfile,errfile);
+        signal(SIGINT,SIG_DFL); /* Allow child process to be interrupted */
+        execvp(argv[0], argv);
+        exit(errno|0x80);   /* Return errno - all I could think of */
     }
     else    /* If parent, wait for child to croak */
     {
-	switch ( parent_action )
-	{   
-	    case    P_WAIT:
-		/* wait() may fail is SIGCHLD isn't SIG_DFL */
-		oldsig = signal(SIGCHLD,SIG_DFL);
-		waitpid(pid,&stat,0);
-		signal(SIGCHLD,oldsig);
-		return stat;
-	    case    P_NOWAIT:
-		return pid;
-	    default:
-		fprintf(stderr,"xt_spawnvp(): Invalid parent action.\n");
-		exit(1);
-	}
+        switch ( parent_action )
+        {   
+            case    P_WAIT:
+                /* wait() may fail is SIGCHLD isn't SIG_DFL */
+                oldsig = signal(SIGCHLD,SIG_DFL);
+                waitpid(pid,&stat,0);
+                signal(SIGCHLD,oldsig);
+                return stat;
+            case    P_NOWAIT:
+                return pid;
+            default:
+                fprintf(stderr,"xt_spawnvp(): Invalid parent action.\n");
+                exit(1);
+        }
     }
     /* Dummy return for some compilers (IRIX) that think the code
        can actually get here */
@@ -133,41 +133,41 @@ int     xt_spawnvp(int parent_action, int echo, char *argv[],
  ****************************************************************************/
  
 void    xt_redirect(
-    char    *infile,    /* If not NULL, stdin is redirected from this file */
-    char    *outfile,   /* If not NULL, stdout is redirected to this file */
-    char    *errfile    /* If not NULL, stderr is redirected to this file */
+    const char *infile,    /* If not NULL, stdin is redirected from this file */
+    const char *outfile,   /* If not NULL, stdout is redirected to this file */
+    const char *errfile    /* If not NULL, stderr is redirected to this file */
     )
 
 {
     if (infile != NULL)
     {
-	close(0);
-	if ( open(infile, O_RDONLY) == -1 )
-	    fprintf(stderr,"%s(): Cannot open infile %s: %s.\n",
-		    __FUNCTION__, infile, strerror(errno));
+        close(0);
+        if ( open(infile, O_RDONLY) == -1 )
+            fprintf(stderr,"%s(): Cannot open infile %s: %s.\n",
+                    __FUNCTION__, infile, strerror(errno));
     }
     if (outfile != NULL)
     {
-	close(1);
-	if ( open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0600) == -1 )
-	    fprintf(stderr,"%s(): Cannot open outfile %s: %s.\n",
-		    __FUNCTION__, outfile, strerror(errno));
+        close(1);
+        if ( open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0600) == -1 )
+            fprintf(stderr,"%s(): Cannot open outfile %s: %s.\n",
+                    __FUNCTION__, outfile, strerror(errno));
     }
     if (errfile != NULL)
     {
-	close(2);
-	if ( strcmp(errfile,outfile) == 0 )
-	{
-	    if ( dup(1) == -1 )
-		fprintf(stderr,"%s(): Cannot open errfile %s: %s.\n",
-			__FUNCTION__, errfile, strerror(errno));
-	}
-	else
-	{
-	    if ( open(errfile, O_WRONLY | O_CREAT | O_TRUNC, 0600) == -1 )
-		fprintf(stderr,"%s(): Cannot open errfile %s: %s.\n",
-			__FUNCTION__, errfile, strerror(errno));
-	}
+        close(2);
+        if ( strcmp(errfile,outfile) == 0 )
+        {
+            if ( dup(1) == -1 )
+                fprintf(stderr,"%s(): Cannot open errfile %s: %s.\n",
+                        __FUNCTION__, errfile, strerror(errno));
+        }
+        else
+        {
+            if ( open(errfile, O_WRONLY | O_CREAT | O_TRUNC, 0600) == -1 )
+                fprintf(stderr,"%s(): Cannot open errfile %s: %s.\n",
+                        __FUNCTION__, errfile, strerror(errno));
+        }
     }
 }
 

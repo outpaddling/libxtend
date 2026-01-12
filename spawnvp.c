@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <signal.h>
+#include <sysexits.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include "proc.h"
@@ -92,7 +93,10 @@ int     xt_spawnvp(int parent_action, int echo, char *argv[],
         xt_redirect(infile,outfile,errfile);
         signal(SIGINT,SIG_DFL); /* Allow child process to be interrupted */
         execvp(argv[0], argv);
-        exit(errno|0x80);   /* Return errno - all I could think of */
+        fprintf(stderr, "%s: %s: Cannot execute: %s\n", __FUNCTION__,
+                argv[0], strerror(errno));
+        exit(EX_UNAVAILABLE);   /* Return errno - all I could think of */
+        // exit(errno|0x80);   /* Return errno - all I could think of */
     }
     else    /* If parent, wait for child to croak */
     {

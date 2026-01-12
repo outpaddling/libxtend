@@ -66,7 +66,7 @@ int     xt_spawnvp(int parent_action, int echo, char *argv[],
                 const char *infile, const char *outfile, const char *errfile)
 
 {
-    int     stat = 0;
+    int     status = 0;
     pid_t   pid;
     char    **p;
     extern int  errno;
@@ -93,7 +93,7 @@ int     xt_spawnvp(int parent_action, int echo, char *argv[],
         xt_redirect(infile,outfile,errfile);
         signal(SIGINT,SIG_DFL); /* Allow child process to be interrupted */
         execvp(argv[0], argv);
-        fprintf(stderr, "%s: %s: Cannot execute: %s\n", __FUNCTION__,
+        fprintf(stderr, "%s(): %s: Cannot execute: %s\n", __FUNCTION__,
                 argv[0], strerror(errno));
         exit(EX_UNAVAILABLE);   /* Return errno - all I could think of */
         // exit(errno|0x80);   /* Return errno - all I could think of */
@@ -105,9 +105,9 @@ int     xt_spawnvp(int parent_action, int echo, char *argv[],
             case    P_WAIT:
                 /* wait() may fail is SIGCHLD isn't SIG_DFL */
                 oldsig = signal(SIGCHLD,SIG_DFL);
-                waitpid(pid,&stat,0);
+                waitpid(pid,&status,0);
                 signal(SIGCHLD,oldsig);
-                return stat;
+                return status;
             case    P_NOWAIT:
                 return pid;
             default:

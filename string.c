@@ -276,7 +276,7 @@ size_t  xt_str_argv_cat(char *string, char *argv[], size_t first_arg,
 
 /***************************************************************************
  *  Name:
- *      xt_strblank() - Return true is a string is empty or only whitespace
+ *      xt_strblank() - Return true if a string is empty or only whitespace
  *
  *  Library:
  *      #include <xtend/string.h>
@@ -291,7 +291,7 @@ size_t  xt_str_argv_cat(char *string, char *argv[], size_t first_arg,
  *      string: A null-terminated string
  *
  *  Returns:
- *      true is string contains only whitespace, or nothing
+ *      true if string contains only whitespace, or nothing
  *      false if any non-whitespace characters are present
  *
  *  See also:

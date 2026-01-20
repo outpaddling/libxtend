@@ -93,7 +93,7 @@ $PREFIX/include/libxtend/\*-mutators.h for a current list.
 | xt_spawnvp(3)  |  Fork and exec a new process from an argv |
 | xt_str2u64_hash(3)  |  Hash a string of up to 8 characters to a 64 |
 | xt_str_argv_cat(3)  |  Append argv |
-| xt_strblank(3)  |  Return true is a string is empty or only whitespace |
+| xt_strblank(3)  |  Return true if a string is empty or only whitespace |
 | xt_strisint(3)  |  Return true if string represents an integer value |
 | xt_strisreal(3)  |  Return true if string represents a valid real value |
 | xt_strcat(3)  |  Concatenate strings without risk of buffer overflow |

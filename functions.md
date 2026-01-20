@@ -14,7 +14,7 @@ $PREFIX/include/libxtend/\*-mutators.h for a current list.
 | _xt_ff_pclose(3)  |  Close a stream created by xt_ff_popen(3) |
 | _xt_ff_raw_close(3)  |  Close a stream created by _xt_ff_raw_open(3) |
 | _xt_ff_raw_open(3)  |  Open a fast file stream for a raw file |
-| xt_ff_gets_malloc(3)  |  Read a line from a fast file stream, |
+| xt_ff_gets_malloc(3)  |  Read a line from a fast file stream |
 | xt_csv_read_field(3)  |  Read next comma |
 | xt_csv_read_field_malloc(3)  |  Read next comma |
 | xt_csv_skip_field(3)  |  Read and discard next comma |
@@ -31,7 +31,7 @@ $PREFIX/include/libxtend/\*-mutators.h for a current list.
 | xt_dsv_line_read(3)  |  Read a line of generic tabular data |
 | xt_dsv_line_write(3)  |  Write a line of generic tabular data |
 | xt_dsv_read_field(3)  |  Read next field from tabular input |
-| xt_dsv_read_field_malloc(3)  |  Read next field from tabular input, |
+| xt_dsv_read_field_malloc(3)  |  Read next field from tabular input |
 | xt_dsv_skip_field(3)  |  Read and discard next field from tabular input |
 | xt_dsv_skip_rest_of_line(3)  |  Read and discard rest of input line |
 | xt_factorial(3)  |  Fast factorial function |
@@ -47,12 +47,12 @@ $PREFIX/include/libxtend/\*-mutators.h for a current list.
 | xt_ff_dsv_line_read(3)  |  Read a line of generic tabular data |
 | xt_ff_dsv_line_write(3)  |  Write a line of generic tabular data |
 | xt_ff_dsv_read_field(3)  |  Read next field from tabular input |
-| xt_ff_dsv_read_field_malloc(3)  |  Read next field from tabular input, |
+| xt_ff_dsv_read_field_malloc(3)  |  Read next field from tabular input |
 | xt_ff_dsv_skip_field(3)  |  Read and discard next field from tabular input |
 | xt_ff_dsv_skip_rest_of_line(3)  |  Read and discard rest of input line |
 | xt_ff_getc(3)  |  Read next character from a fast file stream |
 | xt_ff_gets(3)  |  Read a line from a fast file stream |
-| xt_ff_gets_malloc(3)  |  Read a line from a fast file stream, |
+| xt_ff_gets_malloc(3)  |  Read a line from a fast file stream |
 | xt_ff_tmpfile(3)  |  Create a fast file stream connected to a temporary file |
 | xt_ff_open(3)  |  Open a fast file stream for a raw or compressed file |
 | xt_ff_popen(3)  |  Create a fast file stream connected to a process |

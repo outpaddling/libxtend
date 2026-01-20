@@ -17,11 +17,12 @@ You may have heard people grumbling that C is too "low-level" to work with
 conveniently.  This perspective is not completely unjustified, but the reality is that
 it doesn't have to be this way.
 
-C was designed to be a minimal language, but not a low-level language.
-Dennis Ritchie and friends
+C was designed to be a minimalist high-level language with low-level language
+capabilities.  Dennis Ritchie and friends
 deliberately left out any feature that could be implemented reasonably well
 by a library function.  For example, unlike earlier languages such as
-Fortran and PL/I, C has no built-in input/output statements and no
+Fortran and PL/I, C has no built-in input/output statements (no built-in
+subprograms in general) and no
 syntactic support for character strings beyond string constants.  To
 compare strings, for example, we use a library function, which is itself
 written in C:
@@ -35,26 +36,34 @@ if ( string1 == string2 )
 The latter is regarded by C proponents as a purely cosmetic improvement, not
 worthy of the additional complexity required to support it in the C compiler.
 Note also that there is more than one way to interpret equality of
-strings (e.g. case sensitive or case insentitive), so we would either
-need another operator besides ==, or have to fall back on a function
-anyway.
+strings (e.g. case sensitive or case insensitive), so we would either
+need another operator besides ==, some sort of "mode" setting,
+or have to fall back on a function anyway.
 
 The idea was that the C language would provide only the essential features
 of a portable, high-level programming language,
 and community could extend it by developing a
 limitless set of library functions such as strcmp() to make C programming as
 easy as programming in more complex languages, albeit not quite as pretty.
+Adding features to a compiler makes it bigger and slower.  Changing a compiler
+is hard, but for the compiler developers and the users.  Changing a library
+function is orders of magnitude easier.  So math functions like sin() and
+cos(), and I/O functions like printf() are not built into the C compiler,
+unlike the equivalents in Fortran, and many other languages.
+There are a few exceptions, e.g. modern C compilers contain some syntax
+checks for library functions such as printf(), since their variable argument
+lists are hard to debug otherwise.
+
 Many excellent libraries exist for specific
 purposes such as generating hash values, mathematics computations, etc. 
 Unfortunately and inexplicably, until libxtend, the community hasn't really
-stepped up to extend the limited offerings of the general libraries libc and
-libm in a serious way.  I can't help but wonder how many times over the
+stepped up to extend the limited offerings of standard libraries like libc
+and libm in a serious way.  I can't help but wonder how many times over the
 decades someone has written their own version of
 [strtrim()](https://github.com/outpaddling/libxtend/blob/main/string.c).
 
 Libxtend aims to do just that, providing many of the functions people have
 often wished were part of the standard libraries.
-
 Better late than never.  Libxtend is here now, growing, fully documented, and
 free to use for any purpose.  If you have any ideas or better yet,
 functions to contribute, please let us know by opening an issue.

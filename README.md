@@ -157,7 +157,7 @@ cd /usr/ports/wip/libxtend && make install
 ### Installing via dreckly
 
 [Dreckly](https://github.com/drecklypkg/dreckly) is a cross-platform package manager that works on any Unix-like
-platform. It is derived from pkgsrc, which is part of [NetBSD](https://www.netbsd.org/),, and well-supported
+platform. It is derived from pkgsrc, which is part of [NetBSD](https://www.netbsd.org/), and well-supported
 on [Illumos](https://illumos.org/), [MacOS](https://www.apple.com/macos/),
 [RHEL](https://www.redhat.com)/[CentOS](https://www.centos.org/), and
 many other Linux distributions.

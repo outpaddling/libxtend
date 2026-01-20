@@ -111,7 +111,7 @@ $PREFIX/include/libxtend/\*-mutators.h for a current list.
 | xt_strtrim(3)  |  Trim junk from both ends of a string |
 | xt_strupper(3)  |  Covert all lower case characters to upper |
 | xt_strviscpy(3)  |  Copy a string, converting invisible characters |
-| xt_tic(3)  |  Record current high |
+| xt_tic(3)  |  Record current high-resolution clock time |
 | xt_toc(3)  |  Report time since last xt_tic(3) |
 | xt_tsv_read_field(3)  |  Read next tab |
 | xt_tsv_read_field_malloc(3)  |  Read next tab |

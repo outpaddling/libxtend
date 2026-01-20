@@ -23,7 +23,7 @@ $PREFIX/include/libxtend/\*-mutators.h for a current list.
 | xt_difftimeofday(3)  |  Compute difference between struct timeval values |
 | xt_digits(3)  |  Compute the number of xt_digits in an integer in any base |
 | xt_double_cmp(3)  |  Compare two doubles for qsort(3), bsearch(3), etc. |
-| xt_dprintf(3)  |  Print formatted output to a low |
+| xt_dprintf(3)  |  Print formatted output to a low-level file descriptor |
 | xt_dsv_line_copy(3)  |  Copy a generica tabular data object |
 | xt_dsv_line_free(3)  |  Destroy a generic tabular data object |
 | xt_dsv_line_init(3)  |  Initialize generic tabular data object |

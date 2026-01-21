@@ -50,7 +50,6 @@ $PREFIX/include/libxtend/\*-mutators.h for a current list.
 | xt_ff_dsv_read_field_malloc(3) | Read next field from tabular input, |
 | xt_ff_dsv_skip_field(3) | Read and discard next field from tabular input |
 | xt_ff_dsv_skip_rest_of_line(3) | Read and discard rest of input line |
-|  |  |
 | xt_ff_getc(3) | Read next character from a fast file stream |
 | xt_ff_gets(3) | Read a line from a fast file stream |
 | xt_ff_gets_malloc(3) | Read a line from a fast file stream, |
@@ -72,7 +71,6 @@ $PREFIX/include/libxtend/\*-mutators.h for a current list.
 | xt_file_mod_cmp(3) | Compare time stamps on two files |
 | xt_float_cmp(3) | Compare two floats for qsort(3), bsearch(3), etc. |
 | xt_fopen(3) | Open a raw or compressed file |
-|  |  |
 | xt_gcd(3) | Greatest common divisor |
 | xt_inhale_strings(3) | Read list of strings into array |
 | xt_int_cmp(3) | Compare two ints for qsort(3), bsearch(3), etc. |
@@ -80,17 +78,14 @@ $PREFIX/include/libxtend/\*-mutators.h for a current list.
 | xt_long_cmp(3) | Compare two longs for qsort(3), bsearch(3), etc. |
 | xt_long_long_cmp(3) | Compare two long longs for qsort(3), bsearch(3), etc. |
 | xt_ltostrn(3) | Convert a long to a string in any base from 2 to 36 |
-|  |  |
 | xt_mv(3) | Library function equivalent of xt_mv(1) |
 | xt_n_choose_k(3) | Compute binomial coefficient N choose K |
 | xt_parse_cmd(3) | Convert a command string to an argv-style array |
 | xt_read_line_malloc(3) | Read a line and allocate memory for it |
-|  |  |
 | xt_resolve_hostname(3) | Convert hostname to IP address |
 | xt_rmkdir(3) | Recursively create directories |
 | xt_romantoi(3) | Convert Roman numeral string to int |
 | xt_short_cmp(3) | Compare two shorts for qsort(3), bsearch(3), etc. |
-|  |  |
 | xt_spawnlp(3) | Fork and exec a process from a variable argument list |
 | xt_spawnvp(3) | Fork and exec a new process from an argv-style array |
 | xt_str2u64_hash(3) | Hash a string of up to 8 characters to a 64-bit integer |
@@ -98,14 +93,11 @@ $PREFIX/include/libxtend/\*-mutators.h for a current list.
 | xt_strblank(3) | Return true is a string is empty or only whitespace |
 | xt_strisint(3) | Return true if string represents an integer value |
 | xt_strisreal(3) | Return true if string represents a valid real value |
-|  |  |
 | xt_strcat(3) | Concatenate strings without risk of buffer overflow |
 | xt_strcpy(3) | Copy a string without risk of buffer overflow |
 | xt_strllower(3) | Copy string and convert upper case to lower |
 | xt_strlower(3) | Convert all upper case characters to lower |
-| xt_redirect(3) - Redirect stdin, stdout and stderr if corresponding argument isn't NULL
-xt_strlupper(3) | Redirect stdin, stdout and stderr if corresponding argument isn't NULL
-xt_strlupper(3) - Copy string and convert lower case to uppper |
+| xt_strlupper(3) | Copy string and convert lower case to uppper |
 | xt_strptrcasecmp(3) | Compare two strings through char ** pointers, case insensitive |
 | xt_strptrcmp(3) | Compare two strings through char ** pointers |
 | xt_strshellcpy(3) | Expand a string containing shell metacharacters |

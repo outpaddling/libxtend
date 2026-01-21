@@ -23,7 +23,7 @@ xt_spawnvp() - Fork and exec a new process from an argv-style array
 typedef void (*sig_t)(int);
 #endif
 int     xt_spawnvp(int parent_action, int echo, char *argv[],
-char *infile, char *outfile, char *errfile)
+const char *infile, const char *outfile, const char *errfile)
 .ad
 .fi
 

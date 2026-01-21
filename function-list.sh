@@ -87,12 +87,15 @@ EOM
 for file in Man/*; do
     if [ $file != Man/libxtend.3 ] && ! echo $file | grep -q "_[gs]et_"; then
 	name_line=$(auto-man2man $file)
-	printf "| ${name_line% - *} | ${name_line#* - } |\n" >> functions.md
+	if [ -n "$name_line" ]; then
+	    printf "| ${name_line% - *} | ${name_line#* - } |\n" >> functions.md
+	fi
     fi
 done
 
 # Debug
 if [ $check = yes ]; then
+    more functions.md
     grip --export functions.md
     firefox ./functions.html
 fi

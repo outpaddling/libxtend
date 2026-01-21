@@ -45,14 +45,19 @@ of a portable, high-level programming language,
 and community could extend it by developing a
 limitless set of library functions such as strcmp() to make C programming as
 easy as programming in more complex languages, albeit not quite as pretty.
-Adding features to a compiler makes it bigger and slower.  Changing a compiler
-is hard, but for the compiler developers and the users.  Changing a library
-function is orders of magnitude easier.  So math functions like sin() and
-cos(), and I/O functions like printf() are not built into the C compiler,
+Adding features to a compiler makes it bigger and slower.  Modifying a compiler
+is hard for both the compiler developers and the users.  Modifying a library
+function is orders of magnitude easier.  In C, math functions like sin() and
+cos(), and I/O functions like printf() are not built into, or even
+recognized by the compiler,
 unlike the equivalents in Fortran, and many other languages.
 There are a few exceptions, e.g. modern C compilers contain some syntax
-checks for library functions such as printf(), since their variable argument
-lists are hard to debug otherwise.
+checks for standard library functions such as printf(), since their variable
+argument lists are hard to debug otherwise.
+
+Note that many standard library functions *are* defined by the C standard,
+to ensure portability of most real code, not just the minimal syntax
+handled by the compiler.
 
 Many excellent libraries exist for specific
 purposes such as generating hash values, mathematics computations, etc. 

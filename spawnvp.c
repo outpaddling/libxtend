@@ -122,17 +122,32 @@ int     xt_spawnvp(int parent_action, int echo, char *argv[],
 
 
 /*************************************************************************
- * Name:
+ *  Name:
  *      xt_redirect() - Redirect stdin, stdout and stderr if corresponding argument isn't NULL
  *
- * Description: 
+ *  Library:
+ *      #include <xtend/proc.h>
+ *      -lxtend
+ *
+ *  Description: 
  *      This function redirects the stdin, stdout, and stderr of the current
  *      process to the files named by the corresponding arguments.  The original
  *      file streams are not preserved.  If you need to restore any of these
  *      streams to their original state, they must be saved (e.g. using dup(),
  *      dup2(), or ttyname()) prior to calling xt_redirect().
- * 
- * Author: 
+ *
+ *  Arguments:
+ *      infile:         File to which stdin of child is redirected or NULL
+ *      outfile:        File to which stdout of child is redirected or NULL
+ *      errfile:        File to which stderr of child is redirected or NULL
+ *
+ *  Returns:
+ *      void
+ *
+ *  See also:
+ *      xt_spawnlp(3), xt_spawnvp(3)
+ *
+ *  Author: 
  *      Jason W. Bacon
  ****************************************************************************/
  

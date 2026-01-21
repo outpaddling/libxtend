@@ -52,7 +52,7 @@ $PREFIX/include/libxtend/\*-mutators.h for a current list.
 | xt_ff_dsv_skip_rest_of_line(3) | Read and discard rest of input line |
 | xt_ff_getc(3) | Read next character from a fast file stream |
 | xt_ff_gets(3) | Read a line from a fast file stream |
-| xt_ff_gets_malloc(3) | Read a line from a fast file stream, |
+| xt_ff_gets_malloc(3) | Read a line from a fast file stream, allocating memory as needed |
 | xt_ff_tmpfile(3) | Create a fast file stream connected to a temporary file |
 | xt_ff_open(3) | Open a fast file stream for a raw or compressed file |
 | xt_ff_popen(3) | Create a fast file stream connected to a process |
@@ -82,6 +82,7 @@ $PREFIX/include/libxtend/\*-mutators.h for a current list.
 | xt_n_choose_k(3) | Compute binomial coefficient N choose K |
 | xt_parse_cmd(3) | Convert a command string to an argv-style array |
 | xt_read_line_malloc(3) | Read a line and allocate memory for it |
+| xt_redirect(3) | Redirect stdin, stdout and stderr if corresponding argument isn't NULL |
 | xt_resolve_hostname(3) | Convert hostname to IP address |
 | xt_rmkdir(3) | Recursively create directories |
 | xt_romantoi(3) | Convert Roman numeral string to int |
@@ -90,7 +91,7 @@ $PREFIX/include/libxtend/\*-mutators.h for a current list.
 | xt_spawnvp(3) | Fork and exec a new process from an argv-style array |
 | xt_str2u64_hash(3) | Hash a string of up to 8 characters to a 64-bit integer |
 | xt_str_argv_cat(3) | Append argv-style list to a string |
-| xt_strblank(3) | Return true is a string is empty or only whitespace |
+| xt_strblank(3) | Return true if a string is empty or only whitespace |
 | xt_strisint(3) | Return true if string represents an integer value |
 | xt_strisreal(3) | Return true if string represents a valid real value |
 | xt_strcat(3) | Concatenate strings without risk of buffer overflow |

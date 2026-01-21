@@ -54,10 +54,10 @@ size_t  xt_strlupper(char *dest, const char *src, size_t dest_size)
     size_t  c;
     
     for (c = 0; (src[c] != '\0') && (c < dest_size - 1); ++c)
-	dest[c] = toupper((int)src[c]);
+        dest[c] = toupper((int)src[c]);
     dest[c] = '\0';
     while ( src[c] != '\0' )
-	++c;
+        ++c;
     return c;
 }
 
@@ -107,7 +107,7 @@ size_t  xt_strupper(char *str)
     size_t  c;
     
     for (c = 0; str[c] != '\0'; ++c)
-	str[c] = toupper((int)str[c]);
+        str[c] = toupper((int)str[c]);
     return c;
 }
 
@@ -158,10 +158,10 @@ size_t  xt_strllower(char *dest, const char *src, size_t dest_size)
     size_t  c;
     
     for (c = 0; (src[c] != '\0') && (c < dest_size - 1); ++c)
-	dest[c] = tolower((int)src[c]);
+        dest[c] = tolower((int)src[c]);
     dest[c] = '\0';
     while ( src[c] != '\0' )
-	++c;
+        ++c;
     return c;
 }
 
@@ -211,7 +211,7 @@ size_t  xt_strlower(char *str)
     size_t  c;
     
     for (c = 0; str[c] != '\0'; ++c)
-	str[c] = tolower((int)str[c]);
+        str[c] = tolower((int)str[c]);
     return c;
 }
 
@@ -257,18 +257,18 @@ size_t  xt_strlower(char *str)
  ***************************************************************************/
 
 size_t  xt_str_argv_cat(char *string, char *argv[], size_t first_arg,
-		     size_t string_buff_size)
+                     size_t string_buff_size)
 
 {
     size_t  c,
-	    len;
+            len;
     
     len = strlen(string);
     for (c = first_arg; argv[c] != NULL; ++c)
     {
-	len += strlen(argv[c]);
-	strlcat(string, argv[c], string_buff_size);
-	strlcat(string, " ", string_buff_size);
+        len += strlen(argv[c]);
+        strlcat(string, argv[c], string_buff_size);
+        strlcat(string, " ", string_buff_size);
     }
     return len;
 }
@@ -276,7 +276,7 @@ size_t  xt_str_argv_cat(char *string, char *argv[], size_t first_arg,
 
 /***************************************************************************
  *  Name:
- *      xt_strblank() - Return true is a string is empty or only whitespace
+ *      xt_strblank() - Return true if a string is empty or only whitespace
  *
  *  Library:
  *      #include <xtend/string.h>
@@ -291,7 +291,7 @@ size_t  xt_str_argv_cat(char *string, char *argv[], size_t first_arg,
  *      string: A null-terminated string
  *
  *  Returns:
- *      true is string contains only whitespace, or nothing
+ *      true if string contains only whitespace, or nothing
  *      false if any non-whitespace characters are present
  *
  *  See also:
@@ -307,9 +307,9 @@ int     xt_strblank(const char *string)
 {
     while ( *string != '\0' )
     {
-	if ( !isspace((size_t)(*string)) )   /* Not blank? */
-	    return 0;
-	++string;
+        if ( !isspace((size_t)(*string)) )   /* Not blank? */
+            return 0;
+        ++string;
     }
     return 1;
 }
@@ -422,7 +422,7 @@ int     xt_strisreal(const char *string)
  ***************************************************************************/
 
 char   *xt_strlbasecpy(char *dest, const char *dest_base, const char *src,
-		    size_t dstsize)
+                    size_t dstsize)
 
 {
     char        *save_dest;
@@ -432,7 +432,7 @@ char   *xt_strlbasecpy(char *dest, const char *dest_base, const char *src,
     dstsize -= dest-dest_base;
     end = src + dstsize;
     while ((*src != '\0') && (src < end - 1))
-	*dest++ = *src++;
+        *dest++ = *src++;
     *dest = '\0';
     return (save_dest);
 }
@@ -552,43 +552,43 @@ int     xt_strshellcpy(char *dest, const char *src, size_t dest_len)
     
     while ( dest_len && (*src != '\0') )
     {
-	switch(*src)
-	{
-	    case    '~':
-		++src;
-		if ( *src == '/' )  /* Process owner's home dir */
-		{
-		    xt_get_home_dir(home,PATH_MAX);
-		    for (p=home; dest_len-- && (*p != '\0'); )
-			*dest++ = *p++;
-		}
-		else
-		{
-		    /* Get somebody else's home dir */
-		}
-		break;
-	    case    '$':
-		++src;
-		/* Get ENV variable name */
-		for (p=var, c=0; (c<PATH_MAX) && ISIDENT((size_t)(*src)); ++c)
-		    *p++ = *src++;
-		*p = '\0';
-		
-		/* Get value and copy to dest command */
-		if ( (val = getenv(var)) != NULL )
-		    while ( dest_len-- && (*val != '\0') )
-			*dest++ = *val++;
-		break;
-	    default:
-		*dest++ = *src++;
-		--dest_len;
-	}
+        switch(*src)
+        {
+            case    '~':
+                ++src;
+                if ( *src == '/' )  /* Process owner's home dir */
+                {
+                    xt_get_home_dir(home,PATH_MAX);
+                    for (p=home; dest_len-- && (*p != '\0'); )
+                        *dest++ = *p++;
+                }
+                else
+                {
+                    /* Get somebody else's home dir */
+                }
+                break;
+            case    '$':
+                ++src;
+                /* Get ENV variable name */
+                for (p=var, c=0; (c<PATH_MAX) && ISIDENT((size_t)(*src)); ++c)
+                    *p++ = *src++;
+                *p = '\0';
+                
+                /* Get value and copy to dest command */
+                if ( (val = getenv(var)) != NULL )
+                    while ( dest_len-- && (*val != '\0') )
+                        *dest++ = *val++;
+                break;
+            default:
+                *dest++ = *src++;
+                --dest_len;
+        }
     }
     *dest = '\0';
     if ( (dest_len == 0) && (*src != '\0') )
-	return -1;
+        return -1;
     else
-	return 0;
+        return 0;
 }
 
 
@@ -632,18 +632,18 @@ size_t  xt_strsqueeze(char *dest, const char *src, size_t dstsize)
 
 {
     size_t  len = strlen(src),
-	    left_len,
-	    right_len;
+            left_len,
+            right_len;
     
     if ( len <= dstsize )
-	strlcpy(dest, src, dstsize);
+        strlcpy(dest, src, dstsize);
     else
     {
-	left_len = (dstsize - 3) / 2;
-	right_len = dstsize - left_len - 3;
-	memcpy(dest, src, left_len);
-	strlcat(dest, "...", dstsize);
-	strlcat(dest, src + len - right_len + 1, dstsize);
+        left_len = (dstsize - 3) / 2;
+        right_len = dstsize - left_len - 3;
+        memcpy(dest, src, left_len);
+        strlcat(dest, "...", dstsize);
+        strlcat(dest, src + len - right_len + 1, dstsize);
     }
     return len;
 }
@@ -686,17 +686,17 @@ void    xt_strtr(char *string, const char *from, const char *to, int flags)
 
 {
     char    *p,
-	    *i;
+            *i;
     
     for (p = string; *p != '\0'; ++p)
     {
-	i = strchr(from, *p);
-	if ( i != NULL )
-	{
-	    //fprintf(stderr, "Replacing %c with %c\n", *p, to[i - from]);
-	    //fflush(stderr);
-	    *p = to[i - from];
-	}
+        i = strchr(from, *p);
+        if ( i != NULL )
+        {
+            //fprintf(stderr, "Replacing %c with %c\n", *p, to[i - from]);
+            //fflush(stderr);
+            *p = to[i - from];
+        }
     }
 }
 
@@ -739,14 +739,14 @@ void    xt_strtrim(char *string, const char *fat)
     char    *start, *end;
     
     for (start = string; (*start != '\0') && strchr(fat, *start); ++start)
-	;
+        ;
     for (end = start; *end != '\0'; ++end)
-	;
+        ;
     while ( (end >= string) && strchr(fat, *end) )
-	--end;
+        --end;
     end[1] = '\0';
     if ( (start > string) && (end > start) )
-	memmove(string, start, end - start + 2);
+        memmove(string, start, end - start + 2);
 }
 
 
@@ -779,31 +779,31 @@ void    xt_strtrim(char *string, const char *fat)
  ***************************************************************************/
 
 char    *xt_strviscpy(unsigned char *dest, const unsigned char *src,
-		size_t maxlen)
+                size_t maxlen)
 
 {
     char    *d = (char *)dest;
 
     if ( (src == NULL) || (dest == NULL) )
-	return NULL;
+        return NULL;
     
     while ( (*src != '\0') && (maxlen > 0) )
     {
-	if ( (((unsigned char)*src < 128) && isprint(*src)) || (*src == '\n') )
-	{
-	    *d++ = *src++;
-	    --maxlen;
-	}
-	else
-	{
-	    if ( maxlen > 4 )
-	    {
-		snprintf(d,maxlen,"\\%03o",(unsigned char)*src);
-		++src;
-		d+=4;
-		maxlen-=4;
-	    }
-	}
+        if ( (((unsigned char)*src < 128) && isprint(*src)) || (*src == '\n') )
+        {
+            *d++ = *src++;
+            --maxlen;
+        }
+        else
+        {
+            if ( maxlen > 4 )
+            {
+                snprintf(d,maxlen,"\\%03o",(unsigned char)*src);
+                ++src;
+                d+=4;
+                maxlen-=4;
+            }
+        }
     }
     *d = '\0';
     return (char *)dest;
@@ -849,33 +849,33 @@ char    *xt_ltostrn(char string[], long val, unsigned base, size_t maxlen)
     int     digit;
     
     if ( base > 36 )
-	return NULL;
+        return NULL;
     
     /* Tack on - sign if negative */
     if ( val < 0 )
     {
-	*s++ = '-';
-	val = -val;
+        *s++ = '-';
+        val = -val;
     }
     
     /* Convert val to ascii xt_digits (in reverse order) */
     for (p=temp; (val > 0) && (maxlen > 0); val /= base, --maxlen)
     {
-	digit = val % base;
-	if ( digit < 10 )
-	    *p++ = digit+'0';
-	else
-	    *p++ = digit-10+'a';
+        digit = val % base;
+        if ( digit < 10 )
+            *p++ = digit+'0';
+        else
+            *p++ = digit-10+'a';
     }
     
     /* Reverse xt_digits */
     while ( p > temp )
-	*s++ = *(--p);
+        *s++ = *(--p);
     *s = '\0';
     if ( val > 0 )
-	return NULL;
+        return NULL;
     else
-	return string;
+        return string;
 }
 
 
@@ -939,7 +939,7 @@ uint64_t    xt_str2u64_hash(const char *str)
     uint64_t    v = 0;
     
     for (c = 0, p = (char *)&v; (c < sizeof(v)) && (str[c] != '\0'); ++c, ++p)
-	*p = str[c];
+        *p = str[c];
     return v;
 }
 
@@ -1005,25 +1005,25 @@ int     xt_strsplit(char *string, char ***array, const char *sep)
 
 {
     size_t  c,
-	    array_size = 64;
+            array_size = 64;
 
     if ((*array = xt_malloc(array_size, sizeof(*array))) == NULL )
     {
-	fprintf(stderr, "xt_strsplit(): malloc() failed.\n");
-	return 0;
+        fprintf(stderr, "xt_strsplit(): malloc() failed.\n");
+        return 0;
     }
     
     for (c = 0; ((*array)[c] = strsep(&string, sep)) != NULL; )
     {
-	if ( ++c == array_size )
-	{
-	    *array = xt_realloc(*array, array_size *= 2, sizeof(*array));
-	    if ( *array == NULL )
-	    {
-		fprintf(stderr, "xt_strsplit(): malloc() failed.\n");
-		return 0;
-	    }
-	}
+        if ( ++c == array_size )
+        {
+            *array = xt_realloc(*array, array_size *= 2, sizeof(*array));
+            if ( *array == NULL )
+            {
+                fprintf(stderr, "xt_strsplit(): malloc() failed.\n");
+                return 0;
+            }
+        }
     }
     
     // Trim

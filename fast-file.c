@@ -1194,8 +1194,7 @@ char    *xt_ff_gets(xt_ff_t *stream, char *string, size_t size)
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Name:
- *      xt_ff_gets_malloc() - Read a line from a fast file stream,
- *                                 allocating memory as needed
+ *      xt_ff_gets_malloc() - Read a line from a fast file stream, allocating memory as needed
  *
  *  Library:
  *      #include <xtend/fast-file.h>
@@ -1364,7 +1363,7 @@ xt_ff_t *xt_ff_mkstemp(char filename_template[])
  *      xt_ff_read(stream, list, sizeof(my_type_t), NUM_OBJECTS);
  *
  *  See also:
- *      xf_ff_write(3), xt_ff_open(3), read(2)
+ *      xt_ff_write(3), xt_ff_open(3), read(2)
  *
  *  History: 
  *  Date        Name        Modification
@@ -1573,7 +1572,7 @@ int     xt_ff_rewind(xt_ff_t *stream)
  *  2025-02-08  Jason Bacon Begin
  ***************************************************************************/
 
-int     xf_ff_scanf(xt_ff_t *stream, const char *format, ...)
+int     xt_ff_scanf(xt_ff_t *stream, const char *format, ...)
 
 {
     int         items;

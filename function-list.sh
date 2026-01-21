@@ -1,5 +1,28 @@
 #!/bin/sh -e
 
+##########################################################################
+#   Description:
+#       
+##########################################################################
+
+usage()
+{
+    printf "Usage: $0 [--check]\n"
+    exit 64     # sysexits(3) EX_USAGE
+}
+
+
+##########################################################################
+#   Main
+##########################################################################
+
+check=no
+if [ $# == 1 ] && [ $1 == --check ]; then
+    check=yes
+elif [ $# != 0 ]; then
+    usage
+fi
+
 cat << EOM > functions.md
 # Libxtend function list
 
@@ -61,9 +84,15 @@ EOM
 # man Man/libxtend.3
 
 # For github
-auto-man2man Man/* | awk -F - '$1 !~ "libxtend" { printf("| %s | %s |\n", $1, $2); }' \
-    >> functions.md
+for file in Man/*; do
+    if [ $file != Man/libxtend.3 ] && ! echo $file | grep -q "_[gs]et_"; then
+	name_line=$(auto-man2man $file)
+	printf "| ${name_line% - *} | ${name_line#* - } |\n" >> functions.md
+    fi
+done
 
 # Debug
-# grip --export functions.md
-# firefox ./functions.html
+if [ $check = yes ]; then
+    grip --export functions.md
+    firefox ./functions.html
+fi

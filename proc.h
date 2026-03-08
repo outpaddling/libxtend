@@ -42,10 +42,10 @@ char *xt_get_primary_group_name(char *primary_group_name, size_t maxlen);
 char *xt_parse_cmd(char *argv[], int max_args, const char *cmd);
 
 /* spawnlp.c */
-int xt_spawnlp(int parent_action, int echo, const char *infile, const char *outfile, const char *errfile, char *arg0, ...);
+int xt_spawnlp(int parent_action, int echo, const char *infile, const char *outfile, const char *errfile, const char *arg0, ...);
 
 /* spawnvp.c */
-int xt_spawnvp(int parent_action, int echo, char *argv[], const char *infile, const char *outfile, const char *errfile);
+int xt_spawnvp(int parent_action, int echo, const char *argv[], const char *infile, const char *outfile, const char *errfile);
 void xt_redirect(const char *infile, const char *outfile, const char *errfile);
 
 /* va-usage.c */

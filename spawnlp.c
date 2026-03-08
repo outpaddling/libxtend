@@ -54,15 +54,15 @@
  ***************************************************************************/
 
 int     xt_spawnlp(int parent_action, int echo,
-                const char *infile, const char *outfile, const char *errfile,
-                char *arg0, ...)
+                   const char *infile, const char *outfile, const char *errfile,
+                   const char *arg0, ...)
 
 {
     va_list list;
-    char    *argv[100];
+    const char *argv[100];
     int     c;
     
-    va_start(list,arg0);
+    va_start(list, arg0);
     argv[0] = arg0;
     for (c=1; (argv[c] = (char *)va_arg(list,char *)) != NULL; ++c)
         ;

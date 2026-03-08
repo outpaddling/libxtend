@@ -62,15 +62,15 @@
 typedef void (*sig_t)(int);
 #endif
 
-int     xt_spawnvp(int parent_action, int echo, char *argv[],
+int     xt_spawnvp(int parent_action, int echo, const char *argv[],
                 const char *infile, const char *outfile, const char *errfile)
 
 {
-    int     status = 0;
-    pid_t   pid;
-    char    **p;
+    int         status = 0;
+    pid_t       pid;
+    const char  **p;
     extern int  errno;
-    sig_t   oldsig;
+    sig_t       oldsig;
     
     switch(echo)
     {
@@ -92,7 +92,10 @@ int     xt_spawnvp(int parent_action, int echo, char *argv[],
     {
         xt_redirect(infile,outfile,errfile);
         signal(SIGINT,SIG_DFL); /* Allow child process to be interrupted */
-        execvp(argv[0], argv);
+        // FIXME: Silencing warning due to execvp interface
+        // char * const argv[]
+        // Does execvp really need lvalues?
+        execvp(argv[0], (char **)argv);
         fprintf(stderr, "%s(): %s: Cannot execute: %s\n", __FUNCTION__,
                 argv[0], strerror(errno));
         exit(EX_UNAVAILABLE);   /* Return errno - all I could think of */

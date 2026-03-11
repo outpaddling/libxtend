@@ -21,6 +21,10 @@ extern "C" {
 #define P_EXIT_CODE(s)      (((s) & 0x0000ff00) >> 8)
 #define P_EXEC_FAILED(s)    ((s) & 0x8000)
 
+#ifndef _SYS_TYPES_H_
+#include <sys/types.h>
+#endif
+
 #ifndef _XTEND_COMMON_H_
 #include "common.h"
 #endif

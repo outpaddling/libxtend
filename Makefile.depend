@@ -53,6 +53,9 @@ fgetline.o: fgetline.c file.h common.h
 file-mod-cmp.o: file-mod-cmp.c file.h common.h
 	${CC} -c ${CFLAGS} file-mod-cmp.c
 
+file2str.o: file2str.c common.h
+	${CC} -c ${CFLAGS} file2str.c
+
 gcd.o: gcd.c math.h
 	${CC} -c ${CFLAGS} gcd.c
 
@@ -83,6 +86,9 @@ spawnlp.o: spawnlp.c proc.h common.h
 spawnvp.o: spawnvp.c proc.h common.h
 	${CC} -c ${CFLAGS} spawnvp.c
 
+str2file.o: str2file.c common.h
+	${CC} -c ${CFLAGS} str2file.c
+
 string.o: string.c string.h proc.h common.h ctype.h mem.h
 	${CC} -c ${CFLAGS} string.c
 
@@ -94,6 +100,9 @@ strlcpy.o: strlcpy.c string.h
 
 time.o: time.c time.h
 	${CC} -c ${CFLAGS} time.c
+
+touch.o: touch.c
+	${CC} -c ${CFLAGS} touch.c
 
 va-usage.o: va-usage.c proc.h common.h
 	${CC} -c ${CFLAGS} va-usage.c

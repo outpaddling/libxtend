@@ -18,7 +18,7 @@ sed -e 's|xt_ff_getc|XT_FF_GETC|g' \
 cc $CFLAGS -o ffile-macros -flto ffile-macros.c -L.. -lxtend
 
 # FILE run time
-time ./file testfile-FILE
+time ./ffile testfile-FILE
 
 # xt_ffile_t functions
 time ./ffile testfile-functions

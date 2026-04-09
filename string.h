@@ -39,6 +39,8 @@ char *xt_strviscpy(unsigned char *dest, const unsigned char *src, size_t maxlen)
 char *xt_ltostrn(char string[], long val, unsigned base, size_t maxlen);
 uint64_t xt_str2u64(const char *str);
 int xt_strsplit(char *string, char ***array, const char *sep);
+int xt_str2file(const char *str, const char *filename);
+char *xt_file2str(const char *filename);
 
 /* strlcpy.c */
 size_t  xt_strlcpy(char * restrict dest, const char * restrict src,

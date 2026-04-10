@@ -74,7 +74,8 @@ char    *xt_file2str(const char *filename)
         close(fd);
         return NULL;
     }
-    
+
+    str[st.st_size] = '\0';
     close(fd);
     
     return str;

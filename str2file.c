@@ -16,6 +16,7 @@
  *  Arguments:
  *      str         char array containing the text to dump
  *      filename    Pathname of the file to receive the text
+ *      mode        Permissions, etc. e.g. 0644
  *
  *  Returns:
  *      XT_OK on success, XT_FAIL on failure.
@@ -39,12 +40,12 @@
 #include <string.h>
 #include "common.h"
 
-int     xt_str2file(const char *str, const char *filename)
+int     xt_str2file(const char *str, const char *filename, unsigned mode)
 
 {
     int     fd;
     
-    if ( (fd = open(filename, O_WRONLY|O_CREAT|O_TRUNC, 0644)) == -1 )
+    if ( (fd = open(filename, O_WRONLY|O_CREAT|O_TRUNC, mode)) == -1 )
         return XT_FAIL;
     
     if ( write(fd, str, strlen(str)) == -1 )

@@ -18,7 +18,11 @@ xt_str2file() - Dump a string to a file
 .SH SYNOPSIS
 .nf
 .na
-int     xt_str2file(const char *str, const char *filename)
+#include <fcntl.h>
+#include <unistd.h>
+#include <string.h>
+#include "common.h"
+int     xt_str2file(const char *str, const char *filename, unsigned mode)
 .ad
 .fi
 
@@ -27,6 +31,7 @@ int     xt_str2file(const char *str, const char *filename)
 .na
 str         char array containing the text to dump
 filename    Pathname of the file to receive the text
+mode        Permissions, etc. e.g. 0644
 .ad
 .fi
 

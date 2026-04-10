@@ -93,17 +93,18 @@ int     main(int argc,char *argv[])
         puts(field);
     fclose(fp);
     
-    char *correct_string = "Hello, world!";
+    char *correct_string = "Hello, world!",
+         *test_file = "/tmp/NEXUS/web-cred-token.txt";
     
     puts("\nxt_str2file()...");
-    if ( xt_str2file(correct_string, "hello.txt") != XT_OK )
+    if ( xt_str2file(correct_string, test_file, 0644) != XT_OK )
         fputs("xt_str2file failed.\n", stderr);
     else
         fputs("OK.\n\n", stderr);
     
     puts("\nxt_file2str()...");
     char *str;
-    if ( (str = xt_file2str("hello.txt")) == NULL )
+    if ( (str = xt_file2str(test_file)) == NULL )
         fputs("xt_file2str() failed to read file.\n", stderr);
     else if ( strcmp(str, correct_string) != 0 )
         fprintf(stderr, "xt_file2str(): %s != %s.\n", str, correct_string);

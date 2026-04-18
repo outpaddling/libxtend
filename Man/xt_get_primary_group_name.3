@@ -2,7 +2,7 @@
 .TH xt_get_primary_group_name 3
 
 .SH NAME
-xt_get_primary_group_name() - Get primary groupname of process owner
+xt_get_primary_group_name() - Get primary group name of process owner
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
@@ -18,15 +18,15 @@ xt_get_primary_group_name() - Get primary groupname of process owner
 .SH SYNOPSIS
 .nf
 .na
-char   *xt_get_primary_group_name(char *primary_group_name, size_t maxlen)
+char   *xt_get_primary_group_name(char *primary_group_name, size_t buff_size)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-primary_group_name:  Character buffer to receive home directory path
-maxlen:     Max characters to copy to dir, not including null byte
+primary_group_name: Character buffer to receive home directory path
+buff_size:          Max characters to copy to primary_group_name, including null byte
 .ad
 .fi
 
@@ -34,12 +34,11 @@ maxlen:     Max characters to copy to dir, not including null byte
 
 xt_get_primary_group_name() determines the primary group name of the process owner.
 The information is retrieved using a call to
-getpwuid(3), and copied to the argument "dir".
+getpwuid(3), and copied to the argument "primary_group_name".
 
-The name is stored in primary_group_name up to maxlen characters.
-Note that up to maxlen characters are stored, not including the
-null terminator, hence the buffer should be at least maxlen+1
-bytes long.
+The name is stored in primary_group_name up to buff_size characters.
+Note that up to buff_size characters are stored, including the
+null terminator.
 
 .SH RETURN VALUES
 

@@ -18,7 +18,7 @@ xt_get_user_name() - Get username of process owner
 .SH SYNOPSIS
 .nf
 .na
-char   *xt_get_user_name(char *user_name, size_t maxlen)
+char   *xt_get_user_name(char *user_name, size_t buff_size)
 .ad
 .fi
 
@@ -26,7 +26,7 @@ char   *xt_get_user_name(char *user_name, size_t maxlen)
 .nf
 .na
 user_name:  Character buffer to receive home directory path
-maxlen:     Max characters to copy to dir, not including null byte
+buff_size:  Max characters to copy to user_name, including null byte
 .ad
 .fi
 
@@ -34,12 +34,11 @@ maxlen:     Max characters to copy to dir, not including null byte
 
 xt_get_user_name() determines the user name of the process owner.
 The information is retrieved using a call to
-getpwuid(3), and copied to the argument "dir".
+getpwuid(3), and copied to the argument "user_name".
 
-The name is stored in user_name up to maxlen characters.
-Note that up to maxlen characters are stored, not including the
-null terminator, hence the buffer should be at least maxlen+1
-bytes long.
+The name is stored in user_name up to buff_size characters.
+Note that up to buff_size characters are stored, including the
+null terminator.
 
 .SH RETURN VALUES
 

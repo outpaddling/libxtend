@@ -57,7 +57,8 @@ argument lists are hard to debug otherwise.
 
 Note that many standard library functions *are* defined by the C standard,
 to ensure portability of most real code, not just the minimal syntax
-handled by the compiler.
+handled by the compiler.  They are part of the C standard, but not part
+of the C language.
 
 Many excellent libraries exist for specific
 purposes such as generating hash values, mathematics computations, etc. 

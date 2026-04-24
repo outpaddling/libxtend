@@ -22,6 +22,10 @@ extern "C" {
 #include "common.h"
 #endif
 
+#define XT_TOUCH_UPDATE_MOD_TIME    0x0001
+#define XT_TOUCH_UPDATE_ACCESS_TIME 0x0002
+#define XT_TOUCH_NO_CREATE          0x0004
+
 // For use in application usage messages
 #define XT_COMPRESSION_EXTENSIONS   "[.gz|.bz2|.xz|.lz4|.zst]"
 

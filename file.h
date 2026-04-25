@@ -82,6 +82,9 @@ int xt_read_line_malloc(FILE *stream, char **buff, size_t *buff_size, size_t *le
 /* dprintf.c */
 int xt_dprintf(int fd, const char * restrict format, ...);
 
+/* touch.c */
+int xt_touch(const char *path, unsigned int options, int utimensat_flags);
+
 #ifdef __cplusplus
 }
 #endif

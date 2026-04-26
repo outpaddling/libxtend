@@ -35,6 +35,8 @@ if ( string1 == string2 )
 ```
 The latter is regarded by C proponents as a purely cosmetic improvement, not
 worthy of the additional complexity required to support it in the C compiler.
+Either way, it's one line of code, and the meaning is clear.
+
 Note also that there is more than one way to interpret equality of
 strings (e.g. case sensitive or case insensitive), so we would either
 need another operator besides ==, some sort of "mode" setting,

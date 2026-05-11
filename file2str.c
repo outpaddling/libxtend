@@ -1,3 +1,9 @@
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include "common.h"
+
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
@@ -10,7 +16,7 @@
  *
  *  Description:
  *      .B xt_file2str()
- *      inhales dumps the contents of the named file into a new string,
+ *      inhales the contents of the named file into a new string,
  *      allocated using malloc().
  *
  *      The programmer is responsible for freeing the memory as soon
@@ -46,12 +52,6 @@
  *  Date        Name        Modification
  *  2025-10-05  Jason Bacon Begin
  ***************************************************************************/
-
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "common.h"
 
 char    *xt_file2str(const char *filename)
 

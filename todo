@@ -1,4 +1,6 @@
 
+Base xt_read_line*() on xt_dsv_read_field()
+
 maxlen -> bufflen for all function args
 
 Unit-test all fast-file functions

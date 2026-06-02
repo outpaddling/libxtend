@@ -58,6 +58,9 @@ void xt_va_usage(const char *format_string, ...);
 /* xt-daemonize.c */
 int xt_daemonize(int nochdir, int noclose);
 
+/* vm-get-usage.c */
+size_t  xt_get_vm_usage(void);
+
 #ifdef __cplusplus
 }
 #endif

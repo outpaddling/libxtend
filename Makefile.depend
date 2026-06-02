@@ -62,6 +62,9 @@ gcd.o: gcd.c math.h
 get-home-dir.o: get-home-dir.c file.h common.h string.h
 	${CC} -c ${CFLAGS} get-home-dir.c
 
+get-vm-usage.o: get-vm-usage.c proc.h common.h
+	${CC} -c ${CFLAGS} get-vm-usage.c
+
 mv.o: mv.c file.h common.h
 	${CC} -c ${CFLAGS} mv.c
 
@@ -101,7 +104,7 @@ strlcpy.o: strlcpy.c string.h
 time.o: time.c time.h
 	${CC} -c ${CFLAGS} time.c
 
-touch.o: touch.c
+touch.o: touch.c file.h common.h
 	${CC} -c ${CFLAGS} touch.c
 
 va-usage.o: va-usage.c proc.h common.h

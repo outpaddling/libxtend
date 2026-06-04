@@ -47,10 +47,22 @@ char *xt_parse_cmd(char *argv[], int max_args, const char *cmd);
 
 /* spawnlp.c */
 int xt_spawnlp(int parent_action, int echo, const char *infile, const char *outfile, const char *errfile, const char *arg0, ...);
+int xt_spawnlp10(int parent_action, int echo,
+		 const char *infile, const char *outfile, const char *errfile,
+		 int infile_flags, int outfile_flags, int errfile_flags,
+		 int mode, const char *arg0,  ...);
 
 /* spawnvp.c */
-int xt_spawnvp(int parent_action, int echo, const char *argv[], const char *infile, const char *outfile, const char *errfile);
+int xt_spawnvp(int parent_action, int echo, const char *argv[],
+	       const char *infile, const char *outfile, const char *errfile);
+int xt_spawnvp10(int parent_action, int echo, const char *argv[],
+		 const char *infile, const char *outfile, const char *errfile,
+		 int infile_flags, int outfile_flags, int errfile_flags,
+		 int mode);
 void xt_redirect(const char *infile, const char *outfile, const char *errfile);
+void xt_redirect7(const char *infile, const char *outfile, const char *errfile,
+		  int infile_flags, int outfile_flags, int errfile_flags,
+		  int mode);
 
 /* va-usage.c */
 void xt_va_usage(const char *format_string, ...);

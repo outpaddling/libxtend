@@ -54,8 +54,8 @@ char    *xt_parse_cmd(char *argv[], int max_args, const char *cmd)
 
     if ( (cmd_copy = malloc(XT_CMD_MAX_CHARS)) == NULL )
     {
-	fprintf(stderr, "xt_parse_cmd(): malloc failed.\n");
-	exit(EX_UNAVAILABLE);
+        fprintf(stderr, "xt_parse_cmd(): malloc failed.\n");
+        exit(EX_UNAVAILABLE);
     }
     
     /* Expand shell meta-characters */
@@ -66,6 +66,6 @@ char    *xt_parse_cmd(char *argv[], int max_args, const char *cmd)
     // FIXME: Replace deprecated strtok() with strsep()
     argv[0] = strtok(cmd_copy, " \t");
     for (c = 1; (c < max_args) && (argv[c] = strtok(NULL, " \t")) != NULL; ++c)
-	;
+        ;
     return cmd_copy;
 }
